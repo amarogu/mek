@@ -6,6 +6,18 @@ import LinkedIn from '../../public/linkedin.svg';
 import Language from '../../public/language.svg';
 import Image from "next/image";
 
+interface Config {
+    mass: number;
+    tension: number;
+    friction: number;
+}
+
+const config: Config = {
+    mass: 1,
+    tension: 180,
+    friction: 12
+}
+
 export default function Nav() {
 
     const [open, setOpen] = useState(false);
@@ -13,41 +25,48 @@ export default function Nav() {
     const topBar = useSpring({
         transform: open ? "rotate(45deg)" : "rotate(0deg)",
         top: open ? "3px" : "0px",
-        config: {
-            mass: 1,
-            tension: 180,
-            friction: 12
-        }
+        config: config
     })
 
     const bottomBar = useSpring({
         transform: open ? "rotate(-45deg)" : "rotate(0deg)",
         top: open ? "3px" : "5px",
-        config: {
-            mass: 1,
-            tension: 180,
-            friction: 12
-        }
+        config: config
     })
+
+    const sideBar = useSpring({
+        transform: open ? "translateX(0%)" : "translateX(-100%)",
+        config: config
+    });
  
     const toggleMenu = () => {
         setOpen(!open);
     }
 
  return (
-    <nav className="flex items-center justify-between">
-      <div className="flex items-center gap-4">
-        <div className="flex flex-col relative w-4 h-[6px] cursor-pointer" onClick={toggleMenu}>
-          <animated.span style={{...topBar}} className="w-4 h-[1px] absolute inline-block bg-text-200"></animated.span>
-          <animated.span style={{...bottomBar}} className="w-4 h-[1px] absolute inline-block bg-text-200"></animated.span>
+    <nav className="flex items-start flex-wrap">
+      <div className="flex items-center justify-between w-full">
+        <div className="flex items-center gap-4">
+            <div className="flex flex-col relative w-4 h-[6px] cursor-pointer" onClick={toggleMenu}>
+            <animated.span style={{...topBar}} className="w-4 h-[1px] absolute inline-block bg-text-200"></animated.span>
+            <animated.span style={{...bottomBar}} className="w-4 h-[1px] absolute inline-block bg-text-200"></animated.span>
+            </div>
+            <p>Gustavo Amaro</p>
         </div>
-        <p>Gustavo Amaro</p>
+        <div className="flex gap-2">
+            <Image src={GitHub} alt="GitHub" />
+            <Image src={LinkedIn} alt="LinkedIn" />
+            <Image src={Language} alt="Language" />
+        </div>
       </div>
-      <div className="flex gap-2">
-        <Image src={GitHub} alt="GitHub" />
-        <Image src={LinkedIn} alt="LinkedIn" />
-        <Image src={Language} alt="Language" />
-      </div>
+      <animated.div style={sideBar} className={`bg-bg-200 w-[70%] -z-10 absolute top-0 left-0 h-screen`}>
+        <ul className="text-4xl px-8 pt-[80px] flex flex-col gap-4">
+            <li>Home</li>
+            <li>About</li>
+            <li>Projects</li>
+            <li>Contact</li>
+        </ul>
+      </animated.div>
     </nav>
  );
 }
