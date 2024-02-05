@@ -4,7 +4,7 @@ import Nav from "./Nav";
 export default function Home() {
   return (
     <>
-      <header>
+      <header className="px-8 py-7">
         <Nav />
       </header>
       <main>
