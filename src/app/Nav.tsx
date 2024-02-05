@@ -5,6 +5,7 @@ import GitHub from '../../public/github.svg';
 import LinkedIn from '../../public/linkedin.svg';
 import Language from '../../public/language.svg';
 import Image from "next/image";
+import ArrowBack from '../../public/arrow_back.svg';
 
 interface Config {
     mass: number;
@@ -73,10 +74,10 @@ export default function Nav() {
       </div>
       <animated.div style={{...sideBar, ...sideBarCircle}} className={`bg-bg-200 w-full -z-10 absolute top-0 left-0 h-screen`}>
         <ul className="text-3xl px-8 pt-[80px] flex flex-col gap-4">
-            <li>Home</li>
-            <li>About</li>
-            <li>Projects</li>
-            <li>Contact</li>
+            <li onClick={toggleMenu}>Home</li>
+            <li onClick={toggleMenu}>About</li>
+            <li onClick={toggleMenu}>Projects</li>
+            <li onClick={toggleMenu}>Contact</li>
         </ul>
       </animated.div>
     </nav>
