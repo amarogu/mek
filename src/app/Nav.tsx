@@ -34,10 +34,22 @@ export default function Nav() {
         config: config
     })
 
+    const sideBarRef = useSpringRef();
+    const sideBarCircleRef = useSpringRef();
+
     const sideBar = useSpring({
+        ref: sideBarRef,
         transform: open ? "translateX(0%)" : "translateX(-100%)",
-        config: config
     });
+
+    const sideBarCircle = useSpring({
+        ref: sideBarCircleRef,
+        clipPath: open ? "ellipse(100% 100% at 45% 50%)" : "ellipse(50% 100% at 45% 50%)",
+    })
+
+    useChain([sideBarRef, sideBarCircleRef], [0, 0.2]);
+
+
  
     const toggleMenu = () => {
         setOpen(!open);
@@ -59,8 +71,8 @@ export default function Nav() {
             <Image src={Language} alt="Language" />
         </div>
       </div>
-      <animated.div style={sideBar} className={`bg-bg-200 w-[70%] -z-10 absolute top-0 left-0 h-screen`}>
-        <ul className="text-4xl px-8 pt-[80px] flex flex-col gap-4">
+      <animated.div style={{...sideBar, ...sideBarCircle}} className={`bg-bg-200 w-full -z-10 absolute top-0 left-0 h-screen`}>
+        <ul className="text-3xl px-8 pt-[80px] flex flex-col gap-4">
             <li>Home</li>
             <li>About</li>
             <li>Projects</li>
