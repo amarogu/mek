@@ -1,6 +1,8 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { useSpring, animated } from '@react-spring/web';
+import Language from '../../public/language.svg';
+import Image from 'next/image';
 
 export default function Welcome() {
     const data = [
@@ -38,7 +40,10 @@ export default function Welcome() {
 
     return (
         <animated.section style={styles} className="fixed z-10 flex justify-center items-center top-0 left-0 w-full h-screen bg-bg-200">
-            <p className='text-3xl'>{message}</p>
+            <div className='flex gap-4 items-center'>
+                <Image src={Language} width={20} height={20} alt="Language" />
+                <p className='text-3xl'>{message}</p>
+            </div>
         </animated.section>
     )
 }
