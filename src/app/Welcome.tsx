@@ -25,7 +25,7 @@ export default function Welcome() {
     });
 
     useEffect(() => {
-        const initialDelay = 750; // Initial delay
+        const initialDelay = 500; // Initial delay
         const base = 0.8; // Base of the exponential function
         const delay = initialDelay * Math.pow(base, index); // Exponential decrease
         const timer = setTimeout(() => {
