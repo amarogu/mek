@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@gsap/react": "^2.1.0",
     "@react-spring/web": "^9.7.3",
     "@studio-freight/lenis": "^1.0.34",
     "gsap": "^3.12.5",
