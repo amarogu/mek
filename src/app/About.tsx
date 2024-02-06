@@ -5,7 +5,7 @@ import ArrowUpward from '../../public/arrow_upward.svg';
 export default function About() {
     return (
         <section className='flex flex-col gap-24 pb-24 px-8'>
-            <Image className='sticky top-[100px]' src={GustavoAmaro} alt="Gustavo Amaro" />
+            <Image src={GustavoAmaro} alt="Gustavo Amaro" />
             <div className='flex flex-col gap-4'>
                 <div className='flex text-2xl gap-3'>
                     <p>That's me</p>
