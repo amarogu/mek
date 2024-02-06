@@ -1,11 +1,30 @@
 import Image from 'next/image';
 import GustavoAmaro from '../../public/gustavo_amaro_image.png';
 import ArrowUpward from '../../public/arrow_upward.svg';
+import { useLayoutEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 export default function About() {
+
+    const image = useRef(null);
+
+    useLayoutEffect(() => {
+        gsap.registerPlugin(ScrollTrigger);
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: document.documentElement,
+                start: 'top',
+                end: '+=300px',
+                scrub: true,
+            }
+        });
+        tl.from(image.current, {clipPath: 'inset(15%)'}).to(image.current, {clipPath: 'inset(0%)'});
+    }, []);
+
     return (
-        <section className='flex flex-col gap-24 pb-24 px-8'>
-            <Image src={GustavoAmaro} alt="Gustavo Amaro" />
+        <section className='flex flex-col gap-8 py-24 px-8'>
+            <Image ref={image} src={GustavoAmaro} alt="Gustavo Amaro" />
             <div className='flex flex-col gap-4'>
                 <div className='flex text-2xl gap-3'>
                     <p>That's me</p>
