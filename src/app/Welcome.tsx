@@ -1,0 +1,44 @@
+'use client';
+import React, { useState, useEffect } from 'react';
+import { useSpring, animated } from '@react-spring/web';
+
+export default function Welcome() {
+    const data = [
+        "Welcome", // English
+        "Bienvenue", // French
+        "Willkommen", // German
+        "Benvenuto", // Italian
+        "Bem-vindo", // Portuguese
+        "Bienvenido", // Spanish
+        "歡迎", // Chinese
+        "ようこそ", // Japanese
+        "환영합니다" // Korean
+    ];
+    const [index, setIndex] = useState(0);
+    const [message, setMessage] = useState(data[0]);
+
+    const styles = useSpring({
+        to: { transform: index === data.length - 1 ? 'translateY(-100%)' : 'translateY(0%)' },
+        from: { transform: 'translateY(0%)'},
+    });
+
+    useEffect(() => {
+        const initialDelay = 750; // Initial delay
+        const base = 0.8; // Base of the exponential function
+        const delay = initialDelay * Math.pow(base, index); // Exponential decrease
+        const timer = setTimeout(() => {
+            const nextIndex = index + 1;
+            if (nextIndex < data.length) { // Only update the index and message if we haven't reached the end
+                setIndex(nextIndex);
+                setMessage(data[nextIndex]);
+            }
+        }, delay);
+        return () => clearTimeout(timer); // Clean up the timer when the component unmounts or re-renders
+    }, [index, data]);
+
+    return (
+        <animated.section style={styles} className="fixed z-10 flex justify-center items-center top-0 left-0 w-full h-screen bg-bg-200">
+            <p className='text-3xl'>{message}</p>
+        </animated.section>
+    )
+}
