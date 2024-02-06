@@ -1,5 +1,5 @@
 'use client';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSpring, animated, useChain, useSpringRef } from "@react-spring/web";
 import GitHub from '../../public/github.svg';
 import LinkedIn from '../../public/linkedin.svg';
@@ -50,14 +50,31 @@ export default function Nav() {
 
     useChain([sideBarRef, sideBarCircleRef], [0, 0.2]);
 
+    const [isScrolled, setIsScrolled] = useState(false);
 
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 80);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+    const nav = useSpring({
+        from: { transform: "translateY(0%)" },
+        to: { transform: isScrolled ? "translateY(100%)" : "translateY(0%)" }
+    });
  
     const toggleMenu = () => {
         setOpen(!open);
     }
 
  return (
-    <nav className="flex items-start flex-wrap">
+    <animated.nav style={nav} className={`flex items-start flex-wrap ${isScrolled ? "fixed top-0 left-0 w-[calc(100vw-64px)]" : "relative"}`}>
       <div className="flex items-center justify-between w-full">
         <div className="flex items-center gap-4">
             <div className="flex flex-col relative w-4 h-[6px] cursor-pointer" onClick={toggleMenu}>
@@ -80,6 +97,6 @@ export default function Nav() {
             <li onClick={toggleMenu}>Contact</li>
         </ul>
       </animated.div>
-    </nav>
+    </animated.nav>
  );
 }
