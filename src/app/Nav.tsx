@@ -64,12 +64,12 @@ export default function Nav() {
             <animated.span style={{...topBar}} className="w-4 h-[1px] absolute inline-block bg-text-200"></animated.span>
             <animated.span style={{...bottomBar}} className="w-4 h-[1px] absolute inline-block bg-text-200"></animated.span>
             </div>
-            <p>Gustavo Amaro</p>
+            <p className="text-xl">Gustavo Amaro</p>
         </div>
         <div className="flex gap-2">
-            <Image src={GitHub} alt="GitHub" />
-            <Image src={LinkedIn} alt="LinkedIn" />
-            <Image src={Language} alt="Language" />
+            <Image src={GitHub} alt="GitHub" width={20} height={20} />
+            <Image src={LinkedIn} alt="LinkedIn" width={20} height={20} />
+            <Image src={Language} alt="Language" width={20} height={20} />
         </div>
       </div>
       <animated.div style={{...sideBar, ...sideBarCircle}} className={`bg-bg-200 w-full -z-10 absolute top-0 left-0 h-screen`}>

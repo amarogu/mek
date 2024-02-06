@@ -4,7 +4,7 @@ import ArrowUpward from '../../public/arrow_upward.svg';
 
 export default function About() {
     return (
-        <section className='flex flex-col gap-24 px-8'>
+        <section className='flex flex-col gap-24 pb-24 px-8'>
             <Image src={GustavoAmaro} alt="Gustavo Amaro" />
             <div className='flex flex-col gap-4'>
                 <div className='flex text-2xl gap-3'>

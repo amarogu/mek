@@ -2,6 +2,7 @@ import Image from "next/image";
 import Nav from "./Nav";
 import Hero from "./Hero";
 import About from "./About";
+import ProjectsIntro from "./ProjectsIntro";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <main className="relative -z-20">
         <Hero />
         <About />
+        <ProjectsIntro />
       </main>
     </>
   );

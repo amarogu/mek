@@ -1,0 +1,17 @@
+import Image from 'next/image';
+import ArrowDownward from '../../public/arrow_downward.svg';
+
+export default function ProjectsIntro() {
+    return (
+        <section className="px-8">
+            <div className='border-t-2 border-text-200 pt-5 flex flex-col gap-6'>
+                <h2 className="text-6xl">Projects</h2>
+                <div className="flex gap-3">
+                    <Image src={ArrowDownward} alt="Arrow Downward" />
+                    <p className='text-2xl uppercase'>Scroll down</p>
+                </div>
+                <p className='text-3xl'>Below, you will see some projects of mine, that range from websites to iOS applications</p>
+            </div>
+        </section>
+    )
+}
