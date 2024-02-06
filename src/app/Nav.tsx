@@ -54,7 +54,7 @@ export default function Nav() {
 
     useEffect(() => {
         const handleScroll = () => {
-            setIsScrolled(window.scrollY > 80);
+            setIsScrolled(window.scrollY > 84);
         };
 
         window.addEventListener('scroll', handleScroll);
@@ -65,8 +65,8 @@ export default function Nav() {
     }, []);
 
     const nav = useSpring({
-        from: { transform: "translateY(0%)" },
-        to: { transform: isScrolled ? "translateY(100%)" : "translateY(0%)" }
+        from: { transform: "translateY(0%)", backgroundColor: "#F5F5DC" },
+        to: { transform: isScrolled ? "translateY(100%)" : "translateY(0%)", backgroundColor: isScrolled ? "#EBEBD2" : "#F5F5DC"}
     });
  
     const toggleMenu = () => {
@@ -74,7 +74,7 @@ export default function Nav() {
     }
 
  return (
-    <animated.nav style={nav} className={`flex items-start flex-wrap ${isScrolled ? "fixed top-0 left-0 w-[calc(100vw-64px)]" : "relative"}`}>
+    <animated.nav style={nav} className={`flex items-start flex-wrap py-7 px-8 ${isScrolled ? "fixed top-0 left-0 w-full" : "relative"}`}>
       <div className="flex items-center justify-between w-full">
         <div className="flex items-center gap-4">
             <div className="flex flex-col relative w-4 h-[6px] cursor-pointer" onClick={toggleMenu}>

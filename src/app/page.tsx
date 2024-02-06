@@ -8,7 +8,7 @@ import Welcome from "./Welcome";
 export default function Home() {
   return (
     <>
-      <header className="px-8 h-[84px] py-7">
+      <header className="h-[84px]">
         <Welcome />
         <Nav />
       </header>
