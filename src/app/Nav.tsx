@@ -66,7 +66,8 @@ export default function Nav() {
 
     const nav = useSpring({
         from: { transform: "translateY(0%)", backgroundColor: "#F5F5DC" },
-        to: { transform: isScrolled ? "translateY(100%)" : "translateY(0%)", backgroundColor: isScrolled ? "#EBEBD2" : "#F5F5DC"}
+        to: { transform: isScrolled ? "translateY(100%)" : "translateY(0%)", backgroundColor: isScrolled ? "#EBEBD2" : "#F5F5DC"},
+        config: config
     });
  
     const toggleMenu = () => {
