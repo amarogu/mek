@@ -23,7 +23,7 @@ export default function About() {
     }, []);
 
     return (
-        <section className='flex flex-col gap-8 py-24 px-8'>
+        <section className='flex flex-col gap-8 pb-24 px-8'>
             <Image ref={image} src={GustavoAmaro} alt="Gustavo Amaro" />
             <div className='flex flex-col gap-4'>
                 <div className='flex text-2xl gap-3'>
@@ -31,7 +31,7 @@ export default function About() {
                     <Image src={ArrowUpward} alt="Arrow Upward" />
                 </div>
                 <p className='text-3xl'>
-                    I've been into developing and designing since 2020, where I, three years later, <span className='font-bold'>graduated</span> as a systems developer. Let's jump right into the projects I have already worked on!
+                    I've been developing and designing since 2020, where I <span className='font-bold'>graduated</span>, three years later, as a systems developer. Let's jump right into the projects I have already worked on!
                 </p>
             </div>
         </section>
