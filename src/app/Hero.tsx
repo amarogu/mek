@@ -8,6 +8,7 @@ import { useGSAP } from '@gsap/react';
 export default function Hero() {
 
     const sub = useRef<HTMLDivElement>(null);
+    const amaro = useRef<HTMLImageElement>(null);
 
     useGSAP(() => {
         const tl = gsap.timeline({});
@@ -16,9 +17,11 @@ export default function Hero() {
             stagger: 0.05,
             duration: 0.5,
         }).to(sub.current, {
-            y: "0px",
+            x: "0px",
             opacity: 1,
-        }, '<=2');
+        }, '<75%').to(amaro.current, {
+            x: '100%',
+        }, '<75%');
     }, [])
 
     return (
@@ -39,12 +42,15 @@ export default function Hero() {
                         <span style={{opacity: 0}} className='key' key={index}>{word}</span>
                     ))}
                 </h1>
-                <div ref={sub} style={{transform: 'translateY(-100px)', opacity: 0}} className='flex gap-4'>
+                <div ref={sub} style={{transform: 'translateX(-100px)', opacity: 0}} className='flex gap-4'>
                     <Image src={ArrowForward} alt="Arrow Forward" />
                     <p className='underline text-2xl'>Check my projects</p>
                 </div>
             </div>
-            <Image src={GustavoAmaro} alt="Gustavo Amaro" />
+            <div className='relative'>
+                <div ref={amaro} style={{transform: 'translateX(0%)'}} className='h-full w-full absolute top-0 left-0 bg-bg-100'></div>
+                <Image src={GustavoAmaro} alt="Gustavo Amaro" />
+            </div>
         </section>
     )
 }

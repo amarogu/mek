@@ -29,7 +29,7 @@ export default function Home() {
         <Welcome />
         <Nav />
       </header>
-      <main className="relative -z-20">
+      <main className="relative -z-20 overflow-x-hidden">
         <Hero />
         <About />
         <ProjectsIntro />

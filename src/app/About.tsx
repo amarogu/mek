@@ -2,8 +2,6 @@
 import Image from 'next/image';
 import GustavoAmaro from '../../public/gustavo_amaro_image.png';
 import ArrowUpward from '../../public/arrow_upward.svg';
-import { useInView } from 'react-intersection-observer';
-import { useEffect } from 'react';
 
 export default function About() {
     return (
