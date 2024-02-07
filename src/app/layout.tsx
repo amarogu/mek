@@ -15,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="snap-mandatory snap-y">
+    <html lang="en">
       <body className={`${manrope.className} text-base text-text-200 bg-bg-100 antialiased`}>{children}</body>
     </html>
   );
