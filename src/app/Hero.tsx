@@ -4,6 +4,7 @@ import GustavoAmaro from '../../public/gustavo_amaro.svg';
 import Image from 'next/image';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 export default function Hero() {
 
@@ -11,6 +12,7 @@ export default function Hero() {
     const amaro = useRef<HTMLImageElement>(null);
 
     useGSAP(() => {
+        gsap.registerPlugin(ScrollTrigger);
         const tl = gsap.timeline({});
         tl.to('.key', {
             opacity: 1,
@@ -25,7 +27,7 @@ export default function Hero() {
     }, [])
 
     return (
-        <section className="flex min-h-[723px] flex-col gap-24 h-[calc(100vh-84px)] items-center sm:items-start justify-center px-8">
+        <section id="hero" className="flex min-h-[723px] flex-col gap-24 h-[calc(100vh-84px)] items-center sm:items-start justify-center px-8">
             <div className='flex flex-col gap-4'>
                 <h1 className="text-5xl">
                     {
