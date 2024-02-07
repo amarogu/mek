@@ -19,7 +19,6 @@ export default function About() {
                 trigger: ref.current,
                 start: 'top bottom',
                 end: 'bottom bottom',
-                markers: true,
                 scrub: true,
             }
         })
@@ -30,11 +29,11 @@ export default function About() {
             <Image ref={ref} src={GustavoAmaro} style={{clipPath: 'inset(30%)'}} alt="Gustavo Amaro" />
             <div className='flex flex-col gap-4'>
                 <div className='flex text-2xl gap-3'>
-                    <p>That's me</p>
+                    <p>That&apos;s me</p>
                     <Image src={ArrowUpward} alt="Arrow Upward" />
                 </div>
                 <p className='text-3xl'>
-                    I've been developing and designing since 2020, where I <span className='font-bold'>graduated</span>, three years later, as a systems developer. Let's jump right into the projects I have already worked on!
+                    I&apos;ve been developing and designing since 2020, where I <span className='font-bold'>graduated</span>, three years later, as a systems developer. Let&apos;s jump right into the projects I have already worked on!
                 </p>
             </div>
         </section>
