@@ -1,10 +1,13 @@
+'use client';
 import Image from 'next/image';
 import GustavoAmaro from '../../public/gustavo_amaro_image.png';
 import ArrowUpward from '../../public/arrow_upward.svg';
+import { useInView } from 'react-intersection-observer';
+import { useEffect } from 'react';
 
 export default function About() {
     return (
-        <section className='about flex flex-col justify-center gap-8 h-[calc(100vh-84px)] min-h-[824px] px-8'>
+        <section id='about' className='flex flex-col justify-center gap-8 h-[calc(100vh-84px)] min-h-[824px] px-8'>
             <Image src={GustavoAmaro} alt="Gustavo Amaro" />
             <div className='flex flex-col gap-4'>
                 <div className='flex text-2xl gap-3'>
