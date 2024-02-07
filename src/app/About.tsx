@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 
 export default function About() {
     return (
-        <section className='flex flex-col justify-center gap-8 h-[calc(100vh-84px)] min-h-[824px] px-8'>
+        <section className='flex flex-col justify-center gap-8 pb-24 px-8'>
             <Image src={GustavoAmaro} alt="Gustavo Amaro" />
             <div className='flex flex-col gap-4'>
                 <div className='flex text-2xl gap-3'>
