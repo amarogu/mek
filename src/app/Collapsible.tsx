@@ -1,4 +1,4 @@
-import { useSpring, animated, useSpringRef } from "@react-spring/web";
+import { useSpring, animated, useSpringRef, useChain } from "@react-spring/web";
 import React from "react";
 import { useEffect, useState } from "react";
 
@@ -20,6 +20,8 @@ export default function Collapsible({children, open}: CollapsibleProps) {
         ref: sideBarCircleRef,
         clipPath: open ? "ellipse(100% 100% at 45% 50%)" : "ellipse(50% 100% at 45% 50%)",
     })
+
+    useChain([sideBarRef, sideBarCircleRef], [0, 0.2]);
 
     const [isScrolled, setIsScrolled] = useState(false);
 

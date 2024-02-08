@@ -7,6 +7,7 @@ import Language from '../../public/language.svg';
 import Image from "next/image";
 import ArrowBack from '../../public/arrow_back.svg';
 import GsapMagnetic from "./GsapMagnetic";
+import Collapsible from "./Collapsible";
 
 interface Config {
     mass: number;
@@ -23,6 +24,7 @@ const config: Config = {
 export default function Nav() {
 
     const [open, setOpen] = useState(false);
+    const [isLangOpen, setLang] = useState<boolean>(false);
 
     const topBar = useSpring({
         transform: open ? "rotate(45deg)" : "rotate(0deg)",
@@ -75,6 +77,10 @@ export default function Nav() {
         setOpen(!open);
     }
 
+    const toggleLang = () => {
+        setLang(!isLangOpen);
+    }
+
  return (
     <animated.nav style={nav} className={`flex items-start flex-wrap py-7 px-8 ${isScrolled ? "fixed top-[-84px] left-0 w-full" : "relative"}`}>
       <div className={`flex items-center justify-between w-full mx-auto ${isScrolled ? "container sm:px-8" : "max-w-[614px]"}`}>
@@ -101,7 +107,7 @@ export default function Nav() {
                 </a>
             </GsapMagnetic>
             <GsapMagnetic>
-                <button>
+                <button onClick={toggleLang}>
                     <Image src={Language} alt="Language" width={20} height={20} />
                 </button>
             </GsapMagnetic>
@@ -115,6 +121,9 @@ export default function Nav() {
             <li onClick={toggleMenu}>Contact</li>
         </ul>
       </animated.div>
+      <Collapsible open={isLangOpen}>
+        <li>English</li>
+      </Collapsible>
     </animated.nav>
  );
 }
