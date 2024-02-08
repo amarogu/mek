@@ -6,6 +6,7 @@ import LinkedIn from '../../public/linkedin.svg';
 import Language from '../../public/language.svg';
 import Image from "next/image";
 import ArrowBack from '../../public/arrow_back.svg';
+import GsapMagnetic from "./GsapMagnetic";
 
 interface Config {
     mass: number;
@@ -78,22 +79,32 @@ export default function Nav() {
     <animated.nav style={nav} className={`flex items-start flex-wrap py-7 px-8 ${isScrolled ? "fixed top-[-84px] left-0 w-full" : "relative"}`}>
       <div className={`flex items-center justify-between w-full mx-auto ${isScrolled ? "container sm:px-8" : "max-w-[614px]"}`}>
         <div className="flex items-center gap-4">
-            <div className="flex flex-col relative w-4 h-[6px] cursor-pointer" onClick={toggleMenu}>
-            <animated.span style={{...topBar}} className="w-4 h-[1px] absolute inline-block bg-text-200"></animated.span>
-            <animated.span style={{...bottomBar}} className="w-4 h-[1px] absolute inline-block bg-text-200"></animated.span>
-            </div>
-            <p className="text-xl">&#169; Coded by Amaro </p>
+            <button className="cursor-pointer" onClick={toggleMenu}>
+                <div className="flex flex-col relative w-4 h-[6px]" >
+                <animated.span style={{...topBar}} className="w-4 h-[1px] absolute inline-block bg-text-200"></animated.span>
+                <animated.span style={{...bottomBar}} className="w-4 h-[1px] absolute inline-block bg-text-200"></animated.span>
+                </div>
+            </button> 
+            <button className="cursor-pointer">
+                <p className="text-xl">&#169; Coded by Amaro </p>
+            </button>
         </div>
         <div className="flex gap-2">
-            <a href="https://github.com/amarogu" target="_blank">
-                <Image src={GitHub} alt="GitHub" width={20} height={20} />
-            </a>
-            <a href="https://www.linkedin.com/in/amarogu" target="_blank">
-                <Image src={LinkedIn} alt="LinkedIn" width={20} height={20} />
-            </a>
-            <button>
-                <Image src={Language} alt="Language" width={20} height={20} />
-            </button>
+            <GsapMagnetic>
+                <a href="https://github.com/amarogu" target="_blank">
+                    <Image src={GitHub} alt="GitHub" width={20} height={20} />
+                </a>
+            </GsapMagnetic>
+            <GsapMagnetic>
+                <a href="https://www.linkedin.com/in/amarogu" target="_blank">
+                    <Image src={LinkedIn} alt="LinkedIn" width={20} height={20} />
+                </a>
+            </GsapMagnetic>
+            <GsapMagnetic>
+                <button>
+                    <Image src={Language} alt="Language" width={20} height={20} />
+                </button>
+            </GsapMagnetic>
         </div>
       </div>
       <animated.div style={{...sideBar, ...sideBarCircle}} className={`bg-bg-200 w-full -z-10 absolute top-0 left-0 h-screen`}>
