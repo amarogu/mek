@@ -76,7 +76,7 @@ export default function Nav() {
 
  return (
     <animated.nav style={nav} className={`flex items-start flex-wrap py-7 px-8 ${isScrolled ? "fixed top-[-84px] left-0 w-full" : "relative"}`}>
-      <div className="flex items-center justify-between w-full">
+      <div className={`flex items-center justify-between w-full mx-auto ${isScrolled ? "container" : "max-w-[614px]"}`}>
         <div className="flex items-center gap-4">
             <div className="flex flex-col relative w-4 h-[6px] cursor-pointer" onClick={toggleMenu}>
             <animated.span style={{...topBar}} className="w-4 h-[1px] absolute inline-block bg-text-200"></animated.span>
@@ -91,7 +91,7 @@ export default function Nav() {
         </div>
       </div>
       <animated.div style={{...sideBar, ...sideBarCircle}} className={`bg-bg-200 w-full -z-10 absolute top-0 left-0 h-screen`}>
-        <ul className="text-3xl px-8 pt-[80px] flex flex-col gap-4">
+        <ul className={`text-3xl px-8 pt-[80px] flex flex-col gap-4 ${isScrolled ? "container" : "max-w-[614px] sm:px-0 sm:mx-auto"}`}>
             <li onClick={toggleMenu}>Home</li>
             <li onClick={toggleMenu}>About</li>
             <li onClick={toggleMenu}>Projects</li>
