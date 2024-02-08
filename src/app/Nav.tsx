@@ -76,7 +76,7 @@ export default function Nav() {
 
  return (
     <animated.nav style={nav} className={`flex items-start flex-wrap py-7 px-8 ${isScrolled ? "fixed top-[-84px] left-0 w-full" : "relative"}`}>
-      <div className={`flex items-center justify-between w-full mx-auto ${isScrolled ? "container px-8" : "max-w-[614px]"}`}>
+      <div className={`flex items-center justify-between w-full mx-auto ${isScrolled ? "container sm:px-8" : "max-w-[614px]"}`}>
         <div className="flex items-center gap-4">
             <div className="flex flex-col relative w-4 h-[6px] cursor-pointer" onClick={toggleMenu}>
             <animated.span style={{...topBar}} className="w-4 h-[1px] absolute inline-block bg-text-200"></animated.span>
