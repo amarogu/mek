@@ -91,9 +91,9 @@ export default function Nav() {
             <a href="https://www.linkedin.com/in/amarogu" target="_blank">
                 <Image src={LinkedIn} alt="LinkedIn" width={20} height={20} />
             </a>
-            <a href="https://example.com">
+            <button>
                 <Image src={Language} alt="Language" width={20} height={20} />
-            </a>
+            </button>
         </div>
       </div>
       <animated.div style={{...sideBar, ...sideBarCircle}} className={`bg-bg-200 w-full -z-10 absolute top-0 left-0 h-screen`}>

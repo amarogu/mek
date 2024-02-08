@@ -2,7 +2,8 @@
 import Image from 'next/image';
 import GustavoAmaro from '../../public/gustavo_amaro_image.png';
 import ArrowUpward from '../../public/arrow_upward.svg';
-import { useRef } from 'react';
+import ArrowBackward from '../../public/arrow_back.svg';
+import { useRef, useState, useEffect } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -12,6 +13,11 @@ import { useMediaQuery } from 'react-responsive';
 export default function About() {
 
     const isLgScreen = useMediaQuery({minWidth: 768});
+    const [isLgScreenState, setIsLgScreen] = useState(false);
+
+    useEffect(() => {
+        setIsLgScreen(isLgScreen);
+    }, [isLgScreen]);
 
     const ref = useRef<HTMLImageElement>(null);
 
@@ -26,6 +32,16 @@ export default function About() {
                 scrub: true,
             }
         })
+        gsap.to('.about-me', {
+            opacity: 1,
+            stagger: 0.05,
+            scrollTrigger: {
+                trigger: '.about-me-container',
+                start: 'top bottom',
+                end: 'bottom 70%',
+                scrub: true,
+            }
+        });
     }, [])
 
     return (
@@ -35,10 +51,12 @@ export default function About() {
                 <div className='flex flex-col gap-4'>
                     <div className='flex text-2xl gap-3'>
                         <p>That&apos;s me</p>
-                        <Image src={ArrowUpward} alt="Arrow Upward" />
+                        {isLgScreenState ? <Image src={ArrowBackward} className='-order-1' alt="Arrow Backward" /> : <Image src={ArrowUpward} alt="Arrow Backward" />}
                     </div>
-                    <p className='text-3xl'>
-                        I&apos;ve been developing and designing since 2020, where I <span className='font-bold'>graduated</span>, three years later, as a systems developer. Let&apos;s jump right into the projects I have already worked on!
+                    <p className='text-3xl about-me-container'>
+                        {Array.from("I've been developing and designing since 2020, where I graduated, three years later, as a systems developer. Let's jump right into the projects I have already worked on!").map((char, index) => (
+                            <span className='about-me' style={{opacity: 0}} key={index}>{char}</span>
+                        ))}
                     </p>
                 </div>
                 <ProjectsIntro />
