@@ -76,7 +76,7 @@ export default function Nav() {
 
  return (
     <animated.nav style={nav} className={`flex items-start flex-wrap py-7 px-8 ${isScrolled ? "fixed top-[-84px] left-0 w-full" : "relative"}`}>
-      <div className={`flex items-center justify-between w-full mx-auto ${isScrolled ? "container" : "max-w-[614px]"}`}>
+      <div className={`flex items-center justify-between w-full mx-auto ${isScrolled ? "container px-8" : "max-w-[614px]"}`}>
         <div className="flex items-center gap-4">
             <div className="flex flex-col relative w-4 h-[6px] cursor-pointer" onClick={toggleMenu}>
             <animated.span style={{...topBar}} className="w-4 h-[1px] absolute inline-block bg-text-200"></animated.span>
@@ -85,9 +85,15 @@ export default function Nav() {
             <p className="text-xl">&#169; Coded by Amaro </p>
         </div>
         <div className="flex gap-2">
-            <Image src={GitHub} alt="GitHub" width={20} height={20} />
-            <Image src={LinkedIn} alt="LinkedIn" width={20} height={20} />
-            <Image src={Language} alt="Language" width={20} height={20} />
+            <a href="https://github.com/amarogu" target="_blank">
+                <Image src={GitHub} alt="GitHub" width={20} height={20} />
+            </a>
+            <a href="https://www.linkedin.com/in/amarogu" target="_blank">
+                <Image src={LinkedIn} alt="LinkedIn" width={20} height={20} />
+            </a>
+            <a href="https://example.com">
+                <Image src={Language} alt="Language" width={20} height={20} />
+            </a>
         </div>
       </div>
       <animated.div style={{...sideBar, ...sideBarCircle}} className={`bg-bg-200 w-full -z-10 absolute top-0 left-0 h-screen`}>
