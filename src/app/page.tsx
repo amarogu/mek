@@ -12,7 +12,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 export default function Home() {
 
   useEffect(() => {
-    const lenis = new Lenis()
+    const lenis = new Lenis({
+      smoothWheel: true
+    })
 
     lenis.on('scroll', ScrollTrigger.update)
 

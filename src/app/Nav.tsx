@@ -82,7 +82,7 @@ export default function Nav() {
             <animated.span style={{...topBar}} className="w-4 h-[1px] absolute inline-block bg-text-200"></animated.span>
             <animated.span style={{...bottomBar}} className="w-4 h-[1px] absolute inline-block bg-text-200"></animated.span>
             </div>
-            <p className="text-xl">Gustavo Amaro</p>
+            <p className="text-xl">amarogu</p>
         </div>
         <div className="flex gap-2">
             <Image src={GitHub} alt="GitHub" width={20} height={20} />

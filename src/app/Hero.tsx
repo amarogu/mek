@@ -5,8 +5,11 @@ import Image from 'next/image';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useMediaQuery } from 'react-responsive';
 
 export default function Hero() {
+
+    const isHighEnough = useMediaQuery({minHeight: 600});
 
     const sub = useRef<HTMLDivElement>(null);
     const amaro = useRef<HTMLImageElement>(null);
@@ -27,9 +30,9 @@ export default function Hero() {
     }, [])
 
     return (
-        <section id="hero" className="flex min-h-[723px] flex-col gap-24 h-[calc(100vh-84px)] items-center sm:items-start justify-center px-8">
+        <section id="hero" className="flex min-h-[600px] flex-col gap-24 h-[calc(100svh-84px)] items-center sm:items-start justify-center px-8">
             <div className='flex flex-col gap-4'>
-                <h1 className="text-5xl">
+                <h1 className={`${isHighEnough ? "text-5xl" : "text-3xl"}`}>
                     {
                     [
                         "H", "i", " ", "e", "v", "e", "r", "y", "o", "n", "e", "!", " ",
@@ -46,7 +49,7 @@ export default function Hero() {
                 </h1>
                 <div ref={sub} style={{transform: 'translateX(-100px)', opacity: 0}} className='flex gap-4'>
                     <Image src={ArrowForward} alt="Arrow Forward" />
-                    <p className='underline text-2xl'>Check my projects</p>
+                    <p className={`underline ${isHighEnough ? "text-2xl" : "text-xl"}`}>Check my projects</p>
                 </div>
             </div>
             <div className='relative'>
