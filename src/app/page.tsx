@@ -34,7 +34,6 @@ export default function Home() {
       <main className="relative -z-20 overflow-x-hidden">
         <Hero />
         <About />
-        <ProjectsIntro />
       </main>
     </>
   );

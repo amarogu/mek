@@ -1,4 +1,5 @@
-import { useRef } from 'react';
+'use client';
+import { useRef, useEffect, useState } from 'react';
 import ArrowForward from '../../public/arrow_forward.svg';
 import GustavoAmaro from '../../public/gustavo_amaro.svg';
 import Image from 'next/image';
@@ -10,8 +11,15 @@ import GustavoAmaroDesktop from '../../public/gustavo_amaro_desktop.svg';
 
 export default function Hero() {
 
-    const isHighEnough = useMediaQuery({minHeight: 600});
-    const isMediumScreen = useMediaQuery({minWidth: 640});
+    const [isHighEnoughState, setIsHighEnough] = useState(false);
+    const [isMediumScreenState, setIsMediumScreen] = useState(false);
+    const isHighEnough = useMediaQuery({query: '(min-height: 600px)'});
+    const isMediumScreen = useMediaQuery({query: '(min-width: 768px)'});
+
+    useEffect(() => {
+        setIsHighEnough(isHighEnough);
+        setIsMediumScreen(isMediumScreen);
+    }, [isHighEnough, isMediumScreen]);
 
     const sub = useRef<HTMLDivElement>(null);
     const amaro = useRef<HTMLImageElement>(null);
@@ -34,7 +42,7 @@ export default function Hero() {
     return (
         <section id="hero" className="flex min-h-[600px] flex-col gap-24 h-[calc(100svh-84px)] items-start justify-center px-8">
             <div className='flex flex-col gap-4 mx-auto'>
-                <h1 className={`${isHighEnough ? "text-5xl" : "text-3xl"} sm:max-w-[614px]`}>
+                <h1 className={`${isHighEnoughState ? "text-5xl" : "text-3xl"} sm:max-w-[614px]`}>
                     {
                     [
                         "H", "i", " ", "e", "v", "e", "r", "y", "o", "n", "e", "!", " ",
@@ -51,12 +59,12 @@ export default function Hero() {
                 </h1>
                 <div ref={sub} style={{transform: 'translateX(-100px)', opacity: 0}} className='flex gap-4'>
                     <Image src={ArrowForward} alt="Arrow Forward" />
-                    <p className={`underline ${isHighEnough ? "text-2xl" : "text-xl"}`}>Check my projects</p>
+                    <p className={`underline ${isHighEnoughState ? "text-2xl" : "text-xl"}`}>Check my projects</p>
                 </div>
             </div>
             <div className='relative sm:max-w-[614px] sm:mx-auto'>
                 <div ref={amaro} style={{transform: 'translateX(0%)'}} className='h-full w-full absolute top-0 left-0 bg-bg-100'></div>
-                {isMediumScreen ? <Image src={GustavoAmaroDesktop} alt="Gustavo Amaro" /> : <Image src={GustavoAmaro} alt="Gustavo Amaro" />}
+                {isMediumScreenState ? <Image src={GustavoAmaroDesktop} alt="Gustavo Amaro" /> : <Image src={GustavoAmaro} alt="Gustavo Amaro" />}
             </div>
         </section>
     )
