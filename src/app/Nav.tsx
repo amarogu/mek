@@ -8,6 +8,7 @@ import Image from "next/image";
 import ArrowBack from '../../public/arrow_back.svg';
 import GsapMagnetic from "./GsapMagnetic";
 import Collapsible from "./Collapsible";
+import Languages from '../../public/languages.svg';
 
 interface Config {
     mass: number;
@@ -121,7 +122,7 @@ export default function Nav() {
             <li onClick={toggleMenu}>Contact</li>
         </ul>
       </animated.div>
-      <Collapsible open={isLangOpen}>
+      <Collapsible icon={<Image src={Languages} alt="Languages" width={48} height={48} className="translate-y-1" />} title="Languages" open={isLangOpen}>
         <li>English</li>
       </Collapsible>
     </animated.nav>
