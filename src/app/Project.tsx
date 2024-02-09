@@ -7,22 +7,26 @@ interface Item {
 interface ProjectProps {
     title: string;
     subtitle: string;
+    subtitleImage: React.ReactElement;
     description: string;
     image: React.ReactElement;
     link: string;
     items: Item[];
 }
 
-export default function Project({title, subtitle, description, image, link, items}: ProjectProps) {
+export default function Project({title, subtitle, subtitleImage, description, image, link, items}: ProjectProps) {
     return (
-        <section>
+        <section className="flex flex-col gap-8">
             <a href={link}>
                 {image}
             </a>
-            <div>
+            <div className="flex text-3xl flex-col">
                 <div>
-                    <h3>{title}</h3>
-                    <h4>{subtitle}</h4>
+                    <h3 className="text-5xl">{title}</h3>
+                    <div className="flex gap-3">
+                        <h4>{subtitle}</h4>
+                        {subtitleImage}
+                    </div>
                 </div>
                 <div>
                     <ul>
@@ -35,7 +39,7 @@ export default function Project({title, subtitle, description, image, link, item
                         })}
                     </ul>
                 </div>
-                <div>
+                <div className="pt-5 border-t-2 border-text-200">
                     <p>{description}</p>
                 </div>
             </div>
