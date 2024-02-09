@@ -124,15 +124,12 @@ export default function Nav() {
       </animated.div>
       <Collapsible icon={<Image src={Languages} alt="Languages" width={48} height={48} className="translate-y-1" />} title="Languages" open={isLangOpen}>
         <>
-            <li>English</li>
-            <li>Portuguese</li>
-            <li>French</li>
-            <li>Mandarin</li>
-            <li>Italian</li>
-            <li>German</li>
-            <li>Japanese</li>
-            <li>Spanish</li>
-            <li>Korean</li>
+            <li><a href="/">English</a></li>
+            <li><a href="/pt">Portuguese</a></li>
+            <li><a href="/fr">French</a></li>
+            <li><a href="/it">Italian</a></li>
+            <li><a href="/de">German</a></li>
+            <li><a href="/es">Spanish</a></li>
         </>
       </Collapsible>
     </animated.nav>
