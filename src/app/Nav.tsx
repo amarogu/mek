@@ -114,8 +114,8 @@ export default function Nav() {
             </GsapMagnetic>
         </div>
       </div>
-      <animated.div style={{...sideBar, ...sideBarCircle}} className={`bg-bg-200 w-full -z-10 absolute top-0 left-0 h-screen`}>
-        <ul className={`text-3xl px-8 pt-[80px] flex flex-col gap-4 ${isScrolled ? "container" : "max-w-[614px] sm:px-0 sm:mx-auto"}`}>
+      <animated.div style={{...sideBar, ...sideBarCircle}} className={`bg-bg-200 w-full -z-10 absolute top-0 px-8 left-0 h-screen`}>
+        <ul className={`text-3xl px-8 pt-[80px] flex flex-col gap-4 ${isScrolled ? "container mx-auto" : "max-w-[614px] sm:px-0 sm:mx-auto"}`}>
             <li onClick={toggleMenu}>Home</li>
             <li onClick={toggleMenu}>About</li>
             <li onClick={toggleMenu}>Projects</li>
