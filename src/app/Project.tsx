@@ -37,7 +37,7 @@ export default function Project({title, subtitle, subtitleImage, description, im
                         {items.map((i, index) => {
                             return (
                                 <li key={index} className="flex items-center gap-4" onClick={(e) => {e.preventDefault(); setSelectedItem(index)}}>
-                                    <span className={selectedItem === index ? "rounded-full bg-text-200 w-[30px] h-[30px]" : "bg-text-200 w-[30px] h-[30px]"}></span>
+                                    <span className={`${selectedItem === index ? "bg-text-200" : "border-4 border-text-200 bg-bg-100"} w-[30px] h-[30px] rounded-full transition-all`}></span>
                                     <a href={i.link}>{i.title}</a>
                                 </li>
                             )
