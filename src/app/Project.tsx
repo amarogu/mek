@@ -20,7 +20,7 @@ export default function Project({title, subtitle, subtitleImage, description, im
     const [selectedItem, setSelectedItem] = useState<number | null>(null);
 
     return (
-        <section className="flex flex-col gap-8">
+        <section className="flex flex-col gap-8 container px-8 items-center mx-auto">
             <a href={link}>
                 {image}
             </a>
@@ -32,12 +32,13 @@ export default function Project({title, subtitle, subtitleImage, description, im
                         {subtitleImage}
                     </div>
                 </div>
-                <div>
+                <div className="relative">
+                    <div className="absolute -z-10 h-[calc(100%-30px)] top-1/2 -translate-y-1/2 translate-x-[13px] w-1 bg-text-200"></div>
                     <ul className="flex flex-col gap-10">
                         {items.map((i, index) => {
                             return (
                                 <li key={index} className="flex items-center gap-4" onClick={(e) => {e.preventDefault(); setSelectedItem(index)}}>
-                                    <span className={`${selectedItem === index ? "bg-text-200" : "border-4 border-text-200 bg-bg-100"} w-[30px] h-[30px] rounded-full transition-all`}></span>
+                                    <span className={`${selectedItem === index ? "bg-text-200" : "border-4 border-text-200"} w-[30px] h-[30px] bg-bg-100 rounded-full transition-all`}></span>
                                     <a href={i.link}>{i.title}</a>
                                 </li>
                             )

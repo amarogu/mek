@@ -41,7 +41,7 @@ export default function Home() {
       <main className="relative overflow-x-hidden">
         <Hero />
         <About />
-        <section className="px-8">
+        <section>
           <Project 
             title="UniStay" 
             subtitle="iOS Application" 
