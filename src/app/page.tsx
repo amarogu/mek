@@ -34,11 +34,11 @@ export default function Home() {
 
   return (
     <>
-      <header className="h-[84px]">
+      <header className="h-[84px] relative z-20">
         <Welcome />
         <Nav />
       </header>
-      <main className="relative -z-20 overflow-x-hidden">
+      <main className="relative overflow-x-hidden">
         <Hero />
         <About />
         <section className="px-8">
