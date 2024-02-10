@@ -30,9 +30,9 @@ export default function Project({title, subtitle, subtitleImage, description, im
                 </div>
                 <div>
                     <ul>
-                        {items.map((i, _) => {
+                        {items.map((i, index) => {
                             return (
-                                <li>
+                                <li key={index}>
                                     <a href={i.link}>{i.title}</a>
                                 </li>
                             )

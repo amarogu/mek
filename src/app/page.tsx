@@ -41,11 +41,11 @@ export default function Home() {
       <main className="relative -z-20 overflow-x-hidden">
         <Hero />
         <About />
-        <div>
+        <section className="px-8">
           <Project 
             title="UniStay" 
             subtitle="iOS Application" 
-            subtitleImage={<Image src={Swift} alt="Swift" />} 
+            subtitleImage={<Image src={Swift} width={30} height={30} alt="Swift" />} 
             description="An intuitive platform designed to help students to find an accommodation for their uni life."
             image={isLgScreen ? <Image src={UniStayDesktop} alt="UniStay" /> : <Image src={UniStayMobile} alt="UniStay" />}
             link=""
@@ -67,7 +67,7 @@ export default function Home() {
               }
             ]}
           />
-        </div>
+        </section>
       </main>
     </>
   );
