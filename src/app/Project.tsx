@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 interface Item {
     title: string;
     description: string;
@@ -20,8 +22,8 @@ export default function Project({title, subtitle, subtitleImage, description, im
             <a href={link}>
                 {image}
             </a>
-            <div className="flex text-3xl flex-col">
-                <div>
+            <div className="flex text-3xl gap-6 flex-col">
+                <div className="flex flex-col gap-6">
                     <h3 className="text-5xl">{title}</h3>
                     <div className="flex gap-3">
                         <h4>{subtitle}</h4>
@@ -29,10 +31,11 @@ export default function Project({title, subtitle, subtitleImage, description, im
                     </div>
                 </div>
                 <div>
-                    <ul>
+                    <ul className="flex flex-col gap-10">
                         {items.map((i, index) => {
                             return (
-                                <li key={index}>
+                                <li key={index} className="flex items-center gap-4">
+                                    <span className="rounded-full bg-text-200 w-[30px] h-[30px]"></span>
                                     <a href={i.link}>{i.title}</a>
                                 </li>
                             )
