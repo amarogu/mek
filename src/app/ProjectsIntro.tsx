@@ -1,12 +1,12 @@
 import Image from 'next/image';
 import ArrowDownward from '../../public/arrow_downward.svg';
-import { Cormorant_Garamond } from 'next/font/google';
+import { Cormorant_Infant } from 'next/font/google';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { useRef } from 'react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-const cormorantGaramond = Cormorant_Garamond({weight: '400', subsets: ['latin']});
+const cormorantGaramond = Cormorant_Infant({weight: '400', subsets: ['latin']});
 
 export default function ProjectsIntro() {
 
