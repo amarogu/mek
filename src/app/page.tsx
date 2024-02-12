@@ -12,6 +12,7 @@ import Image from "next/image";
 import UniStayDesktop from '../../public/unistaydesktop.png';
 import UniStayMobile from '../../public/unistaysmall.png';
 import { useMediaQuery } from "react-responsive";
+import Projects from "./Projects";
 
 export default function Home() {
 
@@ -40,6 +41,22 @@ export default function Home() {
       <main className="relative overflow-x-hidden">
         <Hero />
         <About />
+        <Projects
+          projects={[
+            {
+              title: 'UniStay',
+              type: 'iOS Application',
+              image: <Image src={isLgScreen ? UniStayDesktop : UniStayMobile} alt="UniStay" />,
+              link: '/unistay'
+            },
+            {
+              title: 'PrettyChat',
+              type: 'Web application',
+              image: <Image src={UniStayDesktop} alt="UniStay" />,
+              link: '/prettychat'
+            },
+          ]}
+        />
       </main>
     </>
   );
