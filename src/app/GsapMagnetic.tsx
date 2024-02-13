@@ -1,5 +1,5 @@
 import React from "react";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
 
 interface GsapMagneticProps {
@@ -13,9 +13,30 @@ interface E {
 
 export default function GsapMagnetic({children}: GsapMagneticProps) {
 
+    const [isTouchDevcie, setIsTouchDevice] = useState(false);
+
     const ref = useRef<any>(null);
 
     useEffect(() => {
+
+        const mediaQueryList = window.matchMedia('(pointer: coarse)');
+        const listener = (event: MediaQueryListEvent) => {
+            setIsTouchDevice(event.matches);
+            if (!event.matches) {
+                ref.current.addEventListener('mousemove', mouseMove);
+                ref.current.addEventListener('mouseleave', mouseLeave);
+            } else {
+                ref.current.removeEventListener('mousemove', mouseMove);
+                ref.current.removeEventListener('mouseleave', mouseLeave);
+            }
+        };
+
+        // Set initial value
+        setIsTouchDevice(mediaQueryList.matches);
+
+        // Listen for changes
+        mediaQueryList.addEventListener('change', listener);
+
         const xTo = gsap.quickTo(ref.current, 'x', {duration: 1, ease: 'elastic.out(1, 0.3)'});
         const YTo = gsap.quickTo(ref.current, 'y', {duration: 1, ease: 'elastic.out(1, 0.3)'});
 
@@ -33,12 +54,11 @@ export default function GsapMagnetic({children}: GsapMagneticProps) {
             YTo(0);
         }
 
-        ref.current.addEventListener('mousemove', mouseMove);
-        ref.current.addEventListener('mouseleave', mouseLeave);
-
         return () => {
-            ref.current.removeEventListener('mousemove', mouseMove);
-            ref.current.removeEventListener('mouseleave', mouseLeave);
+            if (!isTouchDevcie) {
+                ref.current.removeEventListener('mousemove', mouseMove);
+                ref.current.removeEventListener('mouseleave', mouseLeave);
+            }
         }
     }, [])
 
