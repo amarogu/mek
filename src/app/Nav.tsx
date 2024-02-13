@@ -60,8 +60,16 @@ export default function Nav() {
 
     useEffect(() => {
 
-        const isNotTouchDevice = !window.matchMedia('(pointer: coarse)').matches;
-        setIsNotTouchDevice(isNotTouchDevice);
+        const mediaQueryList = window.matchMedia('(pointer: coarse)');
+        const listener = (event: MediaQueryListEvent) => {
+            setIsNotTouchDevice(!event.matches);
+        };
+
+        // Set initial value
+        setIsNotTouchDevice(!mediaQueryList.matches);
+
+        // Listen for changes
+        mediaQueryList.addEventListener('change', listener);
 
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 84);
@@ -71,6 +79,7 @@ export default function Nav() {
 
         return () => {
             window.removeEventListener('scroll', handleScroll);
+            mediaQueryList.removeEventListener('change', listener);
         };
     }, []);
 
