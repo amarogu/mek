@@ -24,6 +24,8 @@ const config: Config = {
 
 export default function Nav() {
 
+    const [isNotTouchDevice, setIsNotTouchDevice] = useState(false);
+
     const [open, setOpen] = useState(false);
     const [isLangOpen, setLang] = useState<boolean>(false);
 
@@ -57,6 +59,10 @@ export default function Nav() {
     const [isScrolled, setIsScrolled] = useState(false);
 
     useEffect(() => {
+
+        const isNotTouchDevice = !window.matchMedia('(pointer: coarse)').matches;
+        setIsNotTouchDevice(isNotTouchDevice);
+
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 84);
         };
@@ -97,21 +103,37 @@ export default function Nav() {
             </button>
         </div>
         <div className="flex gap-2">
-            <GsapMagnetic>
-                <a href="https://github.com/amarogu" target="_blank">
-                    <Image src={GitHub} alt="GitHub" width={20} height={20} />
-                </a>
-            </GsapMagnetic>
-            <GsapMagnetic>
-                <a href="https://www.linkedin.com/in/amarogu" target="_blank">
-                    <Image src={LinkedIn} alt="LinkedIn" width={20} height={20} />
-                </a>
-            </GsapMagnetic>
-            <GsapMagnetic>
-                <button onClick={toggleLang}>
-                    <Image src={Language} alt="Language" width={20} height={20} />
-                </button>
-            </GsapMagnetic>
+            {isNotTouchDevice ? 
+                <>
+                    <GsapMagnetic>
+                        <a href="https://github.com/amarogu" target="_blank">
+                            <Image src={GitHub} alt="GitHub" width={20} height={20} />
+                        </a>
+                    </GsapMagnetic>
+                    <GsapMagnetic>
+                        <a href="https://www.linkedin.com/in/amarogu" target="_blank">
+                            <Image src={LinkedIn} alt="LinkedIn" width={20} height={20} />
+                        </a>
+                    </GsapMagnetic>
+                    <GsapMagnetic>
+                        <button onClick={toggleLang}>
+                            <Image src={Language} alt="Language" width={20} height={20} />
+                        </button>
+                    </GsapMagnetic>
+                </>
+                :
+                <>
+                    <a href="https://github.com/amarogu" target="_blank">
+                        <Image src={GitHub} alt="GitHub" width={20} height={20} />
+                    </a>
+                    <a href="https://www.linkedin.com/in/amarogu" target="_blank">
+                        <Image src={LinkedIn} alt="LinkedIn" width={20} height={20} />
+                    </a>
+                    <button onClick={toggleLang}>
+                        <Image src={Language} alt="Language" width={20} height={20} />
+                    </button>
+                </>
+            }
         </div>
       </div>
       <animated.div style={{...sideBar, ...sideBarCircle}} className={`bg-bg-200 w-full -z-10 absolute top-0 sm:px-8 left-0 h-screen`}>
