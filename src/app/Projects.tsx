@@ -24,7 +24,7 @@ export default function Projects({ projects }: ProjectsProps) {
                         projects.map((project, index) => {
                             return (
                                 <a href={project.link} key={index}>
-                                    <section className={`px-6 sm:p-12 py-12 border-text-200 ${index === 0 ? "border-y-2" : "border-b-2"}`}>
+                                    <section id={`project-${index}`} className={`px-6 sm:p-12 py-12 border-text-200 ${index === 0 ? "border-y-2" : "border-b-2"}`}>
                                         <div className="flex justify-between items-center">
                                             <h3 className="text-2xl md:text-6xl">{project.title}</h3>
                                             <p className="text-lg uppercase">{project.type}</p>

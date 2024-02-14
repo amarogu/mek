@@ -18,6 +18,8 @@ export default function FloatingWindow({children}: FloatingWindowProps) {
     useEffect(() => {
         const xTo = gsap.quickTo(ref.current, 'left', {duration: 1, ease: 'elastic.out(1, 0.3)'});
         const yTo = gsap.quickTo(ref.current, 'top', {duration: 1, ease: 'elastic.out(1, 0.3)'});
+        const scaleTo = gsap.quickTo(ref.current, 'scale', {duration: 0.5});
+        
         const mediaQueryList = window.matchMedia('(pointer: coarse)');
         const listener = (event: MediaQueryListEvent) => {
             setIsTouchDevice(event.matches);
@@ -29,6 +31,7 @@ export default function FloatingWindow({children}: FloatingWindowProps) {
         }
         mediaQueryList.addEventListener('change', listener);
         setIsTouchDevice(mediaQueryList.matches);
+
         const handleMouseMove = (e: E) => {
             const {clientX, clientY} = e;
             const {x, y} = parentRef.current.getBoundingClientRect();
@@ -37,18 +40,12 @@ export default function FloatingWindow({children}: FloatingWindowProps) {
             const parentHeight = parentRef.current.clientHeight;
             const parentWidth = parentRef.current.clientWidth;
             if (targetX < 0 || targetY < 0 || targetX > parentWidth || targetY > parentHeight) {
-                gsap.to(ref.current, {
-                    scale: 0,
-                    duration: 0.5, 
-                });
+                scaleTo(0);
                 return;
             };
             xTo(targetX);
             yTo(targetY);
-            gsap.to(ref.current, {
-                scale: 1,
-                duration: 0.5, 
-            })
+            scaleTo(1);
         };
 
         if (!isTouchDevice) {
