@@ -54,6 +54,11 @@ export default function GsapMagnetic({children}: GsapMagneticProps) {
             YTo(0);
         }
 
+        if (!isTouchDevcie) {
+            ref.current.addEventListener('mousemove', mouseMove);
+            ref.current.addEventListener('mouseleave', mouseLeave);
+        }
+
         return () => {
             if (!isTouchDevcie) {
                 ref.current.removeEventListener('mousemove', mouseMove);

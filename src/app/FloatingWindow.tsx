@@ -13,11 +13,22 @@ interface E {
 export default function FloatingWindow({children}: FloatingWindowProps) {
     const ref = useRef<any>(null);
     const parentRef = useRef<any>(null);
+    const [isTouchDevice, setIsTouchDevice] = useState(false);
 
     useEffect(() => {
         const xTo = gsap.quickTo(ref.current, 'left', {duration: 1, ease: 'elastic.out(1, 0.3)'});
         const yTo = gsap.quickTo(ref.current, 'top', {duration: 1, ease: 'elastic.out(1, 0.3)'});
-
+        const mediaQueryList = window.matchMedia('(pointer: coarse)');
+        const listener = (event: MediaQueryListEvent) => {
+            setIsTouchDevice(event.matches);
+            if (!event.matches) {
+                parentRef.current.addEventListener('mousemove', handleMouseMove);
+            } else {
+                parentRef.current.removeEventListener('mousemove', handleMouseMove);
+            }
+        }
+        mediaQueryList.addEventListener('change', listener);
+        setIsTouchDevice(mediaQueryList.matches);
         const handleMouseMove = (e: E) => {
             const {clientX, clientY} = e;
             const {x, y} = parentRef.current.getBoundingClientRect();
@@ -40,10 +51,14 @@ export default function FloatingWindow({children}: FloatingWindowProps) {
             })
         };
 
-        parentRef.current.addEventListener('mousemove', handleMouseMove);
+        if (!isTouchDevice) {
+            parentRef.current.addEventListener('mousemove', handleMouseMove);
+        }
 
         return () => {
-            parentRef.current.removeEventListener('mousemove', handleMouseMove);
+            if (!isTouchDevice) {
+                parentRef.current.removeEventListener('mousemove', handleMouseMove);
+            }
         };
 
     }, []);
@@ -51,7 +66,7 @@ export default function FloatingWindow({children}: FloatingWindowProps) {
     return (
         <div className="relative" ref={parentRef}>
             {children}
-            <div ref={ref} className="w-[25vw] top-0 left-0 -translate-x-1/2 -translate-y-1/2 absolute h-[25vw] overflow-y-scroll">
+            <div ref={ref} style={{transform: 'translate(-50%, -50%) scale(0)'}} className="w-[25vw] top-0 left-0 absolute h-[25vw] overflow-y-scroll">
                 <div className="w-full h-full bg-bg-300"></div>
                 <div className="w-full h-full bg-bg-100"></div>
             </div>
