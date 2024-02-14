@@ -1,18 +1,55 @@
-import { useEffect, useRef } from "react"
+import React, { useState, useEffect, useRef } from "react";
+import gsap from "gsap";
 
-export default function FloatingWindow() {
+interface FloatingWindowProps {
+    children: React.ReactElement;
+}
 
+interface E {
+    clientX: number;
+    clientY: number;
+}
+
+export default function FloatingWindow({children}: FloatingWindowProps) {
     const ref = useRef<any>(null);
+    const parentRef = useRef<any>(null);
 
     useEffect(() => {
-        const xTo = gsap.quickTo(ref.current, 'x', {duration: 1, ease: 'elastic.out(1, 0.3)'});
-        const YTo = gsap.quickTo(ref.current, 'y', {duration: 1, ease: 'elastic.out(1, 0.3)'});
-    }, [])
+        const xTo = gsap.quickTo(ref.current, 'left', {duration: 1, ease: 'elastic.out(1, 0.3)'});
+        const yTo = gsap.quickTo(ref.current, 'top', {duration: 1, ease: 'elastic.out(1, 0.3)'});
+
+        const handleMouseMove = (e: E) => {
+            const {clientX, clientY} = e;
+            const {x, y} = parentRef.current.getBoundingClientRect();
+            const targetX = clientX - x;
+            const targetY = clientY - y;
+            console.log(targetX, targetY);
+            xTo(targetX);
+            yTo(targetY);
+        };
+
+        const handleMouseLeave = () => {
+            xTo(0);
+            yTo(0);
+        };
+
+        parentRef.current.addEventListener('mousemove', handleMouseMove);
+        parentRef.current.addEventListener('mouseleave', handleMouseLeave);
+
+        return () => {
+            parentRef.current.removeEventListener('mousemove', handleMouseMove);
+            parentRef.current.removeEventListener('mouseleave', handleMouseLeave);
+        };
+
+    }, []);
 
     return (
-        <div className="w-[500px] h-[500px] overflow-y-scroll">
-            <div className="w-full h-full bg-bg-300"></div>
-            <div className="w-full h-full bg-bg-300"></div>
+        <div className="relative" ref={parentRef}>
+            {children}
+            <div ref={ref} className="w-[25vw] top-0 left-0 -translate-x-1/2 -translate-y-1/2 absolute h-[25vw] overflow-y-scroll">
+                <div className="w-full h-full bg-bg-300"></div>
+                <div className="w-full h-full bg-bg-300"></div>
+            </div>
         </div>
-    )
+    );
 }
