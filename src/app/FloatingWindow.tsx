@@ -23,22 +23,27 @@ export default function FloatingWindow({children}: FloatingWindowProps) {
             const {x, y} = parentRef.current.getBoundingClientRect();
             const targetX = clientX - x;
             const targetY = clientY - y;
-            console.log(targetX, targetY);
+            const parentHeight = parentRef.current.clientHeight;
+            const parentWidth = parentRef.current.clientWidth;
+            if (targetX < 0 || targetY < 0 || targetX > parentWidth || targetY > parentHeight) {
+                gsap.to(ref.current, {
+                    scale: 0,
+                    duration: 0.5, 
+                });
+                return;
+            };
             xTo(targetX);
             yTo(targetY);
-        };
-
-        const handleMouseLeave = () => {
-            xTo(0);
-            yTo(0);
+            gsap.to(ref.current, {
+                scale: 1,
+                duration: 0.5, 
+            })
         };
 
         parentRef.current.addEventListener('mousemove', handleMouseMove);
-        parentRef.current.addEventListener('mouseleave', handleMouseLeave);
 
         return () => {
             parentRef.current.removeEventListener('mousemove', handleMouseMove);
-            parentRef.current.removeEventListener('mouseleave', handleMouseLeave);
         };
 
     }, []);
