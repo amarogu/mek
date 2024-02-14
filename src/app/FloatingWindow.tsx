@@ -3,21 +3,17 @@ import gsap from "gsap";
 
 interface FloatingWindowProps {
     children: React.ReactElement;
+    hoveredProjectId?: string | null;
 }
 
-interface E {
-    clientX: number;
-    clientY: number;
-}
-
-export default function FloatingWindow({children}: FloatingWindowProps) {
+export default function FloatingWindow({ children, hoveredProjectId }: FloatingWindowProps) {
     const ref = useRef<any>(null);
     const parentRef = useRef<any>(null);
     const [isTouchDevice, setIsTouchDevice] = useState(false);
 
     useEffect(() => {
-        const xTo = gsap.quickTo(ref.current, 'left', {duration: 1, ease: 'elastic.out(1, 0.3)'});
-        const yTo = gsap.quickTo(ref.current, 'top', {duration: 1, ease: 'elastic.out(1, 0.3)'});
+        const xTo = gsap.quickTo(ref.current, 'left', {duration:  1, ease: 'elastic.out(1,  0.3)'});
+        const yTo = gsap.quickTo(ref.current, 'top', {duration:  1, ease: 'elastic.out(1,  0.3)'});
         
         const mediaQueryList = window.matchMedia('(pointer: coarse)');
         const listener = (event: MediaQueryListEvent) => {
@@ -31,7 +27,7 @@ export default function FloatingWindow({children}: FloatingWindowProps) {
         mediaQueryList.addEventListener('change', listener);
         setIsTouchDevice(mediaQueryList.matches);
 
-        const handleMouseMove = (e: E) => {
+        const handleMouseMove = (e: MouseEvent) => {
             const {clientX, clientY} = e;
             const {x, y} = parentRef.current.getBoundingClientRect();
             const targetX = clientX - x;
@@ -62,8 +58,17 @@ export default function FloatingWindow({children}: FloatingWindowProps) {
                 parentRef.current.removeEventListener('mousemove', handleMouseMove);
             }
         };
-
     }, []);
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            if (hoveredProjectId && document.querySelector(`#${hoveredProjectId}:hover`)) {
+                console.log(`Currently hovered project ID: ${hoveredProjectId}`);
+            }
+        },   100); // Check every   100ms
+
+        return () => clearInterval(intervalId);
+    }, [hoveredProjectId]);
 
     return (
         <div className="relative" ref={parentRef}>
