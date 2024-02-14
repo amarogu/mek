@@ -45,13 +45,13 @@ export default function Home() {
           projects={[
             {
               title: 'UniStay',
-              type: 'iOS Application',
+              type: 'iOS App',
               image: <Image src={isLgScreen ? UniStayDesktop : UniStayMobile} alt="UniStay" />,
               link: '/unistay'
             },
             {
               title: 'PrettyChat',
-              type: 'Web application',
+              type: 'Web App',
               image: <Image src={UniStayDesktop} alt="UniStay" />,
               link: '/prettychat'
             },
