@@ -29,7 +29,7 @@ export default function Projects({ projects }: ProjectsProps) {
                 <p>name</p>
                 <p>type</p>
             </div>
-            <FloatingWindow hoveredProjectId={hoveredProjectId}>
+            <FloatingWindow projects={projects} hoveredProjectId={hoveredProjectId}>
                 <>
                     {projects.map((project, index) => {
                         return (
