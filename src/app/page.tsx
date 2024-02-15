@@ -7,7 +7,6 @@ import Lenis from '@studio-freight/lenis'
 import { useEffect } from "react";
 import gsap from 'gsap';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Swift from '../../public/swift.svg';
 import Image from "next/image";
 import UniStayDesktop from '../../public/unistaydesktop.png';
 import UniStayMobile from '../../public/unistaysmall.png';
@@ -55,6 +54,12 @@ export default function Home() {
               image: <Image src={UniStayDesktop} alt="UniStay" />,
               link: '/prettychat'
             },
+            {
+              title: 'Respondly',
+              type: 'Web Site',
+              image: <Image src={UniStayDesktop} alt="UniStay" />,
+              link: '/respondly'
+            }
           ]}
         />
       </main>
