@@ -19,63 +19,75 @@ export default function FloatingWindow({ children, hoveredProjectId }: FloatingW
         const listener = (event: MediaQueryListEvent) => {
             setIsTouchDevice(event.matches);
             if (!event.matches) {
-                parentRef.current.addEventListener('mousemove', handleMouseMove);
+                document.addEventListener('mousemove', handleMouseMove);
             } else {
-                parentRef.current.removeEventListener('mousemove', handleMouseMove);
+                document.removeEventListener('mousemove', handleMouseMove);
             }
         }
         mediaQueryList.addEventListener('change', listener);
         setIsTouchDevice(mediaQueryList.matches);
 
         const handleMouseMove = (e: MouseEvent) => {
+            // Only proceed if the event target is within the parentRef
+            if (!parentRef.current.contains(e.target as Node)) {
+                return;
+            }
+
             const {clientX, clientY} = e;
             const {x, y} = parentRef.current.getBoundingClientRect();
             const targetX = clientX - x;
             const targetY = clientY - y;
-            const parentHeight = parentRef.current.clientHeight;
-            const parentWidth = parentRef.current.clientWidth;
-            if (targetX < 0 || targetY < 0 || targetX > parentWidth || targetY > parentHeight) {
-                gsap.to(ref.current, {
-                    scale: 0,
-                    duration: 0.5, 
-                });
-                return;
-            };
             xTo(targetX);
             yTo(targetY);
             gsap.to(ref.current, {
-                scale: 1,
-                duration: 0.5, 
+                scale:  1,
+                duration:  0.5,  
+            })
+        };
+
+        const handleMouseLeave = () => {
+            gsap.to(ref.current, {
+                scale:  0,
+                duration:  0.5,  
             })
         };
 
         if (!isTouchDevice) {
-            parentRef.current.addEventListener('mousemove', handleMouseMove);
+            document.addEventListener('mousemove', handleMouseMove);
+            parentRef.current.addEventListener('mouseleave', handleMouseLeave);
         }
 
         return () => {
             if (!isTouchDevice) {
-                parentRef.current.removeEventListener('mousemove', handleMouseMove);
+                document.removeEventListener('mousemove', handleMouseMove);
+                parentRef.current.removeEventListener('mouseleave', handleMouseLeave);
             }
         };
     }, []);
 
     useEffect(() => {
-        const intervalId = setInterval(() => {
-            if (hoveredProjectId && document.querySelector(`#${hoveredProjectId}:hover`)) {
-                console.log(`Currently hovered project ID: ${hoveredProjectId}`);
-            }
-        },   100); // Check every   100ms
+        let intervalId: NodeJS.Timeout;
+        if (hoveredProjectId) {
+            intervalId = setInterval(() => {
+                if (document.querySelector(`#${hoveredProjectId}:hover`)) {
+                    console.log(`Currently hovered project ID: ${hoveredProjectId}`);
+                }
+            },  100); // Check every  100ms
+        }
 
-        return () => clearInterval(intervalId);
+        return () => {
+            if (intervalId) {
+                clearInterval(intervalId);
+            }
+        };
     }, [hoveredProjectId]);
 
     return (
         <div className="relative" ref={parentRef}>
             {children}
-            <div ref={ref} style={{transform: 'translate(-50%, -50%) scale(0)'}} className="w-[25vw] top-0 left-0 absolute h-[25vw] overflow-y-scroll">
-                <div className="w-full h-full bg-bg-300"></div>
-                <div className="w-full h-full bg-bg-100"></div>
+            <div ref={ref} style={{transform: 'translate(-50%, -50%) scale(0)'}} className="w-[25vw] top-0 left-0 pointer-events-none absolute h-[25vw] overflow-y-scroll">
+                <div className="w-full h-full pointer-events-none bg-bg-300"></div>
+                <div className="w-full h-full pointer-events-none bg-bg-100"></div>
             </div>
         </div>
     );
