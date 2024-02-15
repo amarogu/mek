@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import gsap from "gsap";
+import SmoothScrollingContainer from "./SmoothScrollingContainer";
 
 interface FloatingWindowProps {
     children: React.ReactElement;
@@ -85,10 +86,12 @@ export default function FloatingWindow({ children, hoveredProjectId }: FloatingW
     return (
         <div className="relative" ref={parentRef}>
             {children}
-            <div ref={ref} style={{transform: 'translate(-50%, -50%) scale(0)'}} className="w-[25vw] top-0 left-0 pointer-events-none absolute h-[25vw] overflow-y-scroll">
-                <div className="w-full h-full pointer-events-none bg-bg-300"></div>
-                <div className="w-full h-full pointer-events-none bg-bg-100"></div>
-            </div>
+            <SmoothScrollingContainer>
+                <div ref={ref} style={{transform: 'translate(-50%, -50%) scale(0)'}} className="w-[25vw] top-0 left-0 pointer-events-none absolute h-[25vw] overflow-y-scroll">
+                    <div className="w-full h-full pointer-events-none bg-bg-300"></div>
+                    <div className="w-full h-full pointer-events-none bg-bg-100"></div>
+                </div>
+            </SmoothScrollingContainer>
         </div>
     );
 }
