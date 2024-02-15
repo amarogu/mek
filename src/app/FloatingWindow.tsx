@@ -93,7 +93,6 @@ export default function FloatingWindow({ children, hoveredProjectId, projects }:
         if (hoveredProjectId) {
             intervalId = setInterval(() => {
                 if (document.querySelector(`#${hoveredProjectId}:hover`)) {
-                    console.log(`Currently hovered project ID: ${hoveredProjectId}`);
                     scrollToPreview(`${hoveredProjectId}-preview`);
                 }
             },  100); // Check every  100ms
