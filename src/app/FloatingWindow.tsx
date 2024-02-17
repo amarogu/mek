@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 
@@ -21,7 +21,6 @@ export default function FloatingWindow({ children, hoveredProjectId, projects }:
     const ref = useRef<any>(null);
     const parentRef = useRef<any>(null);
     const scrollable = useRef<any>(null);
-    const [isTouchDevice, setIsTouchDevice] = useState(false);
     const circleRef = useRef<any>(null);
     const textRef = useRef<any>(null);
     const viewRef = useRef<any>(null);
@@ -31,16 +30,7 @@ export default function FloatingWindow({ children, hoveredProjectId, projects }:
         const yTo = gsap.quickTo(ref.current, 'top', {duration:  0.2});
         
         const mediaQueryList = window.matchMedia('(pointer: coarse)');
-        const listener = (event: MediaQueryListEvent) => {
-            setIsTouchDevice(event.matches);
-            if (!event.matches) {
-                document.addEventListener('mousemove', handleMouseMove);
-            } else {
-                document.removeEventListener('mousemove', handleMouseMove);
-            }
-        }
-        mediaQueryList.addEventListener('change', listener);
-        setIsTouchDevice(mediaQueryList.matches);
+        let touchDevice = mediaQueryList.matches; // Use a local variable
 
         const handleMouseMove = (e: MouseEvent) => {
             // Only proceed if the event target is within the parentRef
@@ -67,13 +57,25 @@ export default function FloatingWindow({ children, hoveredProjectId, projects }:
             })
         };
 
-        if (!isTouchDevice) {
+        const listener = (event: MediaQueryListEvent) => {
+            touchDevice = event.matches;
+            if (!touchDevice) {
+                document.addEventListener('mousemove', handleMouseMove);
+                parentRef.current.addEventListener('mouseleave', handleMouseLeave);
+            } else {
+                document.removeEventListener('mousemove', handleMouseMove);
+                parentRef.current.removeEventListener('mouseleave', handleMouseLeave);
+            }
+        }
+        mediaQueryList.addEventListener('change', listener);
+
+        if (!touchDevice) {
             document.addEventListener('mousemove', handleMouseMove);
             parentRef.current.addEventListener('mouseleave', handleMouseLeave);
         }
 
         return () => {
-            if (!isTouchDevice) {
+            if (!touchDevice) {
                 document.removeEventListener('mousemove', handleMouseMove);
                 parentRef.current.removeEventListener('mouseleave', handleMouseLeave);
             }
