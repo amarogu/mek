@@ -10,6 +10,7 @@ import GsapMagnetic from "./GsapMagnetic";
 import Collapsible from "./Collapsible";
 import Languages from '../../public/languages.svg';
 import { useLenis } from '@studio-freight/react-lenis';
+import { gsap } from "gsap";
 
 interface Config {
     mass: number;
@@ -60,6 +61,14 @@ export default function Nav() {
     useChain([sideBarRef, sideBarCircleRef], [0, 0.2]);
 
     const [isScrolled, setIsScrolled] = useState(false);
+
+    const handleMouseEnter = (name: string) => {
+        gsap.to(`#${name}`, {scale: 1, duration: 0.5});
+    }
+
+    const handleMouseLeave = (name: string) => {
+        gsap.to(`#${name}`, {scale: 0, duration: 0.5});
+    }
 
     useEffect(() => {
         const handleScroll = () => {
@@ -124,7 +133,7 @@ export default function Nav() {
             {buttonNames.map(name => (
                 <li onClick={toggleMenu} key={name}>
                     <GsapMagnetic>
-                        <button className="inline-flex items-center gap-4">
+                        <button onMouseEnter={() => handleMouseEnter(name)} onMouseLeave={() => handleMouseLeave(name)} className="inline-flex items-center gap-4">
                             <a>{name}</a>
                             <div id={name} style={{transform: 'scale(0)'}} className="w-2 h-2 rounded-full bg-text-200"></div>
                         </button>
