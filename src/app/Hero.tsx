@@ -63,7 +63,7 @@ export default function Hero() {
                 <div ref={sub} style={{transform: 'translateX(-100px)', opacity: 0}}>
                     <button className='cursor-pointer flex gap-4 items-center' onClick={() => {lenis?.scrollTo('#projects', {duration: 2})}} >
                         <Image src={ArrowForward} alt="Arrow Forward" />
-                        <p className={`underline ${isHighEnoughState ? "text-2xl" : "text-xl"}`}>Check my projects</p>
+                        <p className={`underline underline-offset-4 ${isHighEnoughState ? "text-2xl" : "text-xl"}`}>Check my projects</p>
                     </button>
                 </div>
             </div>
