@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-import GsapMagnetic from "./GsapMagnetic";
 
 gsap.registerPlugin(ScrollToPlugin);
 
