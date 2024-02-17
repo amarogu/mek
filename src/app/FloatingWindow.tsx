@@ -22,6 +22,9 @@ export default function FloatingWindow({ children, hoveredProjectId, projects }:
     const parentRef = useRef<any>(null);
     const scrollable = useRef<any>(null);
     const [isTouchDevice, setIsTouchDevice] = useState(false);
+    const circleRef = useRef<any>(null);
+    const textRef = useRef<any>(null);
+    const viewRef = useRef<any>(null);
 
     useEffect(() => {
         const xTo = gsap.quickTo(ref.current, 'left', {duration:  0.2});
@@ -49,6 +52,10 @@ export default function FloatingWindow({ children, hoveredProjectId, projects }:
             const {x, y} = parentRef.current.getBoundingClientRect();
             const targetX = clientX - x;
             const targetY = clientY - y;
+            const viewX = viewRef.current.getBoundingClientRect().x;
+            const viewY = viewRef.current.getBoundingClientRect().y;
+            const viewTargetX = clientX - viewX;
+            const viewTargetY = clientY - viewY;
             xTo(targetX);
             yTo(targetY);
             gsap.to(ref.current, {
@@ -116,10 +123,10 @@ export default function FloatingWindow({ children, hoveredProjectId, projects }:
                         </div>
                     ))}
                 </div>
-                <div className="absolute top-0 w-full h-full flex items-center justify-center">
+                <div ref={viewRef} className="absolute top-0 w-full h-full flex items-center justify-center">
                     <div className="relative">
-                        <p className="text-3xl relative z-30">View</p>
-                        <div className="bg-bg-100 absolute left-1/2 rounded-full top-1/2 -translate-x-1/2 -translate-y-1/2 w-[15vw] h-[15vw]"></div>
+                        <p ref={textRef} className="text-3xl absolute z-30">View</p>
+                        <div ref={circleRef} className="bg-bg-100 absolute left-1/2 rounded-full top-1/2 -translate-x-1/2 -translate-y-1/2 w-[15vw] h-[15vw]"></div>
                     </div>
                 </div>
             </div>
