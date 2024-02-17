@@ -27,6 +27,8 @@ export default function Nav() {
 
     const lenis = useLenis(({scroll}) => {});
 
+    const buttonNames = ['Home', 'About', 'Projects', 'Contact'];
+
     const [open, setOpen] = useState(false);
     const [isLangOpen, setLang] = useState<boolean>(false);
 
@@ -119,10 +121,16 @@ export default function Nav() {
       </div>
       <animated.div style={{...sideBar, ...sideBarCircle}} className={`bg-bg-200 w-full -z-10 absolute top-0 sm:px-8 left-0 h-screen`}>
         <ul className={`text-3xl px-8 pt-[80px] flex flex-col gap-4 ${isScrolled ? "container mx-auto" : "max-w-[614px] sm:px-0 sm:mx-auto"}`}>  
-            <li onClick={toggleMenu}><GsapMagnetic><button className="inline-block">Home</button></GsapMagnetic></li>
-            <li onClick={toggleMenu}><GsapMagnetic><button className="inline-block">About</button></GsapMagnetic></li>
-            <li onClick={toggleMenu}><GsapMagnetic><button className="inline-block">Projects</button></GsapMagnetic></li>
-            <li onClick={toggleMenu}><GsapMagnetic><button className="inline-block">Contact</button></GsapMagnetic></li>
+            {buttonNames.map(name => (
+                <li onClick={toggleMenu} key={name}>
+                    <GsapMagnetic>
+                        <button className="inline-flex items-center gap-4">
+                            <a>{name}</a>
+                            <div id={name} style={{transform: 'scale(0)'}} className="w-2 h-2 rounded-full bg-text-200"></div>
+                        </button>
+                    </GsapMagnetic>
+                </li>
+            ))}
         </ul>
       </animated.div>
       <Collapsible icon={<Image src={Languages} alt="Languages" width={48} height={48} className="translate-y-1" />} title="Languages" open={isLangOpen}>
