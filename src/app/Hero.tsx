@@ -57,9 +57,11 @@ export default function Hero() {
                         <span style={{opacity: 0}} className='key' key={index}>{word}</span>
                     ))}
                 </h1>
-                <div ref={sub} style={{transform: 'translateX(-100px)', opacity: 0}} className='flex gap-4'>
-                    <Image src={ArrowForward} alt="Arrow Forward" />
-                    <p className={`underline ${isHighEnoughState ? "text-2xl" : "text-xl"}`}>Check my projects</p>
+                <div ref={sub} style={{transform: 'translateX(-100px)', opacity: 0}}>
+                    <button className='cursor-pointer flex gap-4 items-center'>
+                        <Image src={ArrowForward} alt="Arrow Forward" />
+                        <p className={`underline ${isHighEnoughState ? "text-2xl" : "text-xl"}`}>Check my projects</p>
+                    </button>
                 </div>
             </div>
             <div className='relative sm:max-w-[614px] sm:mx-auto'>
