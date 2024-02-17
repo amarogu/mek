@@ -8,7 +8,7 @@ import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useMediaQuery } from 'react-responsive';
 import GustavoAmaroDesktop from '../../public/gustavo_amaro_desktop.svg';
-import { useLenis } from '@studio-freight/react-lenis'
+import { useLenis } from '@studio-freight/react-lenis';
 
 export default function Hero() {
 

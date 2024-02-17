@@ -9,6 +9,7 @@ import ArrowBack from '../../public/arrow_back.svg';
 import GsapMagnetic from "./GsapMagnetic";
 import Collapsible from "./Collapsible";
 import Languages from '../../public/languages.svg';
+import { useLenis } from '@studio-freight/react-lenis';
 
 interface Config {
     mass: number;
@@ -23,6 +24,8 @@ const config: Config = {
 }
 
 export default function Nav() {
+
+    const lenis = useLenis(({scroll}) => {});
 
     const [open, setOpen] = useState(false);
     const [isLangOpen, setLang] = useState<boolean>(false);
@@ -92,7 +95,7 @@ export default function Nav() {
                 <animated.span style={{...bottomBar}} className="w-4 h-[1px] absolute inline-block bg-text-200"></animated.span>
                 </div>
             </button> 
-            <button className="cursor-pointer">
+            <button className="cursor-pointer" onClick={() => {lenis?.scrollTo(0, {duration: 2})}}>
                 <p className="text-xl">&#169; Coded by Amaro </p>
             </button>
         </div>
