@@ -119,20 +119,20 @@ export default function Nav() {
       </div>
       <animated.div style={{...sideBar, ...sideBarCircle}} className={`bg-bg-200 w-full -z-10 absolute top-0 sm:px-8 left-0 h-screen`}>
         <ul className={`text-3xl px-8 pt-[80px] flex flex-col gap-4 ${isScrolled ? "container mx-auto" : "max-w-[614px] sm:px-0 sm:mx-auto"}`}>  
-            <li onClick={toggleMenu} className="cursor-pointer">Home</li>
-            <li onClick={toggleMenu} className="cursor-pointer">About</li>
-            <li onClick={toggleMenu} className="cursor-pointer">Projects</li>
-            <li onClick={toggleMenu} className="cursor-pointer">Contact</li>
+            <li onClick={toggleMenu}><GsapMagnetic><button className="inline-block">Home</button></GsapMagnetic></li>
+            <li onClick={toggleMenu}><GsapMagnetic><button className="inline-block">About</button></GsapMagnetic></li>
+            <li onClick={toggleMenu}><GsapMagnetic><button className="inline-block">Projects</button></GsapMagnetic></li>
+            <li onClick={toggleMenu}><GsapMagnetic><button className="inline-block">Contact</button></GsapMagnetic></li>
         </ul>
       </animated.div>
       <Collapsible icon={<Image src={Languages} alt="Languages" width={48} height={48} className="translate-y-1" />} title="Languages" open={isLangOpen}>
         <>
-            <li className="cursor-pointer"><a href="/">English</a></li>
-            <li className="cursor-pointer"><a href="/pt">Português</a></li>
-            <li className="cursor-pointer"><a href="/fr">Français</a></li>
-            <li className="cursor-pointer"><a href="/it">Italiano</a></li>
-            <li className="cursor-pointer"><a href="/de">Deutsch</a></li>
-            <li className="cursor-pointer"><a href="/es">Español</a></li>
+            <li><a href="/">English</a></li>
+            <li><a href="/pt">Português</a></li>
+            <li><a href="/fr">Français</a></li>
+            <li><a href="/it">Italiano</a></li>
+            <li><a href="/de">Deutsch</a></li>
+            <li><a href="/es">Español</a></li>
         </>
       </Collapsible>
     </animated.nav>
