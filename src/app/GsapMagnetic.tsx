@@ -13,7 +13,7 @@ interface E {
 
 export default function GsapMagnetic({children}: GsapMagneticProps) {
 
-    const [isTouchDevcie, setIsTouchDevice] = useState(false);
+    const [isTouchDevice, setIsTouchDevice] = useState(false);
 
     const ref = useRef<any>(null);
 
@@ -54,13 +54,14 @@ export default function GsapMagnetic({children}: GsapMagneticProps) {
             YTo(0);
         }
 
-        if (!isTouchDevcie) {
+        if (!isTouchDevice) {
             ref.current.addEventListener('mousemove', mouseMove);
             ref.current.addEventListener('mouseleave', mouseLeave);
+            console.log('aaaa')
         }
 
         return () => {
-            if (!isTouchDevcie) {
+            if (!isTouchDevice) {
                 ref.current.removeEventListener('mousemove', mouseMove);
                 ref.current.removeEventListener('mouseleave', mouseLeave);
             }
