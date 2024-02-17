@@ -111,8 +111,16 @@ export default function FloatingWindow({ children, hoveredProjectId, projects }:
             <div ref={ref} style={{transform: 'translate(-50%, -50%) scale(0)'}} className="w-[25vw] top-0 left-0 pointer-events-none absolute h-[25vw] overflow-y-scroll">
                 <div ref={scrollable} className="w-full h-full">
                     {projects.map((project, index) => (
-                        <div id={`project-${index}-preview`} key={index} className="w-full h-full pointer-events-none bg-bg-200">{project.title}</div>
+                        <div id={`project-${index}-preview`} key={index} className="w-full h-full pointer-events-none bg-bg-200">
+                            {project.image}
+                        </div>
                     ))}
+                </div>
+                <div className="absolute top-0 w-full h-full flex items-center justify-center">
+                    <div className="relative">
+                        <p className="text-3xl relative z-30">View</p>
+                        <div className="bg-bg-100 absolute left-1/2 rounded-full top-1/2 -translate-x-1/2 -translate-y-1/2 w-[15vw] h-[15vw]"></div>
+                    </div>
                 </div>
             </div>
         </div>

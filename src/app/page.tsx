@@ -8,8 +8,7 @@ import { useEffect } from "react";
 import gsap from 'gsap';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
-import UniStayDesktop from '../../public/unistaydesktop.png';
-import UniStayMobile from '../../public/unistaysmall.png';
+import UniStay from '../../public/unistayplaceholder.jpeg';
 import { useMediaQuery } from "react-responsive";
 import Projects from "./Projects";
 
@@ -45,19 +44,19 @@ export default function Home() {
             {
               title: 'UniStay',
               type: 'iOS App',
-              image: <Image src={isLgScreen ? UniStayDesktop : UniStayMobile} alt="UniStay" />,
+              image: <Image src={UniStay} alt="UniStay" />,
               link: '/unistay'
             },
             {
               title: 'PrettyChat',
               type: 'Web App',
-              image: <Image src={UniStayDesktop} alt="UniStay" />,
+              image: <Image src={UniStay} alt="UniStay" />,
               link: '/prettychat'
             },
             {
               title: 'Respondly',
               type: 'Web Site',
-              image: <Image src={UniStayDesktop} alt="UniStay" />,
+              image: <Image src={UniStay} alt="UniStay" />,
               link: '/respondly'
             }
           ]}
