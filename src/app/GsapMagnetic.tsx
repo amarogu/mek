@@ -18,28 +18,12 @@ export default function GsapMagnetic({children}: GsapMagneticProps) {
     const ref = useRef<any>(null);
 
     useEffect(() => {
-
         const mediaQueryList = window.matchMedia('(pointer: coarse)');
-        const listener = (event: MediaQueryListEvent) => {
-            setIsTouchDevice(event.matches);
-            if (!event.matches) {
-                ref.current.addEventListener('mousemove', mouseMove);
-                ref.current.addEventListener('mouseleave', mouseLeave);
-            } else {
-                ref.current.removeEventListener('mousemove', mouseMove);
-                ref.current.removeEventListener('mouseleave', mouseLeave);
-            }
-        };
-
-        // Set initial value
-        setIsTouchDevice(mediaQueryList.matches);
-
-        // Listen for changes
-        mediaQueryList.addEventListener('change', listener);
-
+        let touchDevice = mediaQueryList.matches; // Use a local variable
+    
         const xTo = gsap.quickTo(ref.current, 'x', {duration: 1, ease: 'elastic.out(1, 0.3)'});
         const YTo = gsap.quickTo(ref.current, 'y', {duration: 1, ease: 'elastic.out(1, 0.3)'});
-
+    
         const mouseMove = (e: E) => {
             const {clientX, clientY} = e;
             const {left, top, width, height} = ref.current.getBoundingClientRect();
@@ -48,20 +32,37 @@ export default function GsapMagnetic({children}: GsapMagneticProps) {
             xTo(x);
             YTo(y);
         }
-
+    
         const mouseLeave = (e: E) => {
             xTo(0);
             YTo(0);
         }
-
-        if (!isTouchDevice) {
+    
+        const listener = (event: MediaQueryListEvent) => {
+            touchDevice = event.matches;
+            setIsTouchDevice(touchDevice);
+            if (!touchDevice) {
+                ref.current.addEventListener('mousemove', mouseMove);
+                ref.current.addEventListener('mouseleave', mouseLeave);
+            } else {
+                ref.current.removeEventListener('mousemove', mouseMove);
+                ref.current.removeEventListener('mouseleave', mouseLeave);
+            }
+        };
+    
+        // Set initial value
+        setIsTouchDevice(touchDevice);
+    
+        // Listen for changes
+        mediaQueryList.addEventListener('change', listener);
+    
+        if (!touchDevice) {
             ref.current.addEventListener('mousemove', mouseMove);
             ref.current.addEventListener('mouseleave', mouseLeave);
-            console.log('aaaa')
         }
-
+    
         return () => {
-            if (!isTouchDevice) {
+            if (!touchDevice) {
                 ref.current.removeEventListener('mousemove', mouseMove);
                 ref.current.removeEventListener('mouseleave', mouseLeave);
             }
