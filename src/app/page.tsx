@@ -13,12 +13,13 @@ import PrettyChatPlaceholder from '../../public/prettychatplaceholder.png';
 import RespondlyPlaceholder from '../../public/respondlyplaceholder.png';
 import { useMediaQuery } from "react-responsive";
 import Projects from "./Projects";
+import { ReactLenis, useLenis } from '@studio-freight/react-lenis'
 
 export default function Home() {
 
   const isLgScreen = useMediaQuery({minWidth: 768});
 
-  useEffect(() => {
+  /*useEffect(() => {
     const lenis = new Lenis({
       smoothWheel: true
     })
@@ -30,10 +31,10 @@ export default function Home() {
     })
 
     gsap.ticker.lagSmoothing(0)
-  }, [])
+  }, [])*/
 
   return (
-    <>
+    <ReactLenis root>
       <header className="h-[84px] relative z-20">
         <Welcome />
         <Nav />
@@ -64,6 +65,6 @@ export default function Home() {
           ]}
         />
       </main>
-    </>
+    </ReactLenis>
   );
 }
