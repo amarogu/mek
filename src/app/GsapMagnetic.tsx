@@ -13,8 +13,6 @@ interface E {
 
 export default function GsapMagnetic({children}: GsapMagneticProps) {
 
-    const [isTouchDevice, setIsTouchDevice] = useState(false);
-
     const ref = useRef<any>(null);
 
     useEffect(() => {
@@ -40,7 +38,6 @@ export default function GsapMagnetic({children}: GsapMagneticProps) {
     
         const listener = (event: MediaQueryListEvent) => {
             touchDevice = event.matches;
-            setIsTouchDevice(touchDevice);
             if (!touchDevice) {
                 ref.current.addEventListener('mousemove', mouseMove);
                 ref.current.addEventListener('mouseleave', mouseLeave);
@@ -49,9 +46,6 @@ export default function GsapMagnetic({children}: GsapMagneticProps) {
                 ref.current.removeEventListener('mouseleave', mouseLeave);
             }
         };
-    
-        // Set initial value
-        setIsTouchDevice(touchDevice);
     
         // Listen for changes
         mediaQueryList.addEventListener('change', listener);
