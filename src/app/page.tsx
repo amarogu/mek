@@ -9,6 +9,8 @@ import gsap from 'gsap';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import UniStay from '../../public/unistayplaceholder.jpeg';
+import PrettyChatPlaceholder from '../../public/prettychatplaceholder.png';
+import RespondlyPlaceholder from '../../public/respondlyplaceholder.png';
 import { useMediaQuery } from "react-responsive";
 import Projects from "./Projects";
 
@@ -50,13 +52,13 @@ export default function Home() {
             {
               title: 'PrettyChat',
               type: 'Web App',
-              image: <Image src={UniStay} alt="UniStay" />,
+              image: <Image src={PrettyChatPlaceholder} alt="UniStay" />,
               link: '/prettychat'
             },
             {
               title: 'Respondly',
               type: 'Web Site',
-              image: <Image src={UniStay} alt="UniStay" />,
+              image: <Image src={RespondlyPlaceholder} alt="UniStay" />,
               link: '/respondly'
             }
           ]}
