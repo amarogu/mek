@@ -24,7 +24,7 @@ export default function Projects({ projects }: ProjectsProps) {
     };
 
     return (
-        <section className="px-8 pb-24 container mx-auto">
+        <section id="projects" className="px-8 pb-24 container mx-auto">
             <div className="flex px-6 uppercase pb-6 sm:px-12 justify-between">
                 <p>name</p>
                 <p>type</p>

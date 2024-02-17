@@ -8,8 +8,11 @@ import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useMediaQuery } from 'react-responsive';
 import GustavoAmaroDesktop from '../../public/gustavo_amaro_desktop.svg';
+import { useLenis } from '@studio-freight/react-lenis'
 
 export default function Hero() {
+
+    const lenis = useLenis(({scroll}) => {});
 
     const [isHighEnoughState, setIsHighEnough] = useState(false);
     const [isMediumScreenState, setIsMediumScreen] = useState(false);
@@ -58,7 +61,7 @@ export default function Hero() {
                     ))}
                 </h1>
                 <div ref={sub} style={{transform: 'translateX(-100px)', opacity: 0}}>
-                    <button className='cursor-pointer flex gap-4 items-center'>
+                    <button className='cursor-pointer flex gap-4 items-center' onClick={() => {lenis?.scrollTo('#projects', {duration: 2})}} >
                         <Image src={ArrowForward} alt="Arrow Forward" />
                         <p className={`underline ${isHighEnoughState ? "text-2xl" : "text-xl"}`}>Check my projects</p>
                     </button>
