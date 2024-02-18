@@ -136,9 +136,13 @@ export default function Nav() {
                     <GsapMagnetic>
                         <button onClick={() => {
                             if (i === 0) {
-                                lenis?.scrollTo(0, {duration: 2});
+                                setTimeout(() => {
+                                    lenis?.scrollTo(0, {duration: 2});
+                                }, 300);
                             } else {
-                                lenis?.scrollTo(`#${name}`, {duration: 2, offset: -104});
+                                setTimeout(() => {
+                                    lenis?.scrollTo(`#${name}`, {duration: 2, offset: -104});
+                                }, 300);
                             }
                         }} onMouseEnter={() => handleMouseEnter(name)} onMouseLeave={() => handleMouseLeave(name)} className="inline-flex items-center gap-4">
                             <a className="capitalize">{name}</a>
