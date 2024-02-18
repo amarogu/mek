@@ -28,7 +28,7 @@ export default function Nav() {
 
     const lenis = useLenis(({scroll}) => {});
 
-    const buttonNames = ['Home', 'About', 'Projects', 'Contact'];
+    const buttonNames = ['home', 'about', 'projects', 'contact'];
 
     const [open, setOpen] = useState(false);
     const [isLangOpen, setLang] = useState<boolean>(false);
@@ -63,11 +63,11 @@ export default function Nav() {
     const [isScrolled, setIsScrolled] = useState(false);
 
     const handleMouseEnter = (name: string) => {
-        gsap.to(`#${name}`, {scale: 1, duration: 0.5});
+        gsap.to(`#button-${name}`, {scale: 1, duration: 0.5});
     }
 
     const handleMouseLeave = (name: string) => {
-        gsap.to(`#${name}`, {scale: 0, duration: 0.5});
+        gsap.to(`#button-${name}`, {scale: 0, duration: 0.5});
     }
 
     useEffect(() => {
@@ -130,12 +130,18 @@ export default function Nav() {
       </div>
       <animated.div style={{...sideBar, ...sideBarCircle}} className={`bg-bg-200 w-full -z-10 absolute top-0 sm:px-8 left-0 h-screen`}>
         <ul className={`text-3xl px-8 pt-[80px] flex flex-col gap-4 ${isScrolled ? "container mx-auto" : "max-w-[614px] sm:px-0 sm:mx-auto"}`}>  
-            {buttonNames.map(name => (
+            {buttonNames.map((name, i) => (
                 <li onClick={toggleMenu} key={name}>
                     <GsapMagnetic>
-                        <button onMouseEnter={() => handleMouseEnter(name)} onMouseLeave={() => handleMouseLeave(name)} className="inline-flex items-center gap-4">
-                            <a>{name}</a>
-                            <div id={name} style={{transform: 'scale(0)'}} className="w-2 h-2 rounded-full bg-text-200"></div>
+                        <button onClick={() => {
+                            if (i === 0) {
+                                lenis?.scrollTo(0, {duration: 2});
+                            } else {
+                                lenis?.scrollTo(`#${name}`, {duration: 2, offset: -104});
+                            }
+                        }} onMouseEnter={() => handleMouseEnter(name)} onMouseLeave={() => handleMouseLeave(name)} className="inline-flex items-center gap-4">
+                            <a className="capitalize">{name}</a>
+                            <div id={`button-${name}`} style={{transform: 'scale(0)'}} className="w-2 h-2 rounded-full bg-text-200"></div>
                         </button>
                     </GsapMagnetic>
                 </li>
