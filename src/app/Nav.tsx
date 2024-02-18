@@ -29,6 +29,7 @@ export default function Nav() {
     const lenis = useLenis(({scroll}) => {});
 
     const buttonNames = ['home', 'about', 'projects', 'contact'];
+    const languages = ['English', 'Português', 'Français', 'Italiano', 'Deutsch', 'Español'];
 
     const [open, setOpen] = useState(false);
     const [isLangOpen, setLang] = useState<boolean>(false);
@@ -150,12 +151,16 @@ export default function Nav() {
       </animated.div>
       <Collapsible icon={<Image src={Languages} alt="Languages" width={48} height={48} className="translate-y-1" />} title="Languages" open={isLangOpen}>
         <>
-            <li><a href="/">English</a></li>
-            <li><a href="/pt">Português</a></li>
-            <li><a href="/fr">Français</a></li>
-            <li><a href="/it">Italiano</a></li>
-            <li><a href="/de">Deutsch</a></li>
-            <li><a href="/es">Español</a></li>
+            {languages.map(language => (
+                <li onClick={toggleMenu} key={language}>
+                    <GsapMagnetic>
+                        <button onMouseEnter={() => handleMouseEnter(language)} onMouseLeave={() => handleMouseLeave(language)} className="inline-flex items-center gap-4">
+                            <a className="capitalize">{language}</a>
+                            <div id={`button-${language}`} style={{transform: 'scale(0)'}} className="w-2 h-2 rounded-full bg-text-200"></div>
+                        </button>
+                    </GsapMagnetic>
+                </li>
+            ))}
         </>
       </Collapsible>
     </animated.nav>
