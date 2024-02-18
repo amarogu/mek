@@ -31,7 +31,7 @@ export default function ProjectsIntro() {
                     <Image src={ArrowDownward} alt="Arrow Downward" />
                     <p className='text-2xl uppercase'>Scroll down</p>
                 </div>
-                <p className='text-3xl'>Below, you will see some projects of mine, that range from websites to iOS applications</p>
+                <p className='text-3xl'>I love <span className='font-bold'>engineering software</span>, that's my main game. My problem-solving mind enables me to come up with creative ideas and solutions.</p>
             </div>
         </section>
     )
