@@ -14,6 +14,7 @@ import RespondlyPlaceholder from '../../public/respondlyplaceholder.png';
 import { useMediaQuery } from "react-responsive";
 import Projects from "./Projects";
 import { ReactLenis, useLenis } from '@studio-freight/react-lenis'
+import Contact from "./Contact";
 
 export default function Home() {
 
@@ -64,6 +65,7 @@ export default function Home() {
             }
           ]}
         />
+        <Contact />
       </main>
     </ReactLenis>
   );
