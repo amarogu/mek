@@ -123,7 +123,7 @@ export default function FloatingWindow({ children, hoveredProjectId, projects }:
                 </div>
                 <div ref={viewRef} className="absolute top-0 w-full h-full flex items-center justify-center">
                     <div className="relative">
-                        <p ref={textRef} className="relative z-30">View</p>
+                        <p ref={textRef} className="relative text-base z-30">View</p>
                         <div ref={circleRef} className="bg-bg-100 absolute left-1/2 rounded-full top-1/2 -translate-x-1/2 -translate-y-1/2 w-[60px] h-[60px]"></div>
                     </div>
                 </div>

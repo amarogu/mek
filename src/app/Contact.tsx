@@ -25,7 +25,7 @@ export default function Contact() {
     useGSAP(() => {
         gsap.registerPlugin(ScrollTrigger);
         gsap.to(getInTouch.current, {
-            x: '-100%',
+            x: `-${getInTouch.current.clientWidth - window.innerWidth}px`,
             scrollTrigger: {
                 trigger: getInTouch.current,
                 start: 'bottom bottom',
