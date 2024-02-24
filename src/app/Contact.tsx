@@ -8,8 +8,6 @@ export default function Contact() {
     const ref = useRef<any>(null);
     const getInTouch = useRef<any>(null);
 
-    const scrollVariation = useRef(0);
-
     useGSAP(() => {
         gsap.registerPlugin(ScrollTrigger);
         gsap.to(getInTouch.current, {
@@ -20,10 +18,6 @@ export default function Contact() {
                 end: 'top top',
                 scrub: true,
                 markers: true,
-                onUpdate: self => {
-                    scrollVariation.current = window.scrollY - self.start;
-                    document.getElementById('spacer')!.style.height = `${scrollVariation.current}px`;
-                }
             }
         })
     }, [])
