@@ -41,6 +41,7 @@ export default function Home() {
         <Nav />
       </header>
       <main id="main" className="relative overflow-x-hidden">
+        <div id="spacer"></div>
         <Hero />
         <About />
         <Projects
