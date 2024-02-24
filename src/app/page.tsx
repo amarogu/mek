@@ -40,7 +40,7 @@ export default function Home() {
         <Welcome />
         <Nav />
       </header>
-      <main className="relative overflow-x-hidden">
+      <main id="main" className="relative overflow-x-hidden">
         <Hero />
         <About />
         <Projects

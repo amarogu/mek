@@ -13,11 +13,11 @@ export default function Contact() {
         gsap.to(getInTouch.current, {
             x: '-1972.12px',
             scrollTrigger: {
-                trigger: ref.current,
+                trigger: getInTouch.current,
                 start: 'top bottom-=200px',
                 end: 'bottom top',
+                markers: true,
                 scrub: true,
-                
             }
         })
     }, [])
