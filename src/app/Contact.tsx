@@ -10,12 +10,12 @@ export default function Contact() {
     const getInTouch = useRef<any>(null);
 
     // State to store the current time
-    const [time, setTime] = useState(new Date().toLocaleTimeString());
+    const [time, setTime] = useState(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
 
     // Effect to update the time every minute
     useEffect(() => {
         const timer = setInterval(() => {
-            setTime(new Date().toLocaleTimeString());
+            setTime(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
         }, 60000); // 60000 milliseconds = 1 minute
 
         // Cleanup function to clear the interval when the component unmounts
