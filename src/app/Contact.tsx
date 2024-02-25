@@ -11,11 +11,26 @@ interface ContactFieldProps {
     description: string;
 }
 
+interface Rect {
+    top: number;
+    right: number;
+    bottom: number;
+    left: number;
+    width: number;
+    height: number;
+    x: number;
+    y: number;
+}
+
 export default function Contact() {
 
     const getInTouch = useRef<any>(null);
     const data = useRef<any>(null);
     const container = useRef<any>(null);
+    const h2Container = useRef<any>(null);
+    const [rect, newRect] = useState<Rect>({top: 0, right: 0, bottom: 0, left: 0, width: 0, height: 0, x: 0, y: 0});
+    const [right, newRight] = useState<Number>(0);
+    const [toRight, newToRight] = useState<Number>(0); // negative
 
     // State to store the current time
     const [time, setTime] = useState(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Sao_Paulo' }));
@@ -50,6 +65,8 @@ export default function Contact() {
 
     // Effect to update the time every minute
     useEffect(() => {
+        newRect(h2Container.current.getBoundingClientRect());
+        newRight(rect.left);
 
         const timer = setInterval(() => {
             setTime(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Sao_Paulo' }));
@@ -62,6 +79,7 @@ export default function Contact() {
     }, []);
 
     useGSAP(() => {
+        console.log(rect, right);
         gsap.registerPlugin(ScrollTrigger);
         gsap.to(getInTouch.current, {
             right: '-1972.13px',
@@ -75,13 +93,13 @@ export default function Contact() {
                 pinSpacing: false,
             }
         });
-    }, [])
+    }, [rect, right])
 
     return (
         <section className="px-8 h-[300vh] relative container mx-auto">
             <div ref={container}>
-                <div className="w-fit">
-                    <h2 ref={getInTouch} className={`text-[12.5rem] text-nowrap leading-none`}>Need to get in touch?</h2>
+                <div ref={h2Container} className="w-full h-[200px]">
+                    <h2 ref={getInTouch} style={{right: `${right}px`}} className={`text-[12.5rem] absolute text-nowrap leading-none`}>Need to get in touch?</h2>
                 </div>
                 <div ref={data} className="grid grid-cols-2 pt-24 gap-y-12">
                     <div className="flex col-span-2 gap-9 items-center">
