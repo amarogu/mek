@@ -5,6 +5,12 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import GustavoAmaro from '../../public/gustavo_amaro_image.png';
 import Image from "next/image";
 
+interface ContactFieldProps {
+    id: string;
+    title: string;
+    description: string;
+}
+
 export default function Contact() {
 
     const getInTouch = useRef<any>(null);
@@ -12,20 +18,51 @@ export default function Contact() {
     // State to store the current time
     const [time, setTime] = useState(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Sao_Paulo' }));
 
+    const contactFields: ContactFieldProps[] = [
+        {
+            id: '01',
+            title: 'Please insert your name',
+            description: 'Johnny...'
+        },
+        {
+            id: '02',
+            title: 'Please type your email address',
+            description: 'johnny@...'
+        },
+        {
+            id: '03',
+            title: 'Your organization',
+            description: 'Johnny Inc.'
+        },
+        {
+            id: '04',
+            title: 'What service do you need?',
+            description: 'Website, web app, iOS platform...'
+        },
+        {
+            id: '05',
+            title: 'Leave your message',
+            description: 'Hi Gustavo, so I wanted you to develop a...'
+        }
+    ]
+
     // Effect to update the time every minute
     useEffect(() => {
+
         const timer = setInterval(() => {
             setTime(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Sao_Paulo' }));
         }, 60000); // 60000 milliseconds = 1 minute
 
         // Cleanup function to clear the interval when the component unmounts
-        return () => clearInterval(timer);
+        return () => {
+            clearInterval(timer);
+        };
     }, []);
 
     useGSAP(() => {
         gsap.registerPlugin(ScrollTrigger);
         gsap.to(getInTouch.current, {
-            x: `-${getInTouch.current.clientWidth - window.innerWidth}px`,
+            x: '-100%',
             scrollTrigger: {
                 trigger: getInTouch.current,
                 start: 'bottom bottom',
