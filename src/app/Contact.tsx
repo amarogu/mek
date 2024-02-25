@@ -74,14 +74,6 @@ export default function Contact() {
                 pinSpacing: false,
             }
         });
-        gsap.to(data.current, {
-            position: 'fixed',
-            scrollTrigger: {
-                trigger: getInTouch.current,
-                start: 'top-=104 top',
-                end: 'bottom+=200 top',
-            }
-        });
     }, [])
 
     return (
