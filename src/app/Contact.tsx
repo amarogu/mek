@@ -16,8 +16,6 @@ export default function Contact() {
     const getInTouch = useRef<any>(null);
     const data = useRef<any>(null);
 
-    const [windowWidth, setWindowWidth] = useState<number>(0);
-
     // State to store the current time
     const [time, setTime] = useState(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Sao_Paulo' }));
 
@@ -62,22 +60,45 @@ export default function Contact() {
         };
     }, []);
 
-    useEffect(() => {
-        setWindowWidth(window.innerWidth);
+    useGSAP(() => {
+        const tl = gsap.timeline({});
         gsap.registerPlugin(ScrollTrigger);
-        gsap.to(getInTouch.current, {
+        tl.to(getInTouch.current, {
             x: '-100%',
             scrollTrigger: {
                 trigger: getInTouch.current,
-                start: 'bottom bottom',
+                start: 'top top',
                 end: 'bottom top',
                 scrub: true,
+                pin: true,
+                markers: true,
+                pinSpacing: false,
+                onEnter: () => {
+                    data.current.style.position = 'fixed';
+                    data.current.style.top = '200px';
+                },
+                onLeave: () => {
+                    data.current.style.position = 'relative';
+                    gsap.to(data.current, {
+                        top: '0px'
+                    })
+                },
+                onLeaveBack: () => {
+                    data.current.style.position = 'relative';
+                    data.current.style.top = '0px';
+                },
+                onEnterBack: () => {
+                    data.current.style.position = 'fixed';
+                    gsap.to(data.current, {
+                        top: '200px'
+                    });
+                }
             }
         });
-    }, [windowWidth])
+    }, [])
 
     return (
-        <section className="px-8 container mx-auto">
+        <section className="px-8 h-[200vh] relative container mx-auto">
             <div className="w-fit">
                 <h2 ref={getInTouch} className={`text-[12.5rem] text-nowrap leading-none`}>Need to get in touch?</h2>
             </div>
