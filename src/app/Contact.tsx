@@ -16,6 +16,8 @@ export default function Contact() {
     const getInTouch = useRef<any>(null);
     const data = useRef<any>(null);
 
+    const [windowWidth, setWindowWidth] = useState<number>(0);
+
     // State to store the current time
     const [time, setTime] = useState(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Sao_Paulo' }));
 
@@ -60,7 +62,8 @@ export default function Contact() {
         };
     }, []);
 
-    useGSAP(() => {
+    useEffect(() => {
+        setWindowWidth(window.innerWidth);
         gsap.registerPlugin(ScrollTrigger);
         gsap.to(getInTouch.current, {
             x: '-100%',
@@ -70,13 +73,13 @@ export default function Contact() {
                 end: 'bottom top',
                 scrub: true,
             }
-        })
-    }, [])
+        });
+    }, [windowWidth])
 
     return (
         <section className="px-8 container mx-auto">
             <div className="w-fit">
-                <h2 ref={getInTouch} className={`sm:text-[12.5rem] text-9xl text-nowrap leading-none`}>Need to get in touch?</h2>
+                <h2 ref={getInTouch} className={`text-[12.5rem] text-nowrap leading-none`}>Need to get in touch?</h2>
             </div>
             <div ref={data} className="grid grid-cols-2 pt-24 gap-y-12">
                 <div className="flex col-span-2 gap-9 items-center">
