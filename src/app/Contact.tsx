@@ -15,6 +15,7 @@ export default function Contact() {
 
     const getInTouch = useRef<any>(null);
     const data = useRef<any>(null);
+    const container = useRef<any>(null);
 
     // State to store the current time
     const [time, setTime] = useState(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Sao_Paulo' }));
@@ -63,9 +64,9 @@ export default function Contact() {
     useGSAP(() => {
         gsap.registerPlugin(ScrollTrigger);
         gsap.to(getInTouch.current, {
-            x: '-100%',
+            right: '-1972.13px',
             scrollTrigger: {
-                trigger: getInTouch.current,
+                trigger: container.current,
                 start: 'top-=104 top',
                 end: 'bottom+=200 top',
                 scrub: true,
@@ -77,25 +78,27 @@ export default function Contact() {
     }, [])
 
     return (
-        <section className="px-8 h-[200vh] relative container mx-auto">
-            <div className="w-fit">
-                <h2 ref={getInTouch} className={`text-[12.5rem] text-nowrap leading-none`}>Need to get in touch?</h2>
-            </div>
-            <div ref={data} className="grid grid-cols-2 pt-24 gap-y-12">
-                <div className="flex col-span-2 gap-9 items-center">
-                    <Image src={GustavoAmaro} alt="Image of Gustavo in a warm colored background" className="rounded-full w-16 h-16" />
-                    <p className="text-4xl">Let&apos;s work together!</p>
+        <section className="px-8 h-[300vh] relative container mx-auto">
+            <div ref={container}>
+                <div className="w-fit">
+                    <h2 ref={getInTouch} className={`text-[12.5rem] text-nowrap leading-none`}>Need to get in touch?</h2>
                 </div>
-                <div className="flex flex-col gap-12 col-span-2 text-2xl">
-                    <div className="flex flex-col gap-6">
-                        <p className="text-xl">Contact details</p>
-                        <p>info@gustavoamaro.com</p>
-                        <p>+55 (19) 996698631</p>
+                <div ref={data} className="grid grid-cols-2 pt-24 gap-y-12">
+                    <div className="flex col-span-2 gap-9 items-center">
+                        <Image src={GustavoAmaro} alt="Image of Gustavo in a warm colored background" className="rounded-full w-16 h-16" />
+                        <p className="text-4xl">Let&apos;s work together!</p>
                     </div>
-                    <div className="flex flex-col gap-6">
-                        <p className="text-xl">Location and time</p>
-                        <p>Brazil, SP</p>
-                        <p>{time}</p> {/* Display the current time */}
+                    <div className="flex flex-col gap-12 col-span-2 text-2xl">
+                        <div className="flex flex-col gap-6">
+                            <p className="text-xl">Contact details</p>
+                            <p>info@gustavoamaro.com</p>
+                            <p>+55 (19) 996698631</p>
+                        </div>
+                        <div className="flex flex-col gap-6">
+                            <p className="text-xl">Location and time</p>
+                            <p>Brazil, SP</p>
+                            <p>{time}</p> {/* Display the current time */}
+                        </div>
                     </div>
                 </div>
             </div>
