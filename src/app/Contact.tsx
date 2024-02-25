@@ -61,38 +61,25 @@ export default function Contact() {
     }, []);
 
     useGSAP(() => {
-        const tl = gsap.timeline({});
         gsap.registerPlugin(ScrollTrigger);
-        tl.to(getInTouch.current, {
+        gsap.to(getInTouch.current, {
             x: '-100%',
             scrollTrigger: {
                 trigger: getInTouch.current,
-                start: 'top top',
-                end: 'bottom top',
+                start: 'top-=104 top',
+                end: 'bottom+=200 top',
                 scrub: true,
                 pin: true,
                 markers: true,
                 pinSpacing: false,
-                onEnter: () => {
-                    data.current.style.position = 'fixed';
-                    data.current.style.top = '200px';
-                },
-                onLeave: () => {
-                    data.current.style.position = 'relative';
-                    gsap.to(data.current, {
-                        top: '0px'
-                    })
-                },
-                onLeaveBack: () => {
-                    data.current.style.position = 'relative';
-                    data.current.style.top = '0px';
-                },
-                onEnterBack: () => {
-                    data.current.style.position = 'fixed';
-                    gsap.to(data.current, {
-                        top: '200px'
-                    });
-                }
+            }
+        });
+        gsap.to(data.current, {
+            position: 'fixed',
+            scrollTrigger: {
+                trigger: getInTouch.current,
+                start: 'top-=104 top',
+                end: 'bottom+=200 top',
             }
         });
     }, [])
