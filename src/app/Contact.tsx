@@ -14,6 +14,7 @@ interface ContactFieldProps {
 export default function Contact() {
 
     const getInTouch = useRef<any>(null);
+    const data = useRef<any>(null);
 
     // State to store the current time
     const [time, setTime] = useState(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Sao_Paulo' }));
@@ -75,9 +76,9 @@ export default function Contact() {
     return (
         <section className="px-8 container mx-auto">
             <div className="w-fit">
-                <h2 ref={getInTouch} className={`text-[12.5rem] text-nowrap leading-none`}>Need to get in touch?</h2>
+                <h2 ref={getInTouch} className={`sm:text-[12.5rem] text-9xl text-nowrap leading-none`}>Need to get in touch?</h2>
             </div>
-            <div className="grid grid-cols-2 pt-24 gap-y-12">
+            <div ref={data} className="grid grid-cols-2 pt-24 gap-y-12">
                 <div className="flex col-span-2 gap-9 items-center">
                     <Image src={GustavoAmaro} alt="Image of Gustavo in a warm colored background" className="rounded-full w-16 h-16" />
                     <p className="text-4xl">Let&apos;s work together!</p>
