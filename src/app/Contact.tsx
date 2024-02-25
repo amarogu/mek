@@ -66,7 +66,6 @@ export default function Contact() {
     // Effect to update the time every minute
     useEffect(() => {
         newRect(h2Container.current.getBoundingClientRect());
-        newRight(rect.left);
 
         const timer = setInterval(() => {
             setTime(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Sao_Paulo' }));
@@ -77,6 +76,10 @@ export default function Contact() {
             clearInterval(timer);
         };
     }, []);
+
+    useEffect(() => {
+        newRight(rect.left);
+    }, [rect]); // This hook depends on `rect`
 
     useGSAP(() => {
         console.log(rect, right);
