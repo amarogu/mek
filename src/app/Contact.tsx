@@ -4,6 +4,7 @@ import { useRef, useState, useEffect } from "react" // import useState and useEf
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import GustavoAmaro from '../../public/gustavo_amaro_image.png';
 import Image from "next/image";
+import ContactField from "./ContactField";
 
 interface ContactFieldProps {
     id: string;
@@ -77,7 +78,7 @@ export default function Contact() {
     }, [])
 
     return (
-        <section className="px-8 h-[300vh] relative container mx-auto">
+        <section className="px-8 h-[1000vh] relative container mx-auto">
             <div ref={container}>
                 <div ref={getInTouch} className="w-fit flex">
                     <h2 className={`text-[12.5rem] text-nowrap leading-none`}>Need to get in touch?</h2>
@@ -100,6 +101,15 @@ export default function Contact() {
                             <p>{time}</p> {/* Display the current time */}
                         </div>
                     </div>
+                    {contactFields.map((field, i) => {
+                        return (
+                            <>
+                                <div className="w-full h-[1px] col-span-2 bg-text-200"></div>
+                                <ContactField id={field.id} title={field.title} description={field.description} />
+                                {i === contactFields.length - 1 && <div className="w-full h-[1px] col-span-2 bg-text-200"></div>}
+                            </>
+                        )
+                    })}
                 </div>
             </div>
         </section>
