@@ -9,7 +9,7 @@ interface ContactFieldProps {
 }
 
 export default function ContactField({id, title, description, className, isTextBox}: ContactFieldProps) {
-    const inputRef = useRef<HTMLInputElement>(null);
+    const inputRef = useRef<HTMLElement>(null);
 
     const handleDivClick = () => {
         inputRef.current?.focus();
@@ -20,7 +20,7 @@ export default function ContactField({id, title, description, className, isTextB
             <p className="text-7xl w-[85px] shrink-0">{id}</p>
             <div className="flex flex-col gap-3">
                 <h3>{title}</h3>
-                {isTextBox ? <textarea placeholder={description} className={`placeholder:text-xl resize-none placeholder:text-text-200 text-xl outline-none w-full bg-transparent ${isTextBox && 'h-full'}`} /> : <input ref={inputRef} placeholder={description} className={`placeholder:text-xl placeholder:text-text-200 text-xl outline-none w-full bg-transparent`} />}
+                {isTextBox ? <textarea ref={inputRef as React.RefObject<HTMLTextAreaElement>} placeholder={description} className={`placeholder:text-xl resize-none placeholder:text-text-200 text-xl outline-none w-full bg-transparent ${isTextBox && 'h-full'}`} /> : <input ref={inputRef as React.RefObject<HTMLInputElement>} placeholder={description} className={`placeholder:text-xl placeholder:text-text-200 text-xl outline-none w-full bg-transparent`} />}
             </div>
         </div>
     )

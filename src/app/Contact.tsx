@@ -86,7 +86,7 @@ export default function Contact() {
                 </div>
                 <div ref={data} className="grid grid-cols-1 lg:gap-x-12 lg:grid-cols-2 pt-24 gap-y-12">
                     <div className="flex-col">
-                        <div className="flex flex-col gap-4 w-2/3 sm:w-1/2 md:w-full">
+                        <div className="flex flex-col gap-4 w-full">
                             <div className="flex gap-9 items-center">
                                 <Image src={GustavoAmaro} alt="Image of Gustavo in a warm colored background" className="rounded-full w-16 h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24" />
                                 <p className="text-4xl xl:text-5xl">Let&apos;s work together!</p>
