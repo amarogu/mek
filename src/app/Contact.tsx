@@ -25,6 +25,26 @@ export default function Contact() {
 
     const [isHovering, setIsHovering] = useState(false);
 
+    const [containerHeight, setContainerHeight] = useState(0);
+
+    useEffect(() => {
+        const resizeObserver = new ResizeObserver(entries => {
+            for (let entry of entries) {
+                setContainerHeight(entry.contentRect.height);
+            }
+        });
+    
+        if (container.current) {
+            resizeObserver.observe(container.current);
+        }
+    
+        // Cleanup function to disconnect the observer when the component unmounts
+        return () => {
+            resizeObserver.disconnect();
+        };
+    }, []); // Empty dependency array ensures this runs only on mount and unmount
+    
+
     // State to store the current time
     const [time, setTime] = useState(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Sao_Paulo' }));
 
@@ -76,10 +96,10 @@ export default function Contact() {
             scrollTrigger: {
                 trigger: container.current,
                 start: 'top-=104 top',
-                end: 'bottom+=200 top',
+                end: 'bottom top',
                 scrub: true,
                 pin: true,
-                pinSpacing: false,
+                pinSpacing: false
             }
         });
 
@@ -125,7 +145,7 @@ export default function Contact() {
     useChain([arrowSecond, arrowThird], [0, 0.2]);
 
     return (
-        <section id="contact" className="px-8 relative container mx-auto">
+        <section id="contact" className="px-8 relative container overflow-hidden mx-auto" style={{ height: `${containerHeight * 2 + 104}px` }}>
             <div ref={container}>
                 <div ref={getInTouch} className="w-fit flex">
                     <h2 className={`text-[12.5rem] text-nowrap leading-none`}>Need to get in touch?</h2>
