@@ -6,6 +6,7 @@ import GustavoAmaro from '../../public/gustavo_amaro_image.png';
 import Image from "next/image";
 import ContactField from "./ContactField";
 import ArrowFoward from "../../public/arrow_forward.svg";
+import { useSpring, animated, useChain, useSpringRef } from "@react-spring/web";
 
 interface ContactFieldProps {
     id: string;
@@ -19,8 +20,10 @@ export default function Contact() {
     const data = useRef<any>(null);
     const container = useRef<any>(null);
     const send = useRef<any>(null);
-    const arrowSecond = useRef<any>(null);
-    const arrowThird = useRef<any>(null);
+    const arrowSecond = useSpringRef();
+    const arrowThird = useSpringRef();
+
+    const [isHovering, setIsHovering] = useState(false);
 
     // State to store the current time
     const [time, setTime] = useState(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Sao_Paulo' }));
@@ -80,29 +83,12 @@ export default function Contact() {
             }
         });
 
-        let tl = gsap.timeline({})
         const handleMouseEnter = () => {
-            tl.to(arrowSecond.current, {
-                x: '-100%',
-                opacity: 0,
-                duration: 0.25
-            }).to(arrowThird.current, {
-                x: '-200%',
-                opacity: 0,
-                duration: 0.25
-            });
+            setIsHovering(true);
         }
 
         const handleMouseLeave = () => {
-            tl.to(arrowThird.current, {
-                x: '0%',
-                opacity: 0.5,
-                duration: 0.25
-            }).to(arrowSecond.current, {
-                x: '0%',
-                opacity: 0.75,
-                duration: 0.25
-            });
+            setIsHovering(false);
         }
 
         send.current.addEventListener('mouseenter', handleMouseEnter);
@@ -113,6 +99,30 @@ export default function Contact() {
             send.current.removeEventListener('mouseleave', handleMouseLeave);
         }
     }, [])
+
+    const arrowSecondSpring = useSpring({
+        ref: arrowSecond,
+        transform: isHovering ? "translateX(-100%)" : "translateX(0%)",
+        opacity: isHovering ? 0 : 0.75,
+        config: {
+            mass: 1,
+            tension: 180,
+            friction: 12
+        }
+    });
+
+    const arrowThirdSpring = useSpring({
+        ref: arrowThird,
+        transform: isHovering ? "translateX(-200%)" : "translateX(0%)",
+        opacity: isHovering ? 0 : 0.5,
+        config: {
+            mass: 1,
+            tension: 180,
+            friction: 12
+        }
+    });
+
+    useChain([arrowSecond, arrowThird], [0, 0.2]);
 
     return (
         <section className="px-8 h-[1000vh] relative container mx-auto">
@@ -158,8 +168,12 @@ export default function Contact() {
                             <p className="uppercase text-left">Send</p>
                             <div className="flex gap-1 items-center">
                                 <Image src={ArrowFoward} className="w-16 h-16 lg:w-24 lg:h-24" alt="Arrow pointing to the right" />
-                                <Image ref={arrowSecond} src={ArrowFoward} className="w-14 h-14 lg:w-20 lg:h-20 opacity-75" alt="Arrow pointing to the right" />
-                                <Image ref={arrowThird} src={ArrowFoward} className="w-12 h-12 lg:w-16 lg:h-16 opacity-50" alt="Arrow pointing to the right" />
+                                <animated.div style={{...arrowSecondSpring}}>
+                                    <Image src={ArrowFoward} className="w-14 h-14 lg:w-20 lg:h-20 opacity-75" alt="Arrow pointing to the right" />
+                                </animated.div>
+                                <animated.div style={{...arrowThirdSpring}}>
+                                    <Image src={ArrowFoward} className="w-12 h-12 lg:w-16 lg:h-16 opacity-50" alt="Arrow pointing to the right" />
+                                </animated.div>
                             </div>
                         </div>
                     </button>
