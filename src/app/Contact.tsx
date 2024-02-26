@@ -19,6 +19,9 @@ export default function Contact() {
     const getInTouch = useRef<any>(null);
     const data = useRef<any>(null);
     const container = useRef<any>(null);
+    const send = useRef<any>(null);
+    const arrowSecond = useRef<any>(null);
+    const arrowThird = useRef<any>(null);
 
     // State to store the current time
     const [time, setTime] = useState(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Sao_Paulo' }));
@@ -77,6 +80,39 @@ export default function Contact() {
                 pinSpacing: false,
             }
         });
+
+        let tl = gsap.timeline({})
+        const handleMouseEnter = () => {
+            tl.to(arrowSecond.current, {
+                x: '-100%',
+                opacity: 0,
+                duration: 0.25
+            }).to(arrowThird.current, {
+                x: '-200%',
+                opacity: 0,
+                duration: 0.25
+            });
+        }
+
+        const handleMouseLeave = () => {
+            tl.to(arrowThird.current, {
+                x: '0%',
+                opacity: 0.5,
+                duration: 0.25
+            }).to(arrowSecond.current, {
+                x: '0%',
+                opacity: 0.75,
+                duration: 0.25
+            });
+        }
+
+        send.current.addEventListener('mouseenter', handleMouseEnter);
+        send.current.addEventListener('mouseleave', handleMouseLeave);
+
+        return () => {
+            send.current.removeEventListener('mouseenter', handleMouseEnter);
+            send.current.removeEventListener('mouseleave', handleMouseLeave);
+        }
     }, [])
 
     return (
@@ -118,13 +154,13 @@ export default function Contact() {
                             </div>
                         )
                     })}
-                    <button className="lg:col-span-2">
+                    <button ref={send} className="lg:col-span-2">
                         <div className="flex text-7xl lg:text-[155px] gap-4 items-center">
                             <p className="uppercase text-left">Send</p>
                             <div className="flex gap-1 items-center">
                                 <Image src={ArrowFoward} className="w-16 h-16 lg:w-24 lg:h-24" alt="Arrow pointing to the right" />
-                                <Image src={ArrowFoward} className="w-14 h-14 lg:w-20 lg:h-20 opacity-75" alt="Arrow pointing to the right" />
-                                <Image src={ArrowFoward} className="w-12 h-12 lg:w-16 lg:h-16 opacity-50" alt="Arrow pointing to the right" />
+                                <Image ref={arrowSecond} src={ArrowFoward} className="w-14 h-14 lg:w-20 lg:h-20 opacity-75" alt="Arrow pointing to the right" />
+                                <Image ref={arrowThird} src={ArrowFoward} className="w-12 h-12 lg:w-16 lg:h-16 opacity-50" alt="Arrow pointing to the right" />
                             </div>
                         </div>
                     </button>
