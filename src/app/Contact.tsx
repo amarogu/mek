@@ -183,8 +183,8 @@ export default function Contact() {
                             </div>
                         )
                     })}
-                    <button ref={send} className="lg:col-span-2">
-                        <div className="flex text-7xl lg:text-[155px] gap-4 items-center">
+                    <button ref={send} className="lg:col-span-2 w-fit">
+                        <div className="flex text-7xl lg:text-[155px] gap-4 w-fit items-center">
                             <p className="uppercase text-left">Send</p>
                             <div className="flex gap-1 items-center">
                                 <Image src={ArrowFoward} className="w-16 h-16 lg:w-24 lg:h-24" alt="Arrow pointing to the right" />
