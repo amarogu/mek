@@ -125,7 +125,7 @@ export default function Contact() {
     useChain([arrowSecond, arrowThird], [0, 0.2]);
 
     return (
-        <section className="px-8 h-[1000vh] relative container mx-auto">
+        <section id="contact" className="px-8 relative container mx-auto">
             <div ref={container}>
                 <div ref={getInTouch} className="w-fit flex">
                     <h2 className={`text-[12.5rem] text-nowrap leading-none`}>Need to get in touch?</h2>
