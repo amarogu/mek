@@ -145,7 +145,7 @@ export default function Contact() {
     useChain([arrowSecond, arrowThird], [0, 0.2]);
 
     return (
-        <section id="contact" className="px-8 relative container overflow-hidden mx-auto" style={{ height: `${containerHeight * 2 + 104}px` }}>
+        <section id="contact" className="px-8 relative container mx-auto" style={{ height: `${containerHeight * 2 + 200}px` }}>
             <div ref={container}>
                 <div ref={getInTouch} className="w-fit flex">
                     <h2 className={`text-[12.5rem] text-nowrap leading-none`}>Need to get in touch?</h2>
