@@ -84,10 +84,10 @@ export default function Contact() {
                     <h2 className={`text-[12.5rem] text-nowrap leading-none`}>Need to get in touch?</h2>
                     <h2 className={`text-[12.5rem] text-nowrap leading-none`}> - Need to get in touch?</h2>
                 </div>
-                <div ref={data} className="grid grid-cols-2 md:grid-cols-3 pt-24 gap-y-12">
+                <div ref={data} className="grid grid-cols-2 md:grid-cols-3 pt-24 gap-y-12 gap-x-14">
                     <div className="flex col-span-2 md:col-span-1 gap-9 items-center md:items-start">
                         <Image src={GustavoAmaro} alt="Image of Gustavo in a warm colored background" className="rounded-full w-16 h-16" />
-                        <p className="text-4xl md:text-2xl lg:text-4xl">Let&apos;s work together!</p>
+                        <p className="text-4xl md:text-2xl lg:text-4xl xl:text-5xl">Let&apos;s work together!</p>
                     </div>
                     <div className="flex flex-col gap-6 col-span-2 text-2xl md:text-lg lg:text-2xl md:col-span-1">
                         <p className="text-xl md:text-base lg:text-xl">Contact details</p>
@@ -101,8 +101,8 @@ export default function Contact() {
                     </div>
                     {contactFields.map((field, i) => {
                         return (
-                            <div key={i} className="col-span-2 md:col-span-3">
-                                <ContactField id={field.id} title={field.title} description={field.description} className={`${i === contactFields.length - 1 ? 'border-y py-12' : 'border-t pt-12'} ${i === 0 && 'mt-12'}`} />
+                            <div key={i} className={`col-span-2 md:col-span-3 xl:col-span-2 ${i === contactFields.length - 1 && 'xl:col-span-1 xl:row-start-2 xl:col-start-3 xl:row-span-4 xl:h-full'}`}>
+                                <ContactField id={field.id} title={field.title} description={field.description} className={`${i === contactFields.length - 1 ? 'border-y py-12' : 'border-t pt-12'} ${i === 0 && 'mt-12 xl:mt-0'}`} />
                             </div>
                         )
                     })}
