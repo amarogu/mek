@@ -40,12 +40,12 @@ export default function Contact() {
         {
             id: '04',
             title: 'What service do you need?',
-            description: 'Website, web app, iOS platform...'
+            description: 'Website, web app...'
         },
         {
             id: '05',
             title: 'Leave your message',
-            description: 'Hi Gustavo, so I wanted you to develop a...'
+            description: 'Hi Gustavo, so I...'
         }
     ]
 
@@ -103,11 +103,9 @@ export default function Contact() {
                     </div>
                     {contactFields.map((field, i) => {
                         return (
-                            <>
-                                <div className="w-full h-[1px] col-span-2 bg-text-200"></div>
-                                <ContactField id={field.id} title={field.title} description={field.description} />
-                                {i === contactFields.length - 1 && <div className="w-full h-[1px] col-span-2 bg-text-200"></div>}
-                            </>
+                            <div key={i} className="col-span-2">
+                                <ContactField id={field.id} title={field.title} description={field.description} className={`${i === contactFields.length - 1 ? 'border-y py-12' : 'border-t pt-12'} ${i === 0 && 'mt-12'}`} />
+                            </div>
                         )
                     })}
                 </div>
