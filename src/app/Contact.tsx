@@ -89,17 +89,15 @@ export default function Contact() {
                         <Image src={GustavoAmaro} alt="Image of Gustavo in a warm colored background" className="rounded-full w-16 h-16" />
                         <p className="text-4xl md:text-2xl lg:text-4xl">Let&apos;s work together!</p>
                     </div>
-                    <div className="flex flex-col gap-12 col-span-2 md:flex-row md:justify-end lg:justify-start md:text-lg text-2xl lg:text-2xl">
-                        <div className="flex flex-col gap-6">
-                            <p className="text-xl md:text-base lg:text-xl">Contact details</p>
-                            <p>info@gustavoamaro.com</p>
-                            <p>+55 (19) 996698631</p>
-                        </div>
-                        <div className="flex flex-col gap-6">
-                            <p className="text-xl md:text-base lg:text-xl">Location and time</p>
-                            <p>Brazil, SP</p>
-                            <p>{time}</p> {/* Display the current time */}
-                        </div>
+                    <div className="flex flex-col gap-6 col-span-2 text-2xl md:text-lg lg:text-2xl md:col-span-1">
+                        <p className="text-xl md:text-base lg:text-xl">Contact details</p>
+                        <p>info@gustavoamaro.com</p>
+                        <p>+55 (19) 996698631</p>
+                    </div>
+                    <div className="flex flex-col gap-6 col-span-2 text-2xl md:text-lg lg:text-2xl md:col-span-1">
+                        <p className="text-xl md:text-base lg:text-xl">Location and time</p>
+                        <p>Brazil, SP</p>
+                        <p>{time}</p> {/* Display the current time */}
                     </div>
                     {contactFields.map((field, i) => {
                         return (
