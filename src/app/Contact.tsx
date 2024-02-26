@@ -84,25 +84,32 @@ export default function Contact() {
                     <h2 className={`text-[12.5rem] text-nowrap leading-none`}>Need to get in touch?</h2>
                     <h2 className={`text-[12.5rem] text-nowrap leading-none`}> - Need to get in touch?</h2>
                 </div>
-                <div ref={data} className="grid grid-cols-2 md:grid-cols-3 pt-24 gap-y-12 gap-x-14">
-                    <div className="flex col-span-2 md:col-span-1 gap-9 items-center md:items-start">
-                        <Image src={GustavoAmaro} alt="Image of Gustavo in a warm colored background" className="rounded-full w-16 h-16" />
-                        <p className="text-4xl md:text-2xl lg:text-4xl xl:text-5xl">Let&apos;s work together!</p>
+                <div ref={data} className="grid grid-cols-1 lg:gap-x-12 lg:grid-cols-2 pt-24 gap-y-12">
+                    <div className="flex-col">
+                        <div className="flex flex-col gap-4 w-2/3 sm:w-1/2 md:w-full">
+                            <div className="flex gap-9 items-center">
+                                <Image src={GustavoAmaro} alt="Image of Gustavo in a warm colored background" className="rounded-full w-16 h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24" />
+                                <p className="text-4xl xl:text-5xl">Let&apos;s work together!</p>
+                            </div>
+                            <p className="text-2xl">What do you have in mind for your next project?</p>
+                        </div>
                     </div>
-                    <div className="flex flex-col gap-6 col-span-2 text-2xl md:text-lg lg:text-2xl md:col-span-1">
-                        <p className="text-xl md:text-base lg:text-xl">Contact details</p>
-                        <p>info@gustavoamaro.com</p>
-                        <p>+55 (19) 996698631</p>
-                    </div>
-                    <div className="flex flex-col gap-6 col-span-2 text-2xl md:text-lg lg:text-2xl md:col-span-1">
-                        <p className="text-xl md:text-base lg:text-xl">Location and time</p>
-                        <p>Brazil, SP</p>
-                        <p>{time}</p> {/* Display the current time */}
+                    <div className="flex flex-col md:flex-row gap-12">
+                        <div className="flex flex-col gap-6 text-2xl lg:text-xl md:col-span-1">
+                            <p className="text-xl lg:text-lg">Contact details</p>
+                            <p>info@gustavoamaro.com</p>
+                            <p>+55 (19) 996698631</p>
+                        </div>
+                        <div className="flex flex-col gap-6 text-2xl lg:text-xl md:col-span-1">
+                            <p className="text-xl lg:text-lg">Location and time</p>
+                            <p>Brazil, SP</p>
+                            <p>{time}</p> {/* Display the current time */}
+                        </div>
                     </div>
                     {contactFields.map((field, i) => {
                         return (
-                            <div key={i} className={`col-span-2 md:col-span-3 xl:col-span-2 ${i === contactFields.length - 1 && 'xl:col-span-1 xl:row-start-2 xl:col-start-3 xl:row-span-4 xl:h-full'}`}>
-                                <ContactField id={field.id} title={field.title} description={field.description} className={`${i === contactFields.length - 1 ? 'border-y py-12' : 'border-t pt-12'} ${i === 0 && 'mt-12 xl:mt-0'}`} />
+                            <div key={i} className={`border-text-200 ${i === 0 ? 'border-y py-12' : 'border-b pb-12'} ${i === contactFields.length - 1 ? 'lg:row-start-2 lg:row-span-3 lg:col-start-2 lg:border-t lg:pt-12' : ''}`}>
+                                <ContactField id={field.id} title={field.title} description={field.description} className={``} isTextBox={i === contactFields.length - 1 ? true : false} />
                             </div>
                         )
                     })}

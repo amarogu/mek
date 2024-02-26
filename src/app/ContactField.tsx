@@ -5,9 +5,10 @@ interface ContactFieldProps {
     title: string;
     description: string;
     className?: string;
+    isTextBox?: boolean;
 }
 
-export default function ContactField({id, title, description, className}: ContactFieldProps) {
+export default function ContactField({id, title, description, className, isTextBox}: ContactFieldProps) {
     const inputRef = useRef<HTMLInputElement>(null);
 
     const handleDivClick = () => {
@@ -15,11 +16,11 @@ export default function ContactField({id, title, description, className}: Contac
     }
 
     return (
-        <div onClick={handleDivClick} className={`flex gap-9 border-text-200 ${className}`}>
+        <div onClick={handleDivClick} className={`flex gap-9 border-text-200 ${className} ${isTextBox ? 'h-full' : ''}`}>
             <p className="text-7xl w-[85px] shrink-0">{id}</p>
             <div className="flex flex-col gap-3">
                 <h3>{title}</h3>
-                <input ref={inputRef} type="name" placeholder={description} className="placeholder:text-xl placeholder:text-text-200 text-xl outline-none w-full bg-transparent" />
+                {isTextBox ? <textarea placeholder={description} className={`placeholder:text-xl resize-none placeholder:text-text-200 text-xl outline-none w-full bg-transparent ${isTextBox && 'h-full'}`} /> : <input ref={inputRef} placeholder={description} className={`placeholder:text-xl placeholder:text-text-200 text-xl outline-none w-full bg-transparent`} />}
             </div>
         </div>
     )
