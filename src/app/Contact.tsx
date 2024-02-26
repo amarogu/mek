@@ -5,6 +5,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import GustavoAmaro from '../../public/gustavo_amaro_image.png';
 import Image from "next/image";
 import ContactField from "./ContactField";
+import ArrowFoward from "../../public/arrow_forward.svg";
+import GsapMagnetic from "./GsapMagnetic";
 
 interface ContactFieldProps {
     id: string;
@@ -45,7 +47,7 @@ export default function Contact() {
         {
             id: '05',
             title: 'Leave your message',
-            description: 'Hi Gustavo, so I...'
+            description: 'Hi Gustavo, so I needed your help with...'
         }
     ]
 
@@ -89,9 +91,12 @@ export default function Contact() {
                         <div className="flex flex-col gap-4 w-full">
                             <div className="flex gap-9 items-center">
                                 <Image src={GustavoAmaro} alt="Image of Gustavo in a warm colored background" className="rounded-full w-16 h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24" />
-                                <p className="text-4xl xl:text-5xl">Let&apos;s work together!</p>
+                                <div className="flex flex-col gap-4">
+                                    <p className="text-4xl xl:text-5xl">Let&apos;s work together!</p>
+                                    <p className="text-2xl hidden lg:block">What do you have in mind for your next project?</p>
+                                </div>
                             </div>
-                            <p className="text-2xl">What do you have in mind for your next project?</p>
+                            <p className="text-2xl lg:hidden">What do you have in mind for your next project?</p>
                         </div>
                     </div>
                     <div className="flex flex-col md:flex-row gap-12">
@@ -108,11 +113,21 @@ export default function Contact() {
                     </div>
                     {contactFields.map((field, i) => {
                         return (
-                            <div key={i} className={`border-text-200 ${i === 0 ? 'border-y py-12' : 'border-b pb-12'} ${i === contactFields.length - 1 ? 'lg:row-start-2 lg:row-span-3 lg:col-start-2 lg:border-t lg:pt-12' : ''}`}>
+                            <div key={i} className={`border-text-200 ${i === 0 ? 'border-y py-12' : 'border-b pb-12'} lg:col-span-2`}>
                                 <ContactField id={field.id} title={field.title} description={field.description} className={``} isTextBox={i === contactFields.length - 1 ? true : false} />
                             </div>
                         )
                     })}
+                    <button className="lg:col-span-2">
+                        <div className="flex text-7xl lg:text-[155px] gap-4 items-center">
+                            <p className="uppercase text-left">Send</p>
+                            <div className="flex gap-1 items-center">
+                                <Image src={ArrowFoward} className="w-16 h-16 lg:w-24 lg:h-24" alt="Arrow pointing to the right" />
+                                <Image src={ArrowFoward} className="w-14 h-14 lg:w-20 lg:h-20 opacity-75" alt="Arrow pointing to the right" />
+                                <Image src={ArrowFoward} className="w-12 h-12 lg:w-16 lg:h-16 opacity-50" alt="Arrow pointing to the right" />
+                            </div>
+                        </div>
+                    </button>
                 </div>
             </div>
         </section>
