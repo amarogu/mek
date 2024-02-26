@@ -6,7 +6,6 @@ import GustavoAmaro from '../../public/gustavo_amaro_image.png';
 import Image from "next/image";
 import ContactField from "./ContactField";
 import ArrowFoward from "../../public/arrow_forward.svg";
-import GsapMagnetic from "./GsapMagnetic";
 
 interface ContactFieldProps {
     id: string;
