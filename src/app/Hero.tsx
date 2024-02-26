@@ -85,11 +85,11 @@ export default function Hero() {
                     ))}
                 </h1>
                 <div ref={sub} style={{transform: 'translateX(-100px)', opacity: 0}} className='w-fit cursor-pointer h-[32px] overflow-y-hidden' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-                    <button ref={subButton} className='flex gap-4 items-center' onClick={() => {lenis?.scrollTo('#projects', {duration: 2})}} >
+                    <button ref={subButton} className='flex gap-4 items-center' onClick={() => {lenis?.scrollTo('#projects', {duration: 2, offset: -104})}} >
                         <Image src={ArrowForward} alt="Arrow Forward" />
                         <p className={`underline underline-offset-4 ${isHighEnoughState ? "text-2xl" : "text-xl"}`}>Check my projects</p>
                     </button>
-                    <button ref={subButtonUnder} style={{transform: 'translateY(100%)', opacity: 0}} className='flex absolute top-0 gap-4 items-center' onClick={() => {lenis?.scrollTo('#projects', {duration: 2})}} >
+                    <button ref={subButtonUnder} style={{transform: 'translateY(100%)', opacity: 0}} className='flex absolute top-0 gap-4 items-center' onClick={() => {lenis?.scrollTo('#projects', {duration: 2, offset: -104})}} >
                         <Image src={ArrowForward} alt="Arrow Forward" />
                         <p className={`underline underline-offset-4 ${isHighEnoughState ? "text-2xl" : "text-xl"}`}>Check my projects</p>
                     </button>
