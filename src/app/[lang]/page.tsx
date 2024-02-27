@@ -14,9 +14,9 @@ import Footer from "./Footer";
 import { Locale } from "@/i18n.config";
 import { getDictionary } from "../../dictionaries";
 
-export default function Home({params: { lang }}: {params: {lang: Locale}}) {
+export default async function Home({params: { lang }}: {params: {lang: Locale}}) {
 
-  const dict = getDictionary(lang);
+  const { home, footer, nav } = await getDictionary(lang);
 
   return (
     <ReactLenis root>
@@ -26,7 +26,7 @@ export default function Home({params: { lang }}: {params: {lang: Locale}}) {
       </header>
       <main id="main" className="relative text-3xl overflow-x-hidden">
         <div id="spacer"></div>
-        <Hero />
+        <Hero dict={home.hero} />
         <About />
         <Projects
           projects={[

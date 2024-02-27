@@ -1,4 +1,3 @@
-'use client';
 import { useState, useEffect } from "react";
 import { useSpring, animated, useChain, useSpringRef } from "@react-spring/web";
 import GitHub from '../../../public/github.svg';

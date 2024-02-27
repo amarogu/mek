@@ -8,8 +8,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useMediaQuery } from 'react-responsive';
 import GustavoAmaroDesktop from '../../../public/gustavo_amaro_desktop.svg';
 import { useLenis } from '@studio-freight/react-lenis';
+import {type getDictionary} from "@/dictionaries";
 
-export default function Hero() {
+export default function Hero({ dict } : {dict: Awaited<ReturnType<typeof getDictionary>>["home"]["hero"]}) {
 
     const lenis = useLenis(({scroll}) => {});
 
