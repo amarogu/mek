@@ -13,7 +13,7 @@ import { ReactLenis, useLenis } from '@studio-freight/react-lenis'
 import Contact from "./Contact";
 import Footer from "./Footer";
 
-export default function Home() {
+export default function Home({params: {locale}}: {params: {locale: string}}) {
 
   const isLgScreen = useMediaQuery({minWidth: 768});
 

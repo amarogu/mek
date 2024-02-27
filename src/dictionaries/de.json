@@ -1,0 +1,78 @@
+{
+    "nav": {
+        "logo": "Coded by Amaro",
+        "langIcon": "Sprachen",
+        "menu": ["Startseite", "Über mich", "Projekte", "Kontakt"]
+    },
+    "hero": {
+        "h1": "Hallo an alle! Ich bin ein Softwareentwickler, Designer und... hmm, ein Macher von coolen Sachen.",
+        "sub": "Schau dir meine Projekte an"
+    },
+    "about": {
+        "desc": "Das bin ich",
+        "me": "Ich bin ein Absolvent in Systementwicklung. Und oh boy, liebe ich es zu kreieren! Fullstack ist meine Leidenschaft, aber wenn du mich fragst, was ich bevorzuge... Backend ist mein römisches Reich",
+        "projects": {
+            "title": "Projekte",
+            "scroll": "Scrollen Sie nach unten",
+            "desc": "Ich liebe es, Software zu entwickeln, das ist mein Hauptspiel. Mein problemlösendes Denken ermöglicht es mir, kreative Ideen und Lösungen zu entwickeln."
+        }
+    },
+    "projects": {
+        "name": "Name",
+        "type": "Typ",
+        "types": {
+            "ios": "iOS-App",
+            "web": "Web-App",
+            "website": "Website"
+        }
+    },
+    "contact": {
+        "slider": "Möchtest du in Kontakt treten?",
+        "sliderHelper": " - Möchtest du in Kontakt treten?",
+        "work": {
+            "title": "Lass uns zusammenarbeiten",
+            "desc": "Was hast du im Sinn für dein nächstes Projekt?"
+        },
+        "details": {
+            "contact": {
+                "title": "Kontaktdaten",
+                "email": "info@gustavoamaro.com",
+                "phone": "+55 (19)  996698631"
+            },
+            "loc": {
+                "title": "Standort und Zeit",
+                "loc": "Brasilien, SP",
+                "time": false
+            }
+        },
+        "fields": {
+            "01": {
+                "title": "Bitte gib deinen Namen ein",
+                "desc": "Johnny..."
+            },
+            "02": {
+                "title": "Bitte gib deine E-Mail-Adresse ein",
+                "desc": "johnny@..."
+            },
+            "03": {
+                "title": "Deine Organisation",
+                "desc": "Johnny Inc."
+            },
+            "04": {
+                "title": "Welche Dienstleistung benötigst du?",
+                "desc": "Website, Web-App..."
+            },
+            "05": {
+                "title": "Lass deine Nachricht",
+                "desc": "Hi Gustavo, ich brauche deine Hilfe bei..."
+            }
+        },
+        "button": "Senden"
+    },
+    "footer": {
+        "rights": "Coded by Amaro",
+        "loc": "Brasilien, SP",
+        "version": "Version",
+        "socials": "Sozialen Medien"
+    }
+}
