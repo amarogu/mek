@@ -1,8 +1,11 @@
 import GsapMagnetic from "./GsapMagnetic";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
+import { useLenis } from '@studio-freight/react-lenis';
 
 export default function Footer() {
+
+    const lenis = useLenis(({scroll}) => {});
 
     const data = ['Instagram', 'LinkedIn', 'GitHub']
 
@@ -19,7 +22,7 @@ export default function Footer() {
         <footer className="text-xl flex flex-col md:flex-row gap-20 md:gap-0 md:justify-between mb-12 px-8 container mx-auto">
             <div className="flex justify-between md:gap-10">
                 <div className="flex flex-col gap-3">
-                    <button className="text-left">
+                    <button className="text-left" onClick={() => {lenis?.scrollTo(0, {duration: 2})}}>
                         <p>&#169; Coded by Amaro </p>
                     </button>
                     <p>Brazil, SP</p>

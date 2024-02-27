@@ -54,7 +54,7 @@ export default function About() {
                         {isLgScreenState ? <Image src={ArrowBackward} className='-order-1' alt="Arrow Backward" /> : <Image src={ArrowUpward} alt="Arrow Backward" />}
                     </div>
                     <p className='text-3xl about-me-container'>
-                        {Array.from("I am systems developer graduate. And oh boy, do I love creating! Web apps, websites, iOS apps, backend development... uhmm, how's that called? Oh, yeah, fullstack").map((char, index) => (
+                        {Array.from("I am a systems developer graduate. And oh boy, do I love creating! Web apps, websites, iOS apps, backend development... uhmm, how's that called? Oh, yeah, fullstack").map((char, index) => (
                             <span className='about-me' style={{opacity: 0}} key={index}>{char}</span>
                         ))}
                     </p>
