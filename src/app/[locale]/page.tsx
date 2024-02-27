@@ -3,14 +3,10 @@ import Nav from "./Nav";
 import Hero from "./Hero";
 import About from "./About";
 import Welcome from "./Welcome";
-import Lenis from '@studio-freight/lenis'
-import { useEffect } from "react";
-import gsap from 'gsap';
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
-import UniStay from '../../public/unistayplaceholder.jpeg';
-import PrettyChatPlaceholder from '../../public/prettychatplaceholder.png';
-import RespondlyPlaceholder from '../../public/respondlyplaceholder.png';
+import UniStay from '../../../public/unistayplaceholder.jpeg';
+import PrettyChatPlaceholder from '../../../public/prettychatplaceholder.png';
+import RespondlyPlaceholder from '../../../public/respondlyplaceholder.png';
 import { useMediaQuery } from "react-responsive";
 import Projects from "./Projects";
 import { ReactLenis, useLenis } from '@studio-freight/react-lenis'

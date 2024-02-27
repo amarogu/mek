@@ -1,14 +1,13 @@
 'use client';
 import { useState, useEffect } from "react";
 import { useSpring, animated, useChain, useSpringRef } from "@react-spring/web";
-import GitHub from '../../public/github.svg';
-import LinkedIn from '../../public/linkedin.svg';
-import Language from '../../public/language.svg';
+import GitHub from '../../../public/github.svg';
+import LinkedIn from '../../../public/linkedin.svg';
+import Language from '../../../public/language.svg';
 import Image from "next/image";
-import ArrowBack from '../../public/arrow_back.svg';
 import GsapMagnetic from "./GsapMagnetic";
 import Collapsible from "./Collapsible";
-import Languages from '../../public/languages.svg';
+import Languages from '../../../public/languages.svg';
 import { useLenis } from '@studio-freight/react-lenis';
 import { gsap } from "gsap";
 
