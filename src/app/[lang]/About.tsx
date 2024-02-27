@@ -9,8 +9,9 @@ import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ProjectsIntro from './ProjectsIntro';
 import { useMediaQuery } from 'react-responsive';
+import { type getDictionary } from '@/dictionaries';
 
-export default function About() {
+export default function About({ dict } : {dict: Awaited<ReturnType<typeof getDictionary>>["home"]["about"]}) {
 
     const isLgScreen = useMediaQuery({minWidth: 768});
     const [isLgScreenState, setIsLgScreen] = useState(false);
@@ -50,16 +51,16 @@ export default function About() {
             <div className='lg:w-1/2'>
                 <div className='flex flex-col gap-6'>
                     <div className='flex text-2xl gap-3'>
-                        <p>That&apos;s me</p>
+                        <p>{dict.desc}</p>
                         {isLgScreenState ? <Image src={ArrowBackward} className='-order-1' alt="Arrow Backward" /> : <Image src={ArrowUpward} alt="Arrow Backward" />}
                     </div>
                     <p className='text-3xl about-me-container'>
-                        {Array.from("I am a systems developer graduate. And oh boy, do I love creating! Web apps, websites, iOS apps, backend development...").map((char, index) => (
+                        {Array.from(dict.me).map((char, index) => (
                             <span className='about-me' style={{opacity: 0}} key={index}>{char}</span>
                         ))}
                     </p>
                 </div>
-                <ProjectsIntro />
+                <ProjectsIntro dict={dict.projects} />
             </div>
         </section>
     )

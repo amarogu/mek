@@ -71,27 +71,18 @@ export default function Hero({ dict } : {dict: Awaited<ReturnType<typeof getDict
             <div className='flex flex-col gap-4 mx-auto'>
                 <h1 className={`${isHighEnoughState ? "text-5xl" : "text-3xl"} sm:max-w-[614px]`}>
                     {
-                    [
-                        "H", "i", " ", "e", "v", "e", "r", "y", "o", "n", "e", "!", " ",
-                        "I", " ", "a", "m", " ", "a", " ", "s", "o", "f", "t", "w", "a", "r", "e",
-                        " ", "e", "n", "g", "i", "n", "e", "e", "r", ",", " ",
-                        "d", "e", "s", "i", "g", "n", "e", "r", ",", " ",
-                        "a", "n", "d", "...", " ",
-                        "h", "m", "m", ",", " ",
-                        "a", " ", "c", "o", "o", "l", "-", "s", "t", "u", "f", "f", " ",
-                        "m", "a", "k", "e", "r", "."
-                    ].map((word, index) => (
+                    Array.from(dict.h1).map((word, index) => (
                         <span style={{opacity: 0}} className='key' key={index}>{word}</span>
                     ))}
                 </h1>
                 <div ref={sub} style={{transform: 'translateX(-100px)', opacity: 0}} className='w-fit cursor-pointer h-[32px] overflow-y-hidden' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                     <button ref={subButton} className='flex gap-4 items-center' onClick={() => {lenis?.scrollTo('#projects', {duration: 2, offset: -104})}} >
                         <Image src={ArrowForward} alt="Arrow Forward" />
-                        <p className={`underline underline-offset-4 ${isHighEnoughState ? "text-2xl" : "text-xl"}`}>Check my projects</p>
+                        <p className={`underline underline-offset-4 ${isHighEnoughState ? "text-2xl" : "text-xl"}`}>{dict.sub}</p>
                     </button>
                     <button ref={subButtonUnder} style={{transform: 'translateY(100%)', opacity: 0}} className='flex absolute top-0 gap-4 items-center' onClick={() => {lenis?.scrollTo('#projects', {duration: 2, offset: -104})}} >
                         <Image src={ArrowForward} alt="Arrow Forward" />
-                        <p className={`underline underline-offset-4 ${isHighEnoughState ? "text-2xl" : "text-xl"}`}>Check my projects</p>
+                        <p className={`underline underline-offset-4 ${isHighEnoughState ? "text-2xl" : "text-xl"}`}>{dict.sub}</p>
                     </button>
                 </div>
             </div>

@@ -27,7 +27,7 @@ export default async function Home({params: { lang }}: {params: {lang: Locale}})
       <main id="main" className="relative text-3xl overflow-x-hidden">
         <div id="spacer"></div>
         <Hero dict={home.hero} />
-        <About />
+        <About dict={home.about} />
         <Projects
           projects={[
             {
