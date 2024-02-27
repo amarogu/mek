@@ -7,29 +7,16 @@ import Image from "next/image";
 import UniStay from '../../../public/unistayplaceholder.jpeg';
 import PrettyChatPlaceholder from '../../../public/prettychatplaceholder.png';
 import RespondlyPlaceholder from '../../../public/respondlyplaceholder.png';
-import { useMediaQuery } from "react-responsive";
 import Projects from "./Projects";
-import { ReactLenis, useLenis } from '@studio-freight/react-lenis'
+import { ReactLenis } from '@studio-freight/react-lenis'
 import Contact from "./Contact";
 import Footer from "./Footer";
+import { Locale } from "@/i18n.config";
+import { getDictionary } from "../../dictionaries";
 
-export default function Home() {
+export default function Home({params: { lang }}: {params: {lang: Locale}}) {
 
-  const isLgScreen = useMediaQuery({minWidth: 768});
-
-  /*useEffect(() => {
-    const lenis = new Lenis({
-      smoothWheel: true
-    })
-
-    lenis.on('scroll', ScrollTrigger.update)
-
-    gsap.ticker.add((time)=>{
-      lenis.raf(time * 1000)
-    })
-
-    gsap.ticker.lagSmoothing(0)
-  }, [])*/
+  const dict = getDictionary(lang);
 
   return (
     <ReactLenis root>

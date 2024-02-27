@@ -1,4 +1,3 @@
-'use client';
 import { useRef, useEffect, useState } from 'react';
 import ArrowForward from '../../../public/arrow_forward.svg';
 import GustavoAmaro from '../../../public/gustavo_amaro.svg';
