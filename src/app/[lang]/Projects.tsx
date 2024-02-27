@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import FloatingWindow from "./FloatingWindow";
+import { type getDictionary } from '@/dictionaries';
 
 interface Project {
     title: string;
@@ -10,9 +11,10 @@ interface Project {
 
 interface ProjectsProps {
     projects: Project[];
+    dict: Awaited<ReturnType<typeof getDictionary>>["home"]["projects"];
 }
 
-export default function Projects({ projects }: ProjectsProps) {
+export default function Projects({ projects, dict }: ProjectsProps) {
     const [hoveredProjectId, setHoveredProjectId] = useState<string | null>(null);
 
     const handleMouseEnter = (projectIndex: number) => {
@@ -26,8 +28,8 @@ export default function Projects({ projects }: ProjectsProps) {
     return (
         <section id="projects" className="px-8 pb-24 container mx-auto">
             <div className="flex px-6 text-base uppercase pb-6 sm:px-12 justify-between">
-                <p>name</p>
-                <p>type</p>
+                <p>{dict.name}</p>
+                <p>{dict.type}</p>
             </div>
             <FloatingWindow projects={projects} hoveredProjectId={hoveredProjectId}>
                 <>

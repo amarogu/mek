@@ -29,23 +29,24 @@ export default async function Home({params: { lang }}: {params: {lang: Locale}})
         <Hero dict={home.hero} />
         <About dict={home.about} />
         <Projects
+          dict={home.projects}
           projects={[
             {
               title: 'UniStay',
-              type: 'iOS App',
+              type: home.projects.types.ios,
               image: <Image src={UniStay} alt="UniStay" />,
               link: '/unistay'
             },
             {
               title: 'PrettyChat',
-              type: 'Web App',
-              image: <Image src={PrettyChatPlaceholder} alt="UniStay" />,
+              type: home.projects.types.web,
+              image: <Image src={PrettyChatPlaceholder} alt="PrettyChat" />,
               link: '/prettychat'
             },
             {
               title: 'Respondly',
-              type: 'Web Site',
-              image: <Image src={RespondlyPlaceholder} alt="UniStay" />,
+              type: home.projects.types.website,
+              image: <Image src={RespondlyPlaceholder} alt="Respondly" />,
               link: '/respondly'
             }
           ]}
