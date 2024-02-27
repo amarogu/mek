@@ -4,70 +4,72 @@
         "langIcon": "Langues",
         "menu": ["Accueil", "À propos", "Projets", "Contact"]
     },
-    "hero": {
-        "h1": "Bonjour à tous ! Je suis un ingénieur logiciel, designer, et... hmm, un créateur de choses cool.",
-        "sub": "Vérifiez mes projets"
-    },
-    "about": {
-        "desc": "C'est moi",
-        "me": "Je suis un diplômé en développement de systèmes. Et oh boy, j'adore créer ! Le fullstack est ma passion, mais si vous me demandiez ce que j'aime le plus... le backend est un peu mon empire romain",
+    "home": {
+        "hero": {
+            "h1": "Bonjour à tous ! Je suis un ingénieur logiciel, designer, et... hmm, un créateur de choses cool.",
+            "sub": "Vérifiez mes projets"
+        },
+        "about": {
+            "desc": "C'est moi",
+            "me": "Je suis un diplômé en développement de systèmes. Et oh boy, j'adore créer ! Le fullstack est ma passion, mais si vous me demandiez ce que j'aime le plus... le backend est un peu mon empire romain",
+            "projects": {
+                "title": "Projets",
+                "scroll": "Faites défiler",
+                "desc": "J'adore l'ingénierie logicielle, c'est mon principal jeu. Mon esprit de résolution de problèmes me permet de venir à bout de idées et de solutions créatives."
+            }
+        },
         "projects": {
-            "title": "Projets",
-            "scroll": "Faites défiler",
-            "desc": "J'adore l'ingénierie logicielle, c'est mon principal jeu. Mon esprit de résolution de problèmes me permet de venir à bout de idées et de solutions créatives."
-        }
-    },
-    "projects": {
-        "name": "Nom",
-        "type": "Type",
-        "types": {
-            "ios": "Application iOS",
-            "web": "Application Web",
-            "website": "Site Web"
-        }
-    },
-    "contact": {
-        "slider": "Avez-vous besoin de me contacter ?",
-        "sliderHelper": " - Avez-vous besoin de me contacter ?",
-        "work": {
-            "title": "Travaillons ensemble",
-            "desc": "Qu'avez-vous à l'esprit pour votre prochain projet ?"
-        },
-        "details": {
-            "contact": {
-                "title": "Détails de contact",
-                "email": "info@gustavoamaro.com",
-                "phone": "+55 (19)  996698631"
-            },
-            "loc": {
-                "title": "Emplacement et heure",
-                "loc": "Brésil, SP",
-                "time": false
+            "name": "Nom",
+            "type": "Type",
+            "types": {
+                "ios": "Application iOS",
+                "web": "Application Web",
+                "website": "Site Web"
             }
         },
-        "fields": {
-            "01": {
-                "title": "Veuillez insérer votre nom",
-                "desc": "Johnny..."
+        "contact": {
+            "slider": "Avez-vous besoin de me contacter ?",
+            "sliderHelper": " - Avez-vous besoin de me contacter ?",
+            "work": {
+                "title": "Travaillons ensemble",
+                "desc": "Qu'avez-vous à l'esprit pour votre prochain projet ?"
             },
-            "02": {
-                "title": "Veuillez taper votre adresse e-mail",
-                "desc": "johnny@..."
+            "details": {
+                "contact": {
+                    "title": "Détails de contact",
+                    "email": "info@gustavoamaro.com",
+                    "phone": "+55 (19)  996698631"
+                },
+                "loc": {
+                    "title": "Emplacement et heure",
+                    "loc": "Brésil, SP",
+                    "time": false
+                }
             },
-            "03": {
-                "title": "Votre organisation",
-                "desc": "Johnny Inc."
+            "fields": {
+                "01": {
+                    "title": "Veuillez insérer votre nom",
+                    "desc": "Johnny..."
+                },
+                "02": {
+                    "title": "Veuillez taper votre adresse e-mail",
+                    "desc": "johnny@..."
+                },
+                "03": {
+                    "title": "Votre organisation",
+                    "desc": "Johnny Inc."
+                },
+                "04": {
+                    "title": "Quel service avez-vous besoin ?",
+                    "desc": "Site Web, application web..."
+                },
+                "05": {
+                    "title": "Laissez votre message",
+                    "desc": "Salut Gustavo, donc j'avais besoin de ton aide avec..."
+                }
             },
-            "04": {
-                "title": "Quel service avez-vous besoin ?",
-                "desc": "Site Web, application web..."
-            },
-            "05": {
-                "title": "Laissez votre message",
-                "desc": "Salut Gustavo, donc j'avais besoin de ton aide avec..."
-            }
-        },
-        "button": "Envoyer"
+            "button": "Envoyer"
+        }
     },
     "footer": {
         "rights": "Codé par Amaro",

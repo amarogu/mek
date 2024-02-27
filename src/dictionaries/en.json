@@ -4,70 +4,72 @@
         "langIcon": "Languages",
         "menu": ["Home", "About", "Projects", "Contact"]
     },
-    "hero": {
-        "h1": "Hi everyone! I am a software engineer, designer, and... hmm, a cool-stuff maker.",
-        "sub": "Check my projects"
-    },
-    "about": {
-        "desc": "That's me",
-        "me": "I am a systems developer graduate. And oh boy, do I love creating! Fullstack is my passion, but if you asked what I prefer... backend is kind of my roman empire",
+    "home": {
+        "hero": {
+            "h1": "Hi everyone! I am a software engineer, designer, and... hmm, a cool-stuff maker.",
+            "sub": "Check my projects"
+        },
+        "about": {
+            "desc": "That's me",
+            "me": "I am a systems developer graduate. And oh boy, do I love creating! Fullstack is my passion, but if you asked what I prefer... backend is kind of my roman empire",
+            "projects": {
+                "title": "Projects",
+                "scroll": "Scroll down",
+                "desc": "I love engineering software, that's my main game. My problem-solving mind enables me to come up with creative ideas and solutions."
+            }
+        },
         "projects": {
-            "title": "Projects",
-            "scroll": "Scroll down",
-            "desc": "I love engineering software, that's my main game. My problem-solving mind enables me to come up with creative ideas and solutions."
-        }
-    },
-    "projects": {
-        "name": "Name",
-        "type": "Type",
-        "types": {
-            "ios": "iOS app",
-            "web": "Web app",
-            "website": "Website"
-        }
-    },
-    "contact": {
-        "slider": "Need to get in touch?",
-        "sliderHelper": " - Need to get in touch?",
-        "work": {
-            "title": "Let's work together",
-            "desc": "What do you have in mind for your next project?"
-        },
-        "details": {
-            "contact": {
-                "title": "Contact details",
-                "email": "info@gustavoamaro.com",
-                "phone": "+55 (19) 996698631"
-            },
-            "loc": {
-                "title": "Location and time",
-                "loc": "Brazil, SP",
-                "time": false
+            "name": "Name",
+            "type": "Type",
+            "types": {
+                "ios": "iOS app",
+                "web": "Web app",
+                "website": "Website"
             }
         },
-        "fields": {
-            "01": {
-                "title": "Please insert your name",
-                "desc": "Johnny..."
+        "contact": {
+            "slider": "Need to get in touch?",
+            "sliderHelper": " - Need to get in touch?",
+            "work": {
+                "title": "Let's work together",
+                "desc": "What do you have in mind for your next project?"
             },
-            "02": {
-                "title": "Please type your email address",
-                "desc": "johnny@..."
+            "details": {
+                "contact": {
+                    "title": "Contact details",
+                    "email": "info@gustavoamaro.com",
+                    "phone": "+55 (19) 996698631"
+                },
+                "loc": {
+                    "title": "Location and time",
+                    "loc": "Brazil, SP",
+                    "time": false
+                }
             },
-            "03": {
-                "title": "Your organization",
-                "desc": "Johnny Inc."
+            "fields": {
+                "01": {
+                    "title": "Please insert your name",
+                    "desc": "Johnny..."
+                },
+                "02": {
+                    "title": "Please type your email address",
+                    "desc": "johnny@..."
+                },
+                "03": {
+                    "title": "Your organization",
+                    "desc": "Johnny Inc."
+                },
+                "04": {
+                    "title": "What service do you need?",
+                    "desc": "Website, web app..."
+                },
+                "05": {
+                    "title": "Leave your message",
+                    "desc": "Hi Gustavo, so I needed your help with..."
+                }
             },
-            "04": {
-                "title": "What service do you need?",
-                "desc": "Website, web app..."
-            },
-            "05": {
-                "title": "Leave your message",
-                "desc": "Hi Gustavo, so I needed your help with..."
-            }
-        },
-        "button": "Send"
+            "button": "Send"
+        }
     },
     "footer": {
         "rights": "Coded by Amaro",

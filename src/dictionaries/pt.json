@@ -4,70 +4,72 @@
         "langIcon": "Idiomas",
         "menu": ["Home", "Sobre", "Projetos", "Contato"]
     },
-    "hero": {
-        "h1": "Oi, muito prazer! Eu sou um engenheiro de software, designer, e... hmm, um cara que faz coisas legais.",
-        "sub": "Veja meus projetos"
-    },
-    "about": {
-        "desc": "Esse sou eu",
-        "me": "Sou formado em desenvolvimento de sistemas. Eu amo criar coisas! Fullstack é minha paixão, mas se for me perguntar o que eu prefiro... backend bem que alugou um triplex na minha cabeça.",
+    "home": {
+        "hero": {
+            "h1": "Oi, muito prazer! Eu sou um engenheiro de software, designer, e... hmm, um cara que faz coisas legais.",
+            "sub": "Veja meus projetos"
+        },
+        "about": {
+            "desc": "Esse sou eu",
+            "me": "Sou formado em desenvolvimento de sistemas. Eu amo criar coisas! Fullstack é minha paixão, mas se for me perguntar o que eu prefiro... backend bem que alugou um triplex na minha cabeça.",
+            "projects": {
+                "title": "Projetos",
+                "scroll": "Descubra mais",
+                "desc": "Eu amo desenvolver software, essa é a minha coisa. Minha mente dirigida à solução de problemas me permite ter ideias criativas e resolver os mais variados cenários."
+            }
+        },
         "projects": {
-            "title": "Projetos",
-            "scroll": "Descubra mais",
-            "desc": "Eu amo desenvolver software, essa é a minha coisa. Minha mente dirigida à solução de problemas me permite ter ideias criativas e resolver os mais variados cenários."
-        }
-    },
-    "projects": {
-        "name": "Nome",
-        "type": "Tipo",
-        "types": {
-            "ios": "App iOS",
-            "web": "App Web",
-            "website": "Website"
-        }
-    },
-    "contact": {
-        "slider": "Precisa falar comigo?",
-        "sliderHelper": " - Precisa falar comigo?",
-        "work": {
-            "title": "Vamos trabalhar juntos!",
-            "desc": "O que você tem em mente para seu próximo projeto?"
-        },
-        "details": {
-            "contact": {
-                "title": "Informações de contato",
-                "email": "info@gustavoamaro.com",
-                "phone": "+55 (19) 996698631"
-            },
-            "loc": {
-                "title": "Local e horário",
-                "loc": "Brasil, SP",
-                "time": false
+            "name": "Nome",
+            "type": "Tipo",
+            "types": {
+                "ios": "App iOS",
+                "web": "App Web",
+                "website": "Website"
             }
         },
-        "fields": {
-            "01": {
-                "title": "Por favor, insira seu nome",
-                "desc": "Pedro..."
+        "contact": {
+            "slider": "Precisa falar comigo?",
+            "sliderHelper": " - Precisa falar comigo?",
+            "work": {
+                "title": "Vamos trabalhar juntos!",
+                "desc": "O que você tem em mente para seu próximo projeto?"
             },
-            "02": {
-                "title": "Por favor, digite seu endereço de email",
-                "desc": "pedro@..."
+            "details": {
+                "contact": {
+                    "title": "Informações de contato",
+                    "email": "info@gustavoamaro.com",
+                    "phone": "+55 (19) 996698631"
+                },
+                "loc": {
+                    "title": "Local e horário",
+                    "loc": "Brasil, SP",
+                    "time": false
+                }
             },
-            "03": {
-                "title": "Sua organização",
-                "desc": "Pedro Inc."
+            "fields": {
+                "01": {
+                    "title": "Por favor, insira seu nome",
+                    "desc": "Pedro..."
+                },
+                "02": {
+                    "title": "Por favor, digite seu endereço de email",
+                    "desc": "pedro@..."
+                },
+                "03": {
+                    "title": "Sua organização",
+                    "desc": "Pedro Inc."
+                },
+                "04": {
+                    "title": "De qual tipo de serviço você precisa?",
+                    "desc": "Website, web app..."
+                },
+                "05": {
+                    "title": "Deixe sua mensagem",
+                    "desc": "Oi Gustavo, então, eu precisava da sua ajuda com..."
+                }
             },
-            "04": {
-                "title": "De qual tipo de serviço você precisa?",
-                "desc": "Website, web app..."
-            },
-            "05": {
-                "title": "Deixe sua mensagem",
-                "desc": "Oi Gustavo, então, eu precisava da sua ajuda com..."
-            }
-        },
-        "button": "Enviar"
+            "button": "Enviar"
+        }
     },
     "footer": {
         "rights": "Criado por Amaro",
