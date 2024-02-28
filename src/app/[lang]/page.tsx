@@ -13,10 +13,21 @@ import Contact from "./Contact";
 import Footer from "./Footer";
 import { Locale } from "@/i18n.config";
 import { getDictionary } from "../../dictionaries";
+import { useEffect, useState } from "react";
 
-export default async function Home({params: { lang }}: {params: {lang: Locale}}) {
+export default function Home({params: { lang }}: {params: {lang: Locale}}) {
 
-  const { home, footer, nav } = await getDictionary(lang);
+  const [dict, setDict] = useState<Awaited<ReturnType<typeof getDictionary>>>();
+
+  useEffect(() => {
+    const dictHelper = async () => {
+      const dictionary = await getDictionary(lang);
+      return dictionary;
+    }
+    dictHelper().then(setDict);
+  }, [dict]);
+
+  if (!dict) return ;
 
   return (
     <ReactLenis root>
@@ -26,26 +37,26 @@ export default async function Home({params: { lang }}: {params: {lang: Locale}})
       </header>
       <main id="main" className="relative text-3xl overflow-x-hidden">
         <div id="spacer"></div>
-        <Hero dict={home.hero} />
-        <About dict={home.about} />
+        <Hero dict={dict.home.hero} />
+        <About dict={dict.home.about} />
         <Projects
-          dict={home.projects}
+          dict={dict.home.projects}
           projects={[
             {
               title: 'UniStay',
-              type: home.projects.types.ios,
+              type: dict.home.projects.types.ios,
               image: <Image src={UniStay} alt="UniStay" />,
               link: '/unistay'
             },
             {
               title: 'PrettyChat',
-              type: home.projects.types.web,
+              type: dict.home.projects.types.web,
               image: <Image src={PrettyChatPlaceholder} alt="PrettyChat" />,
               link: '/prettychat'
             },
             {
               title: 'Respondly',
-              type: home.projects.types.website,
+              type: dict.home.projects.types.website,
               image: <Image src={RespondlyPlaceholder} alt="Respondly" />,
               link: '/respondly'
             }
