@@ -151,7 +151,7 @@ export default function Contact({ dict, menu } : ContactProps) {
     useChain([arrowSecond, arrowThird], [0, 0.2]);
 
     return (
-        <section id={menu[0o3].toLowerCase().replace(/\s/g, "-")} className="px-8 relative container mx-auto" style={{ height: `${containerHeight * 2 + 200}px` }}>
+        <section id={menu[3].toLowerCase().replace(/\s/g, "-")} className="px-8 relative container mx-auto" style={{ height: `${containerHeight * 2 + 200}px` }}>
             <div ref={container}>
                 <div ref={getInTouch} className="w-fit flex">
                     <h2 className={`text-[12.5rem] text-nowrap leading-none`}>{dict.slider}</h2>

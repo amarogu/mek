@@ -27,7 +27,7 @@ export default function Projects({ projects, dict, menu }: ProjectsProps) {
     };
 
     return (
-        <section id={menu[0o2].toLowerCase().replace(/\s/g, "-")} className="px-8 pb-24 container mx-auto">
+        <section id={menu[2].toLowerCase().replace(/\s/g, "-")} className="px-8 pb-24 container mx-auto">
             <div className="flex px-6 text-base uppercase pb-6 sm:px-12 justify-between">
                 <p>{dict.name}</p>
                 <p>{dict.type}</p>

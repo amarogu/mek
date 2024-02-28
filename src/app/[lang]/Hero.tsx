@@ -72,7 +72,7 @@ export default function Hero({ dict, menu } : HeroProps) {
     }
 
     return (
-        <section id={menu[0o0].toLowerCase().replace(/\s/g, "-")} className="flex min-h-[600px] flex-col gap-24 h-[calc(100svh-84px)] items-start justify-center px-8">
+        <section id={menu[0].toLowerCase().replace(/\s/g, "-")} className="flex min-h-[600px] flex-col gap-24 h-[calc(100svh-84px)] items-start justify-center px-8">
             <div className='flex flex-col gap-4 mx-auto'>
                 <h1 className={`${isHighEnoughState ? "text-5xl" : "text-3xl"} sm:max-w-[614px]`}>
                     {
@@ -81,11 +81,11 @@ export default function Hero({ dict, menu } : HeroProps) {
                     ))}
                 </h1>
                 <div ref={sub} style={{transform: 'translateX(-100px)', opacity: 0}} className='w-fit cursor-pointer h-[32px] overflow-y-hidden' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-                    <button ref={subButton} className='flex gap-4 items-center' onClick={() => {lenis?.scrollTo('#projects', {duration: 2, offset: -104})}} >
+                    <button ref={subButton} className='flex gap-4 items-center' onClick={() => {lenis?.scrollTo(`#${menu[2].toLowerCase().replace(/\s/g, "-")}`, {duration: 2, offset: -104})}} >
                         <Image src={ArrowForward} alt="Arrow Forward" />
                         <p className={`underline underline-offset-4 ${isHighEnoughState ? "text-2xl" : "text-xl"}`}>{dict.sub}</p>
                     </button>
-                    <button ref={subButtonUnder} style={{transform: 'translateY(100%)', opacity: 0}} className='flex absolute top-0 gap-4 items-center' onClick={() => {lenis?.scrollTo('#projects', {duration: 2, offset: -104})}} >
+                    <button ref={subButtonUnder} style={{transform: 'translateY(100%)', opacity: 0}} className='flex absolute top-0 gap-4 items-center' onClick={() => {lenis?.scrollTo(`#${menu[2].toLowerCase().replace(/\s/g, "-")}`, {duration: 2, offset: -104})}} >
                         <Image src={ArrowForward} alt="Arrow Forward" />
                         <p className={`underline underline-offset-4 ${isHighEnoughState ? "text-2xl" : "text-xl"}`}>{dict.sub}</p>
                     </button>

@@ -51,7 +51,7 @@ export default function About({ dict, menu } : AboutProps) {
     }, [])
 
     return (
-        <section id={menu[0o1].toLowerCase().replace(/\s/g, "-")} className='flex flex-col container mx-auto md:flex-row justify-between gap-8 pb-24 px-8'>
+        <section id={menu[1].toLowerCase().replace(/\s/g, "-")} className='flex flex-col container mx-auto md:flex-row justify-between gap-8 pb-24 px-8'>
             <Image ref={ref} src={GustavoAmaro} className={`md:object-cover md:object-[25%]`} style={{clipPath: 'inset(30%)'}} alt="Gustavo Amaro" />
             <div className='lg:w-1/2'>
                 <div className='flex flex-col gap-6'>
