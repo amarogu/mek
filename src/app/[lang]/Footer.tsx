@@ -26,7 +26,7 @@ export default function Footer({ dict } : {dict: Awaited<ReturnType<typeof getDi
                     <button className="text-left" onClick={() => {lenis?.scrollTo(0, {duration: 2})}}>
                         <p>&#169; {dict.rights} </p>
                     </button>
-                    <p>{dict.loc}P</p>
+                    <p>{dict.loc}</p>
                 </div>
                 <div className="flex gap-3 flex-col">
                     <p>{dict.version}</p>

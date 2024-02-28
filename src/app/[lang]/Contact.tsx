@@ -15,7 +15,12 @@ interface ContactFieldProps {
     description: string;
 }
 
-export default function Contact({ dict } : {dict: Awaited<ReturnType<typeof getDictionary>>["home"]["contact"]}) {
+interface ContactProps {
+    dict: Awaited<ReturnType<typeof getDictionary>>["home"]["contact"];
+    menu: Awaited<ReturnType<typeof getDictionary>>["nav"]["menu"];
+}
+
+export default function Contact({ dict, menu } : ContactProps) {
 
     const getInTouch = useRef<any>(null);
     const data = useRef<any>(null);
@@ -93,7 +98,7 @@ export default function Contact({ dict } : {dict: Awaited<ReturnType<typeof getD
     useGSAP(() => {
         gsap.registerPlugin(ScrollTrigger);
         gsap.to(getInTouch.current, {
-            x: '-1972.13px',
+            x: '-50%',
             scrollTrigger: {
                 trigger: container.current,
                 start: 'top-=104 top',
@@ -146,7 +151,7 @@ export default function Contact({ dict } : {dict: Awaited<ReturnType<typeof getD
     useChain([arrowSecond, arrowThird], [0, 0.2]);
 
     return (
-        <section id="contact" className="px-8 relative container mx-auto" style={{ height: `${containerHeight * 2 + 200}px` }}>
+        <section id={menu[0o3].toLowerCase().replace(/\s/g, "-")} className="px-8 relative container mx-auto" style={{ height: `${containerHeight * 2 + 200}px` }}>
             <div ref={container}>
                 <div ref={getInTouch} className="w-fit flex">
                     <h2 className={`text-[12.5rem] text-nowrap leading-none`}>{dict.slider}</h2>
@@ -185,15 +190,15 @@ export default function Contact({ dict } : {dict: Awaited<ReturnType<typeof getD
                         )
                     })}
                     <button ref={send} className="lg:col-span-2 w-fit">
-                        <div className="flex text-7xl lg:text-[155px] gap-4 w-fit items-center">
-                            <p className="uppercase text-left">Send</p>
-                            <div className="flex gap-1 items-center">
-                                <Image src={ArrowFoward} className="w-16 h-16 lg:w-24 lg:h-24" alt="Arrow pointing to the right" />
+                        <div className={`flex ${dict.button.length > 4 ? "text-5xl" : "text-7xl"} lg:text-[155px] gap-4 w-fit items-center`}>
+                            <p className="uppercase text-left">{dict.button}</p>
+                            <div className={`flex gap-1 items-center ${dict.button.length > 6 ? 'hidden sm:flex' : ''}`}>
+                                <Image src={ArrowFoward} className={`${dict.button.length > 4 ? 'w-14 h-14 lg:w-20 lg:h-20' : 'w-16 h-16 lg:w-24 lg:h-24'}`} alt="Arrow pointing to the right" />
                                 <animated.div style={{...arrowSecondSpring}}>
-                                    <Image src={ArrowFoward} className="w-14 h-14 lg:w-20 lg:h-20 opacity-75" alt="Arrow pointing to the right" />
+                                    <Image src={ArrowFoward} className={`${dict.button.length > 4 ? 'w-12 h-12 lg:w-16 lg:h-16' : 'w-14 h-14 lg:w-20 lg:h-20'} opacity-75`} alt="Arrow pointing to the right" />
                                 </animated.div>
                                 <animated.div style={{...arrowThirdSpring}}>
-                                    <Image src={ArrowFoward} className="w-12 h-12 lg:w-16 lg:h-16 opacity-50" alt="Arrow pointing to the right" />
+                                    <Image src={ArrowFoward} className={`${dict.button.length > 4 ? 'w-10 h-10 lg:w-12 lg:h-12' : 'w-12 h-12 lg:w-16 lg:h-16'} opacity-50`} alt="Arrow pointing to the right" />
                                 </animated.div>
                             </div>
                         </div>

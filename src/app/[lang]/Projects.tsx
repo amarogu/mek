@@ -12,9 +12,10 @@ interface Project {
 interface ProjectsProps {
     projects: Project[];
     dict: Awaited<ReturnType<typeof getDictionary>>["home"]["projects"];
+    menu: Awaited<ReturnType<typeof getDictionary>>["nav"]["menu"];
 }
 
-export default function Projects({ projects, dict }: ProjectsProps) {
+export default function Projects({ projects, dict, menu }: ProjectsProps) {
     const [hoveredProjectId, setHoveredProjectId] = useState<string | null>(null);
 
     const handleMouseEnter = (projectIndex: number) => {
@@ -26,7 +27,7 @@ export default function Projects({ projects, dict }: ProjectsProps) {
     };
 
     return (
-        <section id="projects" className="px-8 pb-24 container mx-auto">
+        <section id={menu[0o2].toLowerCase().replace(/\s/g, "-")} className="px-8 pb-24 container mx-auto">
             <div className="flex px-6 text-base uppercase pb-6 sm:px-12 justify-between">
                 <p>{dict.name}</p>
                 <p>{dict.type}</p>

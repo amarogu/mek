@@ -9,6 +9,7 @@ import Collapsible from "./Collapsible";
 import Languages from '../../../public/languages.svg';
 import { useLenis } from '@studio-freight/react-lenis';
 import { gsap } from "gsap";
+import { type getDictionary } from "@/dictionaries";
 
 interface Config {
     mass: number;
@@ -22,11 +23,11 @@ const config: Config = {
     friction: 12
 }
 
-export default function Nav() {
+export default function Nav({ dict } : {dict: Awaited<ReturnType<typeof getDictionary>>["nav"]}) {
 
     const lenis = useLenis(({scroll}) => {});
 
-    const buttonNames = ['home', 'about', 'projects', 'contact'];
+    const buttonNames = dict.menu;
     const languages = ['English', 'Português', 'Français', 'Italiano', 'Deutsch', 'Español'];
 
     const [open, setOpen] = useState(false);
@@ -62,11 +63,11 @@ export default function Nav() {
     const [isScrolled, setIsScrolled] = useState(false);
 
     const handleMouseEnter = (name: string) => {
-        gsap.to(`#button-${name}`, {scale: 1, duration: 0.5});
+        gsap.to(`#button-${name.toLowerCase().replace(/\s/g, "-")}`, {scale: 1, duration: 0.5});
     }
 
     const handleMouseLeave = (name: string) => {
-        gsap.to(`#button-${name}`, {scale: 0, duration: 0.5});
+        gsap.to(`#button-${name.toLowerCase().replace(/\s/g, "-")}`, {scale: 0, duration: 0.5});
     }
 
     useEffect(() => {
@@ -106,7 +107,7 @@ export default function Nav() {
                 </div>
             </button> 
             <button className="cursor-pointer" onClick={() => {lenis?.scrollTo(0, {duration: 2})}}>
-                <p className="text-xl">&#169; Coded by Amaro </p>
+                <p className="text-xl">&#169; {dict.logo} </p>
             </button>
         </div>
         <div className="flex gap-2">
@@ -122,7 +123,7 @@ export default function Nav() {
             </GsapMagnetic>
             <GsapMagnetic>
                 <button onClick={toggleLang}>
-                    <Image src={Language} alt="Language" width={20} height={20} />
+                    <Image src={Language} alt={dict.langIcon} width={20} height={20} />
                 </button>
             </GsapMagnetic>
         </div>
@@ -139,12 +140,12 @@ export default function Nav() {
                                 }, 300);
                             } else {
                                 setTimeout(() => {
-                                    lenis?.scrollTo(`#${name}`, {duration: 2, offset: -104});
+                                    lenis?.scrollTo(`#${name.toLowerCase().replace(/\s/g, "-")}`, {duration: 2, offset: -104});
                                 }, 300);
                             }
                         }} onMouseEnter={() => handleMouseEnter(name)} onMouseLeave={() => handleMouseLeave(name)} className="inline-flex items-center gap-4">
                             <a className="capitalize">{name}</a>
-                            <div id={`button-${name}`} style={{transform: 'scale(0)'}} className="w-2 h-2 rounded-full bg-text-200"></div>
+                            <div id={`button-${name.toLowerCase().replace(/\s/g, "-")}`} style={{transform: 'scale(0)'}} className="w-2 h-2 rounded-full bg-text-200"></div>
                         </button>
                     </GsapMagnetic>
                 </li>

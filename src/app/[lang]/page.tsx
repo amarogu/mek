@@ -17,7 +17,7 @@ import { useEffect, useState } from "react";
 
 export default function Home({params: { lang }}: {params: {lang: Locale}}) {
 
-  const [dict, setDict] = useState<Awaited<ReturnType<typeof getDictionary>>>();
+  const [dict, setDict] = useState<Awaited<ReturnType<typeof getDictionary>> | null>(null);
 
   useEffect(() => {
     const dictHelper = async () => {
@@ -33,14 +33,15 @@ export default function Home({params: { lang }}: {params: {lang: Locale}}) {
     <ReactLenis root>
       <header className="h-[84px] relative z-20">
         <Welcome />
-        <Nav />
+        <Nav dict={dict.nav} />
       </header>
       <main id="main" className="relative text-3xl overflow-x-hidden">
         <div id="spacer"></div>
-        <Hero dict={dict.home.hero} />
-        <About dict={dict.home.about} />
+        <Hero dict={dict.home.hero} menu={dict.nav.menu} />
+        <About dict={dict.home.about} menu={dict.nav.menu} />
         <Projects
           dict={dict.home.projects}
+          menu={dict.nav.menu}
           projects={[
             {
               title: 'UniStay',
@@ -62,7 +63,7 @@ export default function Home({params: { lang }}: {params: {lang: Locale}}) {
             }
           ]}
         />
-        <Contact dict={dict.home.contact} />
+        <Contact menu={dict.nav.menu} dict={dict.home.contact} />
         <Footer dict={dict.footer} />
       </main>
     </ReactLenis>

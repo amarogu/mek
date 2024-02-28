@@ -10,7 +10,12 @@ import GustavoAmaroDesktop from '../../../public/gustavo_amaro_desktop.svg';
 import { useLenis } from '@studio-freight/react-lenis';
 import {type getDictionary} from "@/dictionaries";
 
-export default function Hero({ dict } : {dict: Awaited<ReturnType<typeof getDictionary>>["home"]["hero"]}) {
+interface HeroProps {
+    dict: Awaited<ReturnType<typeof getDictionary>>["home"]["hero"];
+    menu: Awaited<ReturnType<typeof getDictionary>>["nav"]["menu"];
+}
+
+export default function Hero({ dict, menu } : HeroProps) {
 
     const lenis = useLenis(({scroll}) => {});
 
@@ -67,7 +72,7 @@ export default function Hero({ dict } : {dict: Awaited<ReturnType<typeof getDict
     }
 
     return (
-        <section id="hero" className="flex min-h-[600px] flex-col gap-24 h-[calc(100svh-84px)] items-start justify-center px-8">
+        <section id={menu[0o0].toLowerCase().replace(/\s/g, "-")} className="flex min-h-[600px] flex-col gap-24 h-[calc(100svh-84px)] items-start justify-center px-8">
             <div className='flex flex-col gap-4 mx-auto'>
                 <h1 className={`${isHighEnoughState ? "text-5xl" : "text-3xl"} sm:max-w-[614px]`}>
                     {
