@@ -10,6 +10,9 @@ import Languages from '../../../public/languages.svg';
 import { useLenis } from '@studio-freight/react-lenis';
 import { gsap } from "gsap";
 import { type getDictionary } from "@/dictionaries";
+import { usePathname } from "next/navigation";
+import { type Locale } from "@/i18n.config";
+
 
 interface Config {
     mass: number;
@@ -25,10 +28,20 @@ const config: Config = {
 
 export default function Nav({ dict } : {dict: Awaited<ReturnType<typeof getDictionary>>["nav"]}) {
 
+    const pathName = usePathname();
+    const redirectedPathName = (locale: Locale) => {
+        if (!pathName) return "/";
+        const segments = pathName.split("/");
+        segments[1] = locale;
+        return segments.join("/");
+    };
+
+    type LanguagePair = [string, Locale];
+
     const lenis = useLenis(({scroll}) => {});
 
     const buttonNames = dict.menu;
-    const languages = ['English', 'Português', 'Français', 'Italiano', 'Deutsch', 'Español'];
+    const languages: LanguagePair[] = [['English', 'en'], ['Português', 'pt'], ['Français', 'fr'], ['Italiano', 'it'], ['Deutsch', 'de'], ['Español', 'es']];
 
     const [open, setOpen] = useState(false);
     const [isLangOpen, setLang] = useState<boolean>(false);
@@ -154,15 +167,17 @@ export default function Nav({ dict } : {dict: Awaited<ReturnType<typeof getDicti
       </animated.div>
       <Collapsible icon={<Image src={Languages} alt="Languages" width={48} height={48} className="translate-y-1" />} title="Languages" open={isLangOpen}>
         <>
-            {languages.map(language => (
-                <li onClick={toggleMenu} key={language}>
-                    <GsapMagnetic>
-                        <button onMouseEnter={() => handleMouseEnter(language)} onMouseLeave={() => handleMouseLeave(language)} className="inline-flex items-center gap-4">
-                            <a className="capitalize">{language}</a>
-                            <div id={`button-${language}`} style={{transform: 'scale(0)'}} className="w-2 h-2 rounded-full bg-text-200"></div>
-                        </button>
-                    </GsapMagnetic>
-                </li>
+            {languages.map((language, i) => (
+                <a href={redirectedPathName(language[1])} key={i}>
+                    <li onClick={toggleMenu}>
+                        <GsapMagnetic>
+                            <button onMouseEnter={() => handleMouseEnter(language[0])} onMouseLeave={() => handleMouseLeave(language[0])} className="inline-flex items-center gap-4">
+                                <a className="capitalize">{language[0]}</a>
+                                <div id={`button-${language[0].toLowerCase().replace(/\s/g, '-')}`} style={{transform: 'scale(0)'}} className="w-2 h-2 rounded-full bg-text-200"></div>
+                            </button>
+                        </GsapMagnetic>
+                     </li>
+                </a>
             ))}
         </>
       </Collapsible>
