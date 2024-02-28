@@ -2,8 +2,9 @@ import GsapMagnetic from "./GsapMagnetic";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { useLenis } from '@studio-freight/react-lenis';
+import {type getDictionary} from "@/dictionaries";
 
-export default function Footer() {
+export default function Footer({ dict } : {dict: Awaited<ReturnType<typeof getDictionary>>["footer"]}) {
 
     const lenis = useLenis(({scroll}) => {});
 
@@ -23,18 +24,18 @@ export default function Footer() {
             <div className="flex justify-between md:gap-10">
                 <div className="flex flex-col gap-3">
                     <button className="text-left" onClick={() => {lenis?.scrollTo(0, {duration: 2})}}>
-                        <p>&#169; Coded by Amaro </p>
+                        <p>&#169; {dict.rights} </p>
                     </button>
-                    <p>Brazil, SP</p>
+                    <p>{dict.loc}P</p>
                 </div>
                 <div className="flex gap-3 flex-col">
-                    <p>Version</p>
+                    <p>{dict.version}</p>
                     <p>1.0 2024</p>
                 </div>
             </div>
             <div className="flex flex-col gap-3 w-full md:w-[40%]">
                 <div className="flex items-center gap-6">
-                    <p className="text-lg">Socials</p>
+                    <p className="text-lg">{dict.socials}</p>
                     <span className="h-[1px] w-full inline-block bg-text-200"></span>
                 </div>
                 <div className="flex justify-between">

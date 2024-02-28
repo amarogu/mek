@@ -62,8 +62,8 @@ export default function Home({params: { lang }}: {params: {lang: Locale}}) {
             }
           ]}
         />
-        <Contact />
-        <Footer />
+        <Contact dict={dict.home.contact} />
+        <Footer dict={dict.footer} />
       </main>
     </ReactLenis>
   );
