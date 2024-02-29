@@ -8,7 +8,7 @@ export default function Footer({ dict } : {dict: Awaited<ReturnType<typeof getDi
 
     const lenis = useLenis(({scroll}) => {});
 
-    const data = ['Instagram', 'LinkedIn', 'GitHub']
+    const data: [string, string][] = [['Instagram', 'https://www.instagram.com/amarogu/'], ['LinkedIn', 'www.linkedin.com/in/amarogu'], ['GitHub', 'https://github.com/amarogu']]
 
     const handleMouseEnter = (item: string, i: number) => {
         gsap.to(`#${item}-${i} div`, {width: '100%', duration: 0.25});
@@ -43,8 +43,8 @@ export default function Footer({ dict } : {dict: Awaited<ReturnType<typeof getDi
                         data.map((item, i) => {
                             return (
                                 <GsapMagnetic key={i}>
-                                    <div id={`${item}-${i}`} className="flex flex-col gap-3" onMouseEnter={() => {handleMouseEnter(item, i)}} onMouseLeave={() => {handleMouseLeave(item, i)}}>
-                                        <a className="cursor-pointer">{item}</a>
+                                    <div id={`${item[0]}-${i}`} className="flex flex-col gap-3" onMouseEnter={() => {handleMouseEnter(item[0], i)}} onMouseLeave={() => {handleMouseLeave(item[0], i)}}>
+                                        <a className="cursor-pointer" target="_blank" href={item[1]}>{item[0]}</a>
                                         <div style={{width: '0%'}} className="h-[1px] bg-text-200"></div>
                                     </div>
                                 </GsapMagnetic>
