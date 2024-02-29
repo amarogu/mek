@@ -10,6 +10,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ProjectsIntro from './ProjectsIntro';
 import { useMediaQuery } from 'react-responsive';
 import { type getDictionary } from '@/dictionaries';
+//
 
 interface AboutProps {
     dict: Awaited<ReturnType<typeof getDictionary>>["home"]["about"];
