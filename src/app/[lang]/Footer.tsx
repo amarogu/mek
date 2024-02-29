@@ -35,7 +35,7 @@ export default function Footer({ dict } : {dict: Awaited<ReturnType<typeof getDi
             </div>
             <div className="flex flex-col gap-3 w-full md:w-[40%]">
                 <div className="flex items-center gap-6">
-                    <p className="text-lg">{dict.socials}</p>
+                    <p className="text-lg shrink-0">{dict.socials}</p>
                     <span className="h-[1px] w-full inline-block bg-text-200"></span>
                 </div>
                 <div className="flex justify-between">
