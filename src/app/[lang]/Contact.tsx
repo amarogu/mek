@@ -157,7 +157,7 @@ export default function Contact({ dict, menu } : ContactProps) {
                     <h2 className={`text-[12.5rem] text-nowrap leading-none`}>{dict.slider}</h2>
                     <h2 className={`text-[12.5rem] text-nowrap leading-none`}>{dict.sliderHelper}</h2>
                 </div>
-                <div ref={data} className="grid grid-cols-1 lg:gap-x-12 lg:grid-cols-2 pt-24 gap-y-12">
+                <form ref={data} className="grid grid-cols-1 lg:gap-x-12 lg:grid-cols-2 pt-24 gap-y-12">
                     <div className="flex-col">
                         <div className="flex flex-col gap-4 w-full">
                             <div className="flex gap-9 items-center">
@@ -203,7 +203,7 @@ export default function Contact({ dict, menu } : ContactProps) {
                             </div>
                         </div>
                     </button>
-                </div>
+                </form>
             </div>
         </section>
     )
