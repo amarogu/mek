@@ -2,6 +2,7 @@
 
 import formData from 'form-data';
 import Mailgun from 'mailgun.js';
+import { NextRequest } from 'next/server';
 
 const mailgun = new Mailgun(formData);
 const client = mailgun.client({ username: 'api', key: process.env.MAILGUN_API_KEY as string });
@@ -14,9 +15,9 @@ type ReqBody = {
     msg: string
 }
 
-export async function POST(req: Request, res: Response) {
+export async function POST(req: NextRequest) {
     try {
-        const requestBody = req.body as unknown;
+        const requestBody = await req.json() as unknown;
 
         if (typeof requestBody === 'object' && requestBody !== null) {
             const { name, from, org, service, msg } = requestBody as ReqBody;
