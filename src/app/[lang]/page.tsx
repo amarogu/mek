@@ -14,6 +14,8 @@ import Footer from "./Footer";
 import { Locale } from "@/i18n.config";
 import { getDictionary } from "../../dictionaries";
 import { useEffect, useState } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 export default function Home({params: { lang }}: {params: {lang: Locale}}) {
 
@@ -27,7 +29,23 @@ export default function Home({params: { lang }}: {params: {lang: Locale}}) {
     dictHelper().then(setDict);
   }, [dict]);
 
-  if (!dict) return ;
+  useGSAP(() => {
+    gsap.fromTo('#initial-loader', {
+      opacity: 0
+    }, {
+      opacity: 1,
+      repeat: -1,
+      duration: 1.5
+    })
+  }, [])
+
+  if (!dict) {
+    return (
+      <div className="h-screen w-full flex items-center justify-center">
+        <div id="initial-loader" className="rounded-full w-6 h-6 bg-text-200"></div>
+      </div>
+    )
+  }
 
   return (
     <ReactLenis root>
