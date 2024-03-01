@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import gsap from 'gsap';
 
 interface ContactFieldProps {
     id: string;
@@ -17,7 +18,7 @@ export default function ContactField({id, title, description, className, isTextB
     }
 
     return (
-        <div onClick={handleDivClick} className={`flex gap-9 border-text-200 cursor-pointer ${className} ${isTextBox ? 'h-full' : ''}`}>
+        <div onClick={handleDivClick} id={`field-${id}`} className={`flex gap-9 border-text-200 cursor-pointer ${className} ${isTextBox ? 'h-full' : ''}`}>
             <p className="text-7xl w-[85px] shrink-0">{id}</p>
             <div className="flex flex-col gap-3">
                 <h3>{title}</h3>

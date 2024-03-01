@@ -214,7 +214,13 @@ export default function Contact({ dict, menu } : ContactProps) {
                     })}
                     <button ref={send} className="lg:col-span-2 w-fit" onClick={(e) => {
                         e.preventDefault();
-                        console.log(validate());
+                        const { isValid, invalidFields } = validate();
+                        if (!isValid) {
+                            invalidFields.forEach(id => {
+                                const tl = gsap.timeline();
+                                tl.to(`#field-${id}`, {x: 10, duration: 0.1}).to(`#field-${id}`, {x: -10, duration: 0.1}).to(`#field-${id}`, {x: 0, duration: 0.1});
+                            });
+                        }
                     }}>
                         <div className={`flex ${dict.button.length > 4 ? "text-5xl" : "text-7xl"} lg:text-[155px] gap-4 w-fit items-center`}>
                             <p className="uppercase text-left">{dict.button}</p>
