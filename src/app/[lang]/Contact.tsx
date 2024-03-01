@@ -9,6 +9,7 @@ import ArrowFoward from "../../../public/arrow_forward.svg";
 import { useSpring, animated, useChain, useSpringRef } from "@react-spring/web";
 import {type getDictionary} from "@/dictionaries";
 import Collapsible from "./Collapsible";
+import { createPortal } from "react-dom";
 
 interface ContactFieldProps {
     id: string;
@@ -34,9 +35,13 @@ export default function Contact({ dict, menu } : ContactProps) {
 
     const [containerHeight, setContainerHeight] = useState(0);
 
-    const [open, setOpen] = useState(false);
-    const [title, setTitle] = useState('');
-    const [icon, setIcon] = useState<React.ReactElement>();
+    const [openInvalid, setOpenInvalid] = useState(false);
+    const [titleInvalid, setTitleInvalid] = useState('');
+    const [iconInvalid, setIconInvalid] = useState<React.ReactElement>();
+
+    const [openValid, setOpenValid] = useState(false);
+    const [titleValid, setTitleValid] = useState('');
+    const [iconValid, setIconValid] = useState<React.ReactElement>();
 
     useEffect(() => {
         const resizeObserver = new ResizeObserver(entries => {
@@ -178,75 +183,88 @@ export default function Contact({ dict, menu } : ContactProps) {
         };
     }
 
+    const handleInvalid = (invalidFields: string[]) => {
+        setOpenInvalid(true);
+        setTimeout(() => {
+            setOpenInvalid(false);
+        }, 2000);
+        setTitleInvalid('Invalid');
+        setIconInvalid(<Image src={ArrowFoward} alt="Arrow pointing to the right" />);
+        invalidFields.forEach(id => {
+            const tl = gsap.timeline();
+            tl.to(`#field-${id}`, {x: 10, duration: 0.1}).to(`#field-${id}`, {x: -10, duration: 0.1}).to(`#field-${id}`, {x: 0, duration: 0.1});
+        });
+    }
+
     return (
-        <>
-            <section id={menu[3].toLowerCase().replace(/\s/g, "-")} className="px-8 relative container mx-auto" style={{ height: `${containerHeight * 2 + 200}px` }}>
-                <div ref={container}>
-                    <div ref={getInTouch} className="w-fit flex">
-                        <h2 className={`text-[12.5rem] text-nowrap leading-none`}>{dict.slider}</h2>
-                        <h2 className={`text-[12.5rem] text-nowrap leading-none`}>{dict.sliderHelper}</h2>
-                    </div>
-                    <form ref={data} className="grid grid-cols-1 lg:gap-x-12 lg:grid-cols-2 pt-24 gap-y-12">
-                        <div className="flex-col">
-                            <div className="flex flex-col gap-4 w-full">
-                                <div className="flex gap-9 items-center">
-                                    <Image src={GustavoAmaro} alt="Image of Gustavo in a warm colored background" className="rounded-full w-16 h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24" />
-                                    <div className="flex flex-col gap-4">
-                                        <p className="text-4xl xl:text-5xl">{dict.work.title}</p>
-                                        <p className="text-2xl hidden lg:block">{dict.work.desc}</p>
-                                    </div>
-                                </div>
-                                <p className="text-2xl lg:hidden">{dict.work.desc}</p>
-                            </div>
-                        </div>
-                        <div className="flex flex-col md:flex-row gap-12">
-                            <div className="flex flex-col gap-6 text-2xl lg:text-xl md:col-span-1">
-                                <p className="text-xl lg:text-lg">{dict.details.contact.title}</p>
-                                <p>{dict.details.contact.email}</p>
-                                <p>{dict.details.contact.phone}</p>
-                            </div>
-                            <div className="flex flex-col gap-6 text-2xl lg:text-xl md:col-span-1">
-                                <p className="text-xl lg:text-lg">{dict.details.loc.title}</p>
-                                <p>{dict.details.loc.loc}</p>
-                                <p>{time}</p> {/* Display the current time */}
-                            </div>
-                        </div>
-                        {contactFields.map((field, i) => {
-                            return (
-                                <div key={i} className={`border-text-200 ${i === 0 ? 'border-y py-12' : 'border-b pb-12'} lg:col-span-2`}>
-                                    <ContactField onChange={(e) => handleInputChange(field.id, e.target.value)} id={field.id} title={field.title} description={field.description} className={``} isTextBox={i === contactFields.length - 1 ? true : false} />
-                                </div>
-                            )
-                        })}
-                        <button ref={send} className="lg:col-span-2 w-fit" onClick={(e) => {
-                            e.preventDefault();
-                            const { isValid, invalidFields } = validate();
-                            if (!isValid) {
-                                invalidFields.forEach(id => {
-                                    const tl = gsap.timeline();
-                                    tl.to(`#field-${id}`, {x: 10, duration: 0.1}).to(`#field-${id}`, {x: -10, duration: 0.1}).to(`#field-${id}`, {x: 0, duration: 0.1});
-                                });
-                            }
-                        }}>
-                            <div className={`flex ${dict.button.length > 4 ? "text-5xl" : "text-7xl"} lg:text-[155px] gap-4 w-fit items-center`}>
-                                <p className="uppercase text-left">{dict.button}</p>
-                                <div className={`flex gap-1 items-center ${dict.button.length > 6 ? 'hidden sm:flex' : ''}`}>
-                                    <Image src={ArrowFoward} className={`${dict.button.length > 4 ? 'w-14 h-14 lg:w-20 lg:h-20' : 'w-16 h-16 lg:w-24 lg:h-24'}`} alt="Arrow pointing to the right" />
-                                    <animated.div style={{...arrowSecondSpring}}>
-                                        <Image src={ArrowFoward} className={`${dict.button.length > 4 ? 'w-12 h-12 lg:w-16 lg:h-16' : 'w-14 h-14 lg:w-20 lg:h-20'} opacity-75`} alt="Arrow pointing to the right" />
-                                    </animated.div>
-                                    <animated.div style={{...arrowThirdSpring}}>
-                                        <Image src={ArrowFoward} className={`${dict.button.length > 4 ? 'w-10 h-10 lg:w-12 lg:h-12' : 'w-12 h-12 lg:w-16 lg:h-16'} opacity-50`} alt="Arrow pointing to the right" />
-                                    </animated.div>
-                                </div>
-                            </div>
-                        </button>
-                    </form>
+        <section id={menu[3].toLowerCase().replace(/\s/g, "-")} className="px-8 relative container mx-auto" style={{ height: `${containerHeight * 2 + 200}px` }}>
+            <div ref={container}>
+                <div ref={getInTouch} className="w-fit flex">
+                    <h2 className={`text-[12.5rem] text-nowrap leading-none`}>{dict.slider}</h2>
+                    <h2 className={`text-[12.5rem] text-nowrap leading-none`}>{dict.sliderHelper}</h2>
                 </div>
-            </section>
-            <Collapsible open={open} title={"title"} icon={icon}>
-                <p>Invalid</p>
-            </Collapsible>
-        </>
+                <form ref={data} className="grid grid-cols-1 lg:gap-x-12 lg:grid-cols-2 pt-24 gap-y-12">
+                    <div className="flex-col">
+                        <div className="flex flex-col gap-4 w-full">
+                            <div className="flex gap-9 items-center">
+                                <Image src={GustavoAmaro} alt="Image of Gustavo in a warm colored background" className="rounded-full w-16 h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24" />
+                                <div className="flex flex-col gap-4">
+                                    <p className="text-4xl xl:text-5xl">{dict.work.title}</p>
+                                    <p className="text-2xl hidden lg:block">{dict.work.desc}</p>
+                                </div>
+                            </div>
+                            <p className="text-2xl lg:hidden">{dict.work.desc}</p>
+                        </div>
+                    </div>
+                    <div className="flex flex-col md:flex-row gap-12">
+                        <div className="flex flex-col gap-6 text-2xl lg:text-xl md:col-span-1">
+                            <p className="text-xl lg:text-lg">{dict.details.contact.title}</p>
+                            <p>{dict.details.contact.email}</p>
+                            <p>{dict.details.contact.phone}</p>
+                        </div>
+                        <div className="flex flex-col gap-6 text-2xl lg:text-xl md:col-span-1">
+                            <p className="text-xl lg:text-lg">{dict.details.loc.title}</p>
+                            <p>{dict.details.loc.loc}</p>
+                            <p>{time}</p> {/* Display the current time */}
+                        </div>
+                    </div>
+                    {contactFields.map((field, i) => {
+                        return (
+                            <div key={i} className={`border-text-200 ${i === 0 ? 'border-y py-12' : 'border-b pb-12'} lg:col-span-2`}>
+                                <ContactField onChange={(e) => handleInputChange(field.id, e.target.value)} id={field.id} title={field.title} description={field.description} className={``} isTextBox={i === contactFields.length - 1 ? true : false} />
+                            </div>
+                        )
+                    })}
+                    <button ref={send} className="lg:col-span-2 w-fit" onClick={(e) => {
+                        e.preventDefault();
+                        const { isValid, invalidFields } = validate();
+                        if (!isValid) {
+                            handleInvalid(invalidFields);
+                        }
+                    }}>
+                        <div className={`flex ${dict.button.length > 4 ? "text-5xl" : "text-7xl"} lg:text-[155px] gap-4 w-fit items-center`}>
+                            <p className="uppercase text-left">{dict.button}</p>
+                            <div className={`flex gap-1 items-center ${dict.button.length > 6 ? 'hidden sm:flex' : ''}`}>
+                                <Image src={ArrowFoward} className={`${dict.button.length > 4 ? 'w-14 h-14 lg:w-20 lg:h-20' : 'w-16 h-16 lg:w-24 lg:h-24'}`} alt="Arrow pointing to the right" />
+                                <animated.div style={{...arrowSecondSpring}}>
+                                    <Image src={ArrowFoward} className={`${dict.button.length > 4 ? 'w-12 h-12 lg:w-16 lg:h-16' : 'w-14 h-14 lg:w-20 lg:h-20'} opacity-75`} alt="Arrow pointing to the right" />
+                                </animated.div>
+                                <animated.div style={{...arrowThirdSpring}}>
+                                    <Image src={ArrowFoward} className={`${dict.button.length > 4 ? 'w-10 h-10 lg:w-12 lg:h-12' : 'w-12 h-12 lg:w-16 lg:h-16'} opacity-50`} alt="Arrow pointing to the right" />
+                                </animated.div>
+                            </div>
+                        </div>
+                    </button>
+                </form>
+            </div>
+            {
+                createPortal(
+                    <Collapsible open={openInvalid} title={titleInvalid} icon={iconInvalid}>
+                        <p>Invalid</p>
+                    </Collapsible>,
+                    document.getElementById('nav') ?? document.body
+                )
+            }
+        </section>
     )
 }
