@@ -150,6 +150,29 @@ export default function Contact({ dict, menu } : ContactProps) {
 
     useChain([arrowSecond, arrowThird], [0, 0.2]);
 
+    const [inputValues, setInputValues] = useState({
+        '01': '',
+        '02': '',
+        '03': '',
+        '04': '',
+        '05': ''
+    });
+
+    const handleInputChange = (id: string, newValue: string) => {
+        setInputValues({...inputValues, [id]: newValue});
+    }
+
+    const validate = () => {
+        const isValid = Object.values(inputValues).every(value => value.length > 0);
+        const invalidFields = Object.entries(inputValues)
+            .filter(([id, value]) => value.length === 0)
+            .map(([id]) => id);
+        return {
+            isValid,
+            invalidFields
+        };
+    }
+
     return (
         <section id={menu[3].toLowerCase().replace(/\s/g, "-")} className="px-8 relative container mx-auto" style={{ height: `${containerHeight * 2 + 200}px` }}>
             <div ref={container}>
@@ -185,11 +208,14 @@ export default function Contact({ dict, menu } : ContactProps) {
                     {contactFields.map((field, i) => {
                         return (
                             <div key={i} className={`border-text-200 ${i === 0 ? 'border-y py-12' : 'border-b pb-12'} lg:col-span-2`}>
-                                <ContactField id={field.id} title={field.title} description={field.description} className={``} isTextBox={i === contactFields.length - 1 ? true : false} />
+                                <ContactField onChange={(e) => handleInputChange(field.id, e.target.value)} id={field.id} title={field.title} description={field.description} className={``} isTextBox={i === contactFields.length - 1 ? true : false} />
                             </div>
                         )
                     })}
-                    <button ref={send} className="lg:col-span-2 w-fit">
+                    <button ref={send} className="lg:col-span-2 w-fit" onClick={(e) => {
+                        e.preventDefault();
+                        console.log(validate());
+                    }}>
                         <div className={`flex ${dict.button.length > 4 ? "text-5xl" : "text-7xl"} lg:text-[155px] gap-4 w-fit items-center`}>
                             <p className="uppercase text-left">{dict.button}</p>
                             <div className={`flex gap-1 items-center ${dict.button.length > 6 ? 'hidden sm:flex' : ''}`}>
