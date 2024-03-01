@@ -26,10 +26,11 @@ export async function POST(req: NextRequest) {
                 from: from,
                 to: 'info@gustavoamaro.com',
                 subject: service,
-                text: `
-                    Name: ${name},
-                    Organization: ${org},
-                    Message: ${msg}
+                html: `
+                    <h1>Name: ${name}</h1>
+                    <div style="width: 100%; height: 1px; background-color: #2C2C2C"></div>
+                    <p>Organization: ${org}</p>
+                    <p>Message: ${msg}</p>
                 `
             }
 
