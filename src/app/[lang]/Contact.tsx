@@ -46,6 +46,10 @@ export default function Contact({ dict, menu } : ContactProps) {
     const [titleValid, setTitleValid] = useState('');
     const [iconValid, setIconValid] = useState<React.ReactElement>();
 
+    const [openError, setOpenError] = useState(false);
+    const [titleError, setTitleError] = useState('');
+    const [iconError, setIconError] = useState<React.ReactElement>();
+
     useEffect(() => {
         const resizeObserver = new ResizeObserver(entries => {
             for (let entry of entries) {
@@ -224,13 +228,13 @@ export default function Contact({ dict, menu } : ContactProps) {
                 setIconValid(<Image src={Success} alt="Success symbol" />);
             } else {
                 setTimeout(() => {
-                    setOpenInvalid(true);
+                    setOpenError(true);
                 }, 300);
                 setTimeout(() => {
-                    setOpenInvalid(false);
+                    setOpenError(false);
                 }, 3300);
-                setTitleInvalid('Invalid data or server error');
-                setIconInvalid(<Image src={Error} alt="Error symbol" />);
+                setTitleError('Error sending message');
+                setIconError(<Image src={Error} alt="Error symbol" />);
             }
         });
     }
@@ -308,8 +312,16 @@ export default function Contact({ dict, menu } : ContactProps) {
             }
             {
                 createPortal(
+                    <Collapsible open={openError} title={titleError} titleClassName="text-accent-100" icon={iconError}>
+                        <p className="w-1/2">An error occurred while sending your message. Please verify if you input a valid email address.</p>
+                    </Collapsible>,
+                    document.getElementById('nav') ?? document.body
+                )
+            }
+            {
+                createPortal(
                     <Collapsible open={openValid} title={titleValid} titleClassName="text-[#53A653]" icon={iconValid}>
-                        <p className="w-1/2">Your message has been sent successfully. I'll get back to you as soon as possible.</p>
+                        <p className="w-1/2">Your message has been sent successfully. I'll get back to you via the email entered as soon as possible.</p>
                     </Collapsible>,
                     document.getElementById('nav') ?? document.body
                 )
