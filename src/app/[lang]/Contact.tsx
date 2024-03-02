@@ -11,6 +11,7 @@ import {type getDictionary} from "@/dictionaries";
 import Collapsible from "./Collapsible";
 import { createPortal } from "react-dom";
 import Error from "../../../public/error.svg";
+import Success from "../../../public/check_circle.svg";
 
 interface ContactFieldProps {
     id: string;
@@ -190,13 +191,24 @@ export default function Contact({ dict, menu } : ContactProps) {
         }, 300);
         setTimeout(() => {
             setOpenInvalid(false);
-        }, 2300);
+        }, 3300);
         setTitleInvalid('Invalid data');
         setIconInvalid(<Image src={Error} alt="Error symbol" />);
         invalidFields.forEach(id => {
             const tl = gsap.timeline();
             tl.to(`#field-${id}`, {x: 10, duration: 0.1}).to(`#field-${id}`, {x: -10, duration: 0.1}).to(`#field-${id}`, {x: 0, duration: 0.1});
         });
+    }
+
+    const handleValid = () => {
+        setTimeout(() => {
+            setOpenValid(true);
+        }, 300);
+        setTimeout(() => {
+            setOpenValid(false);
+        }, 3300);
+        setTitleValid('Message sent');
+        setIconValid(<Image src={Success} alt="Success symbol" />);
     }
 
     return (
@@ -243,6 +255,8 @@ export default function Contact({ dict, menu } : ContactProps) {
                         const { isValid, invalidFields } = validate();
                         if (!isValid) {
                             handleInvalid(invalidFields);
+                        } else {
+                            handleValid();
                         }
                     }}>
                         <div className={`flex ${dict.button.length > 4 ? "text-5xl" : "text-7xl"} lg:text-[155px] gap-4 w-fit items-center`}>
@@ -263,7 +277,15 @@ export default function Contact({ dict, menu } : ContactProps) {
             {
                 createPortal(
                     <Collapsible open={openInvalid} title={titleInvalid} titleClassName="text-accent-100" icon={iconInvalid}>
-                        <p>Invalid</p>
+                        <p className="w-1/2">You might have forgotten to fill out some of the form fields. Please check on them.</p>
+                    </Collapsible>,
+                    document.getElementById('nav') ?? document.body
+                )
+            }
+            {
+                createPortal(
+                    <Collapsible open={openValid} title={titleValid} titleClassName="text-[#53A653]" icon={iconValid}>
+                        <p className="w-1/2">Your message has been sent successfully. I'll get back to you as soon as possible.</p>
                     </Collapsible>,
                     document.getElementById('nav') ?? document.body
                 )
