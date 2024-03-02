@@ -14,7 +14,6 @@ import Error from "../../../public/error.svg";
 import Success from "../../../public/check_circle.svg";
 import axios from "axios";
 
-
 interface ContactFieldProps {
     id: string;
     title: string;
