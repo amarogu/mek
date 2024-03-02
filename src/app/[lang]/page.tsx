@@ -4,7 +4,7 @@ import Hero from "./Hero";
 import About from "./About";
 import Welcome from "./Welcome";
 import Image from "next/image";
-import UniStay from '@/../public/unistayplaceholder.jpeg';
+import UniStay from '@/assets/unistayplaceholder.jpeg';
 import PrettyChatPlaceholder from '../../../public/prettychatplaceholder.png';
 import RespondlyPlaceholder from '../../../public/respondlyplaceholder.png';
 import Projects from "./Projects";
