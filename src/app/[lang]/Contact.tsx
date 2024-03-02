@@ -243,8 +243,8 @@ export default function Contact({ dict, menu } : ContactProps) {
         <section id={menu[3].toLowerCase().replace(/\s/g, "-")} className="px-8 relative container mx-auto" style={{ height: `${containerHeight * 2 + 200}px` }}>
             <div ref={container}>
                 <div ref={getInTouch} className="w-fit flex">
-                    <h2 className={`text-[12.5rem] text-nowrap leading-none`}>{dict.slider}</h2>
-                    <h2 className={`text-[12.5rem] text-nowrap leading-none`}>{dict.sliderHelper}</h2>
+                    <h2 className={`text-[12.5rem] text-nowrap shrink-0 leading-none`}>{dict.slider}</h2>
+                    <h2 className={`text-[12.5rem] text-nowrap shrink-0 leading-none`}>{dict.sliderHelper}</h2>
                 </div>
                 <form ref={data} className="grid grid-cols-1 lg:gap-x-12 lg:grid-cols-2 pt-24 gap-y-12">
                     <div className="flex-col">
