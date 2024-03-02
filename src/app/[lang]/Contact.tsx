@@ -12,6 +12,7 @@ import Collapsible from "./Collapsible";
 import { createPortal } from "react-dom";
 import Error from "../../../public/error.svg";
 import Success from "../../../public/check_circle.svg";
+import axios from "axios";
 
 interface ContactFieldProps {
     id: string;
@@ -201,14 +202,37 @@ export default function Contact({ dict, menu } : ContactProps) {
     }
 
     const handleValid = () => {
-        setTimeout(() => {
-            setOpenValid(true);
-        }, 300);
-        setTimeout(() => {
-            setOpenValid(false);
-        }, 3300);
-        setTitleValid('Message sent');
-        setIconValid(<Image src={Success} alt="Success symbol" />);
+        axios({
+            method: 'post',
+            url: '/api',
+            data: {
+                name: inputValues['01'],
+                from: inputValues['02'],
+                org: inputValues['03'],
+                service: inputValues['04'],
+                msg: inputValues['05']
+            }
+        }).then(res => {
+            if (res.data.msg === 'Queued. Thank you.') {
+                setTimeout(() => {
+                    setOpenValid(true);
+                }, 300);
+                setTimeout(() => {
+                    setOpenValid(false);
+                }, 3300);
+                setTitleValid('Message sent');
+                setIconValid(<Image src={Success} alt="Success symbol" />);
+            } else {
+                setTimeout(() => {
+                    setOpenInvalid(true);
+                }, 300);
+                setTimeout(() => {
+                    setOpenInvalid(false);
+                }, 3300);
+                setTitleInvalid('Invalid data or server error');
+                setIconInvalid(<Image src={Error} alt="Error symbol" />);
+            }
+        });
     }
 
     return (
@@ -277,7 +301,7 @@ export default function Contact({ dict, menu } : ContactProps) {
             {
                 createPortal(
                     <Collapsible open={openInvalid} title={titleInvalid} titleClassName="text-accent-100" icon={iconInvalid}>
-                        <p className="w-1/2">You might have forgotten to fill out some of the form fields. Please check on them.</p>
+                        <p className="w-1/2">You might have forgotten to fill out some of the form fields or filled them incorrectly. Please check on them.</p>
                     </Collapsible>,
                     document.getElementById('nav') ?? document.body
                 )
