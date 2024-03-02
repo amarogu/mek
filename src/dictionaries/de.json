@@ -68,7 +68,24 @@
                     "desc": "Hi Gustavo, ich brauche deine Hilfe bei..."
                 }
             },
-            "button": "Senden"
+            "button": "Senden",
+            "invalid": {
+                "desc": "Sie haben möglicherweise einige der Formularfelder nicht ausgefüllt oder sie falsch ausgefüllt. Bitte überprüfen Sie diese.",
+                "title": "Ungültige Daten",
+                "symbol": "Ungültiges Symbol"
+            },
+            "valid": {
+                "success": {
+                    "desc": "Ihre Nachricht wurde erfolgreich gesendet. Ich werde mich so schnell wie möglich per E-Mail mit Ihnen in Verbindung setzen.",
+                    "title": "Nachricht gesendet",
+                    "symbol": "Symbol für Erfolg"
+                },
+                "error": {
+                    "desc": "Beim Senden Ihrer Nachricht ist ein Fehler aufgetreten. Bitte überprüfen Sie, ob Sie eine gültige E-Mail-Adresse eingegeben haben.",
+                    "title": "Fehler beim Senden der Nachricht",
+                    "symbol": "Symbol für Fehler"
+                }
+            }
         }
     },
     "footer": {

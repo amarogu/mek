@@ -197,8 +197,8 @@ export default function Contact({ dict, menu } : ContactProps) {
         setTimeout(() => {
             setOpenInvalid(false);
         }, 3300);
-        setTitleInvalid('Invalid data');
-        setIconInvalid(<Image src={Error} alt="Error symbol" />);
+        setTitleInvalid(dict.invalid.title);
+        setIconInvalid(<Image src={Error} alt={dict.invalid.symbol} />);
         invalidFields.forEach(id => {
             const tl = gsap.timeline();
             tl.to(`#field-${id}`, {x: 10, duration: 0.1}).to(`#field-${id}`, {x: -10, duration: 0.1}).to(`#field-${id}`, {x: 0, duration: 0.1});
@@ -224,8 +224,8 @@ export default function Contact({ dict, menu } : ContactProps) {
                 setTimeout(() => {
                     setOpenValid(false);
                 }, 3300);
-                setTitleValid('Message sent');
-                setIconValid(<Image src={Success} alt="Success symbol" />);
+                setTitleValid(dict.valid.success.title);
+                setIconValid(<Image src={Success} alt={dict.valid.success.symbol} />);
             } else {
                 setTimeout(() => {
                     setOpenError(true);
@@ -233,8 +233,8 @@ export default function Contact({ dict, menu } : ContactProps) {
                 setTimeout(() => {
                     setOpenError(false);
                 }, 3300);
-                setTitleError('Error sending message');
-                setIconError(<Image src={Error} alt="Error symbol" />);
+                setTitleError(dict.valid.error.title);
+                setIconError(<Image src={Error} alt={dict.valid.error.symbol} />);
             }
         });
     }
@@ -305,7 +305,7 @@ export default function Contact({ dict, menu } : ContactProps) {
             {
                 createPortal(
                     <Collapsible open={openInvalid} title={titleInvalid} titleClassName="text-accent-100" icon={iconInvalid}>
-                        <p className="w-1/2">You might have forgotten to fill out some of the form fields or filled them incorrectly. Please check on them.</p>
+                        <p className="w-1/2">{dict.invalid.desc}</p>
                     </Collapsible>,
                     document.getElementById('nav') ?? document.body
                 )
@@ -313,7 +313,7 @@ export default function Contact({ dict, menu } : ContactProps) {
             {
                 createPortal(
                     <Collapsible open={openError} title={titleError} titleClassName="text-accent-100" icon={iconError}>
-                        <p className="w-1/2">An error occurred while sending your message. Please verify if you input a valid email address.</p>
+                        <p className="w-1/2">{dict.valid.error.desc}</p>
                     </Collapsible>,
                     document.getElementById('nav') ?? document.body
                 )
@@ -321,7 +321,7 @@ export default function Contact({ dict, menu } : ContactProps) {
             {
                 createPortal(
                     <Collapsible open={openValid} title={titleValid} titleClassName="text-[#53A653]" icon={iconValid}>
-                        <p className="w-1/2">Your message has been sent successfully. I'll get back to you via the email entered as soon as possible.</p>
+                        <p className="w-1/2">{dict.valid.success.desc}</p>
                     </Collapsible>,
                     document.getElementById('nav') ?? document.body
                 )

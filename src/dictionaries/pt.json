@@ -68,7 +68,24 @@
                     "desc": "Oi Gustavo, então, eu precisava da sua ajuda com..."
                 }
             },
-            "button": "Enviar"
+            "button": "Enviar",
+            "invalid": {
+                "desc": "Você pode ter esquecido de preencher alguns dos campos do formulário ou preenchê-los incorretamente. Por favor, verifique-os.",
+                "title": "Dados inválidos",
+                "symbol": "Símbolo inválido"
+            },
+            "valid": {
+                "success": {
+                    "desc": "Sua mensagem foi enviada com sucesso. Eu entro em contato com você pelo e-mail inserido o mais rápido possível.",
+                    "title": "Mensagem enviada",
+                    "symbol": "Símbolo de sucesso"
+                },
+                "error": {
+                    "desc": "Ocorreu um erro ao enviar sua mensagem. Por favor, verifique se você inseriu um endereço de e-mail válido.",
+                    "title": "Erro ao enviar mensagem",
+                    "symbol": "Símbolo de erro"
+                }
+            }
         }
     },
     "footer": {

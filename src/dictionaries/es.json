@@ -68,7 +68,24 @@
                     "desc": "Hola Gustavo, así que necesitaba tu ayuda con..."
                 }
             },
-            "button": "Enviar"
+            "button": "Enviar",
+            "invalid": {
+                "desc": "Es posible que hayas olvidado completar algunos de los campos del formulario o los hayas completado incorrectamente. Por favor, revísalos.",
+                "title": "Datos inválidos",
+                "symbol": "Símbolo inválido"
+            },
+            "valid": {
+                "success": {
+                    "desc": "Tu mensaje ha sido enviado con éxito. Me pondré en contacto contigo a través del correo electrónico proporcionado lo antes posible.",
+                    "title": "Mensaje enviado",
+                    "symbol": "Símbolo de éxito"
+                },
+                "error": {
+                    "desc": "Ocurrió un error al enviar tu mensaje. Por favor, verifica si has ingresado una dirección de correo electrónico válida.",
+                    "title": "Error al enviar el mensaje",
+                    "symbol": "Símbolo de error"
+                }
+            }
         }
     },
     "footer": {

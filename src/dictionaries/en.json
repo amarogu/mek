@@ -68,7 +68,24 @@
                     "desc": "Hi Gustavo, so I needed your help with..."
                 }
             },
-            "button": "Send"
+            "button": "Send",
+            "invalid": {
+                "desc": "You might have forgotten to fill out some of the form fields or filled them incorrectly. Please check on them.",
+                "title": "Invalid data",
+                "symbol": "Invalid symbol"
+            },
+            "valid": {
+                "success": {
+                    "desc": "Your message has been sent successfully. I'll get back to you via the email entered as soon as possible.",
+                    "title": "Message sent",
+                    "symbol": "Success symbol"
+                },
+                "error": {
+                    "desc": "An error occurred while sending your message. Please verify if you input a valid email address.",
+                    "title": "Error sending message",
+                    "symbol": "Error symbol"
+                }
+            }
         }
     },
     "footer": {
