@@ -10,6 +10,7 @@ import { useSpring, animated, useChain, useSpringRef } from "@react-spring/web";
 import {type getDictionary} from "@/dictionaries";
 import Collapsible from "./Collapsible";
 import { createPortal } from "react-dom";
+import Error from "../../../public/error.svg";
 
 interface ContactFieldProps {
     id: string;
@@ -184,12 +185,14 @@ export default function Contact({ dict, menu } : ContactProps) {
     }
 
     const handleInvalid = (invalidFields: string[]) => {
-        setOpenInvalid(true);
+        setTimeout(() => {
+            setOpenInvalid(true);
+        }, 300);
         setTimeout(() => {
             setOpenInvalid(false);
-        }, 2000);
-        setTitleInvalid('Invalid');
-        setIconInvalid(<Image src={ArrowFoward} alt="Arrow pointing to the right" />);
+        }, 2300);
+        setTitleInvalid('Invalid data');
+        setIconInvalid(<Image src={Error} alt="Error symbol" />);
         invalidFields.forEach(id => {
             const tl = gsap.timeline();
             tl.to(`#field-${id}`, {x: 10, duration: 0.1}).to(`#field-${id}`, {x: -10, duration: 0.1}).to(`#field-${id}`, {x: 0, duration: 0.1});
@@ -259,7 +262,7 @@ export default function Contact({ dict, menu } : ContactProps) {
             </div>
             {
                 createPortal(
-                    <Collapsible open={openInvalid} title={titleInvalid} icon={iconInvalid}>
+                    <Collapsible open={openInvalid} title={titleInvalid} titleClassName="text-accent-100" icon={iconInvalid}>
                         <p>Invalid</p>
                     </Collapsible>,
                     document.getElementById('nav') ?? document.body

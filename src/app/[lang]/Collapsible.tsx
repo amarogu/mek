@@ -6,10 +6,11 @@ interface CollapsibleProps {
     children: React.ReactElement;
     open: boolean;
     title: string;
+    titleClassName?: string;
     icon?: React.ReactElement;
 }
 
-export default function Collapsible({children, open, title, icon}: CollapsibleProps) {
+export default function Collapsible({children, open, title, icon, titleClassName}: CollapsibleProps) {
     const sideBarRef = useSpringRef();
     const sideBarCircleRef = useSpringRef();
 
@@ -42,8 +43,8 @@ export default function Collapsible({children, open, title, icon}: CollapsiblePr
     return (
         <animated.div style={{...sideBar, ...sideBarCircle}} className={`bg-bg-200 w-full -z-10 absolute top-0 sm:px-8 left-0 h-screen`}>
             <ul className={`text-3xl px-8 pt-[80px] flex flex-col gap-4 ${isScrolled ? "container mx-auto" : "max-w-[614px] sm:px-0 sm:mx-auto"}`}>
-                <li className="text-5xl flex gap-4 font-semibold pb-3">
-                    <span>
+                <li className="text-5xl flex gap-4 items-center font-semibold pb-3">
+                    <span className={titleClassName}>
                         {title}
                     </span> 
                     <span>
