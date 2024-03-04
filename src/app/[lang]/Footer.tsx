@@ -8,7 +8,7 @@ export default function Footer({ dict } : {dict: Awaited<ReturnType<typeof getDi
 
     const lenis = useLenis(({scroll}) => {});
 
-    const data: [string, string][] = [['Instagram', 'https://www.instagram.com/amarogu/'], ['LinkedIn', 'www.linkedin.com/in/amarogu'], ['GitHub', 'https://github.com/amarogu']]
+    const data: [string, string][] = [['Instagram', 'https://www.instagram.com/amarogu/'], ['LinkedIn', 'https://www.linkedin.com/in/amarogu'], ['GitHub', 'https://github.com/amarogu']]
 
     const handleMouseEnter = (item: string, i: number) => {
         gsap.to(`#${item}-${i} div`, {width: '100%', duration: 0.25});
