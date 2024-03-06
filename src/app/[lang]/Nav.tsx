@@ -12,6 +12,7 @@ import { gsap } from "gsap";
 import { type getDictionary } from "@/dictionaries";
 import { usePathname } from "next/navigation";
 import { type Locale } from "@/i18n.config";
+import Link from "next/link";
 
 
 interface Config {
@@ -168,7 +169,7 @@ export default function Nav({ dict } : {dict: Awaited<ReturnType<typeof getDicti
       <Collapsible icon={<Image src={Languages} alt="Languages" width={48} height={48} className="translate-y-1" />} title="Languages" open={isLangOpen}>
         <>
             {languages.map((language, i) => (
-                <a href={redirectedPathName(language[1])} key={i}>
+                <Link href={redirectedPathName(language[1])} key={i}>
                     <li onClick={toggleMenu}>
                         <GsapMagnetic>
                             <button onMouseEnter={() => handleMouseEnter(language[0])} onMouseLeave={() => handleMouseLeave(language[0])} className="inline-flex items-center gap-4">
@@ -177,7 +178,7 @@ export default function Nav({ dict } : {dict: Awaited<ReturnType<typeof getDicti
                             </button>
                         </GsapMagnetic>
                      </li>
-                </a>
+                </Link>
             ))}
         </>
       </Collapsible>
