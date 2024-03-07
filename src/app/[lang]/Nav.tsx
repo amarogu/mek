@@ -173,7 +173,7 @@ export default function Nav({ dict } : {dict: Awaited<ReturnType<typeof getDicti
                     <li onClick={toggleMenu}>
                         <GsapMagnetic>
                             <button onMouseEnter={() => handleMouseEnter(language[0])} onMouseLeave={() => handleMouseLeave(language[0])} className="inline-flex items-center gap-4">
-                                <a className="capitalize">{language[0]}</a>
+                                <p className="capitalize">{language[0]}</p>
                                 <div id={`button-${language[0].toLowerCase().replace(/\s/g, '-')}`} style={{transform: 'scale(0)'}} className="w-2 h-2 rounded-full bg-text-200"></div>
                             </button>
                         </GsapMagnetic>
