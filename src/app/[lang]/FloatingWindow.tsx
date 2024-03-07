@@ -26,12 +26,37 @@ export default function FloatingWindow({ children, hoveredProjectId, projects }:
     const textRef = useRef<any>(null);
     const viewRef = useRef<any>(null);
 
+    let xTo: gsap.QuickToFunc | null = null;
+    let yTo: gsap.QuickToFunc | null = null;
+
     useEffect(() => {
-        const xTo = gsap.quickTo(ref.current, 'left', {duration:  0.2});
-        const yTo = gsap.quickTo(ref.current, 'top', {duration:  0.2});
-        
-        const handleMouseMove = (e: MouseEvent) => {
-            // Only proceed if the event target is within the parentRef
+        if (parentRef.current && ref.current && document) { 
+            xTo = gsap.quickTo(ref.current, 'left', {duration:  0.2});
+            yTo = gsap.quickTo(ref.current, 'top', {duration:  0.2});
+            parentRef.current.addEventListener('mouseleave', handleMouseLeave);
+            document.addEventListener('mousemove', handleMouseMove);
+        }
+
+        return () => {
+            if (parentRef.current && ref.current && document) {
+                parentRef.current.removeEventListener('mouseleave', handleMouseLeave);
+                document.removeEventListener('mousemove', handleMouseMove);
+            }
+        };
+    }, []);
+
+    const handleMouseLeave = () => {
+        if (ref.current) {
+            gsap.to(ref.current, {
+                scale:  0,
+                duration:  0.5,  
+            })
+        }
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+        // Only proceed if the event target is within the parentRef
+        if (ref.current && xTo && yTo) {
             if (!parentRef.current.contains(e.target as Node)) {
                 return;
             }
@@ -46,24 +71,8 @@ export default function FloatingWindow({ children, hoveredProjectId, projects }:
                 scale:  1,
                 duration:  0.5,  
             });
-        };
-
-        const handleMouseLeave = () => {
-            gsap.to(ref.current, {
-                scale:  0,
-                duration:  0.5,  
-            })
-        };
-
-        parentRef.current.addEventListener('mouseleave', handleMouseLeave);
-        document.addEventListener('mousemove', handleMouseMove);
-        
-
-        return () => {
-            parentRef.current.removeEventListener('mouseleave', handleMouseLeave);
-            document.removeEventListener('mousemove', handleMouseMove);
-        };
-    }, []);
+        }
+    };
 
     useEffect(() => {
 
