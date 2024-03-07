@@ -55,14 +55,13 @@ export default function FloatingWindow({ children, hoveredProjectId, projects }:
             })
         };
 
-        
-        eventHandler(parentRef, ['mouseleave'], [handleMouseLeave]);
-        eventHandler(document, ['mousemove'], [handleMouseMove]);
+        parentRef.current.addEventListener('mouseleave', handleMouseLeave);
+        document.addEventListener('mousemove', handleMouseMove);
         
 
         return () => {
-            eventCleanUp(parentRef, ['mouseleave'], [handleMouseLeave]);
-            eventCleanUp(document, ['mousemove'], [handleMouseMove]);
+            parentRef.current.removeEventListener('mouseleave', handleMouseLeave);
+            document.removeEventListener('mousemove', handleMouseMove);
         };
     }, []);
 

@@ -34,10 +34,12 @@ export default function GsapMagnetic({children}: GsapMagneticProps) {
             YTo(0);
         }
 
-        eventHandler(ref, ['mousemove', 'mouseleave'], [mouseMove, mouseLeave]);
+        ref.current.addEventListener('mousemove', mouseMove);
+        ref.current.addEventListener('mouseleave', mouseLeave);
     
         return () => {
-            eventCleanUp(ref, ['mousemove', 'mouseleave'], [mouseMove, mouseLeave]);
+            ref.current.removeEventListener('mousemove', mouseMove);
+            ref.current.removeEventListener('mouseleave', mouseLeave);
         }
     }, [])
 
