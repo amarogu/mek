@@ -7,10 +7,11 @@ import Nav from "../Nav";
 import { useEffect, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import Hero from "./Hero";
 
 const whitelist = ['unistay'];
 
-export default function Project({ params: {lang, project} } : { params: {lang: Locale, project: string} }) {
+export default function Project({ params: {lang, project} } : { params: {lang: Locale, project: 'unistay'} }) {
 
     if (!whitelist.includes(project)) {
         return notFound();
@@ -49,6 +50,9 @@ export default function Project({ params: {lang, project} } : { params: {lang: L
             <header className="h-[84px] relative z-20">
                 <Nav dict={dict.nav} />
             </header>
+            <main id="main" className="relative text-3xl overflow-x-hidden">
+                <Hero dict={dict.projects} menu={dict.nav.menu} project={project} />
+            </main>
         </ReactLenis>
     );
 }

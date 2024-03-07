@@ -88,6 +88,73 @@
             }
         }
     },
+    "projects": {
+        "global": {
+            "hero": {
+                "role": "Role",
+                "loc": "Location, year of production"
+            },
+            "intro": {
+                "title": "Introduction",
+                "sub": "Check the context",
+                "keywords": "Keywords"
+            },
+            "context": {
+                "title": "Context",
+                "scroll": "Keep scrolling",
+                "research": "Me doing some research"
+            },
+            "findings": {
+                "title": "Findings",
+                "live": "View the live results",
+                "view": "View"
+            },
+            "solution": {
+                "title": "Solution"
+            },
+            "dev": {
+                "title": "Development",
+                "source": "Source code"
+            },
+            "conclusion": {
+                "title": "Wrapping things up",
+                "results": "Expected results",
+                "demographics": "See the target demographics"
+            }
+        },
+        "unistay": {
+            "hero": {
+                "title": "UniStay",
+                "role": "Developer and designer",
+                "loc": "Brazil, SP, 2023"
+            },
+            "intro": {
+                "desc": "Ever needed to find an accommodation off-campus? Probably not... But high schoolers have. What about how they do it? Are roommates even a thing for off-campus people? That's what we'll find out.",
+                "keywords": ["Accommodation", "University", "Roommates"]
+            },
+            "context": {
+                "desc": "The research was made locally, with a pool of senior uni applicants. From that, I was able to affirm whether my solution (yet to be seen) would be efficient and sensible."
+            },
+            "findings": {
+                "desc": "85% of the students in question stated they'd study abroad or away from home if they had the opportunity to. However, 95% said they neither had any idea where they'd live nor how they'd find such."
+            },
+            "solution": {
+                "title": "Rethinking uni accommodations",
+                "desc": "An iOS application was the way I found to solve the problem. The app provides their users with an intuitive interface that allows students and landlords to connect, so that off-campus people can get a little bit closer to on-campus benefits.",
+                "sub": "A way to find a place.",
+                "subHighlight": "new"
+            },
+            "dev": {
+                "front": "Frontend",
+                "back": "Backend",
+                "frontDesc": "Developed with Swift and SwiftUI. Performance designed at its core.",
+                "backDesc": "The server logic was made with JavaScript and Express.js, in the Node.js runtime environment."
+            },
+            "conclusion": {
+                "desc": "Students that need to study off-campus are expected to benefit from the application, since they'll be able to connect with roommates and landlords."
+            }
+        }
+    },
     "footer": {
         "rights": "Coded by Amaro",
         "loc": "Brasilien, SP",
