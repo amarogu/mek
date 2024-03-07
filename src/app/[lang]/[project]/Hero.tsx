@@ -58,11 +58,11 @@ export default function Hero({dict, menu, project}: HeroProps) {
                     isMd 
                     ? 
                     <>
-                        <Parallax speed={-4} className="w-1/3 lg:w-[25%]">
+                        <Parallax speed={-3} className="w-1/3 lg:w-[25%]">
                             <Image src={HomeDark} alt="UniStay home dark" />
                         </Parallax>
                         <Image src={HomeLight} alt="UniStay home light" className="static w-[35%]" />
-                        <Parallax speed={-4} className="static w-1/3 lg:w-[25%]">
+                        <Parallax speed={-3} className="static w-1/3 lg:w-[25%]">
                             <Image src={Profile} alt="Profile" />
                         </Parallax>
                     </>
