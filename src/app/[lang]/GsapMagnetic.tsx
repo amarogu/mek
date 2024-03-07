@@ -1,6 +1,7 @@
 import React from "react";
 import { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
+import { eventCleanUp, eventHandler } from "../eventHandler";
 
 interface GsapMagneticProps {
     children: React.ReactElement;
@@ -16,10 +17,6 @@ export default function GsapMagnetic({children}: GsapMagneticProps) {
     const ref = useRef<any>(null);
 
     useEffect(() => {
-        const mediaQueryList = window.matchMedia('(pointer: coarse)');
-        let touchDevice = mediaQueryList.matches; // Use a local variable
-        const currentRef = ref.current;
-    
         const xTo = gsap.quickTo(ref.current, 'x', {duration: 1, ease: 'elastic.out(1, 0.3)'});
         const YTo = gsap.quickTo(ref.current, 'y', {duration: 1, ease: 'elastic.out(1, 0.3)'});
     
@@ -36,31 +33,11 @@ export default function GsapMagnetic({children}: GsapMagneticProps) {
             xTo(0);
             YTo(0);
         }
-    
-        const listener = (event: MediaQueryListEvent) => {
-            touchDevice = event.matches;
-            if (!touchDevice) {
-                currentRef.addEventListener('mousemove', mouseMove);
-                currentRef.addEventListener('mouseleave', mouseLeave);
-            } else {
-                currentRef.removeEventListener('mousemove', mouseMove);
-                currentRef.removeEventListener('mouseleave', mouseLeave);
-            }
-        };
-    
-        // Listen for changes
-        mediaQueryList.addEventListener('change', listener);
-    
-        if (!touchDevice) {
-            currentRef.addEventListener('mousemove', mouseMove);
-            currentRef.addEventListener('mouseleave', mouseLeave);
-        }
+
+        eventHandler(ref, ['mousemove', 'mouseleave'], [mouseMove, mouseLeave]);
     
         return () => {
-            if (!touchDevice && currentRef) {
-                currentRef.removeEventListener('mousemove', mouseMove);
-                currentRef.removeEventListener('mouseleave', mouseLeave);
-            }
+            eventCleanUp(ref, ['mousemove', 'mouseleave'], [mouseMove, mouseLeave]);
         }
     }, [])
 

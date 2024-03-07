@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { eventCleanUp, eventHandler } from "../eventHandler";
 
 gsap.registerPlugin(ScrollToPlugin);
 
@@ -29,9 +30,6 @@ export default function FloatingWindow({ children, hoveredProjectId, projects }:
         const xTo = gsap.quickTo(ref.current, 'left', {duration:  0.2});
         const yTo = gsap.quickTo(ref.current, 'top', {duration:  0.2});
         
-        const mediaQueryList = window.matchMedia('(pointer: coarse)');
-        let touchDevice = mediaQueryList.matches; // Use a local variable
-
         const handleMouseMove = (e: MouseEvent) => {
             // Only proceed if the event target is within the parentRef
             if (!parentRef.current.contains(e.target as Node)) {
@@ -57,28 +55,14 @@ export default function FloatingWindow({ children, hoveredProjectId, projects }:
             })
         };
 
-        const listener = (event: MediaQueryListEvent) => {
-            touchDevice = event.matches;
-            if (!touchDevice) {
-                document.addEventListener('mousemove', handleMouseMove);
-                parentRef.current.addEventListener('mouseleave', handleMouseLeave);
-            } else {
-                document.removeEventListener('mousemove', handleMouseMove);
-                parentRef.current.removeEventListener('mouseleave', handleMouseLeave);
-            }
-        }
-        mediaQueryList.addEventListener('change', listener);
-
-        if (!touchDevice) {
-            document.addEventListener('mousemove', handleMouseMove);
-            parentRef.current.addEventListener('mouseleave', handleMouseLeave);
-        }
+        
+        eventHandler(parentRef, ['mouseleave'], [handleMouseLeave]);
+        eventHandler(document, ['mousemove'], [handleMouseMove]);
+        
 
         return () => {
-            if (!touchDevice) {
-                document.removeEventListener('mousemove', handleMouseMove);
-                parentRef.current.removeEventListener('mouseleave', handleMouseLeave);
-            }
+            eventCleanUp(parentRef, ['mouseleave'], [handleMouseLeave]);
+            eventCleanUp(document, ['mousemove'], [handleMouseMove]);
         };
     }, []);
 

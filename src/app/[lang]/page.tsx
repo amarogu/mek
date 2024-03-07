@@ -29,12 +29,6 @@ export default function Home({params: { lang }}: {params: {lang: Locale}}) {
     dictHelper().then(setDict);
   }, [dict]);
 
-  useEffect(() => {
-    document.childNodes.forEach((node) => {
-      node.removeEventListener('mousemove', () => {});
-    });
-  }, [])
-
   useGSAP(() => {
     gsap.fromTo('#initial-loader', {
       opacity: 0
