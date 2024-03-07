@@ -3,7 +3,12 @@ import {type getDictionary} from "@/dictionaries";
 import { useMediaQuery } from "react-responsive";
 import UniStayTitle from '../../../../public/unistaytitle.png';
 import UniStayTitleMobile from '../../../../public/unistaytitlemobile.png';
+import Profile from '../../../../public/profile.png';
+import HomeDark from '../../../../public/homedark.png';
+import HomeLight from '../../../../public/homelight.png';
 import Image from "next/image";
+import { useLenis } from '@studio-freight/react-lenis';
+import { Parallax } from "@/app/Parallax";
 
 interface HeroProps {
     dict: Awaited<ReturnType<typeof getDictionary>>["projects"];
@@ -12,6 +17,8 @@ interface HeroProps {
 }
 
 export default function Hero({dict, menu, project}: HeroProps) {
+
+    const lenis = useLenis(({scroll}) => {});
 
     const isMd = useMediaQuery({ query: '(min-width: 768px)' });
 
@@ -45,6 +52,15 @@ export default function Hero({dict, menu, project}: HeroProps) {
                     <p className="border-b pb-2 border-text-200">{global.hero.loc}</p>
                     <p className="text-xl">{local.hero.loc}</p>
                 </div>
+            </div>
+            <div className="md:container relative flex justify-center items-center w-full md:mx-auto">
+                <Image src={HomeDark} className="w-[80%] order-1" alt="UniStay home dark" />
+                <Parallax speed={4}className="absolute -left-1/2 w-[70%] -z-10" >
+                    <Image src={HomeLight} alt="UniStay home light" />
+                </Parallax>
+                <Parallax speed={4} className="absolute w-[70%] -right-1/2 -z-10">
+                    <Image src={Profile} alt="Profile" />
+                </Parallax>
             </div>
         </section>
     )
