@@ -112,7 +112,7 @@ export default function Nav({ dict } : {dict: Awaited<ReturnType<typeof getDicti
 
  return (
     <animated.nav id="nav" style={nav} className={`flex items-start flex-wrap py-7 px-8 ${isScrolled ? "fixed top-[-84px] left-0 w-full" : "relative"}`}>
-      <div className={`flex items-center justify-between w-full mx-auto ${isScrolled ? "container sm:px-8" : "max-w-[614px]"}`}>
+      <div className={`flex items-center justify-between w-full mx-auto ${isScrolled ? "container" : "max-w-[614px]"}`}>
         <div className="flex items-center gap-4">
             <button className="cursor-pointer" onClick={toggleMenu}>
                 <div className="flex flex-col relative w-4 h-[6px]" >

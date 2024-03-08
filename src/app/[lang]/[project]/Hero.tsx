@@ -53,7 +53,7 @@ export default function Hero({dict, menu, project}: HeroProps) {
                     <p className="text-xl">{local.hero.loc}</p>
                 </div>
             </div>
-            <div className="md:container px-8 relative flex md:gap-14 justify-center lg:justify-between items-center w-full md:mx-auto">
+            <div className="md:container relative flex md:gap-14 justify-center lg:justify-between items-center w-full md:mx-auto">
                 {
                     isMd 
                     ? 
@@ -69,10 +69,10 @@ export default function Hero({dict, menu, project}: HeroProps) {
                     : 
                     <>
                         <Image src={HomeDark} className="w-[80%] order-1" alt="UniStay home dark" />
-                        <Parallax speed={4}className="absolute -left-1/2 w-[70%] -z-10" >
+                        <Parallax speed={-4}className="absolute -left-1/2 w-[70%] -z-10" >
                             <Image src={HomeLight} alt="UniStay home light" />
                         </Parallax>
-                        <Parallax speed={4} className="absolute w-[70%] -right-1/2 -z-10">
+                        <Parallax speed={-4} className="absolute w-[70%] -right-1/2 -z-10">
                             <Image src={Profile} alt="Profile" />
                         </Parallax>
                     </>
