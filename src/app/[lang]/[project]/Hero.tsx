@@ -39,7 +39,7 @@ export default function Hero({dict, menu, project}: HeroProps) {
 
     return (
         <section className="flex flex-col gap-14 pt-7 items-start justify-center px-8">
-           <div className="max-w-[614px] mx-auto">
+            <div className="max-w-[614px] mx-auto">
                 <h1 ref={titleRef} className="hidden">{local.hero.title}</h1>
                 <Image src={isMd ? UniStayTitle : UniStayTitleMobile} alt="UniStay" />
             </div>
@@ -53,7 +53,7 @@ export default function Hero({dict, menu, project}: HeroProps) {
                     <p className="text-xl">{local.hero.loc}</p>
                 </div>
             </div>
-            <div className="md:container relative flex md:gap-14 justify-center lg:justify-between items-center w-full md:mx-auto">
+            <div className="md:container px-8 relative flex md:gap-14 justify-center lg:justify-between items-center w-full md:mx-auto">
                 {
                     isMd 
                     ? 
