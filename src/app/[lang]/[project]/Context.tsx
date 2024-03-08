@@ -17,7 +17,7 @@ export default function Context({dict, menu, project, isReady}: ContextProps) {
     const local = dict[project].context;
 
     return (
-        <section className="px-8 container mx-auto">
+        <section className="px-8 container mx-auto h-[500vh]">
             <div ref={container}>
                 <Slider isReady={isReady} container={container} markers content={global.title} />
             </div>
