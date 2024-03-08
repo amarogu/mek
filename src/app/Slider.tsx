@@ -33,7 +33,7 @@ export default function Slider({content, container, markers, isReady}: SliderPro
     }, [isReady]);
 
     return (
-        <div ref={slider} className="flex w-fit text-nowrap uppercase font-semibold">
+        <div ref={slider} className={`flex w-fit text-nowrap uppercase font-semibold`}>
             <h2 className={`text-[12.5rem] shrink-0 leading-none`}>{content}</h2>
             <h2 className={`text-[12.5rem] shrink-0 leading-none`}> - {content}</h2>
         </div>

@@ -1,6 +1,7 @@
 import Slider from "@/app/Slider";
 import {type getDictionary} from "@/dictionaries";
 import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
 
 interface ContextProps {
     dict: Awaited<ReturnType<typeof getDictionary>>["projects"];
@@ -17,9 +18,9 @@ export default function Context({dict, menu, project, isReady}: ContextProps) {
     const local = dict[project].context;
 
     return (
-        <section className="px-8 container mx-auto h-[500vh]">
-            <div ref={container}>
-                <Slider isReady={isReady} container={container} markers content={global.title} />
+        <section className="px-8 container mx-auto h-[200vh]">
+            <div ref={container} className="h-[100vh]">
+                <Slider isReady={isReady} container={container} content={global.title} />
             </div>
         </section>
     )
