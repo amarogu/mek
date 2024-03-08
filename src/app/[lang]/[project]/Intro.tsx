@@ -12,6 +12,11 @@ export default function Intro({dict, menu, project}: IntroProps) {
     const local = dict[project].intro;
 
     return (
-        <section className=""></section>
+        <section className="container px-16 pt-14">
+            <div className="flex">
+                <h2 className="text-[12.5rem] text-nowrap shrink-0 leading-none font-semibold uppercase">{global.title}</h2>
+                <h2 className="text-[12.5rem] text-nowrap shrink-0 leading-none font-semibold uppercase"> - {global.title}</h2>
+            </div>
+        </section>
     )
 }

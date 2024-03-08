@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Hero from "./Hero";
+import Intro from "./Intro";
 
 const whitelist = ['unistay'];
 
@@ -52,6 +53,7 @@ export default function Project({ params: {lang, project} } : { params: {lang: L
             </header>
             <main id="main" className="relative text-3xl overflow-x-hidden">
                 <Hero dict={dict.projects} menu={dict.nav.menu} project={project} />
+                <Intro dict={dict.projects} menu={dict.nav.menu} project={project} />
             </main>
         </ReactLenis>
     );
