@@ -4,6 +4,7 @@ import { useRef } from "react";
 import Tag from "../../../../public/tag.svg";
 import Image from "next/image";
 import Button from "@/app/Button";
+import MacBook from "../../../../public/macbookunistay.png";
 
 interface IntroProps {
     dict: Awaited<ReturnType<typeof getDictionary>>["projects"];
@@ -19,7 +20,7 @@ export default function Intro({dict, menu, project}: IntroProps) {
 
     return (
         <section className="container mx-auto px-8 pt-14">
-            <div ref={container} className="flex flex-col lg:w-full h-[400vh] gap-14">
+            <div ref={container} className="flex flex-col lg:w-full gap-14">
                 <Slider content={global.title} container={container} />
                 <div className="flex flex-col gap-14 lg:flex-row">
                     <div className="flex flex-col lg:justify-between lg:gap-9 lg:w-1/2">
@@ -39,6 +40,7 @@ export default function Intro({dict, menu, project}: IntroProps) {
                     </div>
                 </div>
                 <Button content={global.sub} className="lg:hidden" />
+                <Image src={MacBook} alt="UniStay, designed for desktop" />
             </div>
         </section>
     )
