@@ -7,7 +7,6 @@ import Profile from '../../../../public/profile.png';
 import HomeDark from '../../../../public/homedark.png';
 import HomeLight from '../../../../public/homelight.png';
 import Image from "next/image";
-import { useLenis } from '@studio-freight/react-lenis';
 import { Parallax } from "@/app/Parallax";
 
 interface HeroProps {
@@ -17,8 +16,6 @@ interface HeroProps {
 }
 
 export default function Hero({dict, menu, project}: HeroProps) {
-
-    const lenis = useLenis(({scroll}) => {});
 
     const isMd = useMediaQuery({ query: '(min-width: 768px)' });
 
@@ -53,7 +50,7 @@ export default function Hero({dict, menu, project}: HeroProps) {
                     <p className="text-xl">{local.hero.loc}</p>
                 </div>
             </div>
-            <div className="md:container relative flex md:gap-14 justify-center lg:justify-between items-center w-full md:mx-auto">
+            <div className="md:container md:px-8 relative flex md:gap-14 justify-center lg:justify-between items-center w-full md:mx-auto">
                 {
                     isMd 
                     ? 
