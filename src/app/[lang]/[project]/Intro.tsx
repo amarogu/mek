@@ -19,23 +19,26 @@ export default function Intro({dict, menu, project}: IntroProps) {
 
     return (
         <section className="container mx-auto px-8 pt-14">
-            <div ref={container} className="flex flex-col h-[400vh] gap-14">
+            <div ref={container} className="flex flex-col lg:w-full h-[400vh] gap-14">
                 <Slider content={global.title} container={container} />
-                <div className="flex flex-col">
-                    <p>{local.desc}</p>
-                </div>
-                <div className="flex flex-col gap-5">
-                    <div className="border-b flex justify-between border-text-200 pb-4">
-                        <p>{global.keywords}</p>
-                        <Image src={Tag} alt="Tag" />
+                <div className="flex flex-col gap-14 lg:flex-row">
+                    <div className="flex flex-col lg:justify-between lg:gap-9 lg:w-1/2">
+                        <p>{local.desc}</p>
+                        <Button content={global.sub} className="hidden lg:block" />
                     </div>
-                    {
-                        local.keywords.map((keyword, index) => (
-                            <p key={index}>{keyword}</p>
-                        ))
-                    }
+                    <div className="flex flex-col gap-5 lg:grow">
+                        <div className="border-b flex justify-between border-text-200 pb-4">
+                            <p>{global.keywords}</p>
+                            <Image src={Tag} alt="Tag" />
+                        </div>
+                        {
+                            local.keywords.map((keyword, index) => (
+                                <p key={index}>{keyword}</p>
+                            ))
+                        }
+                    </div>
                 </div>
-                <Button content={global.sub} />
+                <Button content={global.sub} className="lg:hidden" />
             </div>
         </section>
     )
