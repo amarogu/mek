@@ -3,7 +3,7 @@ import { useRef, useState, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
 import Image from "next/image";
 import ArrowForward from '../../public/arrow_forward.svg';
-import { useLenis } from "@studio-freight/react-lenis/types";
+import { useLenis } from "@studio-freight/react-lenis";
 
 interface ButtonProps {
     content: string;
@@ -51,7 +51,7 @@ export default function Button({content, onClick, className, scrollTo}: ButtonPr
     }
 
     return (
-        <div ref={sub} style={{transform: 'translateX(-100px)', opacity: 0}} className={`w-fit cursor-pointer h-[32px] overflow-y-hidden ${className}`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        <div ref={sub} className={`w-fit cursor-pointer h-[32px] overflow-y-hidden ${className ?? ""}`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             <button ref={subButton} className='flex gap-4 items-center' onClick={() => {lenis?.scrollTo(`#${scrollTo}`, {duration: 2, offset: -104}); onClick}} >
                 <Image src={ArrowForward} alt="Arrow Forward" />
                 <p className={`underline underline-offset-4 ${isHighEnoughState ? "text-2xl" : "text-xl"}`}>{content}</p>

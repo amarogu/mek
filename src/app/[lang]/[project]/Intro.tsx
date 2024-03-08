@@ -1,6 +1,9 @@
 import Slider from "@/app/Slider";
 import {type getDictionary} from "@/dictionaries";
 import { useRef } from "react";
+import Tag from "../../../../public/tag.svg";
+import Image from "next/image";
+import Button from "@/app/Button";
 
 interface IntroProps {
     dict: Awaited<ReturnType<typeof getDictionary>>["projects"];
@@ -16,11 +19,23 @@ export default function Intro({dict, menu, project}: IntroProps) {
 
     return (
         <section className="container mx-auto px-8 pt-14">
-            <div ref={container}>
+            <div ref={container} className="flex flex-col h-[2000px] gap-14">
                 <Slider content={global.title} container={container} />
-                <div className="flex flex-col pt-14">
+                <div className="flex flex-col">
                     <p>{local.desc}</p>
                 </div>
+                <div className="flex flex-col gap-5">
+                    <div className="border-b flex justify-between border-text-200 pb-4">
+                        <p>{global.keywords}</p>
+                        <Image src={Tag} alt="Tag" />
+                    </div>
+                    {
+                        local.keywords.map((keyword, index) => (
+                            <p key={index}>{keyword}</p>
+                        ))
+                    }
+                </div>
+                <Button content={global.sub} />
             </div>
         </section>
     )

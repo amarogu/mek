@@ -19,10 +19,11 @@ export default function Slider({content, container}: SliderProps) {
             scrollTrigger: {
                 trigger: container.current,
                 start: 'top-=104 top',
-                end: 'bottom top',
+                end: 'center top',
                 scrub: true,
                 pin: true,
-                pinSpacing: false
+                pinSpacing: false,
+                markers: true,
             }
         });
     }, [])
