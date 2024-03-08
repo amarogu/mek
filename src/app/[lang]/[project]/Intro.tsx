@@ -10,9 +10,10 @@ interface IntroProps {
     dict: Awaited<ReturnType<typeof getDictionary>>["projects"];
     menu: Awaited<ReturnType<typeof getDictionary>>["nav"]["menu"];
     project: 'unistay';
+    onSet: () => void;
 }
 
-export default function Intro({dict, menu, project}: IntroProps) {
+export default function Intro({dict, menu, project, onSet}: IntroProps) {
 
     const [containerHeight, setContainerHeight] = useState(0);
 
@@ -24,6 +25,7 @@ export default function Intro({dict, menu, project}: IntroProps) {
         const resizeObserver = new ResizeObserver(entries => {
             for (let entry of entries) {
                 setContainerHeight(entry.contentRect.height);
+                onSet();
             }
         });
     

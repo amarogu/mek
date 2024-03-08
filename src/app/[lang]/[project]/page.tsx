@@ -15,6 +15,12 @@ const whitelist = ['unistay'];
 
 export default function Project({ params: {lang, project} } : { params: {lang: Locale, project: 'unistay'} }) {
 
+    const [isIntroReady, setIsIntroReady] = useState(false);
+
+    const handleIntroReady = () => {
+        setIsIntroReady(true);
+    }
+
     if (!whitelist.includes(project)) {
         return notFound();
     }
@@ -54,8 +60,8 @@ export default function Project({ params: {lang, project} } : { params: {lang: L
             </header>
             <main id="main" className="relative text-3xl overflow-x-hidden">
                 <Hero dict={dict.projects} menu={dict.nav.menu} project={project} />
-                <Intro dict={dict.projects} menu={dict.nav.menu} project={project} />
-                <Context dict={dict.projects} menu={dict.nav.menu} project={project} />
+                <Intro onSet={handleIntroReady} dict={dict.projects} menu={dict.nav.menu} project={project} />
+                <Context isReady={isIntroReady} dict={dict.projects} menu={dict.nav.menu} project={project} />
             </main>
         </ReactLenis>
     );

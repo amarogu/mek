@@ -6,9 +6,10 @@ interface ContextProps {
     dict: Awaited<ReturnType<typeof getDictionary>>["projects"];
     menu: Awaited<ReturnType<typeof getDictionary>>["nav"]["menu"];
     project: 'unistay';
+    isReady: boolean;
 }
 
-export default function Context({dict, menu, project}: ContextProps) {
+export default function Context({dict, menu, project, isReady}: ContextProps) {
 
     const container = useRef<HTMLDivElement>(null);
 
@@ -17,8 +18,8 @@ export default function Context({dict, menu, project}: ContextProps) {
 
     return (
         <section className="px-8 container mx-auto">
-            <div className="h-[500vh]" ref={container}>
-                <Slider container={container} content={global.title} />
+            <div ref={container}>
+                <Slider isReady={isReady} container={container} markers content={global.title} />
             </div>
         </section>
     )
