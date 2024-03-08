@@ -23,13 +23,12 @@ export default function Slider({content, container}: SliderProps) {
                 scrub: true,
                 pin: true,
                 pinSpacing: false,
-                markers: true,
             }
         });
     }, [])
 
     return (
-        <div ref={slider} className="flex text-nowrap uppercase font-semibold">
+        <div ref={slider} className="flex w-fit text-nowrap uppercase font-semibold">
             <h2 className={`text-[12.5rem] shrink-0 leading-none`}>{content}</h2>
             <h2 className={`text-[12.5rem] shrink-0 leading-none`}> - {content}</h2>
         </div>
