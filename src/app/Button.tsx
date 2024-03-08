@@ -51,7 +51,7 @@ export default function Button({content, onClick, className, scrollTo}: ButtonPr
     }
 
     return (
-        <div ref={sub} className={`w-fit cursor-pointer h-[32px] overflow-y-hidden ${className ?? ""}`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        <div ref={sub} className={`w-fit cursor-pointer h-[32px] relative overflow-y-hidden ${className ?? ""}`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             <button ref={subButton} className='flex gap-4 items-center' onClick={() => {lenis?.scrollTo(`#${scrollTo}`, {duration: 2, offset: -104}); onClick}} >
                 <Image src={ArrowForward} alt="Arrow Forward" />
                 <p className={`underline underline-offset-4 ${isHighEnoughState ? "text-2xl" : "text-xl"}`}>{content}</p>

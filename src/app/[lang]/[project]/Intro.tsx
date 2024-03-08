@@ -19,7 +19,7 @@ export default function Intro({dict, menu, project}: IntroProps) {
 
     return (
         <section className="container mx-auto px-8 pt-14">
-            <div ref={container} className="flex flex-col h-[2000px] gap-14">
+            <div ref={container} className="flex flex-col h-[400vh] gap-14">
                 <Slider content={global.title} container={container} />
                 <div className="flex flex-col">
                     <p>{local.desc}</p>
