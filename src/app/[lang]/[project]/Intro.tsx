@@ -1,6 +1,6 @@
 import Slider from "@/app/Slider";
 import {type getDictionary} from "@/dictionaries";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import Tag from "../../../../public/tag.svg";
 import Image from "next/image";
 import Button from "@/app/Button";
@@ -14,12 +14,31 @@ interface IntroProps {
 
 export default function Intro({dict, menu, project}: IntroProps) {
 
+    const [containerHeight, setContainerHeight] = useState(0);
+
     const global = dict.global.intro;
     const local = dict[project].intro;
     const container = useRef<HTMLDivElement>(null);
 
+    useEffect(() => {
+        const resizeObserver = new ResizeObserver(entries => {
+            for (let entry of entries) {
+                setContainerHeight(entry.contentRect.height);
+            }
+        });
+    
+        if (container.current) {
+            resizeObserver.observe(container.current);
+        }
+    
+        // Cleanup function to disconnect the observer when the component unmounts
+        return () => {
+            resizeObserver.disconnect();
+        };
+    }, []);
+
     return (
-        <section className="container mx-auto px-8 pt-14">
+        <section className="container mx-auto px-8 pt-14" style={{height: `${containerHeight * 1.5 + 200}px`}}>
             <div ref={container} className="flex flex-col lg:w-full gap-14">
                 <Slider content={global.title} container={container} />
                 <div className="flex flex-col gap-14 lg:flex-row">
