@@ -21,10 +21,6 @@ export default function Project({ params: {lang, project} } : { params: {lang: L
         setIsIntroReady(true);
     }
 
-    if (!whitelist.includes(project)) {
-        return notFound();
-    }
-
     const [dict, setDict] = useState<Awaited<ReturnType<typeof getDictionary>> | null>(null);
 
     useEffect(() => {
@@ -44,6 +40,10 @@ export default function Project({ params: {lang, project} } : { params: {lang: L
           duration: 1.5
         })
     }, [])
+
+    if (!whitelist.includes(project)) {
+        return notFound();
+    }
     
     if (!dict) {
         return (
