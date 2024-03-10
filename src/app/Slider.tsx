@@ -35,8 +35,8 @@ export default function Slider({content, container, markers, isReady, offset}: S
 
     return (
         <div ref={slider} className={`flex w-fit text-nowrap`}>
-            <h2 className={`text-[12.5rem] shrink-0 font-semibold leading-none`}>{content}</h2>
-            <h2 className={`text-[12.5rem] shrink-0 font-semibold leading-none`}> - {content}</h2>
+            <h2 className={`text-[12.5rem] shrink-0 leading-none`}>{content}</h2>
+            <h2 className={`text-[12.5rem] shrink-0 leading-none`}> - {content}</h2>
         </div>
     )
 }

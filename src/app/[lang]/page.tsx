@@ -65,19 +65,13 @@ export default function Home({params: { lang }}: {params: {lang: Locale}}) {
               title: 'UniStay',
               type: dict.home.projects.types.ios,
               image: <Image src={UniStay} alt="UniStay" />,
-              link: `/${lang}/unistay`
+              link: `https://github.com/amarogu/unistay`
             },
             {
               title: 'PrettyChat',
               type: dict.home.projects.types.web,
               image: <Image src={PrettyChatPlaceholder} alt="PrettyChat" />,
-              link: `/${lang}/prettychat`
-            },
-            {
-              title: 'Respondly',
-              type: dict.home.projects.types.website,
-              image: <Image src={RespondlyPlaceholder} alt="Respondly" />,
-              link: `/${lang}/respondly`
+              link: `https://github.com/amarogu/unistay`
             }
           ]}
         />

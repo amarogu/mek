@@ -11,7 +11,7 @@ import Hero from "./Hero";
 import Intro from "./Intro";
 import Context from "./Context";
 
-const whitelist = ['unistay'];
+const whitelist: string[] = [];
 
 export default function Project({ params: {lang, project} } : { params: {lang: Locale, project: 'unistay'} }) {
 
