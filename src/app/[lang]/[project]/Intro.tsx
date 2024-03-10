@@ -40,9 +40,9 @@ export default function Intro({dict, menu, project, onSet}: IntroProps) {
     }, []);
 
     return (
-        <section className="container mx-auto px-8 pt-14" style={{height: `${containerHeight * 1.5 + 200}px`}}>
+        <section className="container mx-auto px-8 pt-14">
             <div ref={container} className="flex flex-col lg:w-full gap-14">
-                <Slider content={global.title} container={container} />
+                <h2 className="text-5xl md:text-8xl font-semibold lg:text-9xl uppercase">{global.title}</h2>
                 <div className="flex flex-col gap-14 lg:flex-row">
                     <div className="flex flex-col lg:justify-between lg:gap-9 lg:w-1/2">
                         <p>{local.desc}</p>

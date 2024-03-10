@@ -8,9 +8,10 @@ interface SliderProps {
     container: React.RefObject<HTMLDivElement>;
     markers?: boolean;
     isReady?: boolean;
+    offset?: string;
 }
 
-export default function Slider({content, container, markers, isReady}: SliderProps) {
+export default function Slider({content, container, markers, isReady, offset}: SliderProps) {
 
     const slider = useRef<HTMLDivElement>(null);
 
@@ -18,7 +19,7 @@ export default function Slider({content, container, markers, isReady}: SliderPro
         gsap.registerPlugin(ScrollTrigger);
         if (isReady ?? true) {
             gsap.to(slider.current, {
-                x: '-50%',
+                x: offset ? offset :'-40%',
                 scrollTrigger: {
                     trigger: container.current,
                     start: 'top-=104 top',
@@ -33,7 +34,7 @@ export default function Slider({content, container, markers, isReady}: SliderPro
     }, [isReady]);
 
     return (
-        <div ref={slider} className={`flex w-fit text-nowrap uppercase font-semibold`}>
+        <div ref={slider} className={`flex w-fit text-nowrap`}>
             <h2 className={`text-[12.5rem] shrink-0 leading-none`}>{content}</h2>
             <h2 className={`text-[12.5rem] shrink-0 leading-none`}> - {content}</h2>
         </div>
