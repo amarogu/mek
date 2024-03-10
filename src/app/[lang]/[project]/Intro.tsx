@@ -5,6 +5,8 @@ import Tag from "../../../../public/tag.svg";
 import Image from "next/image";
 import Button from "@/app/Button";
 import MacBook from "../../../../public/macbookunistay.png";
+import iPad from "../../../../public/ipadunistay.png";
+import { useMediaQuery } from "react-responsive";
 
 interface IntroProps {
     dict: Awaited<ReturnType<typeof getDictionary>>["projects"];
@@ -20,6 +22,7 @@ export default function Intro({dict, menu, project, onSet}: IntroProps) {
     const global = dict.global.intro;
     const local = dict[project].intro;
     const container = useRef<HTMLDivElement>(null);
+    const isSm = useMediaQuery({ query: '(min-width: 640px)' });
 
     useEffect(() => {
         const resizeObserver = new ResizeObserver(entries => {
@@ -61,7 +64,7 @@ export default function Intro({dict, menu, project, onSet}: IntroProps) {
                     </div>
                 </div>
                 <Button content={global.sub} className="lg:hidden" />
-                <Image src={MacBook} alt="UniStay, designed for desktop" />
+                <Image src={isSm ? MacBook : iPad} alt="UniStay, designed for desktop" />
             </div>
         </section>
     )
