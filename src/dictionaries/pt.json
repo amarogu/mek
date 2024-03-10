@@ -5,6 +5,11 @@
         "menu": ["Home", "Sobre", "Projetos", "Contato"]
     },
     "home": {
+        "disclaimer": {
+            "title": "Aviso",
+            "sub": "Este é um portfólio em andamento.",
+            "desc": "Por enquanto, apenas o conteúdo desta página está realmente funcional, então fique à vontade para entrar em contato comigo se desejar! As páginas de projetos atualmente linkam para seus respectivos repositórios no GitHub. Estou trabalhando em estudos de caso para eles, então fique ligado!"
+        },
         "hero": {
             "h1": "Oi, muito prazer! Eu sou um engenheiro de software, designer, e... hmm, um cara que faz coisas legais.",
             "sub": "Veja meus projetos"

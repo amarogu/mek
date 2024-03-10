@@ -51,7 +51,7 @@ export default function Home({params: { lang }}: {params: {lang: Locale}}) {
     <ReactLenis root>
       <header className="h-[84px] relative z-20">
         <Welcome />
-        <Nav dict={dict.nav} />
+        <Nav disclaimer={dict.home.disclaimer} dict={dict.nav} />
       </header>
       <main id="main" className="relative text-3xl overflow-x-hidden">
         <div id="spacer"></div>
@@ -71,7 +71,7 @@ export default function Home({params: { lang }}: {params: {lang: Locale}}) {
               title: 'PrettyChat',
               type: dict.home.projects.types.web,
               image: <Image src={PrettyChatPlaceholder} alt="PrettyChat" />,
-              link: `https://github.com/amarogu/unistay`
+              link: `https://github.com/amarogu/prettychat`
             }
           ]}
         />

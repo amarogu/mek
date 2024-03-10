@@ -56,7 +56,7 @@ export default function Project({ params: {lang, project} } : { params: {lang: L
     return (
         <ReactLenis root>
             <header className="h-[84px] relative z-20">
-                <Nav dict={dict.nav} />
+                <Nav dict={dict.nav} disclaimer={dict.home.disclaimer} />
             </header>
             <main id="main" className="relative text-3xl overflow-x-hidden">
                 <Hero dict={dict.projects} menu={dict.nav.menu} project={project} />

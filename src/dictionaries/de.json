@@ -5,6 +5,11 @@
         "menu": ["Startseite", "Über mich", "Projekte", "Kontakt"]
     },
     "home": {
+        "disclaimer": {
+            "title": "Haftungsausschluss",
+            "sub": "Dies ist ein Portfolio in Arbeit.",
+            "desc": "Bisher sind nur die Inhalte dieser Seite tatsächlich funktionsfähig, also zögern Sie nicht, mich zu kontaktieren, wenn Sie möchten! Die Projektseiten verlinken derzeit auf ihre jeweiligen GitHub-Repositorys. Ich arbeite an Fallstudien für sie, also bleiben Sie dran!"
+        },
         "hero": {
             "h1": "Hallo an alle! Ich bin ein Softwareentwickler, Designer und... hmm, ein Macher von coolen Sachen.",
             "sub": "Schau dir meine Projekte an"

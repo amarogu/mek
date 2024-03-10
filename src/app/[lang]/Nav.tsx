@@ -13,7 +13,8 @@ import { type getDictionary } from "@/dictionaries";
 import { usePathname } from "next/navigation";
 import { type Locale } from "@/i18n.config";
 import Link from "next/link";
-
+import Alert from "../../../public/alert.svg";
+import AlertNav from "../../../public/alert_nav.svg";
 
 interface Config {
     mass: number;
@@ -27,7 +28,12 @@ const config: Config = {
     friction: 12
 }
 
-export default function Nav({ dict } : {dict: Awaited<ReturnType<typeof getDictionary>>["nav"]}) {
+interface NavProps {
+    dict: Awaited<ReturnType<typeof getDictionary>>["nav"];
+    disclaimer: Awaited<ReturnType<typeof getDictionary>>["home"]["disclaimer"];
+}
+
+export default function Nav({ dict, disclaimer } : NavProps) {
 
     const pathName = usePathname();
     const redirectedPathName = (locale: Locale) => {
@@ -46,6 +52,7 @@ export default function Nav({ dict } : {dict: Awaited<ReturnType<typeof getDicti
 
     const [open, setOpen] = useState(false);
     const [isLangOpen, setLang] = useState<boolean>(false);
+    const [isDisclaimerOpen, setDisclaimer] = useState<boolean>(false);
 
     const topBar = useSpring({
         transform: open ? "rotate(45deg)" : "rotate(0deg)",
@@ -110,6 +117,10 @@ export default function Nav({ dict } : {dict: Awaited<ReturnType<typeof getDicti
         setLang(!isLangOpen);
     }
 
+    const toggleDisclaimer = () => {
+        setDisclaimer(!isDisclaimerOpen);
+    }
+
  return (
     <animated.nav id="nav" style={nav} className={`flex items-start flex-wrap py-7 px-8 ${isScrolled ? "fixed top-[-84px] left-0 w-full" : "relative"}`}>
       <div className={`flex items-center justify-between w-full mx-auto ${isScrolled ? "container sm:px-8" : "max-w-[614px]"}`}>
@@ -140,6 +151,11 @@ export default function Nav({ dict } : {dict: Awaited<ReturnType<typeof getDicti
                     <Image src={Language} alt={dict.langIcon} width={20} height={20} />
                 </button>
             </GsapMagnetic>
+            <GsapMagnetic>
+                <button onClick={toggleDisclaimer}>
+                    <Image src={AlertNav} width={20} height={20} alt={disclaimer.title}/>
+                </button>
+            </GsapMagnetic>
         </div>
       </div>
       <animated.div style={{...sideBar, ...sideBarCircle}} className={`bg-bg-200 w-full -z-10 absolute top-0 sm:px-8 left-0 h-screen`}>
@@ -166,7 +182,7 @@ export default function Nav({ dict } : {dict: Awaited<ReturnType<typeof getDicti
             ))}
         </ul>
       </animated.div>
-      <Collapsible icon={<Image src={Languages} alt="Languages" width={48} height={48} className="translate-y-1" />} title="Languages" open={isLangOpen}>
+      <Collapsible icon={<Image src={Languages} alt={dict.langIcon} width={48} height={48} className="translate-y-1" />} title={dict.langIcon} open={isLangOpen}>
         <>
             {languages.map((language, i) => (
                 <Link href={redirectedPathName(language[1])} key={i}>
@@ -181,6 +197,12 @@ export default function Nav({ dict } : {dict: Awaited<ReturnType<typeof getDicti
                 </Link>
             ))}
         </>
+      </Collapsible>
+      <Collapsible icon={<Image src={Alert} width={48} height={48} className="translate-y-1" alt={disclaimer.title} />} title={disclaimer.title} open={isDisclaimerOpen}>
+            <div>
+                <p>{disclaimer.sub}</p>
+                <p>{disclaimer.desc}</p>
+            </div>
       </Collapsible>
     </animated.nav>
  );

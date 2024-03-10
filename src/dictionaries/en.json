@@ -5,6 +5,11 @@
         "menu": ["Home", "About", "Projects", "Contact"]
     },
     "home": {
+        "disclaimer": {
+            "title": "Disclaimer",
+            "sub": "This is a work-in-progress portfolio.",
+            "desc": "For now, only the contents of this page are actually functional, so feel free to get in contact with me if you wish to! The projects pages currently link to their respective GitHub repositories. I'm working on case studies for them, so stay tuned!"
+        },
         "hero": {
             "h1": "Hi everyone! I am a software engineer, designer, and... hmm, a cool-stuff maker.",
             "sub": "Check my projects"

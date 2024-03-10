@@ -5,6 +5,11 @@
         "menu": ["Inicio", "Acerca de", "Proyectos", "Contacto"]
     },
     "home": {
+        "disclaimer": {
+            "title": "Descargo de responsabilidad",
+            "sub": "Este es un portafolio en progreso.",
+            "desc": "Por ahora, solo los contenidos de esta página están realmente funcionales, ¡así que no dudes en contactarme si lo deseas! Las páginas de proyectos actualmente enlazan a sus respectivos repositorios en GitHub. Estoy trabajando en estudios de caso para ellos, ¡así que mantente al tanto!"
+        },
         "hero": {
             "h1": "¡Hola a todos! Soy un ingeniero de software, diseñador y... hmm, un creador de cosas geniales.",
             "sub": "Echa un vistazo a mis proyectos"

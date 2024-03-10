@@ -5,6 +5,11 @@
         "menu": ["Accueil", "À propos", "Projets", "Contact"]
     },
     "home": {
+        "disclaimer": {
+            "title": "Avertissement",
+            "sub": "Ceci est un portfolio en cours de réalisation.",
+            "desc": "Pour l'instant, seuls les contenus de cette page sont réellement fonctionnels, alors n'hésitez pas à me contacter si vous le souhaitez! Les pages de projets lient actuellement à leurs dépôts GitHub respectifs. Je travaille sur des études de cas pour eux, alors restez à l'écoute!"
+        },
         "hero": {
             "h1": "Bonjour à tous ! Je suis un ingénieur logiciel, designer, et... hmm, un créateur de choses cool.",
             "sub": "Vérifiez mes projets"
