@@ -18,9 +18,9 @@ export default function Context({dict, menu, project, isReady}: ContextProps) {
     const local = dict[project].context;
 
     return (
-        <section className="px-8 container mx-auto pt-14 h-[200vh]">
-            <div ref={container}>
-                <h2 className="text-5xl md:text-8xl lg:text-9xl font-semibold uppercase">Context</h2>
+        <section className="px-8 container mx-auto h-[200vh]">
+            <div ref={container} className="h-[100vh]">
+                <Slider isReady={isReady} container={container} content={global.title} />
             </div>
         </section>
     )
