@@ -198,7 +198,7 @@ export default function Nav({ dict, disclaimer } : NavProps) {
             ))}
         </>
       </Collapsible>
-      <Collapsible icon={<Image src={Alert} width={48} height={48} className="translate-y-1" alt={disclaimer.title} />} title={disclaimer.title} open={isDisclaimerOpen}>
+      <Collapsible titleClassName="text-accent-100" icon={<Image src={Alert} width={48} height={48} className="translate-y-1" alt={disclaimer.title} />} title={disclaimer.title} open={isDisclaimerOpen}>
             <div>
                 <p>{disclaimer.sub}</p>
                 <p>{disclaimer.desc}</p>
