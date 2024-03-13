@@ -21,7 +21,7 @@ export default function Hero({ dict, menu } : HeroProps) {
 
     const [isHighEnoughState, setIsHighEnough] = useState(false);
     const [isMediumScreenState, setIsMediumScreen] = useState(false);
-    const isHighEnough = useMediaQuery({query: '(min-height: 700px)'});
+    const isHighEnough = useMediaQuery({query: '(min-height: 780px)'});
     const isMediumScreen = useMediaQuery({query: '(min-width: 768px)'});
 
     useEffect(() => {
