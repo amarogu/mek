@@ -245,7 +245,7 @@ export default function Contact({ dict, menu } : ContactProps) {
     return (
         <section id={menu[3].toLowerCase().replace(/\s/g, "-")} className="px-8 relative container mx-auto" style={{ height: `${containerHeight * 2 + 200}px` }}>
             <div ref={container}>
-                <div ref={getInTouch} className="w-fit flex">
+                <div ref={getInTouch} className="w-max flex">
                     <h2 className={`text-[12.5rem] text-nowrap shrink-0 leading-none`}>{dict.slider}</h2>
                     <h2 className={`text-[12.5rem] text-nowrap shrink-0 leading-none`}>{dict.sliderHelper}</h2>
                 </div>

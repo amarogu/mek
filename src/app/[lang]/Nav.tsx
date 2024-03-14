@@ -151,11 +151,6 @@ export default function Nav({ dict, disclaimer } : NavProps) {
                     <Image src={Language} alt={dict.langIcon} width={20} height={20} />
                 </button>
             </GsapMagnetic>
-            <GsapMagnetic>
-                <button onClick={toggleDisclaimer}>
-                    <Image src={AlertNav} width={20} height={20} alt={disclaimer.title}/>
-                </button>
-            </GsapMagnetic>
         </div>
       </div>
       <animated.div style={{...sideBar, ...sideBarCircle}} className={`bg-bg-200 w-full -z-10 absolute top-0 sm:px-8 left-0 h-screen`}>
