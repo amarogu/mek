@@ -115,7 +115,7 @@ export default function Contact({ dict, menu } : ContactProps) {
     useGSAP(() => {
         ScrollTrigger.config({
             ignoreMobileResize: true,
-        })
+        });
         gsap.registerPlugin(ScrollTrigger);
         gsap.to(getInTouch.current, {
             x: '-50%',
@@ -126,7 +126,6 @@ export default function Contact({ dict, menu } : ContactProps) {
                 scrub: true,
                 pin: true,
                 pinSpacing: false,
-                markers: true,
             }
         });
 
