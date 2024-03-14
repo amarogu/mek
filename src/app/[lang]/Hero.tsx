@@ -21,7 +21,7 @@ export default function Hero({ dict, menu } : HeroProps) {
 
     const [isHighEnoughState, setIsHighEnough] = useState(false);
     const [isMediumScreenState, setIsMediumScreen] = useState(false);
-    const isHighEnough = useMediaQuery({query: '(min-height: 730px)'});
+    const isHighEnough = useMediaQuery({query: '(min-height: 840px)'});
     const isMediumScreen = useMediaQuery({query: '(min-width: 768px)'});
 
     useEffect(() => {
@@ -74,7 +74,7 @@ export default function Hero({ dict, menu } : HeroProps) {
     return (
         <section id={menu[0].toLowerCase().replace(/\s/g, "-")} className="flex min-h-[600px] flex-col gap-24 h-[calc(100svh-84px)] items-start justify-center px-8">
             <div className='flex flex-col gap-4 mx-auto'>
-                <h1 className={`${isHighEnoughState ? "text-5xl" : "text-3xl"} sm:max-w-[614px]`}>
+                <h1 className={`${isHighEnoughState ? "text-5xl" : "text-4xl"} sm:max-w-[614px]`}>
                     {
                     Array.from(dict.h1).map((word, index) => (
                         <span style={{opacity: 0}} className='key' key={index}>{word}</span>
