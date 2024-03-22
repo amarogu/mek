@@ -1,11 +1,8 @@
 'use client';
-import Footer from "./Footer";
-import { Locale } from "@/i18n.config";
-import { getDictionary } from "../dictionaries";
 import Lang from '../../public/language.svg';
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { useSpring, animated } from '@react-spring/web';
+import { animated } from '@react-spring/web';
 
 export default function NotFound() {
 
