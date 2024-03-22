@@ -1,8 +1,8 @@
 'use client';
 import Image from 'next/image';
-import GustavoAmaro from '../../../public/gustavo_amaro_image.png';
-import ArrowUpward from '../../../public/arrow_upward.svg';
-import ArrowBackward from '../../../public/arrow_back.svg';
+import GustavoAmaro from '../../public/gustavo_amaro_image.png';
+import ArrowUpward from '../../public/arrow_upward.svg';
+import ArrowBackward from '../../public/arrow_back.svg';
 import { useRef, useState, useEffect } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';

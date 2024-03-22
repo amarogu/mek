@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import ArrowDownward from '../../../public/arrow_downward.svg';
+import ArrowDownward from '../../public/arrow_downward.svg';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { useRef } from 'react';

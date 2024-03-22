@@ -1,18 +1,11 @@
 import { useState, useEffect } from "react";
 import { useSpring, animated, useChain, useSpringRef } from "@react-spring/web";
-import GitHub from '../../../public/github.svg';
-import LinkedIn from '../../../public/linkedin.svg';
-import Language from '../../../public/language.svg';
+import GitHub from '../../public/github.svg';
+import LinkedIn from '../../public/linkedin.svg';
 import Image from "next/image";
 import GsapMagnetic from "./GsapMagnetic";
-import Collapsible from "./Collapsible";
-import Languages from '../../../public/languages.svg';
 import { useLenis } from '@studio-freight/react-lenis';
 import { gsap } from "gsap";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
-import Alert from "../../../public/alert.svg";
-import AlertNav from "../../../public/alert_nav.svg";
 
 interface Config {
     mass: number;

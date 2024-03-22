@@ -2,15 +2,15 @@ import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { useRef, useState, useEffect } from "react" // import useState and useEffect
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import GustavoAmaro from '../../../public/gustavo_amaro_image.png';
+import GustavoAmaro from '../../public/gustavo_amaro_image.png';
 import Image from "next/image";
 import ContactField from "./ContactField";
-import ArrowFoward from "../../../public/arrow_forward.svg";
+import ArrowFoward from "../../public/arrow_forward.svg";
 import { useSpring, animated, useChain, useSpringRef } from "@react-spring/web";
 import Collapsible from "./Collapsible";
 import { createPortal } from "react-dom";
-import Error from "../../../public/error.svg";
-import Success from "../../../public/check_circle.svg";
+import Error from "../../public/error.svg";
+import Success from "../../public/check_circle.svg";
 import axios from "axios";
 
 interface ContactFieldProps {
