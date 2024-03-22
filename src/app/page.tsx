@@ -11,10 +11,16 @@ import { ReactLenis } from '@studio-freight/react-lenis'
 import Contact from "./Contact";
 import Footer from "./Footer";
 import { useEffect, useState } from "react";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
 
 export default function Home() {
+
+  const [isMounted, setIsMounted] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, [])
+
+  if (!isMounted) return null;
 
   return (
     <ReactLenis root>

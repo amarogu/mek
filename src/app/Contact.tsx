@@ -301,28 +301,28 @@ export default function Contact() {
                 </form>
             </div>
             {
-                typeof document !== 'undefined' ? createPortal(
+                createPortal(
                     <Collapsible open={openInvalid} title={titleInvalid} titleClassName="text-accent-100" icon={iconInvalid}>
                         <p className="w-1/2">any</p>
                     </Collapsible>,
                     document.getElementById('nav') ?? document.body
-                ) : null
+                )
             }
             {
-                typeof document !== 'undefined' ? createPortal(
+                createPortal(
                     <Collapsible open={openError} title={titleError} titleClassName="text-accent-100" icon={iconError}>
                         <p className="w-1/2">any</p>
                     </Collapsible>,
                     document.getElementById('nav') ?? document.body
-                ) : null
+                )
             }
             {
-                typeof document !== 'undefined' ? createPortal(
+                createPortal(
                     <Collapsible open={openValid} title={titleValid} titleClassName="text-[#53A653]" icon={iconValid}>
                         <p className="w-1/2">any </p>
                     </Collapsible>,
                     document.getElementById('nav') ?? document.body
-                ) : null
+                )
             }
         </section>
     )
