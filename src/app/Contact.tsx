@@ -26,7 +26,7 @@ export default function Contact() {
     const container = useRef<any>(null);
     const send = useRef<any>(null);
     const arrowSecond = useSpringRef();
-    const arrowThird = useSpringRef();
+    const arrowThird = useSpringRef(); 
 
     const [isHovering, setIsHovering] = useState(false);
 
@@ -45,6 +45,7 @@ export default function Contact() {
     const [iconError, setIconError] = useState<React.ReactElement>();
 
     useEffect(() => {
+
         const resizeObserver = new ResizeObserver(entries => {
             for (let entry of entries) {
                 setContainerHeight(entry.contentRect.height);
@@ -300,28 +301,28 @@ export default function Contact() {
                 </form>
             </div>
             {
-                createPortal(
+                typeof document !== 'undefined' ? createPortal(
                     <Collapsible open={openInvalid} title={titleInvalid} titleClassName="text-accent-100" icon={iconInvalid}>
                         <p className="w-1/2">any</p>
                     </Collapsible>,
                     document.getElementById('nav') ?? document.body
-                )
+                ) : null
             }
             {
-                createPortal(
+                typeof document !== 'undefined' ? createPortal(
                     <Collapsible open={openError} title={titleError} titleClassName="text-accent-100" icon={iconError}>
                         <p className="w-1/2">any</p>
                     </Collapsible>,
                     document.getElementById('nav') ?? document.body
-                )
+                ) : null
             }
             {
-                createPortal(
+                typeof document !== 'undefined' ? createPortal(
                     <Collapsible open={openValid} title={titleValid} titleClassName="text-[#53A653]" icon={iconValid}>
-                        <p className="w-1/2">any</p>
+                        <p className="w-1/2">any </p>
                     </Collapsible>,
                     document.getElementById('nav') ?? document.body
-                )
+                ) : null
             }
         </section>
     )
