@@ -4,9 +4,8 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { useRef } from 'react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { type getDictionary } from '@/dictionaries';
 
-export default function ProjectsIntro({ dict } : {dict: Awaited<ReturnType<typeof getDictionary>>["home"]["about"]["projects"]}) {
+export default function ProjectsIntro() {
 
     const ref = useRef<HTMLDivElement>(null);
 
@@ -27,12 +26,12 @@ export default function ProjectsIntro({ dict } : {dict: Awaited<ReturnType<typeo
     return (
         <section className="pt-16 flex flex-col justify-center">
             <div className='border-t-2 border-text-200 pt-5 flex flex-col gap-6'>
-                <h2 className={`text-5xl`}>{dict.title}</h2>
+                <h2 className={`text-5xl`}>Galeria</h2>
                 <div ref={ref} style={{opacity: 0, transform: 'translateY(-25px)'}} className="flex gap-3">
                     <Image src={ArrowDownward} alt="Arrow Downward" />
-                    <p className='text-2xl uppercase'>{dict.scroll}</p>
+                    <p className='text-2xl uppercase'>continue</p>
                 </div>
-                <p className='text-3xl'>{dict.desc}</p>
+                <p className='text-3xl'>Veja um pouquinho mais sobre a gente e sobre a nossa história. Texto muito legal por favor.</p>
             </div>
         </section>
     )

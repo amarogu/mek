@@ -1,5 +1,5 @@
 'use client';
-import Footer from "./[lang]/Footer";
+import Footer from "./Footer";
 import { Locale } from "@/i18n.config";
 import { getDictionary } from "../dictionaries";
 import Lang from '../../public/language.svg';

@@ -9,9 +9,7 @@ import Collapsible from "./Collapsible";
 import Languages from '../../../public/languages.svg';
 import { useLenis } from '@studio-freight/react-lenis';
 import { gsap } from "gsap";
-import { type getDictionary } from "@/dictionaries";
 import { usePathname } from "next/navigation";
-import { type Locale } from "@/i18n.config";
 import Link from "next/link";
 import Alert from "../../../public/alert.svg";
 import AlertNav from "../../../public/alert_nav.svg";
@@ -28,27 +26,11 @@ const config: Config = {
     friction: 12
 }
 
-interface NavProps {
-    dict: Awaited<ReturnType<typeof getDictionary>>["nav"];
-    disclaimer: Awaited<ReturnType<typeof getDictionary>>["home"]["disclaimer"];
-}
-
-export default function Nav({ dict, disclaimer } : NavProps) {
-
-    const pathName = usePathname();
-    const redirectedPathName = (locale: Locale) => {
-        if (!pathName) return "/";
-        const segments = pathName.split("/");
-        segments[1] = locale;
-        return segments.join("/");
-    };
-
-    type LanguagePair = [string, Locale];
+export default function Nav() {
 
     const lenis = useLenis(({scroll}) => {});
 
-    const buttonNames = dict.menu;
-    const languages: LanguagePair[] = [['English', 'en'], ['Português', 'pt'], ['Français', 'fr'], ['Italiano', 'it'], ['Deutsch', 'de'], ['Español', 'es']];
+    const buttonNames = ['Home', 'About', 'Projects', 'Contact'];
 
     const [open, setOpen] = useState(false);
     const [isLangOpen, setLang] = useState<boolean>(false);
@@ -117,10 +99,6 @@ export default function Nav({ dict, disclaimer } : NavProps) {
         setLang(!isLangOpen);
     }
 
-    const toggleDisclaimer = () => {
-        setDisclaimer(!isDisclaimerOpen);
-    }
-
  return (
     <animated.nav id="nav" style={nav} className={`flex items-start flex-wrap py-7 px-8 ${isScrolled ? "fixed top-[-84px] left-0 w-full" : "relative"}`}>
       <div className={`flex items-center justify-between w-full mx-auto ${isScrolled ? "container sm:px-8" : "max-w-[614px]"}`}>
@@ -132,7 +110,7 @@ export default function Nav({ dict, disclaimer } : NavProps) {
                 </div>
             </button> 
             <button className="cursor-pointer" onClick={() => {lenis?.scrollTo(0, {duration: 2})}}>
-                <p className="text-xl">&#169; {dict.logo} </p>
+                <p className="text-xl">M&K</p>
             </button>
         </div>
         <div className="flex gap-2">
@@ -145,11 +123,6 @@ export default function Nav({ dict, disclaimer } : NavProps) {
                 <a href="https://www.linkedin.com/in/amarogu" target="_blank">
                     <Image src={LinkedIn} alt="LinkedIn" width={20} height={20} />
                 </a>
-            </GsapMagnetic>
-            <GsapMagnetic>
-                <button onClick={toggleLang}>
-                    <Image src={Language} alt={dict.langIcon} width={20} height={20} />
-                </button>
             </GsapMagnetic>
         </div>
       </div>
@@ -177,28 +150,6 @@ export default function Nav({ dict, disclaimer } : NavProps) {
             ))}
         </ul>
       </animated.div>
-      <Collapsible icon={<Image src={Languages} alt={dict.langIcon} width={48} height={48} className="translate-y-1" />} title={dict.langIcon} open={isLangOpen}>
-        <>
-            {languages.map((language, i) => (
-                <Link href={redirectedPathName(language[1])} key={i}>
-                    <li onClick={toggleMenu}>
-                        <GsapMagnetic>
-                            <button onMouseEnter={() => handleMouseEnter(language[0])} onMouseLeave={() => handleMouseLeave(language[0])} className="inline-flex items-center gap-4">
-                                <p className="capitalize">{language[0]}</p>
-                                <div id={`button-${language[0].toLowerCase().replace(/\s/g, '-')}`} style={{transform: 'scale(0)'}} className="w-2 h-2 rounded-full bg-text-200"></div>
-                            </button>
-                        </GsapMagnetic>
-                     </li>
-                </Link>
-            ))}
-        </>
-      </Collapsible>
-      <Collapsible titleClassName="text-accent-100" icon={<Image src={Alert} width={48} height={48} className="translate-y-1" alt={disclaimer.title} />} title={disclaimer.title} open={isDisclaimerOpen}>
-            <div>
-                <p>{disclaimer.sub}</p>
-                <p>{disclaimer.desc}</p>
-            </div>
-      </Collapsible>
     </animated.nav>
  );
 }

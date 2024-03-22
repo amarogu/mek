@@ -11,23 +11,11 @@ import Projects from "./Projects";
 import { ReactLenis } from '@studio-freight/react-lenis'
 import Contact from "./Contact";
 import Footer from "./Footer";
-import { Locale } from "@/i18n.config";
-import { getDictionary } from "../../dictionaries";
 import { useEffect, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
-export default function Home({params: { lang }}: {params: {lang: Locale}}) {
-
-  const [dict, setDict] = useState<Awaited<ReturnType<typeof getDictionary>> | null>(null);
-
-  useEffect(() => {
-    const dictHelper = async () => {
-      const dictionary = await getDictionary(lang);
-      return dictionary;
-    }
-    dictHelper().then(setDict);
-  }, [dict]);
+export default function Home() {
 
   useGSAP(() => {
     gsap.fromTo('#initial-loader', {
@@ -39,44 +27,34 @@ export default function Home({params: { lang }}: {params: {lang: Locale}}) {
     })
   }, [])
 
-  if (!dict) {
-    return (
-      <div className="h-screen w-full flex items-center justify-center">
-        <div id="initial-loader" className="rounded-full w-6 h-6 bg-text-200"></div>
-      </div>
-    )
-  }
-
   return (
     <ReactLenis root>
       <header className="h-[84px] relative z-20">
         <Welcome />
-        <Nav disclaimer={dict.home.disclaimer} dict={dict.nav} />
+        <Nav />
       </header>
       <main id="main" className="relative text-3xl overflow-x-hidden">
         <div id="spacer"></div>
-        <Hero dict={dict.home.hero} menu={dict.nav.menu} />
-        <About dict={dict.home.about} menu={dict.nav.menu} />
+        <Hero />
+        <About />
         <Projects
-          dict={dict.home.projects}
-          menu={dict.nav.menu}
           projects={[
             {
               title: 'UniStay',
-              type: dict.home.projects.types.ios,
+              type: 'any',
               image: <Image src={UniStay} alt="UniStay" />,
               link: `https://github.com/amarogu/unistay`
             },
             {
               title: 'PrettyChat',
-              type: dict.home.projects.types.web,
+              type: 'any',
               image: <Image src={PrettyChatPlaceholder} alt="PrettyChat" />,
               link: `https://github.com/amarogu/prettychat`
             }
           ]}
         />
-        <Contact menu={dict.nav.menu} dict={dict.home.contact} />
-        <Footer dict={dict.footer} />
+        <Contact />
+        <Footer />
       </main>
     </ReactLenis>
   );

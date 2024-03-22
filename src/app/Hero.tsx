@@ -8,14 +8,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useMediaQuery } from 'react-responsive';
 import GustavoAmaroDesktop from '../../../public/gustavo_amaro_desktop.svg';
 import { useLenis } from '@studio-freight/react-lenis';
-import {type getDictionary} from "@/dictionaries";
 
-interface HeroProps {
-    dict: Awaited<ReturnType<typeof getDictionary>>["home"]["hero"];
-    menu: Awaited<ReturnType<typeof getDictionary>>["nav"]["menu"];
-}
-
-export default function Hero({ dict, menu } : HeroProps) {
+export default function Hero() {
 
     const lenis = useLenis(({scroll}) => {});
 
@@ -71,25 +65,23 @@ export default function Hero({ dict, menu } : HeroProps) {
         });
     }
 
-    console.log(dict.h1.length)
-
     return (
-        <section id={menu[0].toLowerCase().replace(/\s/g, "-")} className="flex min-h-[600px] flex-col gap-24 h-[calc(100svh-84px)] items-start justify-center px-8">
+        <section className="flex min-h-[600px] flex-col gap-24 h-[calc(100svh-84px)] items-start justify-center px-8">
             <div className='flex flex-col gap-4 mx-auto'>
-                <h1 className={`${isHighEnoughState && dict.h1.length < 85 ? "text-5xl" : "text-4xl"} sm:max-w-[614px]`}>
+                <h1 className={`${isHighEnoughState ? "text-5xl" : "text-4xl"} sm:max-w-[614px]`}>
                     {
-                    Array.from(dict.h1).map((word, index) => (
+                    Array.from('Oi gente! Vamo nos casar, vejam o nosso site para acompanharem tudinho.').map((word, index) => (
                         <span style={{opacity: 0}} className='key' key={index}>{word}</span>
                     ))}
                 </h1>
                 <div ref={sub} style={{transform: 'translateX(-100px)', opacity: 0}} className='w-fit cursor-pointer h-[32px] overflow-y-hidden' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-                    <button ref={subButton} className='flex gap-4 items-center' onClick={() => {lenis?.scrollTo(`#${menu[2].toLowerCase().replace(/\s/g, "-")}`, {duration: 2, offset: -104})}} >
+                    <button ref={subButton} className='flex gap-4 items-center' >
                         <Image src={ArrowForward} alt="Arrow Forward" />
-                        <p className={`underline underline-offset-4 ${isHighEnoughState ? "text-2xl" : "text-xl"}`}>{dict.sub}</p>
+                        <p className={`underline underline-offset-4 ${isHighEnoughState ? "text-2xl" : "text-xl"}`}>Venham saber mais</p>
                     </button>
-                    <button ref={subButtonUnder} style={{transform: 'translateY(100%)', opacity: 0}} className='flex absolute top-0 gap-4 items-center' onClick={() => {lenis?.scrollTo(`#${menu[2].toLowerCase().replace(/\s/g, "-")}`, {duration: 2, offset: -104})}} >
+                    <button ref={subButtonUnder} style={{transform: 'translateY(100%)', opacity: 0}} className='flex absolute top-0 gap-4 items-center' >
                         <Image src={ArrowForward} alt="Arrow Forward" />
-                        <p className={`underline underline-offset-4 ${isHighEnoughState ? "text-2xl" : "text-xl"}`}>{dict.sub}</p>
+                        <p className={`underline underline-offset-4 ${isHighEnoughState ? "text-2xl" : "text-xl"}`}>Venham saber mais</p>
                     </button>
                 </div>
             </div>

@@ -7,7 +7,6 @@ import Image from "next/image";
 import ContactField from "./ContactField";
 import ArrowFoward from "../../../public/arrow_forward.svg";
 import { useSpring, animated, useChain, useSpringRef } from "@react-spring/web";
-import {type getDictionary} from "@/dictionaries";
 import Collapsible from "./Collapsible";
 import { createPortal } from "react-dom";
 import Error from "../../../public/error.svg";
@@ -20,12 +19,7 @@ interface ContactFieldProps {
     description: string;
 }
 
-interface ContactProps {
-    dict: Awaited<ReturnType<typeof getDictionary>>["home"]["contact"];
-    menu: Awaited<ReturnType<typeof getDictionary>>["nav"]["menu"];
-}
-
-export default function Contact({ dict, menu } : ContactProps) {
+export default function Contact() {
 
     const getInTouch = useRef<any>(null);
     const data = useRef<any>(null);
@@ -74,28 +68,28 @@ export default function Contact({ dict, menu } : ContactProps) {
     const contactFields: ContactFieldProps[] = [
         {
             id: '01',
-            title: dict.fields["01"].title,
-            description: dict.fields["01"].desc
+            title: 'any',
+            description: 'any'
         },
         {
             id: '02',
-            title: dict.fields["02"].title,
-            description: dict.fields["02"].desc
+            title: 'any',
+            description: 'any'
         },
         {
             id: '03',
-            title: dict.fields["03"].title,
-            description: dict.fields["03"].desc
+            title: 'any',
+            description: 'any'
         },
         {
             id: '04',
-            title: dict.fields["04"].title,
-            description: dict.fields["04"].desc
+            title: 'any',
+            description: 'any'
         },
         {
             id: '05',
-            title: dict.fields["05"].title,
-            description: dict.fields["05"].desc
+            title: 'any',
+            description: 'any'
         }
     ]
 
@@ -200,8 +194,8 @@ export default function Contact({ dict, menu } : ContactProps) {
         setTimeout(() => {
             setOpenInvalid(false);
         }, 3300);
-        setTitleInvalid(dict.invalid.title);
-        setIconInvalid(<Image src={Error} alt={dict.invalid.symbol} />);
+        setTitleInvalid('Inválido');
+        setIconInvalid(<Image src={Error} alt={'Símbolo que representa invalidez'} />);
         invalidFields.forEach(id => {
             const tl = gsap.timeline();
             tl.to(`#field-${id}`, {x: 10, duration: 0.1}).to(`#field-${id}`, {x: -10, duration: 0.1}).to(`#field-${id}`, {x: 0, duration: 0.1});
@@ -227,8 +221,8 @@ export default function Contact({ dict, menu } : ContactProps) {
                 setTimeout(() => {
                     setOpenValid(false);
                 }, 3300);
-                setTitleValid(dict.valid.success.title);
-                setIconValid(<Image src={Success} alt={dict.valid.success.symbol} />);
+                setTitleValid('Sucesso');
+                setIconValid(<Image src={Success} alt={'Símbolo que representa sucesso'} />);
             } else {
                 setTimeout(() => {
                     setOpenError(true);
@@ -236,18 +230,18 @@ export default function Contact({ dict, menu } : ContactProps) {
                 setTimeout(() => {
                     setOpenError(false);
                 }, 3300);
-                setTitleError(dict.valid.error.title);
-                setIconError(<Image src={Error} alt={dict.valid.error.symbol} />);
+                setTitleError('Erro');
+                setIconError(<Image src={Error} alt={'Símbolo que representa erro'} />);
             }
         });
     }
 
     return (
-        <section id={menu[3].toLowerCase().replace(/\s/g, "-")} className="px-8 relative container mx-auto" style={{ height: `${containerHeight * 2 + 200}px` }}>
+        <section className="px-8 relative container mx-auto" style={{ height: `${containerHeight * 2 + 200}px` }}>
             <div ref={container}>
                 <div ref={getInTouch} className="w-max flex">
-                    <h2 className={`text-[12.5rem] text-nowrap shrink-0 leading-none`}>{dict.slider}</h2>
-                    <h2 className={`text-[12.5rem] text-nowrap shrink-0 leading-none`}>{dict.sliderHelper}</h2>
+                    <h2 className={`text-[12.5rem] text-nowrap shrink-0 leading-none`}>Mande uma mensagem</h2>
+                    <h2 className={`text-[12.5rem] text-nowrap shrink-0 leading-none`}> - Mande uma mensagem</h2>
                 </div>
                 <form ref={data} className="grid grid-cols-1 lg:gap-x-12 lg:grid-cols-2 pt-24 gap-y-12">
                     <div className="flex-col">
@@ -255,22 +249,22 @@ export default function Contact({ dict, menu } : ContactProps) {
                             <div className="flex gap-9 items-center">
                                 <Image src={GustavoAmaro} alt="Image of Gustavo in a warm colored background" className="rounded-full w-16 h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24" />
                                 <div className="flex flex-col gap-4">
-                                    <p className="text-4xl xl:text-5xl">{dict.work.title}</p>
-                                    <p className="text-2xl hidden lg:block">{dict.work.desc}</p>
+                                    <p className="text-4xl xl:text-5xl">any</p>
+                                    <p className="text-2xl hidden lg:block">any</p>
                                 </div>
                             </div>
-                            <p className="text-2xl lg:hidden">{dict.work.desc}</p>
+                            <p className="text-2xl lg:hidden">any</p>
                         </div>
                     </div>
                     <div className="flex flex-col md:flex-row gap-12">
                         <div className="flex flex-col gap-6 text-2xl lg:text-xl md:col-span-1">
-                            <p className="text-xl lg:text-lg">{dict.details.contact.title}</p>
-                            <p>{dict.details.contact.email}</p>
-                            <p>{dict.details.contact.phone}</p>
+                            <p className="text-xl lg:text-lg">any</p>
+                            <p>any</p>
+                            <p>any</p>
                         </div>
                         <div className="flex flex-col gap-6 text-2xl lg:text-xl md:col-span-1">
-                            <p className="text-xl lg:text-lg">{dict.details.loc.title}</p>
-                            <p>{dict.details.loc.loc}</p>
+                            <p className="text-xl lg:text-lg">any</p>
+                            <p>any</p>
                             <p>{time}</p> {/* Display the current time */}
                         </div>
                     </div>
@@ -290,15 +284,15 @@ export default function Contact({ dict, menu } : ContactProps) {
                             handleValid();
                         }
                     }}>
-                        <div className={`flex ${dict.button.length > 4 ? "text-5xl" : "text-7xl"} lg:text-[155px] gap-4 w-fit items-center`}>
-                            <p className="uppercase text-left">{dict.button}</p>
-                            <div className={`flex gap-1 items-center ${dict.button.length > 6 ? 'hidden sm:flex' : ''}`}>
-                                <Image src={ArrowFoward} className={`${dict.button.length > 4 ? 'w-14 h-14 lg:w-20 lg:h-20' : 'w-16 h-16 lg:w-24 lg:h-24'}`} alt="Arrow pointing to the right" />
+                        <div className={`flex text-5xl lg:text-[155px] gap-4 w-fit items-center`}>
+                            <p className="uppercase text-left">ENVIAR</p>
+                            <div className={`gap-1 items-center hidden sm:flex`}>
+                                <Image src={ArrowFoward} className={`w-14 h-14 lg:w-20 lg:h-20`} alt="Arrow pointing to the right" />
                                 <animated.div style={{...arrowSecondSpring}}>
-                                    <Image src={ArrowFoward} className={`${dict.button.length > 4 ? 'w-12 h-12 lg:w-16 lg:h-16' : 'w-14 h-14 lg:w-20 lg:h-20'} opacity-75`} alt="Arrow pointing to the right" />
+                                    <Image src={ArrowFoward} className={`w-12 h-12 lg:w-16 lg:h-16 opacity-75`} alt="Arrow pointing to the right" />
                                 </animated.div>
                                 <animated.div style={{...arrowThirdSpring}}>
-                                    <Image src={ArrowFoward} className={`${dict.button.length > 4 ? 'w-10 h-10 lg:w-12 lg:h-12' : 'w-12 h-12 lg:w-16 lg:h-16'} opacity-50`} alt="Arrow pointing to the right" />
+                                    <Image src={ArrowFoward} className={`w-10 h-10 lg:w-12 lg:h-12 opacity-50`} alt="Arrow pointing to the right" />
                                 </animated.div>
                             </div>
                         </div>
@@ -308,7 +302,7 @@ export default function Contact({ dict, menu } : ContactProps) {
             {
                 createPortal(
                     <Collapsible open={openInvalid} title={titleInvalid} titleClassName="text-accent-100" icon={iconInvalid}>
-                        <p className="w-1/2">{dict.invalid.desc}</p>
+                        <p className="w-1/2">any</p>
                     </Collapsible>,
                     document.getElementById('nav') ?? document.body
                 )
@@ -316,7 +310,7 @@ export default function Contact({ dict, menu } : ContactProps) {
             {
                 createPortal(
                     <Collapsible open={openError} title={titleError} titleClassName="text-accent-100" icon={iconError}>
-                        <p className="w-1/2">{dict.valid.error.desc}</p>
+                        <p className="w-1/2">any</p>
                     </Collapsible>,
                     document.getElementById('nav') ?? document.body
                 )
@@ -324,7 +318,7 @@ export default function Contact({ dict, menu } : ContactProps) {
             {
                 createPortal(
                     <Collapsible open={openValid} title={titleValid} titleClassName="text-[#53A653]" icon={iconValid}>
-                        <p className="w-1/2">{dict.valid.success.desc}</p>
+                        <p className="w-1/2">any</p>
                     </Collapsible>,
                     document.getElementById('nav') ?? document.body
                 )
