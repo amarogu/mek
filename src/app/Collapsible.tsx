@@ -11,6 +11,7 @@ interface CollapsibleProps {
 }
 
 export default function Collapsible({children, open, title, icon, titleClassName}: CollapsibleProps) {
+    
     const sideBarRef = useSpringRef();
     const sideBarCircleRef = useSpringRef();
 

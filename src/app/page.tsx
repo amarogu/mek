@@ -16,16 +16,6 @@ import gsap from "gsap";
 
 export default function Home() {
 
-  useGSAP(() => {
-    gsap.fromTo('#initial-loader', {
-      opacity: 0
-    }, {
-      opacity: 1,
-      repeat: -1,
-      duration: 1.5
-    })
-  }, [])
-
   return (
     <ReactLenis root>
       <header className="h-[84px] relative z-20">
