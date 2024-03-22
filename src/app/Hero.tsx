@@ -74,14 +74,14 @@ export default function Hero() {
                         <span style={{opacity: 0}} className='key' key={index}>{word}</span>
                     ))}
                 </h1>
-                <div ref={sub} style={{transform: 'translateX(-100px)', opacity: 0}} className='w-fit cursor-pointer h-[32px] overflow-y-hidden' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+                <div ref={sub} style={{transform: 'translateX(-100px)', opacity: 0}} className={`w-fit cursor-pointer ${isHighEnoughState ? 'h-[44px]' : 'h-[36px]'} overflow-y-hidden`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                     <button ref={subButton} className='flex gap-4 items-center' >
                         <Image src={ArrowForward} alt="Arrow Forward" />
-                        <p className={`underline underline-offset-4 ${isHighEnoughState ? "text-2xl" : "text-xl"}`}>Venham saber mais</p>
+                        <p className={`underline underline-offset-[8px] ${isHighEnoughState ? "text-3xl" : "text-xl"}`}>Venham saber mais</p>
                     </button>
                     <button ref={subButtonUnder} style={{transform: 'translateY(100%)', opacity: 0}} className='flex absolute top-0 gap-4 items-center' >
                         <Image src={ArrowForward} alt="Arrow Forward" />
-                        <p className={`underline underline-offset-4 ${isHighEnoughState ? "text-2xl" : "text-xl"}`}>Venham saber mais</p>
+                        <p className={`underline underline-offset-[8px] ${isHighEnoughState ? "text-3xl" : "text-xl"}`}>Venham saber mais</p>
                     </button>
                 </div>
             </div>

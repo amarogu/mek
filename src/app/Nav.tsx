@@ -103,7 +103,7 @@ export default function Nav() {
                 </div>
             </button> 
             <button className="cursor-pointer" onClick={() => {lenis?.scrollTo(0, {duration: 2})}}>
-                <p className="text-xl">M&K</p>
+                <p className="text-xl">Maria&Kalil</p>
             </button>
         </div>
         <div className="flex gap-2">
