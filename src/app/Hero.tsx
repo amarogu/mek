@@ -1,12 +1,12 @@
 import { useRef, useEffect, useState } from 'react';
 import ArrowForward from '../../public/arrow_forward.svg';
-import GustavoAmaro from '../../public/gustavo_amaro.svg';
+import MeK from '../../public/mek_mobile.svg';
 import Image from 'next/image';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useMediaQuery } from 'react-responsive';
-import GustavoAmaroDesktop from '../../public/gustavo_amaro_desktop.svg';
+import MeKDesktop from '../../public/mek_desktop.svg';
 import { useLenis } from '@studio-freight/react-lenis';
 
 export default function Hero() {
@@ -87,7 +87,7 @@ export default function Hero() {
             </div>
             <div className='relative sm:max-w-[614px] sm:mx-auto'>
                 <div ref={amaro} style={{transform: 'translateX(0%)'}} className='h-full w-full absolute top-0 left-0 bg-bg-100'></div>
-                {isMediumScreenState ? <Image src={GustavoAmaroDesktop} alt="Gustavo Amaro" /> : <Image src={GustavoAmaro} alt="Gustavo Amaro" />}
+                {isMediumScreenState ? <Image src={MeKDesktop} alt="Gustavo Amaro" /> : <Image src={MeK} alt="Gustavo Amaro" />}
             </div>
         </section>
     )
