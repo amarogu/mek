@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useSpring, animated, useChain, useSpringRef } from "@react-spring/web";
-import GitHub from '../../public/github.svg';
-import LinkedIn from '../../public/linkedin.svg';
+import Msg from '../../public/msg.svg';
+import Confirm from '../../public/check_circle_mek.svg';
+import Gift from '../../public/gift_mek.svg';
 import Image from "next/image";
 import GsapMagnetic from "./GsapMagnetic";
 import { useLenis } from '@studio-freight/react-lenis';
@@ -106,15 +107,20 @@ export default function Nav() {
                 <p className="text-xl">Maria&Kalil</p>
             </button>
         </div>
-        <div className="flex gap-2">
+        <div className="flex items-center gap-2">
             <GsapMagnetic>
-                <a href="https://github.com/amarogu" target="_blank">
-                    <Image src={GitHub} alt="GitHub" width={20} height={20} />
+                <a>
+                    <Image src={Msg} alt="Msg" className="h-5 mt-[2px]" width={20} />
                 </a>
             </GsapMagnetic>
             <GsapMagnetic>
-                <a href="https://www.linkedin.com/in/amarogu" target="_blank">
-                    <Image src={LinkedIn} alt="LinkedIn" width={20} height={20} />
+                <a>
+                    <Image src={Confirm} className="h-5 mt-[2px]" alt="Confirm" width={20} />
+                </a>
+            </GsapMagnetic>
+            <GsapMagnetic>
+                <a>
+                    <Image src={Gift} className="h-5" alt="Gift" width={20} />
                 </a>
             </GsapMagnetic>
         </div>

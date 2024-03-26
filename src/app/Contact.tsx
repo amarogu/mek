@@ -2,7 +2,7 @@ import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { useRef, useState, useEffect } from "react" // import useState and useEffect
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import GustavoAmaro from '../../public/gustavo_amaro_image.png';
+import MeK from '../../public/mek_about.png';
 import Image from "next/image";
 import ContactField from "./ContactField";
 import ArrowFoward from "../../public/arrow_forward.svg";
@@ -248,7 +248,7 @@ export default function Contact() {
                     <div className="flex-col">
                         <div className="flex flex-col gap-4 w-full">
                             <div className="flex gap-9 items-center">
-                                <Image src={GustavoAmaro} alt="Image of Gustavo in a warm colored background" className="rounded-full w-16 h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24" />
+                                <Image src={MeK} alt="Image of Gustavo in a warm colored background" className="rounded-full w-16 h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24" />
                                 <div className="flex flex-col gap-4">
                                     <p className="text-4xl xl:text-5xl">any</p>
                                     <p className="text-2xl hidden lg:block">any</p>

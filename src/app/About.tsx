@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import GustavoAmaro from '../../public/gustavo_amaro_image.png';
+import MeK from '../../public/mek_about.png';
 import ArrowUpward from '../../public/arrow_upward.svg';
 import ArrowBackward from '../../public/arrow_back.svg';
 import { useRef, useState, useEffect } from 'react';
@@ -47,7 +47,7 @@ export default function About() {
 
     return (
         <section className='flex flex-col container mx-auto md:flex-row justify-between gap-8 py-24 px-8'>
-            <Image ref={ref} src={GustavoAmaro} className={`md:object-cover md:object-[25%]`} style={{clipPath: 'inset(30%)'}} alt="Gustavo Amaro" />
+            <Image ref={ref} src={MeK} className={`md:object-cover md:object-[25%]`} style={{clipPath: 'inset(30%)'}} alt="Gustavo Amaro" />
             <div className='lg:w-1/2'>
                 <div className='flex flex-col gap-6'>
                     <div className='flex text-2xl gap-3'>
