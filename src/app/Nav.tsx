@@ -24,7 +24,7 @@ export default function Nav() {
 
     const lenis = useLenis(({scroll}) => {});
 
-    const buttonNames = ['Home', 'About', 'Projects', 'Contact'];
+    const buttonNames = ['O casal', 'A festa', 'Galeria', 'Recados', 'Presentes'];
 
     const [open, setOpen] = useState(false);
     const [isLangOpen, setLang] = useState<boolean>(false);
@@ -97,7 +97,7 @@ export default function Nav() {
     <animated.nav id="nav" style={nav} className={`flex items-start flex-wrap py-7 px-8 ${isScrolled ? "fixed top-[-84px] left-0 w-full" : "relative"}`}>
       <div className={`flex items-center justify-between w-full mx-auto ${isScrolled ? "container sm:px-8" : "max-w-[614px]"}`}>
         <div className="flex items-center gap-4">
-            <button className="cursor-pointer" onClick={toggleMenu}>
+            <button className="cursor-pointer flex items-center justify-center w-[24px] h-[14px] " onClick={toggleMenu}>
                 <div className="flex flex-col relative w-4 h-[6px]" >
                 <animated.span style={{...topBar}} className="w-4 h-[1px] absolute inline-block bg-text-200"></animated.span>
                 <animated.span style={{...bottomBar}} className="w-4 h-[1px] absolute inline-block bg-text-200"></animated.span>
