@@ -4,6 +4,9 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { useRef } from 'react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Cormorant_Garamond } from 'next/font/google';
+
+const cormorant = Cormorant_Garamond({weight: '400', subsets: ['latin']})
 
 export default function ProjectsIntro() {
 
@@ -26,7 +29,7 @@ export default function ProjectsIntro() {
     return (
         <section className="pt-16 flex flex-col justify-center">
             <div className='border-t-2 border-text-200 pt-5 flex flex-col gap-6'>
-                <h2 className={`text-5xl`}>Galeria</h2>
+                <h2 className={`text-5xl ${cormorant.className}`}>Galeria</h2>
                 <div ref={ref} style={{opacity: 0, transform: 'translateY(-25px)'}} className="flex gap-3">
                     <Image src={ArrowDownward} alt="Arrow Downward" />
                     <p className='text-2xl uppercase'>continue</p>

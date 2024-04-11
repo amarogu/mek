@@ -68,20 +68,23 @@ export default function Hero() {
     return (
         <section className="flex min-h-[600px] flex-col gap-24 h-[calc(100svh-84px)] items-start justify-center px-8">
             <div className='flex flex-col gap-4 mx-auto'>
-                <h1 className={`${isHighEnoughState ? "text-5xl" : "text-4xl"} sm:max-w-[614px]`}>
+                <h1 className={`${isHighEnoughState ? "text-3xl" : "text-2xl"} sm:max-w-[614px]`}>
                     {
-                    Array.from('Oi gente! Vamo nos casar, vejam o nosso site para acompanharem tudinho.').map((word, index) => (
+                    Array.from('Querida família e amigos maravilhosos, vamos nos casar! Sejam bem-vindos ao nosso site, estamos muito felizes em compartilhar esse momento com vocês.').map((word, index) => (
                         <span style={{opacity: 0}} className='key' key={index}>{word}</span>
                     ))}
+                    <span className='sr-only'>
+                        Querida família e amigos maravilhosos, vamos nos casar! Sejam bem-vindos ao nosso site, estamos muito felizes em compartilhar esse momento com vocês.
+                    </span>
                 </h1>
-                <div ref={sub} style={{transform: 'translateX(-100px)', opacity: 0}} className={`w-fit cursor-pointer ${isHighEnoughState ? 'h-[44px]' : 'h-[36px]'} overflow-y-hidden`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+                <div onClick={() => {lenis?.scrollTo('#about', {duration: 2})}} ref={sub} style={{transform: 'translateX(-100px)', opacity: 0}} className={`w-fit cursor-pointer ${isHighEnoughState ? 'h-[44px]' : 'h-[36px]'} overflow-y-hidden`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                     <button ref={subButton} className='flex gap-4 items-center' >
                         <Image src={ArrowForward} alt="Arrow Forward" />
-                        <p className={`underline decoration-2 underline-offset-[8px] ${isHighEnoughState ? "text-3xl" : "text-xl"}`}>Venham saber mais</p>
+                        <p className={`underline decoration-2 underline-offset-[8px] ${isHighEnoughState ? "text-2xl" : "text-lg"}`}>Venham saber mais</p>
                     </button>
                     <button ref={subButtonUnder} style={{transform: 'translateY(100%)', opacity: 0}} className='flex absolute top-0 gap-4 items-center' >
                         <Image src={ArrowForward} alt="Arrow Forward" />
-                        <p className={`underline decoration-2 underline-offset-[8px] ${isHighEnoughState ? "text-3xl" : "text-xl"}`}>Venham saber mais</p>
+                        <p className={`underline decoration-2 underline-offset-[8px] ${isHighEnoughState ? "text-2xl" : "text-lg"}`}>Venham saber mais</p>
                     </button>
                 </div>
             </div>
