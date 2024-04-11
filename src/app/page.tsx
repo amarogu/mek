@@ -11,6 +11,7 @@ import { ReactLenis } from '@studio-freight/react-lenis'
 import Contact from "./Contact";
 import Footer from "./Footer";
 import { useEffect, useState } from "react";
+import Gallery from "./Gallery";
 
 export default function Home() {
 
@@ -32,22 +33,7 @@ export default function Home() {
         <div id="spacer"></div>
         <Hero />
         <About />
-        <Projects
-          projects={[
-            {
-              title: 'UniStay',
-              type: 'any',
-              image: <Image src={UniStay} alt="UniStay" />,
-              link: `https://github.com/amarogu/unistay`
-            },
-            {
-              title: 'PrettyChat',
-              type: 'any',
-              image: <Image src={PrettyChatPlaceholder} alt="PrettyChat" />,
-              link: `https://github.com/amarogu/prettychat`
-            }
-          ]}
-        />
+        <Gallery />
         <Contact />
         <Footer />
       </main>

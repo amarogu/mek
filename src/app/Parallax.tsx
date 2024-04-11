@@ -9,9 +9,10 @@ interface ParallaxProps {
     children: React.ReactNode;
     speed?: number;
     id?: string;
+    reverse?: boolean;
 }
 
-export function Parallax({ className, children, speed = 1, id = 'parallax'}: ParallaxProps) {
+export function Parallax({ className, children, speed = 1, id = 'parallax', reverse = false}: ParallaxProps) {
     const trigger = useRef<HTMLDivElement>(null);
     const target = useRef<HTMLDivElement>(null);  
     const timeline = useRef<GSAPTimeline>(); 
@@ -20,7 +21,7 @@ export function Parallax({ className, children, speed = 1, id = 'parallax'}: Par
     useEffect(() => {
         gsap.registerPlugin(ScrollTrigger);
     
-        const y = windowWidth * speed * 0.1;
+        const y = reverse ? windowWidth * -speed * 0.1 : windowWidth * speed * 0.1;
         const setY = gsap.quickSetter(target.current, "y", "px");
     
         timeline.current = gsap.timeline({

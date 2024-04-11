@@ -33,8 +33,8 @@ export default function Hero() {
         const tl = gsap.timeline({});
         tl.to('.key', {
             opacity: 1,
-            stagger: 0.05,
-            duration: 0.5,
+            stagger: 0.03,
+            duration: 0.4,
         }).to(sub.current, {
             x: "0px",
             opacity: 1,

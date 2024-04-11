@@ -34,7 +34,7 @@ export default function ProjectsIntro() {
                     <Image src={ArrowDownward} alt="Arrow Downward" />
                     <p className='text-2xl uppercase'>continue</p>
                 </div>
-                <p className='text-3xl'>Veja um pouquinho mais sobre a gente e sobre a nossa história. Texto muito legal por favor.</p>
+                <p className='text-3xl'>Galeria de fotos do casal. Pode continuar descendo para ver algumas fotos nossas.</p>
             </div>
         </section>
     )
