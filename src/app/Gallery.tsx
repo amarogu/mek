@@ -16,22 +16,36 @@ import { useState } from 'react';
 
 export default function Gallery() {
 
-    const [isFocused, setIsFocused] = useState<boolean>(false);
+    const [isFocused, setIsFocused] = useState<[boolean, number]>([false, 0]);
 
-    const focus = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        const target = e.target as HTMLButtonElement;
-        const img = target.querySelector('img') as HTMLImageElement;
-        setIsFocused(true);
+    const focus = (i: number) => {
+        setIsFocused([true, i]);
     }
 
     return (
         <section className="px-8 pb-24 container mx-auto">
-            <div className='grid grid-cols-2'>
-                <div className='h-[450px] overflow-hidden'>
-                    <Parallax reverse speed={4}>
-                        <button onClick={e => focus(e)}>
-                            <Image className='-translate-y-20' src={Img1} alt="Image 1" />
+            <div className='grid grid-cols-1'>
+                <Parallax reverse speed={4}>
+                    <div>
+                        <button onClick={e => focus(1)}>
+                            <Image className='' style={{filter: `${isFocused ? 'blur(0px)' : 'blur(10px)'}`}} src={Img1} alt="Image 1" />
                         </button>
+                    </div>
+                </Parallax>
+                <div className='flex gap-x-4'>
+                    <Parallax reverse speed={4}>
+                        <div>
+                            <button onClick={e => focus(2)}>
+                                <Image className='' style={{filter: `${isFocused ? 'blur(0px)' : 'blur(10px)'}`}} src={Img2} alt="Image 2" />
+                            </button>
+                        </div>
+                    </Parallax>
+                    <Parallax reverse speed={4}>
+                        <div className='pt-4'>
+                            <button onClick={e => focus(3)}>
+                                <Image className='' style={{filter: `${isFocused ? 'blur(0px)' : 'blur(10px)'}`}} src={Img3} alt="Image 3" />
+                            </button>
+                        </div>
                     </Parallax>
                 </div>
             </div>
