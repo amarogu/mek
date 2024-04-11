@@ -46,7 +46,7 @@ export default function Gallery() {
                             <>
                                 {
                                     createPortal(
-                                        <div className='fixed p-4 gap-4 left-0 top-0 w-full h-full flex justify-center items-center z-50 flex-col'>  
+                                        <div key={i} className='fixed p-4 gap-4 left-0 top-0 w-full h-full flex justify-center items-center z-50 flex-col'>  
                                             <button onClick={() => handleClick(i)}>
                                                 <Image src={img} alt='Imagem de Maria & Kalil' />
                                             </button>
@@ -57,7 +57,7 @@ export default function Gallery() {
                                         document.body
                                     )
                                 }
-                                <Parallax reverse speed={4}>
+                                <Parallax key={i} reverse speed={4}>
                                     <button onClick={() => handleClick(i)}>
                                         <Image src={img} alt='Imagem de Maria e Kalil' />
                                     </button>
@@ -66,7 +66,7 @@ export default function Gallery() {
                         )
                     }
                     return (
-                        <Parallax reverse speed={4}>
+                        <Parallax reverse key={i} speed={4}>
                             <button onClick={() => handleClick(i)}>
                                 <Image src={img} alt='Imagem de Maria e Kalil' />
                             </button>
