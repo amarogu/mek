@@ -28,7 +28,7 @@ export default function Gallery() {
                 <Parallax reverse speed={4}>
                     <div>
                         <button onClick={e => focus(1)}>
-                            <Image className='' style={{filter: `${isFocused ? 'blur(0px)' : 'blur(10px)'}`}} src={Img1} alt="Image 1" />
+                            <Image className='' style={{filter: `${isFocused[0] && isFocused[1] === 1 ? 'blur(0px)' : 'blur(10px)'}`}} src={Img1} alt="Image 1" />
                         </button>
                     </div>
                 </Parallax>
@@ -36,14 +36,14 @@ export default function Gallery() {
                     <Parallax reverse speed={4}>
                         <div>
                             <button onClick={e => focus(2)}>
-                                <Image className='' style={{filter: `${isFocused ? 'blur(0px)' : 'blur(10px)'}`}} src={Img2} alt="Image 2" />
+                                <Image className='' style={{filter: `${isFocused[0] && isFocused[1] === 2 ? 'blur(0px)' : 'blur(10px)'}`}} src={Img2} alt="Image 2" />
                             </button>
                         </div>
                     </Parallax>
                     <Parallax reverse speed={4}>
                         <div className='pt-4'>
                             <button onClick={e => focus(3)}>
-                                <Image className='' style={{filter: `${isFocused ? 'blur(0px)' : 'blur(10px)'}`}} src={Img3} alt="Image 3" />
+                                <Image className='' style={{filter: `${isFocused[0] && isFocused[1] === 3 ? 'blur(0px)' : 'blur(10px)'}`}} src={Img3} alt="Image 3" />
                             </button>
                         </div>
                     </Parallax>
