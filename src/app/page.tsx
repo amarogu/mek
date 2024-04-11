@@ -18,7 +18,7 @@ export default function Home() {
       <header className="h-[84px] relative z-20">
         <Welcome />
       </header>
-      <main id="main" className="relative text-3xl overflow-x-hidden">
+      <main id="main" className="overflow-x-hidden">
         <div id="spacer"></div>
       </main>
     </ReactLenis>

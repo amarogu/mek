@@ -39,7 +39,7 @@ export default function Welcome() {
     }, [index, data]);
 
     return (
-        <animated.div style={styles} className="fixed z-10 flex justify-center items-center top-0 left-0 w-full h-screen bg-bg-200">
+        <animated.div style={styles} className="fixed z-10 flex justify-center items-center top-0 left-0 w-full h-screen dark:bg-dark-bg-200 bg-bg-200">
             <div className='flex gap-4 items-center'>
                 <Image src={Language} width={20} height={20} alt="Language" />
                 <p className='text-3xl'>{message}</p>
