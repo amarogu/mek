@@ -2,9 +2,16 @@
 import React, { useState, useEffect } from 'react';
 import { useSpring, animated } from '@react-spring/web';
 import Language from '../../public/language.svg';
+import LanguageDark from '../../public/language_dark.svg';
 import Image from 'next/image';
 
 export default function Welcome() {
+    const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+
+    useEffect(() => {
+        setIsDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches);
+    }, [])
+
     const data = [
         "Welcome", // English
         "Bienvenue", // French
@@ -41,7 +48,7 @@ export default function Welcome() {
     return (
         <animated.div style={styles} className="fixed z-10 flex justify-center items-center top-0 left-0 w-full h-screen dark:bg-dark-bg-200 bg-bg-200">
             <div className='flex gap-4 items-center'>
-                <Image src={Language} width={20} height={20} alt="Language" />
+                <Image src={isDarkMode ? LanguageDark : Language} width={20} height={20} alt="Language" />
                 <p className='text-3xl'>{message}</p>
             </div>
         </animated.div>
