@@ -48,7 +48,7 @@ export default function Gallery() {
                                     createPortal(
                                         <div className='fixed p-4 gap-4 left-0 top-0 w-full h-full flex justify-center items-center z-50 flex-col'>  
                                             <button onClick={() => handleClick(i)}>
-                                                <Image src={img} alt='Imagem de Maria e Kalil' />
+                                                <Image src={img} alt='Imagem de Maria & Kalil' />
                                             </button>
                                             <button onClick={handleClose} className='rounded-full w-8 flex justify-center items-center h-8 bg-bg-300/75 self-start'>
                                                 <Image src={Close} alt='Fechar' width={24} height={24} className='opacity-50' />
