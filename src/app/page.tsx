@@ -21,7 +21,7 @@ export default function Home() {
   return (
     <ReactLenis root>
       <Context.Provider value={{isDarkMode: isDarkMode, setIsDarkMode: setIsDarkMode}}>
-        <header className="h-[84px] relative z-20 p-8">
+        <header className="p-8">
           <Welcome />
           <Nav />
         </header>

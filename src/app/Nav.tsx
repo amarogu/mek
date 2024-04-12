@@ -4,6 +4,7 @@ import LogoDark from '../../public/meklogo_dark.svg';
 import Context from "./Context";
 import { useContext, useState } from "react";
 import { useSpring, animated } from "@react-spring/web";
+import Slider from "./Slider";
 
 const config = {
     mass: 1,
@@ -30,13 +31,14 @@ export default function Nav() {
 
     return (
         <nav className="grid container grid-cols-3 mx-auto items-center justify-items-center">
-            <Image src={isDarkMode ? LogoDark : Logo} className="col-start-2" alt="Maria & Kalil, com amor," />
-            <button className="cursor-pointer flex items-center justify-center justify-self-end w-[24px] h-[14px] " onClick={() => setOpen(!open)}>
+            <Image src={isDarkMode ? LogoDark : Logo} className="col-start-2 static z-10" alt="Maria & Kalil, com amor," />
+            <button className="cursor-pointer flex items-center justify-center justify-self-end w-[24px] z-10 static h-[14px] " onClick={() => setOpen(!open)}>
                 <div className="flex flex-col relative w-4 h-[6px]" >
-                <animated.span style={{...topBar}} className="w-4 h-[1px] absolute inline-block bg-text-200 dark:bg-dark-text-200"></animated.span>
-                <animated.span style={{...bottomBar}} className="w-4 h-[1px] absolute inline-block bg-text-200 dark:bg-dark-text-200"></animated.span>
+                    <animated.span style={{...topBar}} className="w-4 h-[1px] absolute inline-block bg-text-200 dark:bg-dark-text-200"></animated.span>
+                    <animated.span style={{...bottomBar}} className="w-4 h-[1px] absolute inline-block bg-text-200 dark:bg-dark-text-200"></animated.span>
                 </div>
             </button>
+            <Slider open={open} />
         </nav>
     )
 }
