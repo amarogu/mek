@@ -9,8 +9,8 @@ export default function Nav() {
     const { isDarkMode } = useContext(Context);
 
     return (
-        <nav className="flex justify-between container mx-auto">
-            <Image src={isDarkMode ? LogoDark : Logo} alt="Maria & Kalil, com amor," />
+        <nav className="grid container grid-cols-3 mx-auto">
+            <Image src={isDarkMode ? LogoDark : Logo} className="justify-self-center col-start-2" alt="Maria & Kalil, com amor," />
         </nav>
     )
 }
