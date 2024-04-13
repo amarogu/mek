@@ -40,7 +40,7 @@ export default function Nav() {
             </ul>
             <Image src={isDarkMode ? LogoDark : Logo} className="col-start-2 static z-10" alt="Maria & Kalil, com amor," />
             <ul className="md:flex hidden gap-12 justify-self-end font-bold">
-                {secondUl.map(i => <li><button className="uppercase text-[10px]">{i}</button></li>)}
+                {secondUl.map(i => <li><AnimatedText el={<button className="uppercase overflow-hidden h-[15px] text-[10px]">{i}</button>} animation="upper-staggering" on="hover" content={i} /></li>)}
             </ul>
             <button className="cursor-pointer md:hidden flex items-center justify-center justify-self-end w-[24px] z-10 static h-[14px] " onClick={() => setOpen(!open)}>
                 <div className="flex flex-col relative w-4 h-[6px]" >
