@@ -4,6 +4,7 @@ import { ReactLenis } from '@studio-freight/react-lenis'
 import { useEffect, useState } from "react";
 import Context from "./Context";
 import Nav from "./Nav";
+import Hero from "./Hero";
 
 export default function Home() {
 
@@ -21,12 +22,13 @@ export default function Home() {
   return (
     <ReactLenis root>
       <Context.Provider value={{isDarkMode: isDarkMode, setIsDarkMode: setIsDarkMode}}>
-        <header className="p-8">
+        <header className="p-8 h-[113px] flex items-center">
           <Welcome />
           <Nav />
         </header>
         <main id="main" className="overflow-x-hidden p-8">
           <div id="spacer"></div>
+          <Hero />
         </main>
       </Context.Provider>
     </ReactLenis>
