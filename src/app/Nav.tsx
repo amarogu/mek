@@ -5,6 +5,7 @@ import Context from "./Context";
 import { useContext, useState } from "react";
 import { useSpring, animated } from "@react-spring/web";
 import Slider from "./Slider";
+import AnimatedText from "./AnimatedText";
 
 const config = {
     mass: 1,
@@ -35,7 +36,7 @@ export default function Nav() {
     return (
         <nav className="grid container grid-cols-3 mx-auto items-center justify-items-center">
             <ul className="md:flex hidden gap-12 justify-self-start font-bold">
-                {firstUl.map(i => <li><button className="uppercase text-[10px]">{i}</button></li>)}
+                {firstUl.map(i => <li key={i}><AnimatedText animation="upper-staggering" on="hover" el={<button className="uppercase overflow-hidden text-[10px]"></button>} content={i}  /></li>)}
             </ul>
             <Image src={isDarkMode ? LogoDark : Logo} className="col-start-2 static z-10" alt="Maria & Kalil, com amor," />
             <ul className="md:flex hidden gap-12 justify-self-end font-bold">
