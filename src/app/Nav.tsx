@@ -36,7 +36,7 @@ export default function Nav() {
     return (
         <nav className="grid container grid-cols-3 mx-auto items-center justify-items-center">
             <ul className="md:flex hidden gap-12 justify-self-start font-bold">
-                {firstUl.map(i => <li key={i}><AnimatedText animation="upper-staggering" on="hover" el={<button className="uppercase overflow-hidden text-[10px]"></button>} content={i}  /></li>)}
+                {firstUl.map(i => <li key={i}><AnimatedText animation="upper-staggering" on="hover" el={<button className="uppercase overflow-hidden h-[15px] text-[10px]"></button>} content={i}  /></li>)}
             </ul>
             <Image src={isDarkMode ? LogoDark : Logo} className="col-start-2 static z-10" alt="Maria & Kalil, com amor," />
             <ul className="md:flex hidden gap-12 justify-self-end font-bold">
