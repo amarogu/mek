@@ -42,12 +42,12 @@ export default function Slider({open}: SliderProps) {
                     return (<li key={i}><button className="uppercase text-3xl overflow-hidden relative"><span className="font-extrabold">{item}</span><div className="dark:bg-dark-bg-200 i top-0 left-0 h-9 bg-bg-200 w-full absolute"></div></button></li>)
                 }))}
                 <div className="flex items-center gap-4">
-                    <li><a target="_blank" className="inline-block relative overflow-hidden" href={igs[0][1]}><span className="font-extrabold text-[0.625rem] uppercase">Instagram de {igs[0][0]}</span><div className="dark:bg-dark-bg-200 i top-0 left-0 h-6 bg-bg-200 w-full absolute"></div></a></li>
+                    <li><a target="_blank" className="inline-block relative overflow-hidden" href={igs[0][1]}><span className="font-extrabold text-[0.625rem] uppercase">@{igs[0][0]}</span><div className="dark:bg-dark-bg-200 i top-0 left-0 h-6 bg-bg-200 w-full absolute"></div></a></li>
                     <div className="relative flex items-center w-5">
                         <span className="w-5 inline-block bg-text-100 dark:bg-dark-text-100 h-[1px]"></span>
                         <div className="dark:bg-dark-bg-200 i top-0 left-0 h-[1px] bg-bg-200 w-full absolute"></div>
                     </div>
-                    <li><a target="_blank" className="inline-block relative overflow-hidden" href={igs[1][1]}><span className="font-extrabold text-[0.625rem] uppercase">Instagram de {igs[1][0]}</span><div className="dark:bg-dark-bg-200 i top-0 left-0 h-6 bg-bg-200 w-full absolute"></div></a></li>
+                    <li><a target="_blank" className="inline-block relative overflow-hidden" href={igs[1][1]}><span className="font-extrabold text-[0.625rem] uppercase">@{igs[1][0]}</span><div className="dark:bg-dark-bg-200 i top-0 left-0 h-6 bg-bg-200 w-full absolute"></div></a></li>
                 </div>
             </ul>
         </aside>
