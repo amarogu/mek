@@ -9,7 +9,7 @@ export default function Hero() {
     const content = ['Vamos nos', 'casar!', 'Sejam bem', 'vindos ao', 'nosso web', 'site.'];
     const mdContent = ['Vamos nos', 'casar!', 'Sejam', 'bem vindos ao', 'nosso web site.'];
 
-    const img = <div className={`overflow-hidden ${isMd ? 'h-[105px] w-[240px]' : 'h-[55px] w-[25vw]'}`}><Image src={Img2} className="w-full -translate-y-[6.75vw]" alt="Imagens de Maria e kalil" /></div>
+    const img = <div className='overflow-hidden md:h-[105px] md:w-[240px] h-[55px] w-[25vw]'><Image src={Img2} className="w-full -translate-y-[6.75vw] md:-translate-y-[4.25vw]" alt="Imagens de Maria e kalil" /></div>
 
     const renderContent = (isMd: boolean) => {
         if (isMd) {
@@ -47,7 +47,7 @@ export default function Hero() {
     }
 
     return (
-        <section className="flex flex-col justify-between items-center">
+        <section className="flex flex-col h-[calc(100vh-113px)] justify-center items-center">
             <div className="text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%]">
                 {renderContent(isMd)}
             </div>

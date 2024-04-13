@@ -22,11 +22,11 @@ export default function Home() {
   return (
     <ReactLenis root>
       <Context.Provider value={{isDarkMode: isDarkMode, setIsDarkMode: setIsDarkMode}}>
-        <header className="p-8 h-[113px] flex items-center">
+        <header className="p-8 h-[113px] static flex items-center">
           <Welcome />
           <Nav />
         </header>
-        <main id="main" className="overflow-x-hidden p-8">
+        <main id="main" className="overflow-x-hidden px-8">
           <div id="spacer"></div>
           <Hero />
         </main>
