@@ -39,10 +39,10 @@ export default function Nav() {
                 {firstUl.map(i => <li key={i}><AnimatedText animation="upper-staggering" on="hover" el={<button className="uppercase overflow-hidden h-[15px] text-[10px]"></button>} content={i}  /></li>)}
             </ul>
             <Image src={isDarkMode ? LogoDark : Logo} className="col-start-1 md:col-start-2 static z-10" alt="Maria & Kalil, com amor," />
-            <ul className="md:flex hidden gap-12 justify-self-end font-bold">
+            <ul className="md:flex hidden gap-12 text-nowrap justify-self-end font-bold">
                 {secondUl.map(i => <li><AnimatedText el={<button className="uppercase overflow-hidden h-[15px] text-[10px]">{i}</button>} animation="upper-staggering" on="hover" content={i} /></li>)}
             </ul>
-            <button className="cursor-pointer col-start-3 md:hidden flex items-center justify-center justify-self-end w-[24px] z-10 static h-[14px] " onClick={() => setOpen(!open)}>
+            <button className="cursor-pointer col-start-3 md:hidden flex items-center justify-end justify-self-end w-[24px] z-10 static h-[14px] " onClick={() => setOpen(!open)}>
                 <div className="flex flex-col relative w-4 h-[6px]" >
                     <animated.span style={{...topBar}} className="w-4 h-[1px] absolute inline-block bg-text-200 dark:bg-dark-text-200"></animated.span>
                     <animated.span style={{...bottomBar}} className="w-4 h-[1px] absolute inline-block bg-text-200 dark:bg-dark-text-200"></animated.span>
