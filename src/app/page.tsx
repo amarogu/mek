@@ -22,7 +22,7 @@ export default function Home() {
   return (
     <ReactLenis root>
       <Context.Provider value={{isDarkMode: isDarkMode, setIsDarkMode: setIsDarkMode}}>
-        <header className="p-8 h-[113px] static flex items-center">
+        <header className="px-8 pt-8 h-[81px] static flex items-center">
           <Welcome />
           <Nav />
         </header>
