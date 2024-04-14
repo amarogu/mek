@@ -11,6 +11,7 @@ import Img10 from "../../public/img10.png";
 import Img11 from "../../public/img11.png";
 import { useMediaQuery } from "react-responsive";
 import { useEffect, useState } from "react";
+import BottomTab from "./BottomTab";
 
 export default function Hero() {
 
@@ -72,10 +73,11 @@ export default function Hero() {
     }
 
     return (
-        <section className="flex flex-col h-[calc(100vh-113px)] justify-center items-center">
+        <section className="flex flex-col container mx-auto relative h-[calc(100vh-113px)] justify-center items-center">
             <div className="text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%]">
                 {renderContent(isMd)}
             </div>
+            <BottomTab />
         </section>
     )
 }
