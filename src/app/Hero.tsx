@@ -34,7 +34,7 @@ export default function Hero() {
         setCurrImg(imgs[imgIndex]);
     }, [imgIndex, imgs]);
 
-    const img = <div className='overflow-hidden md:h-[105px] md:w-[240px] h-[55px] w-[25vw]'><Image src={currImg} className="w-full -translate-y-[6.75vw] md:-translate-y-[4.25vw]" alt="Imagens de Maria e kalil" /></div>
+    const img = <Image src={Img2} width={isMd ? 240 : 113} height={isMd ? 105 : 49} alt="Imagens de Maria e kalil" />
 
     const renderContent = (isMd: boolean) => {
         if (isMd) {
