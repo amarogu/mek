@@ -35,7 +35,7 @@ export default function Hero() {
         setCurrImg(imgs[imgIndex]);
     }, [imgIndex, imgs]);
 
-    const img = <Image src={Img2} width={isMd ? 240 : 113} height={isMd ? 105 : 49} alt="Imagens de Maria e kalil" />
+    const img = <Image src={currImg} width={isMd ? 240 : 113} height={isMd ? 105 : 49} alt="Imagens de Maria e kalil" />
 
     const renderContent = (isMd: boolean) => {
         if (isMd) {
