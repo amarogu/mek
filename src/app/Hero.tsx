@@ -22,17 +22,25 @@ export default function Hero() {
 
     useGSAP(() => {
         gsap.registerPlugin(ScrollTrigger);
-        gsap.to(imgRef.current, {
-            scale: isMd ? 6 : 10,
+        const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: document.body,
-                markers: true,
                 start: 'top top',
-                end: `${isMd ? 'top+=700' : 'top+=900'} top+=500`,
-                scrub: true
+                end: `${isMd ? 'top+=700' : 'top+=600'} top+=500`,
+                scrub: true,
             }
+        });
+    
+        tl.to(imgRef.current, {
+            scale: isMd ? 6 : 5,
+            y: isMd ? 150 : 400,
+            x: isMd ? 0 : '-50%',
+            ease: 'slow'
         })
-    }, [isMd]);
+        .to('.bottomTab', { // assuming 'bottomTab' is the class of the BottomTab component
+            opacity: 0,
+        }, 0);
+    }, []);
 
     const content = ['Vamos nos', 'casar!', 'Sejam bem', 'vindos ao', 'nosso web', 'site.'];
     const mdContent = ['Vamos nos', 'casar!', 'Sejam', 'bem vindos ao', 'nosso web site.'];
