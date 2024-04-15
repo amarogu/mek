@@ -15,6 +15,7 @@ import BottomTab from "./BottomTab";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { Parallax } from "./Parallax";
 
 export default function Hero() {
 
@@ -61,21 +62,31 @@ export default function Hero() {
         setCurrImg(imgs[imgIndex]);
     }, [imgIndex, imgs]);
 
-    const img = <Image ref={imgRef} src={currImg} className={`${isMd ? 'w-[240px] h-[105px]' : 'w-[113px] h-[49px]'}`} alt="Imagens de Maria e kalil" />
+    const img = <Image ref={imgRef} src={currImg} className={`z-20 ${isMd ? 'w-[240px] h-[105px]' : 'w-[113px] h-[49px]'}`} alt="Imagens de Maria e kalil" />
 
     const renderContent = (isMd: boolean) => {
         if (isMd) {
             return (
                 <div>
                     <h1 className="flex flex-col">
+                        <Parallax reverse>
                         <p className="ml-16">{mdContent[0]}</p>
+                        </Parallax>
                         <p className="flex gap-4 items-center">
+                            <Parallax reverse>
                             <span>{mdContent[1]}</span>
+                            </Parallax>
                             {img}
+                            <Parallax reverse>
                             <span>{mdContent[2]}</span>
+                            </Parallax>
                         </p>
+                        <Parallax reverse>
                         <p className="ml-16">{mdContent[3]}</p>
+                        </Parallax>
+                        <Parallax reverse>
                         <p className="ml-16">{mdContent[4]}</p>
+                        </Parallax>
                     </h1>
                 </div>
             )
@@ -83,15 +94,27 @@ export default function Hero() {
             return (
                 <div>
                     <h1 className="flex gap-1 flex-col">
-                        <p className="ml-8">{content[0]}</p>
+                        <Parallax reverse>
+                            <p className="ml-8">{content[0]}</p>
+                        </Parallax>
                         <p className="flex gap-4 items-center">
-                            <span>{content[1]}</span>
+                            <Parallax reverse>
+                                <span>{content[1]}</span>
+                            </Parallax>
                             {img}
                         </p>
-                        <p className="ml-8">{content[2]}</p>
-                        <p>{content[3]}</p>
-                        <p>{content[4]}</p>
-                        <p>{content[5]}</p>
+                        <Parallax reverse>
+                            <p className="ml-8">{content[2]}</p>
+                        </Parallax>
+                        <Parallax reverse>
+                            <p>{content[3]}</p>
+                        </Parallax>
+                        <Parallax reverse>
+                            <p>{content[4]}</p>
+                        </Parallax>
+                        <Parallax reverse>
+                            <p>{content[5]}</p>
+                        </Parallax>
                     </h1>
                 </div>
             )
@@ -104,6 +127,7 @@ export default function Hero() {
                 {renderContent(isMd)}
             </div>
             <BottomTab />
+            <p className="text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%]"></p>
         </section>
     )
 }

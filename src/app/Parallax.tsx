@@ -21,19 +21,19 @@ export function Parallax({ className, children, speed = 1, id = 'parallax', reve
     useEffect(() => {
         gsap.registerPlugin(ScrollTrigger);
     
-        const y = reverse ? windowWidth * -speed * 0.1 : windowWidth * speed * 0.1;
         const setY = gsap.quickSetter(target.current, "y", "px");
+        const y = reverse ? (windowWidth * -speed * 0.1) : (windowWidth * speed * 0.1);
     
         timeline.current = gsap.timeline({
           scrollTrigger: {
             id: id,
             trigger: trigger.current,
             scrub: true, 
-            start: "top center",  
-            end: "bottom top", 
+            start: "top 200",  
+            end: "bottom top",
             onUpdate: (e) => {
               setY(e.progress * y);
-            }
+            },
           },
         });
     
