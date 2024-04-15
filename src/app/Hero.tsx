@@ -17,7 +17,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { Parallax } from "./Parallax";
 
-export default function Hero() {
+export default function Hero({className}: {className?: string}) {
 
     const isMd = useMediaQuery({query: '(min-width: 768px)'});
 
@@ -62,7 +62,7 @@ export default function Hero() {
         setCurrImg(imgs[imgIndex]);
     }, [imgIndex, imgs]);
 
-    const img = <Image ref={imgRef} src={currImg} className={`z-20 ${isMd ? 'w-[240px] h-[105px]' : 'w-[113px] h-[49px]'}`} alt="Imagens de Maria e kalil" />
+    const img = <Image ref={imgRef} src={currImg} className={`z-10 ${isMd ? 'w-[240px] h-[105px]' : 'w-[113px] h-[49px]'}`} alt="Imagens de Maria e kalil" />
 
     const renderContent = (isMd: boolean) => {
         if (isMd) {
@@ -122,12 +122,11 @@ export default function Hero() {
     }
 
     return (
-        <section className="flex flex-col container mx-auto relative h-[calc(100vh-113px)] justify-center items-center">
+        <section className={`${className ?? ''} flex flex-col container mx-auto relative h-[calc(100vh-113px)] justify-center items-center`}>
             <div className="text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%]">
                 {renderContent(isMd)}
             </div>
             <BottomTab />
-            <p className="text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%]"></p>
         </section>
     )
 }

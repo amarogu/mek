@@ -5,6 +5,10 @@ import { useEffect, useState } from "react";
 import Context from "./Context";
 import Nav from "./Nav";
 import Hero from "./Hero";
+import SlidingText from "./SlidingText";
+import Image from "next/image";
+import LogoAlt from '../../public/meklogo_alt.svg';
+import LogoAltDark from '../../public/meklogo_alt_dark.svg';
 
 export default function Home() {
 
@@ -26,9 +30,10 @@ export default function Home() {
           <Welcome />
           <Nav />
         </header>
-        <main id="main" className="overflow-x-hidden h-[500vh] px-8">
+        <main id="main" className="overflow-x-hidden h-[500vh]">
           <div id="spacer"></div>
-          <Hero />
+          <Hero className="px-8" />
+          <SlidingText text="Venham saber mais" darkImg={<Image src={LogoAltDark} alt="Logo alternativa" />} img={<Image src={LogoAlt} alt="Logo Alternativa" />} />
         </main>
       </Context.Provider>
     </ReactLenis>
