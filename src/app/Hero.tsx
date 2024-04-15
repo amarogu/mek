@@ -10,12 +10,29 @@ import Img9 from "../../public/img9.png";
 import Img10 from "../../public/img10.png";
 import Img11 from "../../public/img11.png";
 import { useMediaQuery } from "react-responsive";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import BottomTab from "./BottomTab";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 export default function Hero() {
 
     const isMd = useMediaQuery({query: '(min-width: 768px)'});
+
+    useGSAP(() => {
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.to(imgRef.current, {
+            scale: isMd ? 6 : 10,
+            scrollTrigger: {
+                trigger: document.body,
+                markers: true,
+                start: 'top top',
+                end: `${isMd ? 'top+=700' : 'top+=900'} top+=500`,
+                scrub: true
+            }
+        })
+    }, [isMd]);
 
     const content = ['Vamos nos', 'casar!', 'Sejam bem', 'vindos ao', 'nosso web', 'site.'];
     const mdContent = ['Vamos nos', 'casar!', 'Sejam', 'bem vindos ao', 'nosso web site.'];
@@ -23,6 +40,7 @@ export default function Hero() {
     const imgs = [Img2, Img3, Img4, Img5, Img6, Img7, Img8, Img9, Img10, Img11];
     const [currImg, setCurrImg] = useState<StaticImageData>(Img2);
     const [imgIndex, setImgIndex] = useState(0);
+    const imgRef = useRef<HTMLImageElement>(null);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -35,7 +53,7 @@ export default function Hero() {
         setCurrImg(imgs[imgIndex]);
     }, [imgIndex, imgs]);
 
-    const img = <Image src={currImg} width={isMd ? 240 : 113} height={isMd ? 105 : 49} alt="Imagens de Maria e kalil" />
+    const img = <Image ref={imgRef} src={currImg} className={`${isMd ? 'w-[240px] h-[105px]' : 'w-[113px] h-[49px]'}`} alt="Imagens de Maria e kalil" />
 
     const renderContent = (isMd: boolean) => {
         if (isMd) {

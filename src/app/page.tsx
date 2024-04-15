@@ -26,7 +26,7 @@ export default function Home() {
           <Welcome />
           <Nav />
         </header>
-        <main id="main" className="overflow-x-hidden px-8">
+        <main id="main" className="overflow-x-hidden h-[500vh] px-8">
           <div id="spacer"></div>
           <Hero />
         </main>
