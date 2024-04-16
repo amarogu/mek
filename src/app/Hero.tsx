@@ -23,14 +23,14 @@ export default function Hero({className}: {className?: string}) {
             scrollTrigger: {
                 trigger: document.body,
                 start: 'top top',
-                end: `${isMd ? 'top+=700' : 'top+=600'} top+=500`,
+                end: `${isMd ? 'top+=1300' : 'top+=600'} top+=500`,
                 scrub: true,
             }
         });
     
         tl.to(imgRef.current, {
             scale: isMd ? 6 : 5,
-            y: isMd ? 150 : 400,
+            y: isMd ? 425 : 400,
             x: isMd ? 0 : '-50%',
             ease: 'slow'
         }).to('.bottomTab', { opacity: 0 }, 0).to(slidingText.current, { opacity: 1 }, 0.5);
@@ -73,29 +73,29 @@ export default function Hero({className}: {className?: string}) {
             return (
                 <div>
                     <h1 className="flex title flex-col">
-                        
+                        <Parallax reverse>
                             <p className="ml-16">{mdContent[0]}</p>
-                        
+                        </Parallax>
                         <div className="flex gap-4 items-center">
-                            
+                            <Parallax reverse>
                                 <span>{mdContent[1]}</span>
-                            
+                            </Parallax>
                             <div ref={imgRef} className='z-10 w-[240px] h-[105px]'>
                                 {img}
                                 <div ref={slidingText} style={{opacity: 0}} className="-translate-y-full">
                                     <SlidingText className="text-[30%]" text="Venham saber mais" img={<Image src={LogoAlt} alt="Logo alternativa; Maria & Kalil escritos em iniciais, abaixo a palavra love" className="w-[24px]" width={24} />} darkImg={<Image width={24} className="w-[24px]" src={LogoAltDark} alt="Logo alternativa; Maria & Kalil escritos em iniciais, abaixo a palavra love" />} />
                                 </div>
                             </div>
-                            
+                            <Parallax reverse>
                                 <span>{mdContent[2]}</span>
-                            
+                            </Parallax>
                         </div>
-                        
+                        <Parallax reverse>
                             <p className="ml-16">{mdContent[3]}</p>
-                        
-                        
+                        </Parallax>
+                        <Parallax reverse>
                             <p className="ml-16">{mdContent[4]}</p>
-                        
+                        </Parallax>
                     </h1>
                 </div>
             )
