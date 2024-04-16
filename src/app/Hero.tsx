@@ -30,18 +30,6 @@ export default function Hero({className}: {className?: string}) {
                 start: 'top top',
                 end: `${isMd ? 'top+=700' : 'top+=600'} top+=500`,
                 scrub: true,
-                onLeave: () => {
-                    heroRef.current?.classList.add('!fixed');
-                    heroRef.current?.classList.add('top-0');
-                    heroRef.current?.classList.add('left-0');
-                    document.querySelector('.knowMore')?.setAttribute('style', `margin: ${heroRef.current?.clientHeight}px 0 0 0`);
-                },
-                onEnterBack: () => {
-                    heroRef.current?.classList.remove('!fixed');
-                    heroRef.current?.classList.remove('top-0');
-                    heroRef.current?.classList.remove('left-0');
-                    document.querySelector('.knowMore')?.setAttribute('style', `pt-[0px]`);
-                }
             }
         });
     
