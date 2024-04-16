@@ -34,7 +34,7 @@ export default function Hero({className}: {className?: string}) {
                     heroRef.current?.classList.add('!fixed');
                     heroRef.current?.classList.add('top-0');
                     heroRef.current?.classList.add('left-0');
-                    document.querySelector('.knowMore')?.setAttribute('style', `padding: ${heroRef.current?.clientHeight}px 0 0 0`);
+                    document.querySelector('.knowMore')?.setAttribute('style', `margin: ${heroRef.current?.clientHeight}px 0 0 0`);
                 },
                 onEnterBack: () => {
                     heroRef.current?.classList.remove('!fixed');
