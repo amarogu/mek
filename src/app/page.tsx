@@ -6,6 +6,7 @@ import Context from "./Context";
 import Nav from "./Nav";
 import Hero from "./Hero";
 import Slider from "./Slider";
+import Us from "./Us";
 
 export default function Home() {
 
@@ -47,6 +48,7 @@ export default function Home() {
         <main id="main" className="overflow-x-hidden h-[500vh]">
           <div ref={spacer}></div>
           <Hero className="px-8" />
+          <Us />
         </main>
       </Context.Provider>
     </ReactLenis>
