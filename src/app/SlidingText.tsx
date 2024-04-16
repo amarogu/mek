@@ -7,9 +7,9 @@ export default function SlidingText({text, darkImg, img, className}: {text: stri
     const { isDarkMode } = useContext(Context);
 
     return (
-        <Marquee className={`flex gap-6 z-30 overflow-hidden ${className ?? ''}`}>
-            <div className="flex gap-6 items-center">
-                <p className="text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%] uppercase">{text}</p>
+        <Marquee className={`flex gap-2 z-30 overflow-hidden ${className ?? ''}`}>
+            <div className="flex gap-2 items-center">
+                <p className="ont-extrabold leading-[85%] uppercase">{text}</p>
                 {isDarkMode ? darkImg : img}
             </div>
         </Marquee>

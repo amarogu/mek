@@ -24,6 +24,7 @@ export default function Hero({className}: {className?: string}) {
 
     const isMd = useMediaQuery({query: '(min-width: 768px)'});
     const heroRef = useRef<HTMLElement>(null);
+    const slidingText = useRef<HTMLDivElement>(null);
 
     useGSAP(() => {
         gsap.registerPlugin(ScrollTrigger);
@@ -41,7 +42,7 @@ export default function Hero({className}: {className?: string}) {
             y: isMd ? 150 : 400,
             x: isMd ? 0 : '-50%',
             ease: 'slow'
-        }).to('.bottomTab', { opacity: 0 }, 0);
+        }).to('.bottomTab', { opacity: 0 }, 0).to(slidingText.current, { opacity: 1 }, 0.5);
 
         gsap.to('.title p, .title span', {
             opacity: 0,
@@ -74,7 +75,7 @@ export default function Hero({className}: {className?: string}) {
         setCurrImg(imgs[imgIndex]);
     }, [imgIndex, imgs]);
 
-    const img = <Image ref={imgRef} src={currImg} className={`z-10 ${isMd ? 'w-[240px] h-[105px]' : 'w-[113px] h-[49px]'}`} alt="Imagens de Maria e kalil" />
+    const img = <Image src={currImg} className={`z-10 ${isMd ? 'w-[240px] h-[105px]' : 'w-[113px] h-[49px]'}`} alt="Imagens de Maria e kalil" />
 
     const renderContent = (isMd: boolean) => {
         if (isMd) {
@@ -113,9 +114,12 @@ export default function Hero({className}: {className?: string}) {
                             <Parallax reverse>
                                 <span>{content[1]}</span>
                             </Parallax>
-                            {img}
-                            <SlidingText text="Venham saber mais" img={<Image src={LogoAlt} alt="Logo alternativa; Maria & Kalil escritos em iniciais, abaixo a palavra love" />} darkImg={<Image src={LogoAltDark} alt="Logo alternativa; Maria & Kalil escritos em iniciais, abaixo a palavra love" />} />
-
+                            <div ref={imgRef} className={`z-10 ${isMd ? 'w-[240px] h-[105px]' : 'w-[113px] h-[49px]'}`}>
+                                {img}
+                                <div ref={slidingText} style={{opacity: 0}} className="-translate-y-full">
+                                    <SlidingText className="text-[30%]" text="Venham saber mais" img={<Image src={LogoAlt} alt="Logo alternativa; Maria & Kalil escritos em iniciais, abaixo a palavra love" className="w-[24px]" width={24} />} darkImg={<Image width={24} className="w-[24px]" src={LogoAltDark} alt="Logo alternativa; Maria & Kalil escritos em iniciais, abaixo a palavra love" />} />
+                                </div>
+                            </div>
                         </div>
                         <Parallax reverse>
                             <p className="ml-8">{content[2]}</p>
