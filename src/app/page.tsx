@@ -33,7 +33,7 @@ export default function Home() {
         <main id="main" className="overflow-x-hidden h-[500vh]">
           <div id="spacer"></div>
           <Hero className="px-8" />
-          <SlidingText text="Venham saber mais" darkImg={<Image src={LogoAltDark} alt="Logo alternativa" />} img={<Image src={LogoAlt} alt="Logo Alternativa" />} />
+          <SlidingText className="knowMore" text="Venham saber mais" darkImg={<Image src={LogoAltDark} alt="Logo alternativa" />} img={<Image src={LogoAlt} alt="Logo Alternativa" />} />
         </main>
       </Context.Provider>
     </ReactLenis>

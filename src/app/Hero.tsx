@@ -20,6 +20,7 @@ import { Parallax } from "./Parallax";
 export default function Hero({className}: {className?: string}) {
 
     const isMd = useMediaQuery({query: '(min-width: 768px)'});
+    const heroRef = useRef<HTMLElement>(null);
 
     useGSAP(() => {
         gsap.registerPlugin(ScrollTrigger);
@@ -29,6 +30,18 @@ export default function Hero({className}: {className?: string}) {
                 start: 'top top',
                 end: `${isMd ? 'top+=700' : 'top+=600'} top+=500`,
                 scrub: true,
+                onLeave: () => {
+                    heroRef.current?.classList.add('!fixed');
+                    heroRef.current?.classList.add('top-0');
+                    heroRef.current?.classList.add('left-0');
+                    document.querySelector('.knowMore')?.setAttribute('style', `padding: ${heroRef.current?.clientHeight}px 0 0 0`);
+                },
+                onEnterBack: () => {
+                    heroRef.current?.classList.remove('!fixed');
+                    heroRef.current?.classList.remove('top-0');
+                    heroRef.current?.classList.remove('left-0');
+                    document.querySelector('.knowMore')?.setAttribute('style', `pt-[0px]`);
+                }
             }
         });
     
@@ -122,7 +135,7 @@ export default function Hero({className}: {className?: string}) {
     }
 
     return (
-        <section className={`${className ?? ''} flex flex-col container mx-auto relative h-[calc(100vh-113px)] justify-center items-center`}>
+        <section ref={heroRef} id="hero" className={`${className ?? ''} flex flex-col container mx-auto relative h-[calc(100vh-113px)] justify-center items-center`}>
             <div className="text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%]">
                 {renderContent(isMd)}
             </div>
