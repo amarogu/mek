@@ -1,14 +1,5 @@
 import Image, { StaticImageData } from "next/image";
-import Img2 from "../../public/img2.png";
-import Img3 from "../../public/img3.png";
-import Img4 from "../../public/img4.png";
-import Img5 from "../../public/img5.png";
-import Img6 from "../../public/img6.png";
-import Img7 from "../../public/img7.png";
-import Img8 from "../../public/img8.png";
-import Img9 from "../../public/img9.png";
-import Img10 from "../../public/img10.png";
-import Img11 from "../../public/img11.png";
+import Img2 from "../../public/img2.png"; import Img3 from "../../public/img3.png"; import Img4 from "../../public/img4.png"; import Img5 from "../../public/img5.png"; import Img6 from "../../public/img6.png"; import Img7 from "../../public/img7.png"; import Img8 from "../../public/img8.png"; import Img9 from "../../public/img9.png"; import Img10 from "../../public/img10.png"; import Img11 from "../../public/img11.png";
 import { useMediaQuery } from "react-responsive";
 import { useEffect, useRef, useState } from "react";
 import BottomTab from "./BottomTab";
@@ -82,24 +73,29 @@ export default function Hero({className}: {className?: string}) {
             return (
                 <div>
                     <h1 className="flex title flex-col">
-                        <Parallax reverse>
-                        <p className="ml-16">{mdContent[0]}</p>
-                        </Parallax>
+                        
+                            <p className="ml-16">{mdContent[0]}</p>
+                        
                         <div className="flex gap-4 items-center">
-                            <Parallax reverse>
-                            <span>{mdContent[1]}</span>
-                            </Parallax>
-                            {img}
-                            <Parallax reverse>
-                            <span>{mdContent[2]}</span>
-                            </Parallax>
+                            
+                                <span>{mdContent[1]}</span>
+                            
+                            <div ref={imgRef} className='z-10 w-[240px] h-[105px]'>
+                                {img}
+                                <div ref={slidingText} style={{opacity: 0}} className="-translate-y-full">
+                                    <SlidingText className="text-[30%]" text="Venham saber mais" img={<Image src={LogoAlt} alt="Logo alternativa; Maria & Kalil escritos em iniciais, abaixo a palavra love" className="w-[24px]" width={24} />} darkImg={<Image width={24} className="w-[24px]" src={LogoAltDark} alt="Logo alternativa; Maria & Kalil escritos em iniciais, abaixo a palavra love" />} />
+                                </div>
+                            </div>
+                            
+                                <span>{mdContent[2]}</span>
+                            
                         </div>
-                        <Parallax reverse>
-                        <p className="ml-16">{mdContent[3]}</p>
-                        </Parallax>
-                        <Parallax reverse>
-                        <p className="ml-16">{mdContent[4]}</p>
-                        </Parallax>
+                        
+                            <p className="ml-16">{mdContent[3]}</p>
+                        
+                        
+                            <p className="ml-16">{mdContent[4]}</p>
+                        
                     </h1>
                 </div>
             )
@@ -114,7 +110,7 @@ export default function Hero({className}: {className?: string}) {
                             <Parallax reverse>
                                 <span>{content[1]}</span>
                             </Parallax>
-                            <div ref={imgRef} className={`z-10 ${isMd ? 'w-[240px] h-[105px]' : 'w-[113px] h-[49px]'}`}>
+                            <div ref={imgRef} className='z-10 w-[113px] h-[49px]'>
                                 {img}
                                 <div ref={slidingText} style={{opacity: 0}} className="-translate-y-full">
                                     <SlidingText className="text-[30%]" text="Venham saber mais" img={<Image src={LogoAlt} alt="Logo alternativa; Maria & Kalil escritos em iniciais, abaixo a palavra love" className="w-[24px]" width={24} />} darkImg={<Image width={24} className="w-[24px]" src={LogoAltDark} alt="Logo alternativa; Maria & Kalil escritos em iniciais, abaixo a palavra love" />} />
@@ -140,7 +136,7 @@ export default function Hero({className}: {className?: string}) {
     }
 
     return (
-        <section ref={heroRef} id="hero" className={`${className ?? ''} flex flex-col container mx-auto relative h-[calc(100vh-113px)] justify-center items-center`}>
+        <section ref={heroRef} className={`${className ?? ''} flex flex-col container mx-auto relative h-[calc(100vh-113px)] justify-center items-center`}>
             <div className="text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%]">
                 {renderContent(isMd)}
             </div>
