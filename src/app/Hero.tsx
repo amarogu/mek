@@ -23,17 +23,17 @@ export default function Hero({className}: {className?: string}) {
             scrollTrigger: {
                 trigger: document.body,
                 start: 'top top',
-                end: `${isMd ? 'top+=1300' : 'top+=600'} top+=500`,
+                end: `${isMd ? 'top+=1400' : 'top+=600'} top+=500`,
                 scrub: true,
             }
         });
     
         tl.to(imgRef.current, {
             scale: isMd ? 6 : 5,
-            y: isMd ? 425 : 400,
+            y: isMd ? 500 : 400,
             x: isMd ? 0 : '-50%',
             ease: 'slow'
-        }).to('.bottomTab', { opacity: 0 }, 0).to(slidingText.current, { opacity: 1 }, 0.5);
+        }).to('.bottomTab', { opacity: 0 }, 0).to(slidingText.current, { opacity: 1 }, 0.3);
 
         gsap.to('.title p, .title span', {
             opacity: 0,
