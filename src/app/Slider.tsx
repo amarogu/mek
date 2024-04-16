@@ -36,7 +36,7 @@ export default function Slider({open}: SliderProps) {
     const igs = [['maria', 'https://www.instagram.com/mariaisabel_amaro/'], ['kalil', 'https://www.instagram.com/kalilalvess/']]
 
     return (
-        <aside ref={aside} style={{height: '0%'}} className={`fixed z-20 bottom-0 flex flex-col justify-end w-full dark:bg-dark-bg-200 bg-bg-200 overflow-hidden`}>
+        <aside ref={aside} style={{height: '0%'}} className={`fixed z-30 bottom-0 flex flex-col justify-end w-full dark:bg-dark-bg-200 bg-bg-200 overflow-hidden`}>
             <ul className="flex flex-col p-8 gap-4">
                 {data.map(((item, i) => {
                     return (<li key={i}><button className="uppercase text-3xl overflow-hidden relative"><span className="font-extrabold">{item}</span><div className="dark:bg-dark-bg-200 i top-0 left-0 h-9 bg-bg-200 w-full absolute"></div></button></li>)
