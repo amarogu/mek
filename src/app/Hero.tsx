@@ -16,6 +16,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { Parallax } from "./Parallax";
+import SlidingText from "./SlidingText";
+import LogoAlt from '../../public/meklogo_alt.svg';
+import LogoAltDark from '../../public/meklogo_alt_dark.svg';
 
 export default function Hero({className}: {className?: string}) {
 
@@ -38,10 +41,18 @@ export default function Hero({className}: {className?: string}) {
             y: isMd ? 150 : 400,
             x: isMd ? 0 : '-50%',
             ease: 'slow'
-        })
-        .to('.bottomTab', { // assuming 'bottomTab' is the class of the BottomTab component
+        }).to('.bottomTab', { opacity: 0 }, 0);
+
+        gsap.to('.title p, .title span', {
             opacity: 0,
-        }, 0);
+            stagger: 0.1,
+            scrollTrigger: {
+                trigger: '.title p',
+                start: 'top-=50 top',
+                end: 'bottom+=50 top',
+                scrub: true
+            }
+        })
     }, []);
 
     const content = ['Vamos nos', 'casar!', 'Sejam bem', 'vindos ao', 'nosso web', 'site.'];
@@ -69,11 +80,11 @@ export default function Hero({className}: {className?: string}) {
         if (isMd) {
             return (
                 <div>
-                    <h1 className="flex flex-col">
+                    <h1 className="flex title flex-col">
                         <Parallax reverse>
                         <p className="ml-16">{mdContent[0]}</p>
                         </Parallax>
-                        <p className="flex gap-4 items-center">
+                        <div className="flex gap-4 items-center">
                             <Parallax reverse>
                             <span>{mdContent[1]}</span>
                             </Parallax>
@@ -81,7 +92,7 @@ export default function Hero({className}: {className?: string}) {
                             <Parallax reverse>
                             <span>{mdContent[2]}</span>
                             </Parallax>
-                        </p>
+                        </div>
                         <Parallax reverse>
                         <p className="ml-16">{mdContent[3]}</p>
                         </Parallax>
@@ -94,16 +105,18 @@ export default function Hero({className}: {className?: string}) {
         } else {
             return (
                 <div>
-                    <h1 className="flex gap-1 flex-col">
+                    <h1 className="flex gap-1 title flex-col">
                         <Parallax reverse>
                             <p className="ml-8">{content[0]}</p>
                         </Parallax>
-                        <p className="flex gap-4 items-center">
+                        <div className="flex gap-4 items-center">
                             <Parallax reverse>
                                 <span>{content[1]}</span>
                             </Parallax>
                             {img}
-                        </p>
+                            <SlidingText text="Venham saber mais" img={<Image src={LogoAlt} alt="Logo alternativa; Maria & Kalil escritos em iniciais, abaixo a palavra love" />} darkImg={<Image src={LogoAltDark} alt="Logo alternativa; Maria & Kalil escritos em iniciais, abaixo a palavra love" />} />
+
+                        </div>
                         <Parallax reverse>
                             <p className="ml-8">{content[2]}</p>
                         </Parallax>
