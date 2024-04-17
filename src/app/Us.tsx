@@ -37,7 +37,6 @@ export default function Us() {
                 if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
                     // If the style attribute has changed, refresh the ScrollTrigger
                     ScrollTrigger.refresh();
-                    console.log('Refreshed');
                 }
             }
         });
