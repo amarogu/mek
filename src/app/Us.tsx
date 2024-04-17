@@ -38,6 +38,16 @@ export default function Us() {
             scrollTrigger: { trigger: container.current, start: 'top center' }
         });
 
+        const tl = gsap.timeline({scrollTrigger: {
+            trigger: '#us',
+            start: 'top top',
+            end: 'bottom top',
+            scrub: true,
+            pin: true,
+        }})
+
+        tl.to(img1.current, {bottom: '50%', yPercent: -25}).to(img2.current, {bottom: '50%', yPercent: -50}).to(img3.current, {bottom: '50%', yPercent: -75});
+
         const observer = new MutationObserver((mutationsList, observer) => {
             for(let mutation of mutationsList) {
                 if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
@@ -63,9 +73,9 @@ export default function Us() {
                     )
                 })}
             </div>
-            <Image ref={img1} src={Img1} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translateY(100%)'}} className="md:w-[193px] usImgs md:h-[258px] w-[113px] h-[151px] absolute bottom-0" />
-            <Image ref={img2} src={Img2} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translateY(100%)'}} className="md:w-[193px] usImgs md:h-[258px] w-[113px] h-[151px] absolute bottom-0" />
-            <Image ref={img3} src={Img3} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translateY(100%)'}} className="md:w-[193px] usImgs md:h-[258px] w-[113px] h-[151px] absolute bottom-0" />
+            <Image ref={img1} src={Img1} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translateY(100%)'}} className="md:w-[193px] z-30 usImgs md:h-[258px] w-[113px] h-[151px] absolute bottom-0" />
+            <Image ref={img2} src={Img2} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translateY(100%)'}} className="md:w-[193px] z-20 usImgs md:h-[258px] w-[113px] h-[151px] absolute bottom-0" />
+            <Image ref={img3} src={Img3} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translateY(100%)'}} className="md:w-[193px] z-10 usImgs md:h-[258px] w-[113px] h-[151px] absolute bottom-0" />
         </section>
     )
 }
