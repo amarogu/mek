@@ -2,6 +2,10 @@ import { useEffect, useRef } from "react"
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Image from "next/image";
+import Img1 from '../../public/img1_us.png';
+import Img2 from '../../public/img2_us.png';
+import Img3 from '../../public/img3_us.png';
 
 export default function Us() {
 
@@ -60,6 +64,7 @@ export default function Us() {
                     )
                 })}
             </div>
+            <Image src={Img1} alt="Imagem de Maria e Kalil sentados em um banco" />
         </section>
     )
 }
