@@ -13,6 +13,11 @@ export default function Us() {
 
     const container = useRef<HTMLDivElement>(null);
 
+    const img1 = useRef<HTMLImageElement>(null);
+    const img2 = useRef<HTMLImageElement>(null);
+    const img3 = useRef<HTMLImageElement>(null);
+    const imgs = [img1, img2, img3];
+
     useEffect(() => {
         const usTitle = document.querySelectorAll('.usTitle');
         const hidingRects = document.querySelectorAll('.hidingRect');
@@ -28,20 +33,6 @@ export default function Us() {
     useGSAP(() => {
         const el = document.getElementById('us');
         gsap.registerPlugin(ScrollTrigger);
-        const imgs = gsap.utils.toArray('.usImgs') as HTMLElement[];
-        imgs.forEach(img => {
-            gsap.to(img, {
-                bottom: '50%',
-                scrollTrigger: {
-                    trigger: el,
-                    start: 'top top',
-                    end: 'center top',
-                    scrub: true,
-                    markers: true,
-                    pin: true
-                }
-            })
-        });
         gsap.to('.hidingRect', {
             yPercent: 125,
             scrollTrigger: { trigger: container.current, start: 'top center' }
@@ -72,7 +63,9 @@ export default function Us() {
                     )
                 })}
             </div>
-            <Image src={Img1} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translateY(100%)'}} className="md:w-[193px] usImgs md:h-[258px] w-[113px] h-[151px] absolute bottom-0" />
+            <Image ref={img1} src={Img1} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translateY(100%)'}} className="md:w-[193px] usImgs md:h-[258px] w-[113px] h-[151px] absolute bottom-0" />
+            <Image ref={img2} src={Img2} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translateY(100%)'}} className="md:w-[193px] usImgs md:h-[258px] w-[113px] h-[151px] absolute bottom-0" />
+            <Image ref={img3} src={Img3} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translateY(100%)'}} className="md:w-[193px] usImgs md:h-[258px] w-[113px] h-[151px] absolute bottom-0" />
         </section>
     )
 }
