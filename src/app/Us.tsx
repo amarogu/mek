@@ -31,7 +31,7 @@ export default function Us() {
     }, []);
 
     useGSAP(() => {
-        const el = document.getElementById('us');
+        const spacer = document.getElementById('spacer');
         gsap.registerPlugin(ScrollTrigger);
         gsap.to('.hidingRect', {
             yPercent: 125,
@@ -46,7 +46,7 @@ export default function Us() {
             }
         });
 
-        if (el) observer.observe(el, { attributes: true, attributeFilter: ['style'] });
+        if (spacer) observer.observe(spacer, { attributes: true, attributeFilter: ['style'] });
 
         return () => observer.disconnect();
     }, [])

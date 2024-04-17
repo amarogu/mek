@@ -41,7 +41,7 @@ export default function Hero({className}: {className?: string}) {
                 scrub: true,
                 onUpdate: () => {
                     const overlap = calculateOverlap();
-                    document.getElementById('us')?.style.setProperty('margin-top', `${overlap}px`);
+                    document.getElementById('spacer')?.style.setProperty('height', `${overlap}px`);
                 }
             }
         });
@@ -154,11 +154,14 @@ export default function Hero({className}: {className?: string}) {
     }
 
     return (
-        <section ref={heroRef} className={`${className ?? ''} flex flex-col container mx-auto relative h-[calc(100vh-113px)] justify-center items-center`}>
-            <div className="text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%]">
-                {renderContent(isMd)}
-            </div>
-            <BottomTab />
-        </section>
+        <>
+            <section ref={heroRef} className={`${className ?? ''} flex flex-col container mx-auto relative h-[calc(100vh-113px)] justify-center items-center`}>
+                <div className="text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%]">
+                    {renderContent(isMd)}
+                </div>
+                <BottomTab />
+            </section>
+            <div id="spacer"></div>
+        </>
     )
 }
