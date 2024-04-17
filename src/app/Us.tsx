@@ -25,7 +25,7 @@ export default function Us() {
         const el = document.getElementById('us');
         gsap.registerPlugin(ScrollTrigger);
         gsap.to('.hidingRect', {
-            yPercent: 100,
+            yPercent: 125,
             scrollTrigger: {
                 trigger: container.current,
                 start: 'top center'
@@ -54,7 +54,7 @@ export default function Us() {
             <div ref={container}>
                 {data.map(i => {
                     return (
-                        <div key={i} className="relative overflow-y-hidden">
+                        <div key={i} className="relative">
                             <div className="bg-bg-100 absolute hidingRect dark:bg-dark-bg-100 w-full"></div>
                             <h2 className="usTitle">{i}</h2>
                         </div>
