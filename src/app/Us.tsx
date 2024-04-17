@@ -28,8 +28,7 @@ export default function Us() {
             yPercent: 100,
             scrollTrigger: {
                 trigger: container.current,
-                start: 'top center',
-                markers: true
+                start: 'top center'
             }
         });
 
