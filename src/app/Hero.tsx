@@ -24,10 +24,8 @@ export default function Hero({className}: {className?: string}) {
         if (imgRect && bottomTabRect) {
             const overlap = imgRect.bottom - bottomTabRect.top;
             if (overlap > 0) {
-                console.log(`Overlap: ${overlap}px`);
                 return overlap;
             } else {
-                console.log('No overlap');
                 return 0;
             }
         }

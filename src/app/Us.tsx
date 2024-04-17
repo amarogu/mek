@@ -22,14 +22,32 @@ export default function Us() {
     }, []);
 
     useGSAP(() => {
+        const el = document.getElementById('us');
         gsap.registerPlugin(ScrollTrigger);
         gsap.to('.hidingRect', {
             yPercent: 100,
             scrollTrigger: {
                 trigger: container.current,
-                start: 'top center'
+                start: 'top center',
+                markers: true
             }
-        })
+        });
+
+        const observer = new MutationObserver((mutationsList, observer) => {
+            for(let mutation of mutationsList) {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+                    // If the style attribute has changed, refresh the ScrollTrigger
+                    ScrollTrigger.refresh();
+                    console.log('Refreshed');
+                }
+            }
+        });
+
+        // Start observing the 'us' element for changes in the style attribute
+        if (el) observer.observe(el, { attributes: true, attributeFilter: ['style'] });
+
+        // Clean up the observer when the component is unmounted
+        return () => observer.disconnect();
     }, [])
 
     return (
@@ -37,7 +55,7 @@ export default function Us() {
             <div ref={container}>
                 {data.map(i => {
                     return (
-                        <div key={i} className="relative">
+                        <div key={i} className="relative overflow-y-hidden">
                             <div className="bg-bg-100 absolute hidingRect dark:bg-dark-bg-100 w-full"></div>
                             <h2 className="usTitle">{i}</h2>
                         </div>
