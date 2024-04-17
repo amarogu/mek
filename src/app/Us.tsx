@@ -28,32 +28,40 @@ export default function Us() {
     useGSAP(() => {
         const el = document.getElementById('us');
         gsap.registerPlugin(ScrollTrigger);
+        const imgs = gsap.utils.toArray('.usImgs') as HTMLElement[];
+        imgs.forEach(img => {
+            gsap.to(img, {
+                bottom: '50%',
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top top',
+                    end: 'center top',
+                    scrub: true,
+                    markers: true,
+                    pin: true
+                }
+            })
+        });
         gsap.to('.hidingRect', {
             yPercent: 125,
-            scrollTrigger: {
-                trigger: container.current,
-                start: 'top center'
-            }
+            scrollTrigger: { trigger: container.current, start: 'top center' }
         });
 
         const observer = new MutationObserver((mutationsList, observer) => {
             for(let mutation of mutationsList) {
                 if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
-                    // If the style attribute has changed, refresh the ScrollTrigger
                     ScrollTrigger.refresh();
                 }
             }
         });
 
-        // Start observing the 'us' element for changes in the style attribute
         if (el) observer.observe(el, { attributes: true, attributeFilter: ['style'] });
 
-        // Clean up the observer when the component is unmounted
         return () => observer.disconnect();
     }, [])
 
     return (
-        <section id="us" className="flex items-center text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%] text-center justify-center h-screen">
+        <section id="us" className="flex relative items-center text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%] text-center justify-center h-screen">
             <div ref={container}>
                 {data.map(i => {
                     return (
@@ -64,7 +72,7 @@ export default function Us() {
                     )
                 })}
             </div>
-            <Image src={Img1} alt="Imagem de Maria e Kalil sentados em um banco" />
+            <Image src={Img1} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translateY(100%)'}} className="md:w-[193px] usImgs md:h-[258px] w-[113px] h-[151px] absolute bottom-0" />
         </section>
     )
 }
