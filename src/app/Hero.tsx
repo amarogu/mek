@@ -17,6 +17,22 @@ export default function Hero({className}: {className?: string}) {
     const heroRef = useRef<HTMLElement>(null);
     const slidingText = useRef<HTMLDivElement>(null);
 
+    const calculateOverlap = () => {
+        const imgRect = imgRef.current?.getBoundingClientRect();
+        const bottomTabRect = document.querySelector('.bottomTab')?.getBoundingClientRect();
+    
+        if (imgRect && bottomTabRect) {
+            const overlap = imgRect.bottom - bottomTabRect.top;
+            if (overlap > 0) {
+                console.log(`Overlap: ${overlap}px`);
+                return overlap;
+            } else {
+                console.log('No overlap');
+                return 0;
+            }
+        }
+    }
+
     useGSAP(() => {
         gsap.registerPlugin(ScrollTrigger);
         const tl = gsap.timeline({
@@ -25,6 +41,10 @@ export default function Hero({className}: {className?: string}) {
                 start: 'top top',
                 end: `${isMd ? 'top+=1400' : 'top+=600'} top+=500`,
                 scrub: true,
+                onUpdate: () => {
+                    const overlap = calculateOverlap();
+                    document.getElementById('us')?.style.setProperty('margin-top', `${overlap}px`);
+                }
             }
         });
     

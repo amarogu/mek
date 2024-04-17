@@ -33,7 +33,7 @@ export default function Us() {
     }, [])
 
     return (
-        <section className="flex items-center text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%] text-center justify-center h-screen">
+        <section id="us" className="flex items-center text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%] text-center justify-center h-screen">
             <div ref={container}>
                 {data.map(i => {
                     return (
