@@ -6,12 +6,15 @@ import Image from "next/image";
 import Img1 from '../../public/img1_us.png';
 import Img2 from '../../public/img2_us.png';
 import Img3 from '../../public/img3_us.png';
+import { useMediaQuery } from "react-responsive";
 
 export default function Us() {
 
     const data = ['Um amor que', 'tinha que', 'acontecer'];
 
     const container = useRef<HTMLDivElement>(null);
+
+    const isMd = useMediaQuery({query: '(min-width: 768px)'});
 
     const img1 = useRef<HTMLImageElement>(null);
     const img2 = useRef<HTMLImageElement>(null);
@@ -46,7 +49,7 @@ export default function Us() {
             pin: true,
         }})
 
-        tl.to(img1.current, {bottom: '50%', yPercent: -25}).to(img2.current, {bottom: '50%', yPercent: -50}).to(img3.current, {bottom: '50%', yPercent: -75});
+        tl.to(img1.current, {bottom: '50%', yPercent: isMd ? 0 : -50}).to(img2.current, {bottom: '50%', yPercent: -50}).to(img3.current, {bottom: '50%', yPercent: isMd ? -100 : -50});
 
         const observer = new MutationObserver((mutationsList, observer) => {
             for(let mutation of mutationsList) {
@@ -73,9 +76,9 @@ export default function Us() {
                     )
                 })}
             </div>
-            <Image ref={img1} src={Img1} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translateY(100%)'}} className="md:w-[193px] z-30 usImgs md:h-[258px] w-[113px] h-[151px] absolute bottom-0" />
-            <Image ref={img2} src={Img2} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translateY(100%)'}} className="md:w-[193px] z-20 usImgs md:h-[258px] w-[113px] h-[151px] absolute bottom-0" />
-            <Image ref={img3} src={Img3} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translateY(100%)'}} className="md:w-[193px] z-10 usImgs md:h-[258px] w-[113px] h-[151px] absolute bottom-0" />
+            <Image ref={img1} src={Img1} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translateY(100%)', bottom: '0'}} className="md:w-[193px] z-10 md:z-30 usImgs md:h-[258px] w-[113px] h-[151px] absolute" />
+            <Image ref={img2} src={Img2} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translateY(100%)', bottom: '0'}} className="md:w-[193px] z-20 md:z-20 usImgs md:h-[258px] w-[113px] h-[151px] absolute" />
+            <Image ref={img3} src={Img3} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translateY(100%)', bottom: '0'}} className="md:w-[193px] z-30 md:z-10 usImgs md:h-[258px] w-[113px] h-[151px] absolute" />
         </section>
     )
 }
