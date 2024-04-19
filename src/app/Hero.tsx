@@ -22,7 +22,7 @@ export default function Hero({className}: {className?: string}) {
         const bottomTabRect = document.querySelector('.bottomTab')?.getBoundingClientRect();
     
         if (imgRect && bottomTabRect) {
-            const overlap = imgRect.bottom - bottomTabRect.top;
+            const overlap = imgRect.bottom - bottomTabRect.bottom;
             if (overlap > 0) {
                 return overlap;
             } else {
