@@ -27,7 +27,7 @@ export default function Home() {
 
   useEffect(() => {
     const handleResize = () => {
-      location.reload();
+      if (window.matchMedia('(pointer: coarse)').matches) location.reload();
     }
     window.addEventListener('resize', handleResize);
     setIsDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches);
