@@ -155,7 +155,7 @@ export default function Hero({className}: {className?: string}) {
 
     return (
         <>
-            <section ref={heroRef} className={`${className ?? ''} flex flex-col container mx-auto relative h-[calc(100vh-113px)] justify-center items-center`}>
+            <section ref={heroRef} className={`${className ?? ''} flex flex-col container mx-auto relative h-[calc(100svh-113px)] justify-center items-center`}>
                 <div className="text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%]">
                     {renderContent(isMd)}
                 </div>
