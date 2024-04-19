@@ -16,16 +16,16 @@ export default function AnimatedText({on, el, content, animation}: TextProps) {
     const lowerRef = useRef<HTMLDivElement>(null);
     let tl: gsap.core.Timeline = gsap.timeline({paused: true});
 
-    switch (animation) {
-        case 'upper-staggering':
-            useGSAP(() => {
-                const chars = upperRef.current as HTMLDivElement;
-                const lowerChars = lowerRef.current as HTMLDivElement;
-                tl.to(chars.children, {y: -15, stagger: 0.025, duration: 0.3, ease: 'power2.inOut'});
-                tl.to(lowerChars.children, {y: '-100%', stagger: 0.05, duration: 0.3}, '-=0.3');
-            }, []);
+    useGSAP(() => {
+        switch (animation) {
+            case 'upper-staggering':
+                    const chars = upperRef.current as HTMLDivElement;
+                    const lowerChars = lowerRef.current as HTMLDivElement;
+                    tl.to(chars.children, {y: -15, stagger: 0.025, duration: 0.3, ease: 'power2.inOut'});
+                    tl.to(lowerChars.children, {y: '-100%', stagger: 0.05, duration: 0.3}, '-=0.3');
             break;
-    }
+        }
+    }, [])
 
     useEffect(() => {
         switch (on) {
