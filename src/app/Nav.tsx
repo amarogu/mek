@@ -17,8 +17,6 @@ export default function Nav({open, setOpen}: {open: boolean, setOpen: Dispatch<S
 
     const { isDarkMode } = useContext(Context);
 
-    const isMd = useMediaQuery({query: '(min-width: 768px)'});
-
     const topBar = useSpring({
         transform: open ? "rotate(45deg)" : "rotate(0deg)",
         top: open ? "3px" : "0px",
