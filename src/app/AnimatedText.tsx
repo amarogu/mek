@@ -24,6 +24,8 @@ export default function AnimatedText({on, el, content, animation}: TextProps) {
                     tl.to(chars.children, {y: -15, stagger: 0.025, duration: 0.3, ease: 'power2.inOut'});
                     tl.to(lowerChars.children, {y: '-100%', stagger: 0.05, duration: 0.3}, '-=0.3');
             break;
+            default:
+                return;
         }
     }, [])
 
