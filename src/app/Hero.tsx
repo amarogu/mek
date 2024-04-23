@@ -18,7 +18,7 @@ export default function Hero({className}: {className?: string}) {
     const slidingText = useRef<HTMLDivElement>(null);
 
     const calculateOverlap = () => {
-        const imgRect = imgRef.current?.getBoundingClientRect();
+        const imgRect = actualImg.current?.getBoundingClientRect();
         const bottomTabRect = document.querySelector('.bottomTab')?.getBoundingClientRect();
     
         if (imgRect && bottomTabRect) {
@@ -46,12 +46,14 @@ export default function Hero({className}: {className?: string}) {
             }
         });
     
-        tl.to(imgRef.current, {
-            scale: isMd ? 6 : 5,
-            y: isMd ? 500 : 400,
-            x: isMd ? 0 : '-50%',
-            ease: 'slow'
-        }).to('.bottomTab', { opacity: 0 }, 0).to(slidingText.current, { opacity: 1 }, 0.3);
+        if (imgRef.current?.childNodes) {
+            tl.to(imgRef.current.childNodes, {
+                scale: isMd ? 6 : 5,
+                y: isMd ? 500 : 400,
+                x: isMd ? 0 : '-50%',
+                ease: 'slow'
+            }).to('.bottomTab', { opacity: 0 }, 0).to(slidingText.current, { opacity: 1 }, 0.3);
+        }
 
         gsap.to('.title p, .title span', {
             opacity: 0,
@@ -84,7 +86,9 @@ export default function Hero({className}: {className?: string}) {
         setCurrImg(imgs[imgIndex]);
     }, [imgIndex, imgs]);
 
-    const img = <Image src={currImg} className={`z-10 ${isMd ? 'w-[240px] h-[105px]' : 'w-[113px] h-[49px]'}`} alt="Imagens de Maria e kalil" />
+    const actualImg = useRef<HTMLImageElement>(null);
+
+    const img = <Image src={currImg} ref={actualImg} className={`z-10 ${isMd ? 'w-[240px] h-[105px]' : 'w-[113px] h-[49px]'}`} alt="Imagens de Maria e kalil" />
 
     const renderContent = (isMd: boolean) => {
         if (isMd) {

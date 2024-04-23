@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -20,6 +20,8 @@ export default function Us() {
     const img2 = useRef<HTMLImageElement>(null);
     const img3 = useRef<HTMLImageElement>(null);
     const imgs = [img1, img2, img3];
+
+    const [newImgs, setNewImgs] = useState<React.ReactNode[]>([]);
 
     useEffect(() => {
         const usTitle = document.querySelectorAll('.usTitle');
@@ -49,7 +51,7 @@ export default function Us() {
             pin: true,
         }})
 
-        tl.to(img1.current, {bottom: '50%', yPercent: isMd ? 0 : -50}).to(img2.current, {bottom: '50%', yPercent: -50}).to(img3.current, {bottom: '50%', yPercent: isMd ? -100 : -50});
+        tl.to(img1.current, {bottom: '50%', yPercent: isMd ? 0 : -50}).to(img2.current, {bottom: '50%', yPercent: -50}).to(img3.current, {bottom: '50%', yPercent: isMd ? -100 : -50, onComplete: () => {setNewImgs([Img1, Img2, Img3].map(img => {return <Image src={img} alt="Imagem de Maria e Kalil" className="md:w-[193px] usImg usImgs md:h-[258px] w-[113px] h-[151px] absolute" />}))}});
 
         const observer = new MutationObserver((mutationsList, observer) => {
             for(let mutation of mutationsList) {
@@ -76,9 +78,12 @@ export default function Us() {
                     )
                 })}
             </div>
-            <Image ref={img1} src={Img1} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translateY(100%)', bottom: '0'}} className="md:w-[193px] z-10 md:z-30 usImgs md:h-[258px] w-[113px] h-[151px] absolute" />
-            <Image ref={img2} src={Img2} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translateY(100%)', bottom: '0'}} className="md:w-[193px] z-20 md:z-20 usImgs md:h-[258px] w-[113px] h-[151px] absolute" />
-            <Image ref={img3} src={Img3} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translateY(100%)', bottom: '0'}} className="md:w-[193px] z-30 md:z-10 usImgs md:h-[258px] w-[113px] h-[151px] absolute" />
+            <Image ref={img1} src={Img1} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translateY(100%)', bottom: '0'}} className="md:w-[193px] usImg z-10 md:z-30 usImgs md:h-[258px] w-[113px] h-[151px] absolute" />
+            <Image ref={img2} src={Img2} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translateY(100%)', bottom: '0'}} className="md:w-[193px] usImg z-20 md:z-20 usImgs md:h-[258px] w-[113px] h-[151px] absolute" />
+            <Image ref={img3} src={Img3} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translateY(100%)', bottom: '0'}} className="md:w-[193px] usImg z-30 md:z-10 usImgs md:h-[258px] w-[113px] h-[151px] absolute" />
+            {newImgs.map(img => {
+                return img;
+            })}
         </section>
     )
 }
