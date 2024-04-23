@@ -38,7 +38,7 @@ export default function Home() {
   if (!isMounted) return null;
 
   return (
-    <ReactLenis root>
+    <ReactLenis root options={{duration: 3}}>
       <Context.Provider value={{isDarkMode: isDarkMode, setIsDarkMode: setIsDarkMode}}>
         <header ref={header} className="md:h-[81px] flex px-8 pt-8 items-center fixed w-screen top-0 z-40">
           <Welcome />
