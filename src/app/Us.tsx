@@ -51,7 +51,7 @@ export default function Us() {
             pin: true,
         }})
 
-        tl.to(img1.current, {bottom: '50%', yPercent: isMd ? 0 : -50}).to(img2.current, {bottom: '50%', yPercent: -50}).to(img3.current, {bottom: '50%', yPercent: isMd ? -100 : -50, onComplete: () => {setNewImgs([Img1, Img2, Img3].map(img => {return <Image src={img} alt="Imagem de Maria e Kalil" className="md:w-[193px] usImg usImgs md:h-[258px] w-[113px] h-[151px] absolute" />}))}});
+        tl.to(img1.current, {bottom: '50%', yPercent: isMd ? 0 : -50}).to(img2.current, {bottom: '50%', yPercent: -50}).to(img3.current, {bottom: '50%', yPercent: isMd ? -100 : -50, onComplete: () => {setNewImgs([Img1, Img2, Img3].map((img, i) => {return <Image key={i} src={img} alt="Imagem de Maria e Kalil" className="md:w-[193px] usImg usImgs md:h-[258px] w-[113px] h-[151px] absolute" />}))}});
 
         const observer = new MutationObserver((mutationsList, observer) => {
             for(let mutation of mutationsList) {
