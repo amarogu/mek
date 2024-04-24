@@ -49,9 +49,16 @@ export default function Us() {
             end: 'bottom top',
             scrub: true,
             pin: true,
+            onEnterBack: () => {setNewImgs([])}
         }})
 
-        tl.to(img1.current, {bottom: '50%', yPercent: isMd ? 0 : -50}).to(img2.current, {bottom: '50%', yPercent: -50}).to(img3.current, {bottom: '50%', yPercent: isMd ? -100 : -50, onComplete: () => {setNewImgs([Img1, Img2, Img3].map((img, i) => {return <Image key={i} src={img} alt="Imagem de Maria e Kalil" className="md:w-[193px] usImg usImgs md:h-[258px] w-[113px] h-[151px] absolute" />}))}});
+        tl.to(img1.current, {bottom: '50%', yPercent: isMd ? 0 : -50}).to(img2.current, {bottom: '50%', yPercent: -50})
+        .to(img3.current, {bottom: '50%', yPercent: isMd ? -100 : -50, onComplete: () => {setNewImgs([Img1, Img2, Img3, Img1, Img2, Img3].map((img, i) => {return <Image key={i} src={img} alt="Imagem de Maria e Kalil" className="md:w-[193px] usImg usImgs md:h-[258px] w-[113px] h-[151px] absolute" />}))}})
+        .add([
+            gsap.to(container.current, {opacity: 0}),
+            gsap.to(img1.current, {left: '0%'}),
+            gsap.to(img2.current, {right: '0%'})
+        ], "+=0");
 
         const observer = new MutationObserver((mutationsList, observer) => {
             for(let mutation of mutationsList) {
@@ -67,7 +74,7 @@ export default function Us() {
     }, [])
 
     return (
-        <section id="us" className="flex relative items-center text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%] text-center justify-center h-screen">
+        <section id="us" className="flex relative m-4 items-center text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%] text-center justify-center h-screen">
             <div ref={container}>
                 {data.map((i, index) => {
                     return (
