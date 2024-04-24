@@ -37,7 +37,7 @@ export default function Hero({className}: {className?: string}) {
             scrollTrigger: {
                 trigger: document.body,
                 start: 'top top',
-                end: `${isMd ? 'top+=1400' : 'top+=600'} top+=500`,
+                end: `${isMd ? 'top+=1400' : 'top+=900'} top+=500`,
                 scrub: true,
                 onUpdate: () => {
                     const overlap = calculateOverlap();
