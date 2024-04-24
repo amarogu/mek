@@ -38,17 +38,19 @@ export default function Home() {
   if (!isMounted) return null;
 
   return (
-      <Context.Provider value={{isDarkMode: isDarkMode, setIsDarkMode: setIsDarkMode}}>
-        <header ref={header} className="md:h-[81px] flex px-8 pt-8 items-center fixed w-screen top-0 z-40">
-          <Welcome />
-          <Nav open={open} setOpen={setOpen} />
-          <Slider open={open} />
-        </header>
-        <main id="main" className="overflow-x-hidden h-[500vh]">
-          <div ref={spacer}></div>
-          <Hero className="px-8" />
-          <Us />
-        </main>
+      <ReactLenis root>
+        <Context.Provider value={{isDarkMode: isDarkMode, setIsDarkMode: setIsDarkMode}}>
+            <header ref={header} className="md:h-[81px] flex px-8 pt-8 items-center fixed w-screen top-0 z-40">
+              <Welcome />
+              <Nav open={open} setOpen={setOpen} />
+              <Slider open={open} />
+            </header>
+            <main id="main" className="overflow-x-hidden h-[500vh]">
+              <div ref={spacer}></div>
+              <Hero className="px-8" />
+              <Us />
+            </main>
       </Context.Provider>
+      </ReactLenis>
   );
 }
