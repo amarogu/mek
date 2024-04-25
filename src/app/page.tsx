@@ -37,7 +37,6 @@ export default function Home() {
     }
     if (us.bottomPos && us.topPos) {
       setSections([0, us.topPos, us.bottomPos]);
-      console.log(sections);
     }
   }, [isMounted, lenis])
 
@@ -58,21 +57,14 @@ export default function Home() {
       } else {
         newIndex = Math.max(newIndex - 1, 0);
       }
-      console.log(sections)
-      console.log(sections[newIndex]);
       if (lenis) {lenis.scrollTo(sections[newIndex], {duration: newIndex === 2 ? 3 : 1.5})};
       setSectionIndex(newIndex);
     }
-    const handleTouchMove = (e: TouchEvent) => {
-      e.preventDefault();
-    }
     window.addEventListener('touchstart', handleTouchStart, {passive: false});
     window.addEventListener('touchend', handleTouchEnd, {passive: false});
-    window.addEventListener('touchmove', handleTouchMove, {passive: false});
     return () => {
       window.removeEventListener('touchstart', handleTouchStart);
       window.removeEventListener('touchend', handleTouchEnd);
-      window.removeEventListener('touchmove', handleTouchMove);
     }
   }, [isMounted, lenis, sectionIndex, sections]);
 
