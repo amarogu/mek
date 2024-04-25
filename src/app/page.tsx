@@ -13,7 +13,7 @@ export default function Home() {
 
   const lenis = useLenis(() => {});
 
-  const sections: (number | string)[] = ['#hero', '#us', '#stay']; // Add more section IDs as needed
+  const sections: (number | string)[] = ['#hero', '#us']; // Add more section IDs as needed
   const [sectionIndex, setSectionIndex] = useState(0);
 
   const [isMounted, setIsMounted] = useState<boolean>(false);
@@ -32,7 +32,6 @@ export default function Home() {
     }
     if (us.el) us.bottomPos = getElScrollPos(us.el, 'bottom');
     if (us.bottomPos) sections.push(us.bottomPos);
-    console.log(sections);
     if (spacer.current && header.current) {
       spacer.current.setAttribute('style', `height: ${header.current.clientHeight}px`);
     }
@@ -49,7 +48,6 @@ export default function Home() {
       } else {
         newIndex = Math.max(newIndex - 1, 0);
       }
-      console.log(sections[newIndex]);
       if (lenis) {lenis.scrollTo(sections[newIndex] === '#hero' ? 0 : sections[newIndex], {duration: 1.5})};
       setSectionIndex(newIndex);
     }
@@ -64,7 +62,7 @@ export default function Home() {
       window.removeEventListener('touchend', handleTouchEnd);
       window.removeEventListener('touchmove', handleTouchMove);
     }
-  }, [isMounted, lenis]);
+  }, [isMounted, lenis, sectionIndex]);
 
   useEffect(() => {
     let height = window.innerHeight;
