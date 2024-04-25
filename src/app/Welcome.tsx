@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useSpring, animated } from '@react-spring/web';
 import Language from '../../public/language.svg';
 import LanguageDark from '../../public/language_dark.svg';
@@ -12,7 +12,7 @@ export default function Welcome() {
         setIsDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches);
     }, [])
 
-    const data = [
+    const data = useMemo(() => [
         "Welcome", // English
         "Bienvenue", // French
         "Willkommen", // German
@@ -22,7 +22,7 @@ export default function Welcome() {
         "歡迎", // Chinese
         "ようこそ", // Japanese
         "환영합니다" // Korean
-    ];
+    ], []);
     const [index, setIndex] = useState(0);
     const [message, setMessage] = useState(data[0]);
 

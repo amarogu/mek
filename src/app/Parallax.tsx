@@ -40,7 +40,7 @@ export function Parallax({ className, children, speed = 1, id = 'parallax', reve
         return () => {
           timeline?.current?.kill(); 
         };
-      }, [id, speed, windowWidth]);
+      }, [id, speed, windowWidth, reverse]);
   
     return (
       <div ref={trigger} className={className}>

@@ -49,7 +49,7 @@ export default function AnimatedText({on, el, content, animation}: TextProps) {
                     charsClick.removeEventListener('click', () => tl.play());
                 }
         }
-    }, [])
+    }, [on, tl])
 
     const characters = content.split('').map((char, index) => <span className="inline-block" key={index}>{char}</span>);
     const children = <div className="flex flex-col"><div ref={upperRef}>{characters}</div><div ref={lowerRef}>{characters}</div></div>

@@ -14,10 +14,30 @@ interface E {
 export default function GsapMagnetic({children}: GsapMagneticProps) {
 
     const ref = useRef<any>(null);
-    let xTo: gsap.QuickToFunc | null = null;
-    let YTo: gsap.QuickToFunc | null = null;
 
     useEffect(() => {
+
+        let xTo: gsap.QuickToFunc | null = null;
+        let YTo: gsap.QuickToFunc | null = null;
+
+        const mouseMove = (e: E) => {
+            if (ref.current && xTo && YTo) {
+                const {clientX, clientY} = e;
+                const {left, top, width, height} = ref.current.getBoundingClientRect();
+                const x = clientX - (left + width / 2);
+                const y = clientY - (top + height / 2);
+                xTo(x);
+                YTo(y);
+            }
+        }
+    
+        const mouseLeave = (e: E) => {
+            if (xTo && YTo) {
+                xTo(0);
+                YTo(0);
+            }
+        }
+
         if (ref.current) {
             xTo = gsap.quickTo(ref.current, 'x', {duration: 1, ease: 'elastic.out(1, 0.3)'});
             YTo = gsap.quickTo(ref.current, 'y', {duration: 1, ease: 'elastic.out(1, 0.3)'});
@@ -32,24 +52,6 @@ export default function GsapMagnetic({children}: GsapMagneticProps) {
             }
         }
     }, []);
-
-    const mouseMove = (e: E) => {
-        if (ref.current && xTo && YTo) {
-            const {clientX, clientY} = e;
-            const {left, top, width, height} = ref.current.getBoundingClientRect();
-            const x = clientX - (left + width / 2);
-            const y = clientY - (top + height / 2);
-            xTo(x);
-            YTo(y);
-        }
-    }
-
-    const mouseLeave = (e: E) => {
-        if (xTo && YTo) {
-            xTo(0);
-            YTo(0);
-        }
-    }
 
     return (
         React.cloneElement(children, {ref})

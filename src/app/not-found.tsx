@@ -1,12 +1,12 @@
 'use client';
 import Lang from '../../public/language.svg';
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { animated } from '@react-spring/web';
 
 export default function NotFound() {
 
-    const data = [
+    const data = useMemo(() => [
         "Not found", // English
         "Non trouvé", // French
         "Nicht gefunden", // German
@@ -16,7 +16,7 @@ export default function NotFound() {
         "未找到", // Chinese
         "見つかりません", // Japanese
         "찾을 수 없음" // Korean
-    ];
+    ], []);
     
     const [index, setIndex] = useState(0);
     const [message, setMessage] = useState(data[0]);

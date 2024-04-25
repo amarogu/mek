@@ -75,12 +75,12 @@ export default function Us({id}: {id?: string}) {
 
     return (
         <section id={id ?? ''} className="flex relative m-4 items-center text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%] text-center justify-center h-screen">
-            <div ref={container}>
+            <div ref={container} className="-z-10">
                 {data.map((i, index) => {
                     return (
-                        <div key={i} className="relative overflow-hidden" style={{zIndex: index === 2 ? 40 : 'initial'}}>
+                        <div key={i} className="relative" style={{zIndex: index === 2 ? 40 : 'initial'}}>
                             <div className="bg-bg-100 absolute hidingRect dark:bg-dark-bg-100 w-full"></div>
-                            <h2 className="usTitle">{i}</h2>
+                            <h2 className='usTitle'>{i}</h2>
                         </div>
                     )
                 })}
