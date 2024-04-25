@@ -91,7 +91,7 @@ export default function Hero({className, id}: {className?: string, id?: string})
     const actualImgHelper = useRef<HTMLDivElement>(null);
 
     const img = <Image src={currImg} ref={actualImg} className={`z-10 ${isMd ? 'w-[240px] h-[105px]' : 'w-[113px] h-[49px]'}`} alt="Imagens de Maria e kalil" />
-    const imgHelper = <div ref={actualImgHelper} style={{transform: isMd ? 'translateY(500px) scale(6)' : 'translate(-50%, 400px) scale(5)' }} className={`z-10 absolute top-0 ${isMd ? 'w-[240px] h-[105px]' : 'w-[113px] h-[49px]'}`}></div>;
+    const imgHelper = <div ref={actualImgHelper} style={{transform: isMd ? 'translateY(500px) scale(6)' : 'translate(-50%, 400px) scale(5)' }} className={`absolute top-0 ${isMd ? 'w-[240px] h-[105px]' : 'w-[113px] h-[49px]'}`}></div>;
 
     const renderContent = (isMd: boolean) => {
         if (isMd) {
