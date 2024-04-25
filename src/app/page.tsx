@@ -70,8 +70,9 @@ export default function Home() {
 
   useEffect(() => {
     let height = window.innerHeight;
+    let width = window.innerWidth;
     const handleResize = () => {
-      if (window.innerHeight === height) location.reload();
+      if (window.innerHeight === height && window.innerWidth !== width) location.reload();
     }
     window.addEventListener('resize', handleResize);
     setIsDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches);
