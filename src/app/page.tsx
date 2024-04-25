@@ -13,7 +13,7 @@ export default function Home() {
 
   const lenis = useLenis(() => {});
 
-  const sections: (number | string)[] = [0]; // Add more section IDs as needed
+  const [sections, setSections] = useState<number[]>([]); // Add more section IDs as needed
   const [sectionIndex, setSectionIndex] = useState(0);
 
   const [isMounted, setIsMounted] = useState<boolean>(false);
@@ -36,8 +36,12 @@ export default function Home() {
       us.topPos = getElScrollPos(us.el, 'top');
     }
     if (us.bottomPos && us.topPos) {
-      sections.push(us.topPos, us.bottomPos);
+      setSections([0, us.topPos, us.bottomPos]);
+      console.log(sections);
     }
+  }, [isMounted, lenis])
+
+  useEffect(() => {
     if (spacer.current && header.current) {
       spacer.current.setAttribute('style', `height: ${header.current.clientHeight}px`);
     }
@@ -54,7 +58,9 @@ export default function Home() {
       } else {
         newIndex = Math.max(newIndex - 1, 0);
       }
-      if (lenis) {lenis.scrollTo(sections[newIndex] === '#hero' ? 0 : sections[newIndex], {duration: 1.5})};
+      console.log(sections)
+      console.log(sections[newIndex]);
+      if (lenis) {lenis.scrollTo(sections[newIndex], {duration: newIndex === 2 ? 3 : 1.5})};
       setSectionIndex(newIndex);
     }
     const handleTouchMove = (e: TouchEvent) => {
@@ -68,7 +74,7 @@ export default function Home() {
       window.removeEventListener('touchend', handleTouchEnd);
       window.removeEventListener('touchmove', handleTouchMove);
     }
-  }, [isMounted, lenis, sectionIndex]);
+  }, [isMounted, lenis, sectionIndex, sections]);
 
   useEffect(() => {
     let height = window.innerHeight;
