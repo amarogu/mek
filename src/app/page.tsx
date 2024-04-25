@@ -43,7 +43,7 @@ export default function Home() {
       } else {
         newIndex = Math.max(newIndex - 1, 0);
       }
-      if (lenis) {lenis.scrollTo(sections[newIndex]); console.log('lenis')};
+      if (lenis) {lenis.scrollTo(sections[newIndex] === '#hero' ? 0 : sections[newIndex]); console.log('lenis')};
       setSectionIndex(newIndex);
       e.preventDefault();
     }
