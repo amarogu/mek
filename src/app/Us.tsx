@@ -8,7 +8,7 @@ import Img2 from '../../public/img2_us.png';
 import Img3 from '../../public/img3_us.png';
 import { useMediaQuery } from "react-responsive";
 
-export default function Us() {
+export default function Us({id}: {id?: string}) {
 
     const data = ['Um amor que', 'tinha que', 'acontecer'];
 
@@ -74,7 +74,7 @@ export default function Us() {
     }, [])
 
     return (
-        <section id="us" className="flex relative m-4 items-center text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%] text-center justify-center h-screen">
+        <section id={id ?? ''} className="flex relative m-4 items-center text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%] text-center justify-center h-screen">
             <div ref={container}>
                 {data.map((i, index) => {
                     return (

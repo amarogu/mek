@@ -9,3 +9,11 @@ export function addClasses(element: HTMLElement, classes: string[]) {
       element.classList.remove(className);
     });
   }
+
+export function checkSwipe(touchStartedY: number, touchEndedY: number) {
+  if (touchStartedY > touchEndedY) {
+    return 'up';
+  } else {
+    return 'down';
+  }
+}

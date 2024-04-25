@@ -1,14 +1,20 @@
 'use client';
 import Welcome from "./Welcome";
-import { ReactLenis } from '@studio-freight/react-lenis'
+import { ReactLenis, useLenis } from '@studio-freight/react-lenis'
 import { useEffect, useRef, useState } from "react";
 import Context from "./Context";
 import Nav from "./Nav";
 import Hero from "./Hero";
 import Slider from "./Slider";
 import Us from "./Us";
+import { checkSwipe } from "@/lib/helpers";
 
 export default function Home() {
+
+  const lenis = useLenis(() => {});
+
+  const sections = ['#hero', '#us']; // Add more section IDs as needed
+  const [sectionIndex, setSectionIndex] = useState(0);
 
   const [isMounted, setIsMounted] = useState<boolean>(false);
 
@@ -23,7 +29,27 @@ export default function Home() {
     if (spacer.current && header.current) {
       spacer.current.setAttribute('style', `height: ${header.current.clientHeight}px`);
     }
-  }, [isMounted]);
+    let touchStartedY: number;
+    let touchEndedY: number;
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartedY = e.changedTouches[0].clientY;
+      e.preventDefault();
+    }
+    const handleTouchEnd = (e: TouchEvent) => {
+      let newIndex = sectionIndex;
+      touchEndedY = e.changedTouches[0].clientY;
+      if (checkSwipe(touchStartedY, touchEndedY) === 'up') {
+        newIndex = Math.min(newIndex + 1, sections.length - 1);
+      } else {
+        newIndex = Math.max(newIndex - 1, 0);
+      }
+      if (lenis) {lenis.scrollTo(sections[newIndex]); console.log('lenis')};
+      setSectionIndex(newIndex);
+      e.preventDefault();
+    }
+    window.addEventListener('touchstart', handleTouchStart, {passive: false});
+    window.addEventListener('touchend', handleTouchEnd, {passive: false});
+  }, [isMounted, lenis]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -47,8 +73,8 @@ export default function Home() {
             </header>
             <main id="main" className="overflow-x-hidden h-[500vh]">
               <div ref={spacer}></div>
-              <Hero className="px-8" />
-              <Us />
+              <Hero id="hero" className="px-8" />
+              <Us id="us" />
             </main>
       </Context.Provider>
       </ReactLenis>
