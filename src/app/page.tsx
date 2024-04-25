@@ -33,7 +33,6 @@ export default function Home() {
     let touchEndedY: number;
     const handleTouchStart = (e: TouchEvent) => {
       touchStartedY = e.changedTouches[0].clientY;
-      e.preventDefault();
     }
     const handleTouchEnd = (e: TouchEvent) => {
       let newIndex = sectionIndex;
@@ -43,12 +42,15 @@ export default function Home() {
       } else {
         newIndex = Math.max(newIndex - 1, 0);
       }
-      if (lenis) {lenis.scrollTo(sections[newIndex] === '#hero' ? 0 : sections[newIndex]); console.log('lenis')};
+      if (lenis) {lenis.scrollTo(sections[newIndex] === '#hero' ? 0 : sections[newIndex])};
       setSectionIndex(newIndex);
+    }
+    const handleTouchMove = (e: TouchEvent) => {
       e.preventDefault();
     }
     window.addEventListener('touchstart', handleTouchStart, {passive: false});
     window.addEventListener('touchend', handleTouchEnd, {passive: false});
+    window.addEventListener('touchmove', handleTouchMove, {passive: false});
   }, [isMounted, lenis]);
 
   useEffect(() => {
