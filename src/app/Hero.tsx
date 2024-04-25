@@ -18,7 +18,7 @@ export default function Hero({className, id}: {className?: string, id?: string})
     const slidingText = useRef<HTMLDivElement>(null);
 
     const calculateOverlap = () => {
-        const imgRect = actualImg.current?.getBoundingClientRect();
+        const imgRect = actualImgHelper.current?.getBoundingClientRect();
         const bottomTabRect = document.querySelector('.bottomTab')?.getBoundingClientRect();
     
         if (imgRect && bottomTabRect) {
@@ -38,11 +38,7 @@ export default function Hero({className, id}: {className?: string, id?: string})
                 trigger: document.body,
                 start: 'top top',
                 end: `${isMd ? 'top+=1400' : 'top+=900'} top+=500`,
-                scrub: true,
-                onUpdate: () => {
-                    const overlap = calculateOverlap();
-                    document.getElementById('spacer')?.style.setProperty('height', `${overlap}px`);
-                }
+                scrub: true
             }
         });
     
@@ -86,9 +82,16 @@ export default function Hero({className, id}: {className?: string, id?: string})
         setCurrImg(imgs[imgIndex]);
     }, [imgIndex, imgs]);
 
+    useEffect(() => {
+        const overlap = calculateOverlap();
+        document.getElementById('spacer')?.style.setProperty('height', `${overlap}px`);
+    }, [])
+
     const actualImg = useRef<HTMLImageElement>(null);
+    const actualImgHelper = useRef<HTMLDivElement>(null);
 
     const img = <Image src={currImg} ref={actualImg} className={`z-10 ${isMd ? 'w-[240px] h-[105px]' : 'w-[113px] h-[49px]'}`} alt="Imagens de Maria e kalil" />
+    const imgHelper = <div ref={actualImgHelper} style={{transform: isMd ? 'translateY(500px) scale(6)' : 'translate(-50%, 400px) scale(5)' }} className={`z-10 absolute top-0 ${isMd ? 'w-[240px] h-[105px]' : 'w-[113px] h-[49px]'}`}></div>;
 
     const renderContent = (isMd: boolean) => {
         if (isMd) {
@@ -102,8 +105,9 @@ export default function Hero({className, id}: {className?: string, id?: string})
                             <Parallax reverse>
                                 <span>{mdContent[1]}</span>
                             </Parallax>
-                            <div ref={imgRef} className='z-10 w-[240px] h-[105px]'>
+                            <div ref={imgRef} className='z-10 relative w-[240px] h-[105px]'>
                                 {img}
+                                {imgHelper}
                                 <div ref={slidingText} style={{opacity: 0}} className="-translate-y-full">
                                     <SlidingText className="text-[30%]" text="Venham saber mais" img={<Image src={LogoAlt} alt="Logo alternativa; Maria & Kalil escritos em iniciais, abaixo a palavra love" className="w-[24px]" width={24} />} darkImg={<Image width={24} className="w-[24px]" src={LogoAltDark} alt="Logo alternativa; Maria & Kalil escritos em iniciais, abaixo a palavra love" />} />
                                 </div>
@@ -132,8 +136,9 @@ export default function Hero({className, id}: {className?: string, id?: string})
                             <Parallax reverse>
                                 <span>{content[1]}</span>
                             </Parallax>
-                            <div ref={imgRef} className='z-10 w-[113px] h-[49px]'>
+                            <div ref={imgRef} className='z-10 relative w-[113px] h-[49px]'>
                                 {img}
+                                {imgHelper}
                                 <div ref={slidingText} style={{opacity: 0}} className="-translate-y-full">
                                     <SlidingText className="text-[30%]" text="Venham saber mais" img={<Image src={LogoAlt} alt="Logo alternativa; Maria & Kalil escritos em iniciais, abaixo a palavra love" className="w-[24px]" width={24} />} darkImg={<Image width={24} className="w-[24px]" src={LogoAltDark} alt="Logo alternativa; Maria & Kalil escritos em iniciais, abaixo a palavra love" />} />
                                 </div>

@@ -42,7 +42,7 @@ export default function Home() {
       } else {
         newIndex = Math.max(newIndex - 1, 0);
       }
-      if (lenis) {lenis.scrollTo(sections[newIndex] === '#hero' ? 0 : sections[newIndex], {duration: 2})};
+      if (lenis) {lenis.scrollTo(sections[newIndex] === '#hero' ? 0 : sections[newIndex], {duration: 1.5})};
       setSectionIndex(newIndex);
     }
     const handleTouchMove = (e: TouchEvent) => {
