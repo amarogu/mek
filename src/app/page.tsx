@@ -42,7 +42,7 @@ export default function Home() {
       } else {
         newIndex = Math.max(newIndex - 1, 0);
       }
-      if (lenis) {lenis.scrollTo(sections[newIndex] === '#hero' ? 0 : sections[newIndex])};
+      if (lenis) {lenis.scrollTo(sections[newIndex] === '#hero' ? 0 : sections[newIndex], {duration: 2})};
       setSectionIndex(newIndex);
     }
     const handleTouchMove = (e: TouchEvent) => {
@@ -51,6 +51,11 @@ export default function Home() {
     window.addEventListener('touchstart', handleTouchStart, {passive: false});
     window.addEventListener('touchend', handleTouchEnd, {passive: false});
     window.addEventListener('touchmove', handleTouchMove, {passive: false});
+    return () => {
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchend', handleTouchEnd);
+      window.removeEventListener('touchmove', handleTouchMove);
+    }
   }, [isMounted, lenis]);
 
   useEffect(() => {
