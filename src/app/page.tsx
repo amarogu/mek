@@ -59,8 +59,9 @@ export default function Home() {
   }, [isMounted, lenis]);
 
   useEffect(() => {
+    let height = window.innerHeight;
     const handleResize = () => {
-      if (!window.matchMedia('(pointer: coarse)').matches) location.reload();
+      if (window.innerHeight === height) location.reload();
     }
     window.addEventListener('resize', handleResize);
     setIsDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches);
