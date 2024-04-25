@@ -13,7 +13,7 @@ export default function Home() {
 
   const lenis = useLenis(() => {});
 
-  const sections: (number | string)[] = ['#hero', '#us']; // Add more section IDs as needed
+  const sections: (number | string)[] = [0]; // Add more section IDs as needed
   const [sectionIndex, setSectionIndex] = useState(0);
 
   const [isMounted, setIsMounted] = useState<boolean>(false);
@@ -28,10 +28,16 @@ export default function Home() {
   useEffect(() => {
     const us = {
       el: document.getElementById('us'),
+      topPos: undefined as number | undefined,
       bottomPos: undefined as number | undefined,
     }
-    if (us.el) us.bottomPos = getElScrollPos(us.el, 'bottom');
-    if (us.bottomPos) sections.push(us.bottomPos);
+    if (us.el) {
+      us.bottomPos = getElScrollPos(us.el, 'bottom');
+      us.topPos = getElScrollPos(us.el, 'top');
+    }
+    if (us.bottomPos && us.topPos) {
+      sections.push(us.topPos, us.bottomPos);
+    }
     if (spacer.current && header.current) {
       spacer.current.setAttribute('style', `height: ${header.current.clientHeight}px`);
     }
