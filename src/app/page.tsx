@@ -7,7 +7,7 @@ import Nav from "./Nav";
 import Hero from "./Hero";
 import Slider from "./Slider";
 import Us from "./Us";
-import { checkSwipe, getElScrollPos } from "@/lib/helpers";
+import { checkSwipe, easeOutBack, getElScrollPos } from "@/lib/helpers";
 
 export default function Home() {
 
@@ -57,7 +57,7 @@ export default function Home() {
       } else {
         newIndex = Math.max(newIndex - 1, 0);
       }
-      if (lenis) {lenis.scrollTo(sections[newIndex], {duration: newIndex === 2 ? 3 : 1.5})};
+      if (lenis) {lenis.scrollTo(sections[newIndex], {duration: 1.5})};
       setSectionIndex(newIndex);
     }
     window.addEventListener('touchstart', handleTouchStart, {passive: false});

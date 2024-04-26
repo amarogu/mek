@@ -25,3 +25,7 @@ export function getElScrollPos(el: HTMLElement, of: 'top' | 'bottom') {
     return el.getBoundingClientRect().bottom + window.scrollY;
   }
 }
+
+export function easeOutBack(x: number): number {
+  return x * x * x * x * x;
+}
