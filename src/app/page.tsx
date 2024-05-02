@@ -90,7 +90,7 @@ export default function Home() {
               <Nav open={open} setOpen={setOpen} />
               <Slider open={open} />
             </header>
-            <main id="main" className="overflow-x-hidden h-[500vh]">
+            <main id="main" className="overflow-x-hidden h-[800vh]">
               <div ref={spacer}></div>
               <Hero id="hero" className="px-8" />
               <Us id="us" />
