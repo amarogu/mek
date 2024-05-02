@@ -6,9 +6,18 @@ import Image from "next/image";
 import Img1 from '../../public/img1_us.png';
 import Img2 from '../../public/img2_us.png';
 import Img3 from '../../public/img3_us.png';
+import Img4 from '../../public/img4.png';
+import Img5 from '../../public/img5.png';
+import Img6 from '../../public/img6.png';
+import Img7 from '../../public/img7.png';
+import Img8 from '../../public/img8.png';
+import Img9 from '../../public/img9.png';
 import { useMediaQuery } from "react-responsive";
 
 export default function Us({id}: {id?: string}) {
+
+    const edge = '0%';
+    const revEdge = '100%';
 
     const data = ['Um amor que', 'tinha que', 'acontecer'];
 
@@ -26,6 +35,9 @@ export default function Us({id}: {id?: string}) {
     const img8 = useRef<HTMLImageElement>(null);
     const img9 = useRef<HTMLImageElement>(null);
     const newImgs = [img4, img5, img6, img7, img8, img9];
+    const imgs = [img1, img2, img3]
+    const srcs = [Img1, Img2, Img3];
+    const newSrcs = [Img4, Img5, Img6, Img7, Img8, Img9];
 
     useEffect(() => {
         const usTitle = document.querySelectorAll('.usTitle');
@@ -59,13 +71,14 @@ export default function Us({id}: {id?: string}) {
         tl.to(img1.current, {bottom: '50%', yPercent: isMd ? 0 : -50}).to(img2.current, {bottom: '50%', yPercent: -50})
         .to(img3.current, {bottom: '50%', yPercent: isMd ? -100 : -50}).to('.usImgs', {opacity: 1, duration: 0}).add([
             gsap.to(container.current, {opacity: 0}),
-            gsap.to(img1.current, {left: '0%'}),
-            gsap.to(img2.current, {right: '0%'}),
-            gsap.to(img3.current, {left: '0%', bottom: '100%', yPercent: 0}),
-            gsap.to(img4.current, {left: '10%', bottom: '80%'}),
-            gsap.to(img5.current, {right: '10%', bottom: '80%'}),
-            gsap.to(img6.current, {right: '0%', bottom: '100%', yPercent: 50}),
-            gsap.to(img7.current, {bottom: '100%', yPercent: 50})
+            gsap.to(img1.current, {xPercent: -105}),
+            gsap.to(img2.current, {xPercent: 105}),
+            gsap.to(img3.current, {xPercent: -105, yPercent: -155}),
+            gsap.to(img4.current, {xPercent: 105, yPercent: -105}),
+            gsap.to(img5.current, {xPercent: -105, yPercent: 105}),
+            gsap.to(img6.current, {xPercent: 105, yPercent: 105}),
+            gsap.to(img7.current, {yPercent: -105}),
+            gsap.to(img8.current, {yPercent: 105})
         ], "+=0");
 
         const observer = new MutationObserver((mutationsList, observer) => {
@@ -93,10 +106,8 @@ export default function Us({id}: {id?: string}) {
                     )
                 })}
             </div>
-            <Image ref={img1} src={Img1} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translate(0, 100%)', bottom: '0'}} className="md:w-[193px] usImg z-10 md:z-30 usImgs md:h-[258px] w-[180px] h-[240.53px] absolute" />
-            <Image ref={img2} src={Img2} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translate(0, 100%)', bottom: '0'}} className="md:w-[193px] usImg z-20 md:z-20 usImgs md:h-[258px] w-[180px] h-[240.53px] absolute" />
-            <Image ref={img3} src={Img3} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translate(0, 100%)', bottom: '0'}} className="md:w-[193px] usImg z-30 md:z-10 usImgs md:h-[258px] w-[180px] h-[240.53px] absolute" />
-            {newImgs.map((img, i) => <Image key={i} ref={img} src={Img3} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translateY(50%)', bottom: '50%'}} className="md:w-[193px] usImg opacity-0 z-30 md:z-10 usImgs md:h-[258px] w-[180px] h-[240.53px] absolute" />)}
+            {newImgs.map((img, i) => <Image key={i} ref={img} src={newSrcs[i]} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translateY(50%)', bottom: '50%'}} className="md:w-[193px] usImg opacity-0 usImgs md:h-[258px] w-[180px] h-[240.53px] absolute" />)}
+            {imgs.map((img, i) => <Image key={i} ref={img} src={srcs[i]} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translate(0, 100%)', bottom: '0'}} className="md:w-[193px] usImg usImgs md:h-[258px] w-[180px] h-[240.53px] absolute" />)}
         </section>
     )
 }
