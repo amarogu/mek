@@ -36,7 +36,7 @@ export default function Home() {
       us.topPos = getElScrollPos(us.el, 'top');
     }
     if (us.bottomPos && us.topPos) {
-      setSections([0, us.topPos, us.bottomPos]);
+      setSections([0, us.topPos, us.bottomPos + 3000]);
     }
   }, [isMounted, lenis])
 
