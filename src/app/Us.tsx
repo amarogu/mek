@@ -16,9 +16,6 @@ import { useMediaQuery } from "react-responsive";
 
 export default function Us({id}: {id?: string}) {
 
-    const edge = '0%';
-    const revEdge = '100%';
-
     const data = ['Um amor que', 'tinha que', 'acontecer'];
 
     const container = useRef<HTMLDivElement>(null);

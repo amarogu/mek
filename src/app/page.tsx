@@ -57,7 +57,7 @@ export default function Home() {
       } else {
         newIndex = Math.max(newIndex - 1, 0);
       }
-      if (lenis) {lenis.scrollTo(sections[newIndex], {duration: newIndex === 2 ? 4 : 1.5})};
+      if (lenis) {lenis.scrollTo(sections[newIndex], {duration: newIndex === 2 || (checkSwipe(touchStartedY, touchEndedY) === 'down' && newIndex === 1) ? 4 : 1.5})};
       setSectionIndex(newIndex);
     }
     window.addEventListener('touchstart', handleTouchStart, {passive: false});
