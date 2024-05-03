@@ -28,6 +28,8 @@ export default function Us({id}: {id?: string}) {
 
     const isMd = useMediaQuery({query: '(min-width: 768px)'});
 
+    const imgRefs = Array(15).fill(0).map(() => useRef<HTMLImageElement>(null));
+
     const img1 = useRef<HTMLImageElement>(null);
     const img2 = useRef<HTMLImageElement>(null);
     const img3 = useRef<HTMLImageElement>(null);
@@ -43,9 +45,9 @@ export default function Us({id}: {id?: string}) {
     const img13 = useRef<HTMLImageElement>(null);
     const img14 = useRef<HTMLImageElement>(null);
     const img15 = useRef<HTMLImageElement>(null);
-    const newImgs = [img4, img5, img6, img7, img8, img9];
-    const newImgsMd = [img4, img5, img6, img7, img8, img9, img10, img11, img12, img13, img14, img15];
-    const imgs = [img1, img2, img3]
+    const newImgs = imgRefs.slice(3, 9);
+    const newImgsMd = imgRefs.slice(3);
+    const imgs = imgRefs.slice(0, 3);
     const srcs = [Img1, Img2, Img3];
     const newSrcs = [Img4, Img5, Img6, Img7, Img8, Img9];
     const newSrcsMd = [Img4, Img5, Img6, Img7, Img8, Img9, Img10, Img11, Img12, Img13, Img14, Img15];
@@ -63,6 +65,10 @@ export default function Us({id}: {id?: string}) {
     }, []);
 
     useGSAP(() => {
+
+        const commonTweens = [gsap.to(container.current, {opacity: 0}), gsap.to(img1.current, {xPercent: -105, yPercent: -50}), gsap.to(img2.current, {xPercent: 105}), gsap.to(img3.current, {xPercent: -105, yPercent: -155}), gsap.to(img4.current, {xPercent: 105, yPercent: -105}), gsap.to(img5.current, {xPercent: -105, yPercent: 105}), gsap.to(img6.current, {xPercent: 105, yPercent: 105}), gsap.to(img7.current, {yPercent: -105}), gsap.to(img8.current, {yPercent: 105})];
+    
+        const mdTweens = [gsap.to(img10.current, {xPercent: -210}), gsap.to(img11.current, {xPercent: 210}), gsap.to(img12.current, {xPercent: -210, yPercent: -105}), gsap.to(img13.current, {xPercent: 210, yPercent: -105}), gsap.to(img14.current, {xPercent: -210, yPercent: 105}), gsap.to(img15.current, {xPercent: 210, yPercent: 105})];
         
         const spacer = document.getElementById('spacer');
         gsap.registerPlugin(ScrollTrigger);
@@ -80,37 +86,9 @@ export default function Us({id}: {id?: string}) {
         }})
 
         if (isMd) {
-            tl.to(img1.current, {bottom: '50%', yPercent: isMd ? 0 : -50}).to(img2.current, {bottom: '50%', yPercent: -50})
-            .to(img3.current, {bottom: '50%', yPercent: isMd ? -100 : -50}).to('.usImgs', {opacity: 1, duration: 0}).add([
-            gsap.to(container.current, {opacity: 0}),
-            gsap.to(img1.current, {xPercent: -105, yPercent: -50}),
-            gsap.to(img2.current, {xPercent: 105}),
-            gsap.to(img3.current, {xPercent: -105, yPercent: -155}),
-            gsap.to(img4.current, {xPercent: 105, yPercent: -105}),
-            gsap.to(img5.current, {xPercent: -105, yPercent: 105}),
-            gsap.to(img6.current, {xPercent: 105, yPercent: 105}),
-            gsap.to(img7.current, {yPercent: -105}),
-            gsap.to(img8.current, {yPercent: 105}),
-            gsap.to(img10.current, {xPercent: -210}),
-            gsap.to(img11.current, {xPercent: 210}),
-            gsap.to(img12.current, {xPercent: -210, yPercent: -105}),
-            gsap.to(img13.current, {xPercent: 210, yPercent: -105}),
-            gsap.to(img14.current, {xPercent: -210, yPercent: 105}),
-            gsap.to(img15.current, {xPercent: 210, yPercent: 105})
-        ], "+=0");
+            tl.to(img1.current, {bottom: '50%', yPercent: isMd ? 0 : -50}).to(img2.current, {bottom: '50%', yPercent: -50}).to(img3.current, {bottom: '50%', yPercent: isMd ? -100 : -50}).to('.usImgs', {opacity: 1, duration: 0}).add([...commonTweens, ...mdTweens], "+=0");
         } else {
-            tl.to(img1.current, {bottom: '50%', yPercent: isMd ? 0 : -50}).to(img2.current, {bottom: '50%', yPercent: -50})
-            .to(img3.current, {bottom: '50%', yPercent: isMd ? -100 : -50}).to('.usImgs', {opacity: 1, duration: 0}).add([
-            gsap.to(container.current, {opacity: 0}),
-            gsap.to(img1.current, {xPercent: -105, yPercent: -50}),
-            gsap.to(img2.current, {xPercent: 105}),
-            gsap.to(img3.current, {xPercent: -105, yPercent: -155}),
-            gsap.to(img4.current, {xPercent: 105, yPercent: -105}),
-            gsap.to(img5.current, {xPercent: -105, yPercent: 105}),
-            gsap.to(img6.current, {xPercent: 105, yPercent: 105}),
-            gsap.to(img7.current, {yPercent: -105}),
-            gsap.to(img8.current, {yPercent: 105})
-        ], "+=0");
+            tl.to(img1.current, {bottom: '50%', yPercent: isMd ? 0 : -50}).to(img2.current, {bottom: '50%', yPercent: -50}).to(img3.current, {bottom: '50%', yPercent: isMd ? -100 : -50}).to('.usImgs', {opacity: 1, duration: 0}).add(commonTweens, "+=0");
         }
 
         const observer = new MutationObserver((mutationsList, observer) => {
