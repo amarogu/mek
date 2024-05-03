@@ -61,14 +61,13 @@ export default function Us({id}: {id?: string}) {
             start: 'top top',
             end: 'bottom+=3000 top',
             scrub: true,
-            pin: true,
-            markers: true
+            pin: true
         }})
 
         tl.to(img1.current, {bottom: '50%', yPercent: isMd ? 0 : -50}).to(img2.current, {bottom: '50%', yPercent: -50})
         .to(img3.current, {bottom: '50%', yPercent: isMd ? -100 : -50}).to('.usImgs', {opacity: 1, duration: 0}).add([
             gsap.to(container.current, {opacity: 0}),
-            gsap.to(img1.current, {xPercent: -105}),
+            gsap.to(img1.current, {xPercent: -105, yPercent: -50}),
             gsap.to(img2.current, {xPercent: 105}),
             gsap.to(img3.current, {xPercent: -105, yPercent: -155}),
             gsap.to(img4.current, {xPercent: 105, yPercent: -105}),
