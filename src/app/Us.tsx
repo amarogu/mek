@@ -6,12 +6,12 @@ import Image from "next/image";
 import Img1 from '../../public/img1_us.png';
 import Img2 from '../../public/img2_us.png';
 import Img3 from '../../public/img3_us.png';
-import Img4 from '../../public/img4.png';
-import Img5 from '../../public/img5.png';
-import Img6 from '../../public/img6.png';
-import Img7 from '../../public/img7.png';
-import Img8 from '../../public/img8.png';
-import Img9 from '../../public/img9.png';
+import Img4 from '../../public/img4_us.png';
+import Img5 from '../../public/img5_us.png';
+import Img6 from '../../public/img6_us.png';
+import Img7 from '../../public/img7_us.png';
+import Img8 from '../../public/img8_us.png';
+import Img9 from '../../public/img9_us.png';
 import { useMediaQuery } from "react-responsive";
 
 export default function Us({id}: {id?: string}) {
