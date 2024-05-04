@@ -5,7 +5,7 @@ import Context from "./Context";
 import { useContext, Dispatch, SetStateAction } from "react";
 import { useSpring, animated } from "@react-spring/web";
 import AnimatedText from "./AnimatedText";
-import { useMediaQuery } from "react-responsive";
+import { useLenis } from "@studio-freight/react-lenis";
 
 const config = {
     mass: 1,
@@ -14,6 +14,8 @@ const config = {
 }
 
 export default function Nav({open, setOpen}: {open: boolean, setOpen: Dispatch<SetStateAction<boolean>>}) {
+
+    const lenis = useLenis(() => {});
 
     const { isDarkMode } = useContext(Context);
 
@@ -37,7 +39,7 @@ export default function Nav({open, setOpen}: {open: boolean, setOpen: Dispatch<S
             <ul className="md:flex hidden gap-12 justify-self-start font-bold">
                 {firstUl.map(i => <li key={i}><AnimatedText animation="upper-staggering" on="hover" el={<button className="uppercase overflow-hidden h-[15px] text-[10px]"></button>} content={i}  /></li>)}
             </ul>
-            <Image src={isDarkMode ? LogoDark : Logo} className="col-start-1 md:col-start-2" alt="Maria & Kalil, com amor," />
+            <Image onClick={() => lenis?.scrollTo(0, {duration: 2.5})} src={isDarkMode ? LogoDark : Logo} className="col-start-1 md:col-start-2 cursor-pointer" alt="Maria & Kalil, com amor," />
             <ul className="md:flex hidden gap-12 text-nowrap justify-self-end font-bold">
                 {secondUl.map(i => <li key={i}><AnimatedText el={<button className="uppercase overflow-hidden h-[15px] text-[10px]">{i}</button>} animation="upper-staggering" on="hover" content={i} /></li>)}
             </ul>
