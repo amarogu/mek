@@ -14,6 +14,7 @@ import LogoAltDark from '../../public/meklogo_alt_dark.svg';
 export default function Hero({className, id}: {className?: string, id?: string}) {
 
     const isMd = useMediaQuery({query: '(min-width: 768px)'});
+    const isXl = useMediaQuery({query: '(min-width: 1280px)'});
     const heroRef = useRef<HTMLElement>(null);
     const slidingText = useRef<HTMLDivElement>(null);
 
@@ -44,7 +45,7 @@ export default function Hero({className, id}: {className?: string, id?: string})
     
         if (imgRef.current?.childNodes) {
             tl.to(imgRef.current.childNodes, {
-                scale: isMd ? 6 : 5,
+                scale: isMd ? (isXl ? 8 : 6) : 5,
                 y: isMd ? 500 : 400,
                 x: isMd ? 0 : '-50%',
                 ease: 'slow'
@@ -87,11 +88,11 @@ export default function Hero({className, id}: {className?: string, id?: string})
         document.getElementById('spacer')?.style.setProperty('height', `${overlap}px`);
     }, [])
 
-    const actualImg = useRef<HTMLImageElement>(null);
+    const actualImg = useRef<HTMLVideoElement>(null);
     const actualImgHelper = useRef<HTMLDivElement>(null);
 
-    const img = <Image src={currImg} ref={actualImg} className={`z-10 md:w-[240px] md:h-[105px] w-[113px] h-[49px] sm:w-[185px] sm:h-[80.22px]`} alt="Imagens de Maria e kalil" />
-    const imgHelper = <div ref={actualImgHelper} style={{transform: isMd ? 'translateY(500px) scale(6)' : 'translate(-50%, 400px) scale(5)' }} className={`absolute top-0 md:w-[240px] md:h-[105px] w-[113px] h-[49px] sm:w-[185px] sm:h-[80.22px]`}></div>;
+    const img = <video autoPlay loop ref={actualImg} className={`z-10 md:w-[240px] md:h-[105px] w-[113px] h-[49px] sm:w-[185px] sm:h-[80.22px]`}><source src="./weddingvideo.mp4" type="video/mp4" /></video>;
+    const imgHelper = <div ref={actualImgHelper} style={{transform: isMd ? (isXl ? 'translateY(500px) scale(8) ' : 'translateY(500px) scale(6)') : 'translate(-50%, 400px) scale(5)' }} className={`absolute top-0 md:w-[240px] md:h-[105px] w-[113px] h-[49px] sm:w-[185px] sm:h-[80.22px]`}></div>;
 
     const renderContent = (isMd: boolean) => {
         if (isMd) {
