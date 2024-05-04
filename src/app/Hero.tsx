@@ -1,7 +1,6 @@
-import Image, { StaticImageData } from "next/image";
-import Img2 from "../../public/img2.png"; import Img3 from "../../public/img3.png"; import Img4 from "../../public/img4.png"; import Img5 from "../../public/img5.png"; import Img6 from "../../public/img6.png"; import Img7 from "../../public/img7.png"; import Img8 from "../../public/img8.png"; import Img9 from "../../public/img9.png"; import Img10 from "../../public/img10.png"; import Img11 from "../../public/img11.png";
+import Image from "next/image";
 import { useMediaQuery } from "react-responsive";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import BottomTab from "./BottomTab";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -67,21 +66,7 @@ export default function Hero({className, id}: {className?: string, id?: string})
     const content = ['Vamos nos', 'casar!', 'Sejam bem', 'vindos ao', 'nosso web', 'site.'];
     const mdContent = ['Vamos nos', 'casar!', 'Sejam', 'bem vindos ao', 'nosso web site.'];
 
-    const imgs = useMemo(() => [Img2, Img3, Img4, Img5, Img6, Img7, Img8, Img9, Img10, Img11], []);
-    const [currImg, setCurrImg] = useState<StaticImageData>(Img2);
-    const [imgIndex, setImgIndex] = useState(0);
     const imgRef = useRef<HTMLImageElement>(null);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setImgIndex((prevIndex) => (prevIndex + 1) % imgs.length);
-        }, 2000);
-        return () => clearInterval(interval);
-    }, [imgs]);
-
-    useEffect(() => {
-        setCurrImg(imgs[imgIndex]);
-    }, [imgIndex, imgs]);
 
     useEffect(() => {
         const overlap = calculateOverlap();
