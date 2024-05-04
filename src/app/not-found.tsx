@@ -1,10 +1,13 @@
 'use client';
 import Lang from '../../public/language.svg';
+import LangDark from '../../public/language_dark.svg';
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import { animated } from '@react-spring/web';
 
 export default function NotFound() {
+
+    const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
 
     const data = useMemo(() => [
         "Not found", // English
@@ -38,11 +41,15 @@ export default function NotFound() {
         return () => clearTimeout(timer); // Clean up the timer when the component unmounts or re-renders
     }, [index, data]);
 
+    useEffect(() => {
+        setIsDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches);
+    }, [])
+
     return (
         <animated.div className="flex justify-center flex-col h-screen gap-4 items-center">
             <p className="text-9xl">404</p>
             <div className="flex gap-4 items-center">
-                <Image src={Lang} alt="Language" className="w-5 h-5 md:w-8 md:h-8" />
+                <Image src={isDarkMode ? LangDark : Lang} alt="Language" className="w-5 h-5 md:w-8 md:h-8" />
                 <p className="uppercase text-3xl md:text-5xl">{message}</p>
             </div>
         </animated.div>

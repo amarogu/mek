@@ -7,7 +7,7 @@ import Nav from "./Nav";
 import Hero from "./Hero";
 import Slider from "./Slider";
 import Us from "./Us";
-import { checkSwipe, easeOutBack, getElScrollPos } from "@/lib/helpers";
+import { checkSwipe, getElScrollPos } from "@/lib/helpers";
 
 export default function Home() {
 
