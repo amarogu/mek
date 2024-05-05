@@ -60,11 +60,11 @@ export default function Home() {
       if (lenis) {lenis.scrollTo(sections[newIndex], {duration: newIndex === 2 || (checkSwipe(touchStartedY, touchEndedY) === 'down' && newIndex === 1) ? 4 : 1.5})};
       setSectionIndex(newIndex);
     }
-    window.addEventListener('touchstart', handleTouchStart, {passive: false});
-    window.addEventListener('touchend', handleTouchEnd, {passive: false});
+    //window.addEventListener('touchstart', handleTouchStart, {passive: false});
+    //window.addEventListener('touchend', handleTouchEnd, {passive: false});
     return () => {
-      window.removeEventListener('touchstart', handleTouchStart);
-      window.removeEventListener('touchend', handleTouchEnd);
+      //window.removeEventListener('touchstart', handleTouchStart);
+      //window.removeEventListener('touchend', handleTouchEnd);
     }
   }, [isMounted, lenis, sectionIndex, sections]);
 
