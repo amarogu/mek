@@ -8,7 +8,7 @@ import { useMediaQuery } from "react-responsive";
 
 export default function Us({id}: {id?: string}) {
 
-    const data = ['Um amor que', 'tinha que', 'acontecer'];
+    const data = ['Nossa', 'história', 'de amor'];
 
     const container = useRef<HTMLDivElement>(null);
 
