@@ -31,8 +31,8 @@ export default function Nav({open, setOpen}: {open: boolean, setOpen: Dispatch<S
         config: config
     })
 
-    const firstUl = ['casal', 'festa']
-    const secondUl = ['galeria', 'recados', 'presentes']
+    const firstUl = ['galeria', 'recados']
+    const secondUl = ['presentes', 'confirmar', 'festa']
 
     return (
         <nav className="grid container grid-cols-3 mx-auto static z-30 items-center justify-items-center">

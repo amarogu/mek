@@ -31,7 +31,7 @@ export default function Us({id}: {id?: string}) {
             heights.push(title.clientHeight);
         })
         heights.forEach((height, i) => {
-            hidingRects[i].setAttribute('style', `height: ${height}px`);
+            hidingRects[i].setAttribute('style', `height: ${i === 1 ? height + 4 : height}px`);
         })
     }, []);
 
@@ -80,7 +80,7 @@ export default function Us({id}: {id?: string}) {
                 {data.map((i, index) => {
                     return (
                         <div key={i} className="relative" style={{zIndex: index === 2 ? 40 : 'initial'}}>
-                            <div className="bg-bg-100 absolute hidingRect dark:bg-dark-bg-100 w-full"></div>
+                            <div className={`bg-bg-100 absolute hidingRect ${index === 1 ? '-top-1' : 'top-0'} dark:bg-dark-bg-100 w-full`}></div>
                             <h2 className='usTitle'>{i}</h2>
                         </div>
                     )
