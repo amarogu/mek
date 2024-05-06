@@ -47,3 +47,13 @@ import Img14 from '../../public/img14_us.png';
 import Img15 from '../../public/img15_us.png';
 
 export const usImgs = [Img1, Img2, Img3, Img4, Img5, Img6, Img7, Img8, Img9, Img10, Img11, Img12, Img13, Img14, Img15];
+
+import mongoose from "mongoose";
+
+export const connectDb = async () => {
+    try {
+        await mongoose.connect(process.env.DB_URI as string);
+    } catch(err) {
+        console.error(err);
+    }
+}
