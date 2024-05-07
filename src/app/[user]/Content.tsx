@@ -50,7 +50,7 @@ export default function Content({user}: {user: User}) {
             </header>
             <main id="main" className="overflow-x-hidden h-[800vh]">
               <div ref={spacer}></div>
-              <Hero id="hero" className="px-8" />
+              <Hero user={user} id="hero" className="px-8" />
               <Us id="us" />
             </main>
       </Context.Provider>

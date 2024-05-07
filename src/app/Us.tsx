@@ -3,7 +3,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
-import { usImgs } from "@/lib/helpers";
+import { usImgs } from "@/lib/imgs";
 import { useMediaQuery } from "react-responsive";
 
 export default function Us({id}: {id?: string}) {

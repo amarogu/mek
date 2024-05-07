@@ -9,8 +9,10 @@ import { Parallax } from "./Parallax";
 import SlidingText from "./SlidingText";
 import LogoAlt from '../../public/meklogo_alt.svg';
 import LogoAltDark from '../../public/meklogo_alt_dark.svg';
+import { type User } from "@/lib/Models/User";
+import { parseHeroContent, parseMdHeroContent } from "@/lib/helpers";
 
-export default function Hero({className, id}: {className?: string, id?: string}) {
+export default function Hero({className, id, user}: {className?: string, id?: string, user?: User}) {
 
     const isMd = useMediaQuery({query: '(min-width: 768px)'});
     const isXl = useMediaQuery({query: '(min-width: 1280px)'});
@@ -63,8 +65,8 @@ export default function Hero({className, id}: {className?: string, id?: string})
         })
     }, []);
 
-    const content = ['Vamos nos', 'casar!', 'Sejam bem', 'vindos ao', 'nosso web', 'site.'];
-    const mdContent = ['Vamos nos', 'casar!', 'Sejam', 'bem vindos ao', 'nosso web site.'];
+    const content = parseHeroContent(user);
+    const mdContent = parseMdHeroContent(user);
 
     const imgRef = useRef<HTMLImageElement>(null);
 
