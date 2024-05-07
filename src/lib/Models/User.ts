@@ -23,8 +23,7 @@ const userSchema = new mongoose.Schema({
         default: []
     },
     link: {
-        type: String,
-        required: true
+        type: String
     },
     gender: {
         type: String,
