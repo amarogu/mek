@@ -22,6 +22,10 @@ const userSchema = new mongoose.Schema({
         ref: 'Msg',
         default: []
     },
+    link: {
+        type: String,
+        required: true
+    },
     gender: {
         type: String,
         enum: ['male', 'female', 'non-binary', 'gender-fluid'],
@@ -31,6 +35,12 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         required: true
     }
+});
+
+userSchema.pre('save', function(next) {
+    // 'this' refers to the document about to be saved
+    this.link = `https://mariaekalil.com/${this._id}`;
+    next();
 });
 
 export const User = mongoose.model('User', userSchema);
