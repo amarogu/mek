@@ -91,3 +91,16 @@ export const parseMdHeroContent = (user?: User) => {
       return ['Vamos nos', 'casar!', 'Sejam', 'bem vindos ao', 'nosso web site.'];
   }
 }
+
+export const parseGender = (gender: 'male' | 'female' | 'non-binary' | 'gender-fluid') => {
+  switch (gender) {
+    case 'male':
+      return 'Masculino';
+    case 'female':
+      return 'Feminino';
+    case 'non-binary':
+      return 'Não-binário';
+    case 'gender-fluid':
+      return 'Gênero-fluído';
+  }
+}
