@@ -37,7 +37,7 @@ export default function Home() {
                         >
                         <MenuItems
                             anchor="bottom start"
-                            className="w-52 origin-top-right backdrop-blur-sm rounded-sm mt-4 border border-white/5 bg-white/5 p-1 text-sm/6 text-white [--anchor-gap:var(--spacing-1)] focus:outline-none"
+                            className="w-52 origin-top-left backdrop-blur-sm rounded-sm mt-4 border border-white/5 bg-white/5 p-1 text-sm/6 text-white [--anchor-gap:var(--spacing-1)] focus:outline-none"
                         >
                             <MenuItem>
                             <button onClick={() => setGender('male')} className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/10">
