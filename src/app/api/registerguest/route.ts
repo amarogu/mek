@@ -1,5 +1,5 @@
 import { User } from "@/lib/Models/User";
-import { connectDb } from "@/lib/helpers";
+import { connectDb } from "@/lib/connect";
 import { type NextRequest } from "next/server";
 
 export async function GET(req: NextRequest) {

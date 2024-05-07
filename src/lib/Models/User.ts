@@ -3,6 +3,13 @@ if (mongoose.models.User) {
     mongoose.deleteModel('User');
 }
 
+export type User = {
+    name: string;
+    msgs: string[];
+    _id: string;
+    __v: number;
+}
+
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
