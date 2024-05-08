@@ -13,6 +13,7 @@ export default function Home() {
 
     const handleSubmit = async (name: string, gender: 'male' | 'female' | 'non-binary' | 'gender-fluid', multipleGuests: boolean) => {
         if (!name) return setRes('Nome inválido');
+        console.log(instance.getUri());
         const res = await instance.get(`registerguest?name=${name}&gender=${gender}&multipleGuests=${multipleGuests}`);
         setRes(res.data.message);
     }

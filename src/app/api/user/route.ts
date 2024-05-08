@@ -4,8 +4,8 @@ import { type NextRequest } from "next/server";
 
 export async function GET(req: NextRequest) {
     const _id = req.nextUrl.searchParams.get('_id');
+    await connectDb();
     try {
-        await connectDb();
         const user = await User.findById(_id);
         if (!user) {
             return Response.json({message: 'User not found'});
