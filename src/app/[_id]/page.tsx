@@ -4,13 +4,11 @@ import { type User } from "@/lib/Models/User";
 import Content from "./Content";
 import { redirect } from "next/navigation";
 
-export default async function Home({params}: {params?: {user: string}}) {
+export default async function Home({params}: {params?: {_id: string}}) {
     let user: User | null = null;
 
-    console.log('hey')
-
     try {
-        user = (await instance.get(`user?_id=${params?.user}`)).data.user as User;
+        user = (await instance.get(`user?_id=${params?._id}`)).data.user as User;
         console.log(user);
     } catch (error) {
         console.error(error);
