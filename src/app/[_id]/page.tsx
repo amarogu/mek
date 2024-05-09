@@ -1,4 +1,3 @@
-'use client';
 import instance from "@/lib/axios";
 import { type User } from "@/lib/Models/User";
 import Content from "./Content";
@@ -9,10 +8,13 @@ export default async function Home({params}: {params?: {_id: string}}) {
 
     try {
         user = (await instance.get(`user?id=${params?._id}`)).data.user as User;
-        console.log(user);
     } catch (error) {
         console.error(error);
     }
 
-    return <></>;
+    if (!user) {
+        redirect('/');
+    }
+
+    return <Content user={user} />;
 }
