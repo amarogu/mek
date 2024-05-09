@@ -5,16 +5,13 @@ import { redirect } from "next/navigation";
 
 export default async function Home({params}: {params?: {_id: string}}) {
     let user: User | null = null;
+    let err: any = null;
 
     try {
         user = (await instance.get(`user?id=${params?._id}`)).data.user as User;
-    } catch (error) {
-        console.error(error);
+    } catch (error: any) {
+        err = error
     }
 
-    if (!user) {
-        redirect('/');
-    }
-
-    return <Content user={user} />;
+    return <>{user}{err}</>;
 }
