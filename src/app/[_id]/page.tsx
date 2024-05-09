@@ -16,5 +16,5 @@ export default async function Home({params}: {params?: {_id: string}}) {
         err = error
     }
 
-    return <>{user}</>;
+    return <>{user?.name}</>;
 }
