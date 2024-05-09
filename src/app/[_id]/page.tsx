@@ -14,9 +14,5 @@ export default async function Home({params}: {params?: {_id: string}}) {
         console.error(error);
     }
 
-    if (!user) {
-        redirect('/');
-    }
-
-    return <Content user={user} />;
+    return <></>;
 }
