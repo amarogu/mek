@@ -1,3 +1,4 @@
+'use client';
 import instance from "@/lib/axios";
 import { type User } from "@/lib/Models/User";
 import Content from "./Content";
