@@ -9,6 +9,7 @@ export default async function Home({params}: {params?: {user: string}}) {
 
     try {
         user = (await instance.get(`user?_id=${params?.user}`)).data.user as User;
+        console.log(user);
     } catch (error) {
         console.error(error);
     }
