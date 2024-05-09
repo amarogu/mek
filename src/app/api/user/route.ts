@@ -3,7 +3,7 @@ import { User } from "@/lib/Models/User";
 import { type NextRequest } from "next/server";
 
 export async function GET(req: NextRequest) {
-    const _id = req.nextUrl.searchParams.get('_id');
+    const _id = req.nextUrl.searchParams.get('id');
     await connectDb();
     try {
         const user = await User.findById(_id);
