@@ -7,6 +7,8 @@ export default async function Home({params}: {params?: {_id: string}}) {
     let user: User | null = null;
     let err: any = null;
 
+    console.log(params?._id)
+
     user = (await instance.get(`user?id=${params?._id}`)).data.user as User;
 
     return <><h1>{user?.name}</h1></>;
