@@ -38,29 +38,29 @@ export default function Home() {
                         >
                         <MenuItems
                             anchor="bottom start"
-                            className="w-52 origin-top-left backdrop-blur-sm rounded-sm mt-4 border border-white/5 bg-white/5 p-1 text-sm/6 text-white [--anchor-gap:var(--spacing-1)] focus:outline-none"
+                            className="w-52 origin-top-left backdrop-blur-sm rounded-sm mt-4 border border-white/5 bg-white/5 p-1 text-sm/6 [--anchor-gap:var(--spacing-1)] focus:outline-none"
                         >
                             <MenuItem>
-                            <button onClick={() => setGender('male')} className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/10">
+                            <button onClick={() => setGender('male')} className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-bg-300/10 dark:data-[focus]:bg-dark-bg-100/10">
                                 Masculino
                             </button>
                             </MenuItem>
                             <MenuItem>
-                            <button onClick={() => setGender('female')} className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/10">
+                            <button onClick={() => setGender('female')} className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-bg-300/10 dark:data-[focus]:bg-dark-bg-100/10">
                                 
                                 Feminino
                                 
                             </button>
                             </MenuItem>
                             <MenuItem>
-                            <button onClick={() => setGender('non-binary')} className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/10">
+                            <button onClick={() => setGender('non-binary')} className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-bg-300/10 dark:data-[focus]:bg-dark-bg-100/10">
                                 
                                 Não-binário
                                 
                             </button>
                             </MenuItem>
                             <MenuItem>
-                            <button onClick={() => setGender('gender-fluid')} className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/10">
+                            <button onClick={() => setGender('gender-fluid')} className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-bg-300/10 dark:data-[focus]:bg-dark-bg-100/10">
                                 
                                 Gênero-fluído
                             </button>
