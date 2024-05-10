@@ -37,7 +37,6 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.pre('save', function(next) {
-    // 'this' refers to the document about to be saved
     this.link = `https://mariaekalil.com/${this._id}`;
     next();
 });

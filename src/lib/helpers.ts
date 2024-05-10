@@ -104,3 +104,28 @@ export const parseGender = (gender: 'male' | 'female' | 'non-binary' | 'gender-f
       return 'Gênero-fluído';
   }
 }
+
+export const getGender = (genders: ('male' | 'female' | 'non-binary' | 'gender-fluid')[]) => {
+  let genderCount: { [key: string]: number } = {};
+
+  // Count the occurrences of each gender
+  for (let gender of genders) {
+    if (gender in genderCount) {
+      genderCount[gender]++;
+    } else {
+      genderCount[gender] = 1;
+    }
+  }
+
+  // Find the gender with the maximum count
+  let maxCount = 0;
+  let maxGender: 'male' | 'female' | 'non-binary' | 'gender-fluid' = 'male';
+  for (let gender in genderCount) {
+    if (genderCount[gender] > maxCount) {
+      maxCount = genderCount[gender];
+      maxGender = gender as 'male' | 'female' | 'non-binary' | 'gender-fluid';
+    }
+  }
+
+  return maxGender;
+}
