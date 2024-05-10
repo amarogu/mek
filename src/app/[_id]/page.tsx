@@ -6,16 +6,25 @@ import { redirect } from "next/navigation";
 
 export default async function Home({params}: {params?: {_id: string}}) {
     let user: User | null = null;
+    let parsedUser: User | null = null;
 
     await connectDb();
 
     try {
         if (params) user = await User.findById(params._id);
+        if (user && params) parsedUser = {
+            _id: params._id,
+            name: user.name,
+            msgs: user.msgs,
+            gender: user.gender,
+            multipleGuests: user.multipleGuests,
+            __v: user.__v
+        };
     } catch (e: any) {
         redirect('/');
     }
 
-    if (!user) redirect('/');
+    if (!user || !parsedUser) redirect('/');
 
-    return <Content user={user} />;
+    return <Content user={parsedUser} />;
 }
