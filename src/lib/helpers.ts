@@ -107,26 +107,13 @@ export const parseGender = (gender: 'male' | 'female' | 'non-binary' | 'gender-f
 }
 
 export const getGender = (genders: ('male' | 'female' | 'non-binary' | 'gender-fluid')[]) => {
-  let genderCount: { [key: string]: number } = {};
+  const priorityOrder: ('male' | 'female' | 'non-binary' | 'gender-fluid')[] = ['male', 'female', 'non-binary', 'gender-fluid'];
 
-  // Count the occurrences of each gender
-  for (let gender of genders) {
-    if (gender in genderCount) {
-      genderCount[gender]++;
-    } else {
-      genderCount[gender] = 1;
+  for (let priority of priorityOrder) {
+    if (genders.includes(priority)) {
+      return priority;
     }
   }
 
-  // Find the gender with the maximum count
-  let maxCount = 0;
-  let maxGender: 'male' | 'female' | 'non-binary' | 'gender-fluid' = 'male';
-  for (let gender in genderCount) {
-    if (genderCount[gender] > maxCount) {
-      maxCount = genderCount[gender];
-      maxGender = gender as 'male' | 'female' | 'non-binary' | 'gender-fluid';
-    }
-  }
-
-  return maxGender;
+  return 'gender-fluid'; // default value if no gender is found
 }

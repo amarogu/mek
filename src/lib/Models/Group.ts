@@ -22,12 +22,12 @@ const groupSchema = new mongoose.Schema({
     }
 })
 
-groupSchema.pre('save', function(next) {
-   const users = this.users.prototype as User[];
-   const genders = users.map(user => user.gender);
-   const mostFrequentGender = getGender(genders);
-   this.gender = mostFrequentGender;
-   next();
-});
+groupSchema.pre('save', async function(next) {
+    await this.populate('users');
+    const users = this.users as unknown as User[];
+    const mostFrequentGender = getGender(users.map(user => user.gender));
+    this.gender = mostFrequentGender;
+    next();
+ });
 
 export const Group = mongoose.model('Group', groupSchema);
