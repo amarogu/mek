@@ -128,7 +128,7 @@ export default function Hero({className, id, user}: {className?: string, id?: st
                                 {img}
                                 {imgHelper}
                                 <div ref={slidingText} style={{opacity: 0}} className="-translate-y-full">
-                                    <SlidingText className="text-[30%]" text="Venham saber mais" img={<Image src={LogoAlt} alt="Logo alternativa; Maria & Kalil escritos em iniciais, abaixo a palavra love" className="w-[24px]" width={24} />} darkImg={<Image width={24} className="w-[24px]" src={LogoAltDark} alt="Logo alternativa; Maria & Kalil escritos em iniciais, abaixo a palavra love" />} />
+                                    <SlidingText className="text-[30%] text-dark-text-100" text="Venham saber mais" img={<Image src={LogoAlt} alt="Logo alternativa; Maria & Kalil escritos em iniciais, abaixo a palavra love" className="w-[24px]" width={24} />} darkImg={<Image width={24} className="w-[24px]" src={LogoAltDark} alt="Logo alternativa; Maria & Kalil escritos em iniciais, abaixo a palavra love" />} />
                                 </div>
                             </div>
                         </div>
