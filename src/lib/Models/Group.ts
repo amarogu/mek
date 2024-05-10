@@ -8,6 +8,7 @@ if (mongoose.models.Group) {
 export type Group = {
     users: string[];
     gender: 'male' | 'female' | 'non-binary' | 'gender-fluid';
+    link: string;
 }
 
 const groupSchema = new mongoose.Schema({
@@ -16,9 +17,16 @@ const groupSchema = new mongoose.Schema({
         ref: 'User',
         default: []
     },
+    name: {
+        type: String,
+        required: true
+    },
     gender: {
         type: String,
         enum: ['male', 'female', 'non-binary', 'gender-fluid']
+    },
+    link: {
+        type: String
     }
 })
 
@@ -27,6 +35,7 @@ groupSchema.pre('save', async function(next) {
     const users = this.users as unknown as User[];
     const mostFrequentGender = getGender(users.map(user => user.gender));
     this.gender = mostFrequentGender;
+    this.link = `https://mariaekalil.com/${this._id}`;
     next();
  });
 

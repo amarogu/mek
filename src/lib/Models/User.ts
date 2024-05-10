@@ -7,6 +7,7 @@ export type User = {
     name: string;
     msgs: string[];
     gender: 'male' | 'female' | 'non-binary' | 'gender-fluid';
+    link?: string;
     _id: string;
     __v: number;
 }
@@ -33,6 +34,13 @@ const userSchema = new mongoose.Schema({
 
 userSchema.pre('save', function(next) {
     this.link = `https://mariaekalil.com/${this._id}`;
+    next();
+});
+
+userSchema.pre('insertMany', function(next, docs) {
+    docs.forEach((doc: User) => {
+        doc.link = `https://mariaekalil.com/${doc._id}`;
+    });
     next();
 });
 

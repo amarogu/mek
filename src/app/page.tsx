@@ -95,7 +95,7 @@ export default function Home() {
               <Hero id="hero" className="px-8" />
               <Us id="us" />
             </main>
-      </Context.Provider>
+        </Context.Provider>
       </ReactLenis>
   );
 }

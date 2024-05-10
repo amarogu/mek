@@ -1,12 +1,25 @@
 import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@headlessui/react'
 import { parseGender } from "@/lib/helpers";
 import Input from "../Input";
-import { Dispatch, SetStateAction } from 'react';
+import { useState } from 'react';
+import instance from '@/lib/axios';
 
-export default function GuestForm({setName, name, res}: {setName: Dispatch<SetStateAction<string>>, name: string, res: string}) {
+export default function GuestForm() {
+
+    const [gender, setGender] = useState<'male' | 'female' | 'non-binary' | 'gender-fluid'>('male');
+    const [res, setRes] = useState<string>('');
+    const [name, setName] = useState<string>('');
+
+    const handleSubmit = async (name: string, gender: 'male' | 'female' | 'non-binary' | 'gender-fluid') => {
+        if (!name) return setRes('Nome inválido');
+        console.log(instance.getUri());
+        const res = await instance.get(`registerguest?name=${name}&gender=${gender}`);
+        setRes(res.data.message);
+    }
+
     return (
         <>
-            <Input onChange={(e) => setName(e.target.value)} value={name} type="text" id="name" placeholder="Nome(s)" />
+            <Input onChange={(e) => setName(e.target.value)} value={name} type="text" id="name" placeholder="Nome" />
             <div className="w-52">
                 <Menu>
                     <MenuButton className="inline-flex items-center gap-2 rounded-sm bg-bg-300 dark:bg-dark-bg-300 py-1.5 px-3 focus:outline-none data-[focus]:outline-1">Gênero: {parseGender(gender)}</MenuButton>
@@ -17,7 +30,7 @@ export default function GuestForm({setName, name, res}: {setName: Dispatch<SetSt
                     </Transition>
                 </Menu>
             </div>
-            <button onClick={(e) => {e.preventDefault(); handleSubmit(name, gender, multipleGuests)}} type="submit" className="text-left bg-accent-100 dark:bg-dark-accent-100 px-4 py-2 rounded-sm focus:outline outline-offset-2 outline-accent">
+            <button onClick={(e) => {e.preventDefault(); handleSubmit(name, gender)}} type="submit" className="text-left bg-accent-100 dark:bg-dark-accent-100 px-4 py-2 rounded-sm focus:outline outline-offset-2 outline-accent">
                 Cadastrar
             </button>
             <p>{res ?? ''}</p>
