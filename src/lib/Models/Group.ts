@@ -9,6 +9,8 @@ export type Group = {
     users: string[];
     gender: 'male' | 'female' | 'non-binary' | 'gender-fluid';
     link: string;
+    _id: string;
+    __v: number;
 }
 
 const groupSchema = new mongoose.Schema({
