@@ -7,7 +7,6 @@ export type User = {
     name: string;
     msgs: string[];
     gender: 'male' | 'female' | 'non-binary' | 'gender-fluid';
-    multipleGuests: boolean;
     _id: string;
     __v: number;
 }
@@ -28,10 +27,6 @@ const userSchema = new mongoose.Schema({
     gender: {
         type: String,
         enum: ['male', 'female', 'non-binary', 'gender-fluid'],
-        required: true
-    },
-    multipleGuests: {
-        type: Boolean,
         required: true
     }
 });

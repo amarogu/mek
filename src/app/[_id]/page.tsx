@@ -17,7 +17,6 @@ export default async function Home({params}: {params?: {_id: string}}) {
             name: user.name,
             msgs: user.msgs,
             gender: user.gender,
-            multipleGuests: user.multipleGuests,
             __v: user.__v
         };
     } catch (e: any) {

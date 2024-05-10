@@ -1,8 +1,13 @@
 import mongoose from 'mongoose';
 import { getGender } from '../helpers';
-import { User } from './User';
+import { type User } from './User';
 if (mongoose.models.Group) {
     mongoose.deleteModel('Group');
+}
+
+export type Group = {
+    users: string[];
+    gender: 'male' | 'female' | 'non-binary' | 'gender-fluid';
 }
 
 const groupSchema = new mongoose.Schema({

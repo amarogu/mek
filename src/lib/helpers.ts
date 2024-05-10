@@ -1,4 +1,5 @@
 import { type User } from './Models/User';
+import { type Group } from './Models/Group';
 
 export function addClasses(element: HTMLElement, classes: string[]) {
     classes.forEach(className => {
@@ -32,25 +33,25 @@ export function easeOutBack(x: number): number {
   return x * x * x * x * x;
 }
 
-export const parseHeroContent = (user?: User) => {
-  if (user) {
-      if (user.multipleGuests) {
-          switch (user.gender) {
-              case 'female':
-                  return ['Vamos nos', 'casar!', 'Sejam bem', 'vindas ao', 'nosso web', 'site.'];
+export const parseHeroContent = (item?: User | Group) => {
+  if (item) {
+      if ('users' in item) {
+          switch (item.gender) {
               case 'male':
                   return ['Vamos nos', 'casar!', 'Sejam bem', 'vindos ao', 'nosso web', 'site.'];
+              case 'female':
+                  return ['Vamos nos', 'casar!', 'Sejam bem', 'vindas ao', 'nosso web', 'site.'];
               case 'non-binary':
                   return ['Vamos nos', 'casar!', 'Sejam bem', 'vindes ao', 'nosso web', 'site.'];
               case 'gender-fluid':
                   return ['Vamos nos', 'casar!', 'Sejam bem', 'vind@s ao', 'nosso web', 'site.'];
           }
       } else {
-          switch (user.gender) {
-              case 'female':
-                  return ['Vamos nos', 'casar!', 'Seja bem', 'vinda ao', 'nosso web', 'site.'];
+          switch (item.gender) {
               case 'male':
                   return ['Vamos nos', 'casar!', 'Seja bem', 'vindo ao', 'nosso web', 'site.'];
+              case 'female':
+                  return ['Vamos nos', 'casar!', 'Seja bem', 'vinda ao', 'nosso web', 'site.'];
               case 'non-binary':
                   return ['Vamos nos', 'casar!', 'Seja bem', 'vinde ao', 'nosso web', 'site.'];
               case 'gender-fluid':
@@ -62,25 +63,25 @@ export const parseHeroContent = (user?: User) => {
   }
 }
 
-export const parseMdHeroContent = (user?: User) => {
-  if (user) {
-      if (user.multipleGuests) {
-          switch (user.gender) {
-              case 'female':
-                  return ['Vamos nos', 'casar!', 'Sejam', 'bem vindas ao', 'nosso web site'];
+export const parseMdHeroContent = (item?: User | Group) => {
+  if (item) {
+      if ('users' in item) {
+          switch (item.gender) {
               case 'male':
                   return ['Vamos nos', 'casar!', 'Sejam', 'bem vindos ao', 'nosso web site'];
+              case 'female':
+                  return ['Vamos nos', 'casar!', 'Sejam', 'bem vindas ao', 'nosso web site'];
               case 'non-binary':
                   return ['Vamos nos', 'casar!', 'Sejam', 'bem vindes ao', 'nosso web site'];
               case 'gender-fluid':
                   return ['Vamos nos', 'casar!', 'Sejam', 'bem vind@s ao', 'nosso web site'];
           }
       } else {
-          switch (user.gender) {
-              case 'female':
-                  return ['Vamos nos', 'casar!', 'Seja', 'bem vinda ao', 'nosso web site'];
+          switch (item.gender) {
               case 'male':
                   return ['Vamos nos', 'casar!', 'Seja', 'bem vindo ao', 'nosso web site'];
+              case 'female':
+                  return ['Vamos nos', 'casar!', 'Seja', 'bem vinda ao', 'nosso web site'];
               case 'non-binary':
                   return ['Vamos nos', 'casar!', 'Seja', 'bem vinde ao', 'nosso web site'];
               case 'gender-fluid':
