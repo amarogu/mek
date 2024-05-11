@@ -1,15 +1,16 @@
 'use client';
-import Welcome from "../Welcome";
+import Welcome from "./Welcome";
 import { ReactLenis } from '@studio-freight/react-lenis'
 import { useEffect, useRef, useState } from "react";
-import Context from "../Context";
-import Nav from "../Nav";
-import Hero from "../Hero";
-import Slider from "../Slider";
-import Us from "../Us";
+import Context from "./Context";
+import Nav from "./Nav";
+import Hero from "./Hero";
+import Slider from "./Slider";
+import Us from "./Us";
 import { type User } from "@/lib/Models/User";
+import { type Group } from "@/lib/Models/Group";
 
-export default function Content({user}: {user: User}) {
+export default function Content({item}: {item: User | Group}) {
 
   const [isMounted, setIsMounted] = useState<boolean>(false);
 
@@ -44,13 +45,13 @@ export default function Content({user}: {user: User}) {
       <ReactLenis root>
         <Context.Provider value={{isDarkMode: isDarkMode, setIsDarkMode: setIsDarkMode}}>
             <header ref={header} className="md:h-[81px] flex px-8 pt-8 items-center fixed w-screen top-0 z-40">
-              <Welcome name={user.name} />
+              <Welcome name={item.name} />
               <Nav open={open} setOpen={setOpen} />
               <Slider open={open} />
             </header>
             <main id="main" className="overflow-x-hidden h-[800vh]">
               <div ref={spacer}></div>
-              <Hero user={user} id="hero" className="px-8" />
+              <Hero item={item} id="hero" className="px-8" />
               <Us id="us" />
             </main>
       </Context.Provider>

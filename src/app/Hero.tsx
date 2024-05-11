@@ -11,8 +11,9 @@ import LogoAlt from '../../public/meklogo_alt.svg';
 import LogoAltDark from '../../public/meklogo_alt_dark.svg';
 import { type User } from "@/lib/Models/User";
 import { parseHeroContent, parseMdHeroContent } from "@/lib/helpers";
+import { type Group } from "@/lib/Models/Group";
 
-export default function Hero({className, id, user}: {className?: string, id?: string, user?: User}) {
+export default function Hero({className, id, item}: {className?: string, id?: string, item?: User | Group}) {
 
     const isMd = useMediaQuery({query: '(min-width: 768px)'});
     const isXl = useMediaQuery({query: '(min-width: 1280px)'});
@@ -65,8 +66,8 @@ export default function Hero({className, id, user}: {className?: string, id?: st
         })
     }, []);
 
-    const content = parseHeroContent(user);
-    const mdContent = parseMdHeroContent(user);
+    const content = parseHeroContent(item);
+    const mdContent = parseMdHeroContent(item);
 
     const imgRef = useRef<HTMLImageElement>(null);
 
@@ -78,7 +79,7 @@ export default function Hero({className, id, user}: {className?: string, id?: st
     const actualImg = useRef<HTMLVideoElement>(null);
     const actualImgHelper = useRef<HTMLDivElement>(null);
 
-    const img = <video playsInline autoPlay muted loop ref={actualImg} className={`z-10 md:w-[240px] md:h-[105px] w-[113px] h-[49px] sm:w-[185px] sm:h-[80.22px]`}><source src="./weddingvideo.mp4" type="video/mp4" /></video>;
+    const img = <video playsInline autoPlay muted loop ref={actualImg} className={`z-10 md:w-[240px] md:h-[105px] w-[113px] h-[49px] sm:w-[185px] sm:h-[80.22px]`}><source src="weddingvideo.mp4" type="video/mp4" /></video>;
     const imgHelper = <div ref={actualImgHelper} style={{transform: isMd ? (isXl ? 'translateY(500px) scale(8) ' : 'translateY(500px) scale(6)') : 'translate(-50%, 400px) scale(5)' }} className={`absolute top-0 md:w-[240px] md:h-[105px] w-[113px] h-[49px] sm:w-[185px] sm:h-[80.22px]`}></div>;
 
     const renderContent = (isMd: boolean) => {

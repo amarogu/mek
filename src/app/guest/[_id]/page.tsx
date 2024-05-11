@@ -1,7 +1,7 @@
 'use server';
 import { connectDb } from "@/lib/connect";
 import { User } from "@/lib/Models/User";
-import Content from "./Content";
+import Content from "../../Content";
 import { redirect } from "next/navigation";
 
 export default async function Home({params}: {params?: {_id: string}}) {
@@ -25,5 +25,5 @@ export default async function Home({params}: {params?: {_id: string}}) {
 
     if (!user || !parsedUser) redirect('/');
 
-    return <Content user={parsedUser} />;
+    return <Content item={parsedUser} />;
 }

@@ -6,8 +6,9 @@ if (mongoose.models.Group) {
 }
 
 export type Group = {
-    users: string[];
+    users: string[] | User[];
     gender: 'male' | 'female' | 'non-binary' | 'gender-fluid';
+    name: string;
     link: string;
     _id: string;
     __v: number;
