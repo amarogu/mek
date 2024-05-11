@@ -7,9 +7,19 @@ import Image from 'next/image';
 
 export default function Welcome({ name }: { name?: string }) {
     const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+    const [isPageLoaded, setIsPageLoaded] = useState<boolean>(false);
 
     useEffect(() => {
         setIsDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches);
+        if (document.readyState === 'complete') {
+            setIsPageLoaded(true);
+        } else {
+            window.addEventListener('load', () => setIsPageLoaded(true));
+        }
+    
+        return () => {
+            window.removeEventListener('load', () => setIsPageLoaded(true));
+        };
     }, [])
 
     const data = useMemo(() => [
@@ -27,7 +37,7 @@ export default function Welcome({ name }: { name?: string }) {
     const [message, setMessage] = useState(data[0]);
 
     const styles = useSpring({
-        to: { transform: index === data.length - 1 ? 'translateY(-100%)' : 'translateY(0%)' },
+        to: { transform: index === data.length - 1 && isPageLoaded ? 'translateY(-100%)' : 'translateY(0%)' },
         from: { transform: 'translateY(0%)'},
     });
 
