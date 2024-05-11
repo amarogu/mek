@@ -56,9 +56,9 @@ export default function Us({id}: {id?: string}) {
 
         if (isMd) {
             const mdTweens = [gsap.to(newImgsMd[6].current, {xPercent: -210}), gsap.to(newImgsMd[7].current, {xPercent: 210}), gsap.to(newImgsMd[8].current, {xPercent: -210, yPercent: -105}), gsap.to(newImgsMd[9].current, {xPercent: 210, yPercent: -105}), gsap.to(newImgsMd[10].current, {xPercent: -210, yPercent: 105}), gsap.to(newImgsMd[11].current, {xPercent: 210, yPercent: 105})];
-            tl.to(imgs[0].current, {bottom: '50%', yPercent: isMd ? 0 : -50}).to(imgs[1].current, {bottom: '50%', yPercent: -50}).to(imgs[2].current, {bottom: '50%', yPercent: isMd ? -100 : -50}).to('.usImgs', {opacity: 1, duration: 0}).add([...commonTweens, ...mdTweens], "+=0");
+            tl.to(imgs[0].current, {bottom: '50%', yPercent: isMd ? 0 : -50}).to(imgs[1].current, {bottom: '50%', yPercent: -50}).to(imgs[2].current, {bottom: '50%', yPercent: isMd ? -100 : -50}).to('.usImgs', {display: 'block', duration: 0}).add([...commonTweens, ...mdTweens], "+=0");
         } else {
-            tl.to(imgs[0].current, {bottom: '50%', yPercent: isMd ? 0 : -50}).to(imgs[1].current, {bottom: '50%', yPercent: -50}).to(imgs[2].current, {bottom: '50%', yPercent: isMd ? -100 : -50}).to('.usImgs', {opacity: 1, duration: 0}).add(commonTweens, "+=0");
+            tl.to(imgs[0].current, {bottom: '50%', yPercent: isMd ? 0 : -50}).to(imgs[1].current, {bottom: '50%', yPercent: -50}).to(imgs[2].current, {bottom: '50%', yPercent: isMd ? -100 : -50}).to('.usImgs', {display: 'block', duration: 0}).add(commonTweens, "+=0");
         }
 
         const observer = new MutationObserver((mutationsList, observer) => {
@@ -86,7 +86,7 @@ export default function Us({id}: {id?: string}) {
                     )
                 })}
             </div>
-            {isMd ? newImgsMd.map((img, i) => <Image key={i} ref={img} src={newSrcsMd[i]} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translateY(50%)', bottom: '50%'}} className="md:w-[193px] usImg opacity-0 usImgs md:h-[258px] w-[180px] h-[240.53px] absolute" />) : newImgs.map((img, i) => <Image key={i} ref={img} src={newSrcs[i]} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translateY(50%)', bottom: '50%'}} className="md:w-[193px] usImg opacity-0 usImgs md:h-[258px] w-[180px] h-[240.53px] absolute" />)}
+            {isMd ? newImgsMd.map((img, i) => <Image key={i} ref={img} src={newSrcsMd[i]} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translateY(50%)', bottom: '50%'}} className="md:w-[193px] hidden usImg usImgs md:h-[258px] w-[180px] h-[240.53px] absolute" />) : newImgs.map((img, i) => <Image key={i} ref={img} src={newSrcs[i]} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translateY(50%)', bottom: '50%'}} className="md:w-[193px] usImg hidden usImgs md:h-[258px] w-[180px] h-[240.53px] absolute" />)}
             {imgs.map((img, i) => <Image key={i} ref={img} src={srcs[i]} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translate(0, 100%)', bottom: '0'}} className="md:w-[193px] usImg usImgs md:h-[258px] w-[180px] h-[240.53px] absolute" />)}
         </section>
     )
