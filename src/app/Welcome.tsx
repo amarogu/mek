@@ -23,12 +23,12 @@ export default function Welcome({ name }: { name?: string }) {
         "Bienvenue", // French
         "Willkommen", // German
         "Benvenuto", // Italian
-        "Bem-vindo", // Portuguese
+        "Bem-vind@", // Portuguese
         "Bienvenido", // Spanish
         "歡迎", // Chinese
         "ようこそ", // Japanese
         "환영합니다", // Korean,
-        'Bem-vindo'
+        'Bem-vind@'
     ], []);
     const [index, setIndex] = useState(0);
     const [message, setMessage] = useState(data[0]);

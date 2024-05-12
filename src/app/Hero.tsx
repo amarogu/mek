@@ -151,10 +151,6 @@ export default function Hero({className, id, item}: {className?: string, id?: st
         }
     }
 
-    useEffect(() => {
-        actualImg.current?.play();
-    }, [])
-
     return (
         <>
             <section id={id ?? ''} ref={heroRef} className={`${className ?? ''} flex flex-col container mx-auto relative h-[calc(100svh-113px)] justify-center items-center`}>

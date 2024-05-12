@@ -86,8 +86,8 @@ export default function Us({id}: {id?: string}) {
                     )
                 })}
             </div>
-            {isMd ? newImgsMd.map((img, i) => <Image loading="eager" key={i} ref={img} src={newSrcsMd[i]} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translateY(50%)', bottom: '50%'}} className="md:w-[193px] hidden usImg usImgs md:h-[258px] w-[180px] h-[240.53px] absolute" />) : newImgs.map((img, i) => <Image loading="eager" key={i} ref={img} src={newSrcs[i]} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translateY(50%)', bottom: '50%'}} className="md:w-[193px] usImg hidden usImgs md:h-[258px] w-[180px] h-[240.53px] absolute" />)}
-            {imgs.map((img, i) => <Image loading="eager" key={i} ref={img} src={srcs[i]} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translate(0, 100%)', bottom: '0'}} className="md:w-[193px] usImg usImgs md:h-[258px] w-[180px] h-[240.53px] absolute" />)}
+            {isMd ? newImgsMd.map((img, i) => <Image loading="eager" key={i} ref={img} src={newSrcsMd[i]} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translateY(50%)', bottom: '50%'}} width={193} height={258} className="md:w-[193px] hidden usImg usImgs md:h-[258px] w-[180px] h-[240.53px] absolute" />) : newImgs.map((img, i) => <Image loading="eager" width={193} height={258} key={i} ref={img} src={newSrcs[i]} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translateY(50%)', bottom: '50%'}} className="md:w-[193px] usImg hidden usImgs md:h-[258px] w-[180px] h-[240.53px] absolute" />)}
+            {imgs.map((img, i) => <Image loading="eager" key={i} ref={img} src={srcs[i]} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translate(0, 100%)', bottom: '0'}} width={193} height={258} className="md:w-[193px] usImg usImgs md:h-[258px] w-[180px] h-[240.53px] absolute" />)}
         </section>
     )
 }
