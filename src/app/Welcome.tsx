@@ -1,4 +1,3 @@
-'use client';
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useSpring, animated } from '@react-spring/web';
 import Language from '../../public/language.svg';
