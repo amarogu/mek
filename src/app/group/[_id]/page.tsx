@@ -1,9 +1,9 @@
-'use server';
 import { connectDb } from "@/lib/connect";
 import Content from "../../Content";
 import { redirect } from "next/navigation";
 import { Group } from "@/lib/Models/Group";
 import { User } from "@/lib/Models/User";
+import { usImgs } from "@/lib/imgs";
 
 export default async function Home({params}: {params?: {_id: string}}) {
     let group: Group | null = null;
@@ -31,5 +31,5 @@ export default async function Home({params}: {params?: {_id: string}}) {
 
     if (!group || !parsedGroup) redirect('/');
 
-    return <Content item={parsedGroup} />;
+    return <Content imgs={{us: usImgs}} item={parsedGroup} />;
 }

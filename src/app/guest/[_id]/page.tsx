@@ -1,8 +1,8 @@
-'use server';
 import { connectDb } from "@/lib/connect";
 import { User } from "@/lib/Models/User";
 import Content from "../../Content";
 import { redirect } from "next/navigation";
+import { usImgs } from "@/lib/imgs";
 
 export default async function Home({params}: {params?: {_id: string}}) {
     let user: User | null = null;
@@ -25,5 +25,5 @@ export default async function Home({params}: {params?: {_id: string}}) {
 
     if (!user || !parsedUser) redirect('/');
 
-    return <Content item={parsedUser} />;
+    return <Content imgs={{us: usImgs}} item={parsedUser} />;
 }

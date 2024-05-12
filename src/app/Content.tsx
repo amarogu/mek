@@ -9,8 +9,9 @@ import Slider from "./Slider";
 import Us from "./Us";
 import { type User } from "@/lib/Models/User";
 import { type Group } from "@/lib/Models/Group";
+import { StaticImageData } from "next/image";
 
-export default function Content({item}: {item: User | Group}) {
+export default function Content({item, imgs}: {item?: User | Group, imgs: { us: StaticImageData[] }}) {
 
   const [isMounted, setIsMounted] = useState<boolean>(false);
 
@@ -39,20 +40,18 @@ export default function Content({item}: {item: User | Group}) {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  if (!isMounted) return null;
-
   return (
       <ReactLenis root>
         <Context.Provider value={{isDarkMode: isDarkMode, setIsDarkMode: setIsDarkMode}}>
             <header ref={header} className="md:h-[81px] flex px-8 pt-8 items-center fixed w-screen top-0 z-40">
-              <Welcome name={item.name} />
+              <Welcome name={item?.name} />
               <Nav open={open} setOpen={setOpen} />
               <Slider open={open} />
             </header>
             <main id="main" className="overflow-x-hidden h-[800vh]">
               <div ref={spacer}></div>
               <Hero item={item} id="hero" className="px-8" />
-              <Us id="us" />
+              <Us id="us" usImgs={imgs.us} />
             </main>
       </Context.Provider>
       </ReactLenis>
