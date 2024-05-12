@@ -1,10 +1,10 @@
 'use client';
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useSpring, animated } from '@react-spring/web';
 import Language from '../../public/language.svg';
 import LanguageDark from '../../public/language_dark.svg';
 import Image from 'next/image';
-import { removeClasses } from '@/lib/helpers';
+import { addClasses, removeClasses } from '@/lib/helpers';
 
 export default function Welcome({ name }: { name?: string }) {
     const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
@@ -39,6 +39,8 @@ export default function Welcome({ name }: { name?: string }) {
         from: { transform: 'translateY(0%)'},
     });
 
+    const container = useRef(null);
+
     useEffect(() => {
         const initialDelay = 500; // Initial delay
         const base = 0.8; // Base of the exponential function
@@ -50,12 +52,13 @@ export default function Welcome({ name }: { name?: string }) {
                 setMessage(data[nextIndex]);
             }
         }, delay);
+        if (container.current) addClasses(container.current, ['animate-pulse']);
         return () => clearTimeout(timer); // Clean up the timer when the component unmounts or re-renders
     }, [index, data]);
 
     return (
         <animated.div style={styles} className="fixed z-50 flex justify-center items-center top-0 left-0 w-full h-screen dark:bg-dark-bg-100/75 backdrop-blur-lg dark:border-dark-bg-300/50 bg-bg-100/75">
-            <div className='flex gap-4 items-center'>
+            <div ref={container} className='flex gap-4 items-center'>
                 <Image priority src={isDarkMode ? LanguageDark : Language} width={20} height={20} alt="Language" />
                 <p className='text-3xl'>{message} {name ? name : ''}</p>
             </div>
