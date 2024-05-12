@@ -53,7 +53,7 @@ export default function Content({item}: {item?: User | Group}) {
               <Nav open={open} setOpen={setOpen} />
               <Slider open={open} />
             </header>
-            <main id="main" className="overflow-x-hidden h-[800vh]">
+            <main id="main" className="overflow-x-hidden overflow-y-hidden !h-screen h-[800vh]">
               <div ref={spacer}></div>
               <Hero item={item} id="hero" className="px-8" />
               <Us id="us" />
