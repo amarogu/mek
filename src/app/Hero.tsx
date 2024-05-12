@@ -47,7 +47,7 @@ export default function Hero({className, id, item}: {className?: string, id?: st
     
         if (imgRef.current?.childNodes) {
             tl.to(imgRef.current.childNodes, {
-                scale: isMd ? (isXl ? 8 : 6) : 5,
+                scale: isMd ? (isXl ? 8 : 6) : 6,
                 y: isMd ? 500 : 400,
                 x: isMd ? 0 : '-50%',
                 ease: 'slow'

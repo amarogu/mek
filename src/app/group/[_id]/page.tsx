@@ -31,5 +31,5 @@ export default async function Home({params}: {params?: {_id: string}}) {
 
     if (!group || !parsedGroup) redirect('/');
 
-    return <Content imgs={{us: usImgs}} item={parsedGroup} />;
+    return <Content item={parsedGroup} />;
 }

@@ -12,7 +12,7 @@ import { type Group } from "@/lib/Models/Group";
 import { StaticImageData } from "next/image";
 import Loading from "./loading";
 
-export default function Content({item, imgs}: {item?: User | Group, imgs: { us: StaticImageData[] }}) {
+export default function Content({item}: {item?: User | Group}) {
 
   const [isMounted, setIsMounted] = useState<boolean>(false);
 
@@ -56,7 +56,7 @@ export default function Content({item, imgs}: {item?: User | Group, imgs: { us: 
             <main id="main" className="overflow-x-hidden h-[800vh]">
               <div ref={spacer}></div>
               <Hero item={item} id="hero" className="px-8" />
-              <Us id="us" usImgs={imgs.us} />
+              <Us id="us" />
             </main>
         </Context.Provider>
       </ReactLenis>

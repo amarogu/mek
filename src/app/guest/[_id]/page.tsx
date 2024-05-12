@@ -25,5 +25,5 @@ export default async function Home({params}: {params?: {_id: string}}) {
 
     if (!user || !parsedUser) redirect('/');
 
-    return <Content imgs={{us: usImgs}} item={parsedUser} />;
+    return <Content item={parsedUser} />;
 }

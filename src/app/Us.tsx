@@ -2,10 +2,11 @@ import { useEffect, useRef } from "react"
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import { useMediaQuery } from "react-responsive";
+import { usImgs } from "@/lib/imgs";
 
-export default function Us({id, usImgs}: {id?: string, usImgs: StaticImageData[]}) {
+export default function Us({id}: {id?: string}) {
 
     const data = ['Nossa', 'história', 'de amor'];
 
