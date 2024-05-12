@@ -31,7 +31,7 @@ export default function Slider({open}: SliderProps) {
         }
     }, [open])
 
-    const data = ['casal', 'festa', 'galeria', 'recados', 'presentes']
+    const data = ['galeria', 'recados', 'presentes', 'confirmar', 'festa']
 
     const igs = [['maria', 'https://www.instagram.com/mariaisabel_amaro/'], ['kalil', 'https://www.instagram.com/kalilalvess/']]
 
