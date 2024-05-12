@@ -11,15 +11,9 @@ export default function Welcome({ name }: { name?: string }) {
 
     useEffect(() => {
         setIsDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches);
-        if (document.readyState === 'complete') {
+        Promise.all(Array.from(document.images).filter(img => !img.complete).map(img => new Promise(resolve => { img.onload = img.onerror = resolve; }))).then(() => {
             setIsPageLoaded(true);
-        } else {
-            window.addEventListener('load', () => setIsPageLoaded(true));
-        }
-    
-        return () => {
-            window.removeEventListener('load', () => setIsPageLoaded(true));
-        };
+        });        
     }, [])
 
     const data = useMemo(() => [

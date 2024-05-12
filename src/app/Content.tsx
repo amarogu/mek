@@ -10,6 +10,7 @@ import Us from "./Us";
 import { type User } from "@/lib/Models/User";
 import { type Group } from "@/lib/Models/Group";
 import { StaticImageData } from "next/image";
+import Loading from "./loading";
 
 export default function Content({item, imgs}: {item?: User | Group, imgs: { us: StaticImageData[] }}) {
 
@@ -37,8 +38,12 @@ export default function Content({item, imgs}: {item?: User | Group, imgs: { us: 
     window.addEventListener('resize', handleResize);
     setIsDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches);
     setIsMounted(true);
-    return () => window.removeEventListener('resize', handleResize);
+    return () => {
+        window.removeEventListener('resize', handleResize);
+    };
   }, []);
+
+  if (!isMounted) return <Loading />;
 
   return (
       <ReactLenis root>
@@ -53,7 +58,7 @@ export default function Content({item, imgs}: {item?: User | Group, imgs: { us: 
               <Hero item={item} id="hero" className="px-8" />
               <Us id="us" usImgs={imgs.us} />
             </main>
-      </Context.Provider>
+        </Context.Provider>
       </ReactLenis>
   );
 }

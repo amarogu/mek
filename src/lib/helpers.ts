@@ -117,3 +117,11 @@ export const getGender = (genders: ('male' | 'female' | 'non-binary' | 'gender-f
 
   return 'gender-fluid'; // default value if no gender is found
 }
+
+export const preventInteraction = (prevent: boolean) => {
+  if (prevent) {
+    document.body.style.pointerEvents = 'none';
+  } else {
+    document.body.style.pointerEvents = '';
+  }
+}
