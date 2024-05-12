@@ -9,7 +9,6 @@ import Slider from "./Slider";
 import Us from "./Us";
 import { type User } from "@/lib/Models/User";
 import { type Group } from "@/lib/Models/Group";
-import { StaticImageData } from "next/image";
 import Loading from "./loading";
 
 export default function Content({item}: {item?: User | Group}) {

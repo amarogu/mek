@@ -50,9 +50,10 @@ export default function Welcome({ name }: { name?: string }) {
             if (nextIndex < data.length) { // Only update the index and message if we haven't reached the end
                 setIndex(nextIndex);
                 setMessage(data[nextIndex]);
+            } else {
+                if (container.current) addClasses(container.current, ['animate-pulse']);
             }
         }, delay);
-        if (container.current) addClasses(container.current, ['animate-pulse']);
         return () => clearTimeout(timer); // Clean up the timer when the component unmounts or re-renders
     }, [index, data]);
 
