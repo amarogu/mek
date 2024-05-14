@@ -9,7 +9,7 @@ export default function SlidingText({text, darkImg, img, className}: {text: stri
     return (
         <Marquee className={`flex gap-2 z-30 overflow-hidden ${className ?? ''}`}>
             <div className="flex gap-2 items-center">
-                <p className="ont-extrabold leading-[85%] uppercase">{text}</p>
+                <p className="font-extrabold leading-[85%] uppercase">{text}</p>
                 {darkImg}
             </div>
         </Marquee>

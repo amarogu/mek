@@ -10,6 +10,7 @@ import Us from "./Us";
 import { type User } from "@/lib/Models/User";
 import { type Group } from "@/lib/Models/Group";
 import Loading from "./loading";
+import Messages from "./Messages";
 
 export default function Content({item}: {item?: User | Group}) {
 
@@ -56,6 +57,7 @@ export default function Content({item}: {item?: User | Group}) {
               <div ref={spacer}></div>
               <Hero item={item} id="hero" className="px-8" />
               <Us id="us" />
+              <Messages item={item} />
             </main>
         </Context.Provider>
       </ReactLenis>
