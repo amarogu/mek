@@ -22,7 +22,7 @@ export default function StyledInput({type, placeholder, value, onChange}: {type:
             )
         case 'textarea':
             return (
-                <div ref={divRef} className="border-b relative h-96 py-4 border-text-100 dark:border-dark-text-100">
+                <div ref={divRef} className="border-b relative h-96 pb-4 border-text-100 dark:border-dark-text-100">
                     <p ref={ref} className={`uppercase origin-top-left text-2xl font-bold`}>{placeholder}</p>
                     <textarea onChange={onChange} value={value} onFocus={() => setIsFocused(true)} onBlur={() => setIsFocused(false)} className="absolute text-xl top-1/2 z-10 bg-transparent outline-none -translate-y-1/2 w-full resize-none h-full left-0"></textarea>
                 </div>
