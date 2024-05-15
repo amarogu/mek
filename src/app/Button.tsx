@@ -26,7 +26,7 @@ export default function Button({text, alterText}: {text: string, alterText?: str
     }, [])
 
     return (
-        <button onClick={handleClick} className="px-8 overflow-hidden text-2xl relative uppercase font-bold text-center py-4 border border-text-100 dark:border-dark-text-100">
+        <button onClick={(e) => {e.preventDefault(); handleClick()}} className="px-8 overflow-hidden text-2xl relative uppercase font-bold text-center py-4 border border-text-100 dark:border-dark-text-100">
             <div ref={textContainer} className="relative z-10">
                 <p ref={textRef} className="inline absolute z-10 top-0 left-1/2 -translate-x-1/2">{text}</p>
                 <p ref={alterTextRef} className="opacity-0 inline absolute top-0 left-1/2 -translate-x-1/2 text-bg-100 dark:text-dark-bg-100">{alterText}</p>
