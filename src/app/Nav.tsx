@@ -6,6 +6,7 @@ import { useContext, Dispatch, SetStateAction } from "react";
 import { useSpring, animated } from "@react-spring/web";
 import AnimatedText from "./AnimatedText";
 import { useLenis } from "@studio-freight/react-lenis";
+import { parseNavItem } from "@/lib/helpers";
 
 const config = {
     mass: 1,
@@ -37,7 +38,7 @@ export default function Nav({open, setOpen}: {open: boolean, setOpen: Dispatch<S
     return (
         <nav className="grid container grid-cols-3 mx-auto static z-30 items-center justify-items-center">
             <ul className="md:flex hidden gap-12 justify-self-start font-bold">
-                {firstUl.map(i => <li key={i}><AnimatedText animation="upper-staggering" on="hover" el={<button className="uppercase overflow-hidden h-[15px] text-[10px]"></button>} content={i}  /></li>)}
+                {firstUl.map(i => <li key={i}><AnimatedText animation="upper-staggering" on="hover" el={<button onClick={() => lenis?.scrollTo(parseNavItem(i as 'galeria' | 'recados'), {duration: 2.5})} className="uppercase overflow-hidden h-[15px] text-[10px]"></button>} content={i}  /></li>)}
             </ul>
             <Image onClick={() => lenis?.scrollTo(0, {duration: 2.5})} src={isDarkMode ? LogoDark : Logo} className="col-start-1 md:col-start-2 cursor-pointer" alt="Maria & Kalil, com amor," />
             <ul className="md:flex hidden gap-12 text-nowrap justify-self-end font-bold">

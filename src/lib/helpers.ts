@@ -125,3 +125,13 @@ export const preventInteraction = (prevent: boolean) => {
     document.body.style.pointerEvents = '';
   }
 }
+
+export const parseNavItem = (item: 'galeria' | 'recados' | 'presentes' | 'confirmar' | 'festa') => {
+  switch (item) {
+    case 'galeria': return '#us';
+    case 'recados': return '#messages';
+    case 'presentes': return '#gifts';
+    case 'confirmar': return '#confirm';
+    case 'festa': return '#party';
+  }
+}

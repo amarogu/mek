@@ -9,7 +9,7 @@ import MessagesMobile from '../../public/messages_mobile.png';
 import MessagesMd from '../../public/messages_medium.png';
 import { useRef } from "react";
 
-export default function Messages({ item }: { item?: User | Group }) {
+export default function Messages({ item, id }: { item?: User | Group, id: string }) {
 
     const [name, setName] = useState<string>('');
     const [message, setMessage] = useState<string>('');
@@ -26,7 +26,7 @@ export default function Messages({ item }: { item?: User | Group }) {
     }, [])
 
     return (
-        <section className="md:px-8">
+        <section id={id} className="md:px-8">
             <div className="flex flex-col container mx-auto lg:justify-between md:flex-row gap-12">
             <form ref={formRef} className="flex px-8 md:px-0 lg:shrink lg:w-1/2 md:self-start flex-col gap-12">
                 <p className="text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%]">Mande uma mensagem...</p>

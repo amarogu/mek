@@ -57,7 +57,7 @@ export default function Content({item}: {item?: User | Group}) {
               <div ref={spacer}></div>
               <Hero item={item} id="hero" className="px-8" />
               <Us id="us" />
-              <Messages item={item} />
+              <Messages id="messages" item={item} />
             </main>
         </Context.Provider>
       </ReactLenis>
