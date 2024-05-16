@@ -23,14 +23,21 @@ export default function Messages({ item, id }: { item?: User | Group, id: string
     const formRef = useRef<HTMLFormElement>(null);
     const imgRef = useRef<HTMLImageElement>(null);
 
+    const timeout = 2750
+
+    const cleanup = () => {
+        setRes(undefined);
+        setDisabled(false);
+        setMessage('');
+    }
+
     const handleError = (error: '!msg') => {
         switch (error) {
             case '!msg':
                 setRes({message: 'Por favor, preencha o campo de recado', type: 'error'});
                 setTimeout(() => {
-                    setRes(undefined);
-                    setDisabled(false);
-                }, 2750);
+                    cleanup();
+                }, timeout);
         }
     }
 
@@ -40,9 +47,8 @@ export default function Messages({ item, id }: { item?: User | Group, id: string
         const res = await instance.post('/message', { owner: item?._id, content: message });
         setRes(parseRes(res.data as {message: string, error?: any}));
         setTimeout(() => {
-            setDisabled(false);
-            setMessage('');
-        }, 2750);
+            cleanup();
+        }, timeout);
     }
 
     useEffect(() => {
