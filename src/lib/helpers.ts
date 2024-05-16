@@ -135,3 +135,13 @@ export const parseNavItem = (item: 'galeria' | 'recados' | 'presentes' | 'confir
     case 'festa': return '#party';
   }
 }
+
+export const parseRes = (res: {message: string, error?: any}) => {
+  switch (res.message) {
+    case 'User not found': return {message: 'Usuário não encontrado', type: 'error'}
+    case 'Message sent successfully': return {message: 'Mensagem enviada com sucesso', type: 'success'}
+  }
+  if (res.error) {
+    return {message: 'Ocorreu um erro', type: 'error'}
+  }
+}

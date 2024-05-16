@@ -10,13 +10,14 @@ export type Group = {
     gender: 'male' | 'female' | 'non-binary' | 'gender-fluid';
     name: string;
     link: string;
+    msgs: string[];
     _id: string;
     __v: number;
 }
 
 const groupSchema = new mongoose.Schema({
     users: {
-        type: Array<mongoose.Schema.Types.ObjectId>,
+        type: [mongoose.Schema.Types.ObjectId],
         ref: 'User',
         default: []
     },
@@ -30,6 +31,11 @@ const groupSchema = new mongoose.Schema({
     },
     link: {
         type: String
+    },
+    msgs: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'Msg',
+        default: []
     }
 })
 

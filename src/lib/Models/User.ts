@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { Msg } from './Msg';
 if (mongoose.models.User) {
     mongoose.deleteModel('User');
 }
@@ -18,8 +19,8 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     msgs: {
-        type: Array<mongoose.Schema.Types.ObjectId>,
-        ref: 'Msg',
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: Msg,
         default: []
     },
     link: {

@@ -6,7 +6,7 @@ if (mongoose.models.Msg) {
 const msgSchema = new mongoose.Schema({
     owner: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        ref: "User" || "Group",
         required: true
     },
     content: {
