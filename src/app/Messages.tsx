@@ -52,7 +52,7 @@ export default function Messages({ item, id }: { item?: User | Group, id: string
                 <div className="flex flex-col gap-12 lg:w-2/3">
                     {item ? <div className="flex flex-col gap-4"><p className="uppercase text-2xl font-bold">Nome</p><p className={`uppercase origin-top-left text-2xl`}>{item.name}</p></div> : <StyledInput res={res} onChange={(e) => setName(e.target.value)} value={name} type="text" placeholder="Nome*" />}
                     <StyledInput res={res} desc="Sinta-se à vontade para enviar recadinhos! Iremos ficar muito felizes em lê-los. Responderemos assim que possível." value={message} onChange={(e) => setMessage(e.target.value)} type="textarea" placeholder="Recado*" />
-                    <Button onClick={() => handleClick(message)} alterText={res?.type === 'error' ? 'Falha' : 'Enviando' } text="Enviar" />
+                    <Button onClick={() => handleClick(message)} alterText={res?.type === 'error' ? 'Falha' : 'Enviado' } text="Enviar" />
                 </div>
             </form>
             <Image ref={imgRef} loading="eager" src={isMd ? MessagesMd : MessagesMobile} className="w-full lg:absolute right-0 md:self-start -z-10 relative lg:w-auto" alt="Grid de imagens de Maria e Kalil" />
