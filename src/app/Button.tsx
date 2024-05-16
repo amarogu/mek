@@ -2,7 +2,7 @@ import { useGSAP } from "@gsap/react"
 import gsap from "gsap";
 import { useEffect, useRef, useState } from "react"
 
-export default function Button({text, alterText, onClick}: {text: string, alterText?: string, onClick?: () => void}) {
+export default function Button({text, alterText, onClick, disabled}: {text: string, alterText?: string, onClick?: () => void, disabled: boolean}) {
 
     const [clicked, setClicked] = useState<boolean>(false);
 
@@ -27,7 +27,7 @@ export default function Button({text, alterText, onClick}: {text: string, alterT
     }, [])
 
     return (
-        <button onClick={(e) => {e.preventDefault(); handleClick()}} className={`px-8 overflow-hidden text-2xl relative uppercase font-bold text-center py-4 border transition-colors ${alterText === 'Falha' ? 'border-red-400' : 'border-text-100 dark:border-dark-text-100' }`}>
+        <button disabled={disabled} onClick={(e) => {e.preventDefault(); handleClick()}} className={`px-8 overflow-hidden text-2xl relative uppercase font-bold text-center py-4 border transition-colors ${alterText === 'Falha' ? 'border-red-400' : 'border-text-100 dark:border-dark-text-100' }`}>
             <div ref={textContainer} className="relative z-10">
                 <p ref={textRef} className="inline absolute z-10 top-0 left-1/2 -translate-x-1/2">{text}</p>
                 <p ref={alterTextRef} className="opacity-0 inline absolute top-0 left-1/2 -translate-x-1/2 text-bg-100 dark:text-dark-bg-100">{alterText}</p>
