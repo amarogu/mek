@@ -1,5 +1,6 @@
 import { type User } from './Models/User';
 import { type Group } from './Models/Group';
+import { Msg } from './Models/Msg';
 
 export function addClasses(element: HTMLElement, classes: string[]) {
     classes.forEach(className => {
@@ -138,7 +139,7 @@ export const parseNavItem = (item: 'galeria' | 'recados' | 'presentes' | 'confir
 
 export type ErrorResponse = {
   message: string;
-  error?: {
+  error: {
     errors: {
       content: {
         name: string;
@@ -160,6 +161,30 @@ export type ErrorResponse = {
   };
 }
 
+export const emptyMsg: ErrorResponse = {
+  message: 'An error occurred',
+  error: {
+    errors: {
+      content: {
+        name: 'ValidatorError',
+        message: 'Path `content` is required.',
+        properties: {
+          message: 'Path `content` is required.',
+          type: 'required',
+          path: 'content',
+          value: ''
+        },
+        kind: 'required',
+        path: 'content',
+        value: ''
+      }
+    },
+    _message: 'Msg validation failed',
+    name: 'ValidationError',
+    message: 'Msg validation failed: content: Path `content` is required.'
+  }
+}
+
 export type SuccessResponse = {
   message: string;
   msg?: {
@@ -170,15 +195,21 @@ export type SuccessResponse = {
   };
 }
 
-export type Status = {
-  status: 'requested' | 'success' | 'failure';
-  type: 'nonetwork' | 'network';
-}
-
-export const parseStatus = (status: 'requested' | 'success' | 'failure') => {
-  switch (status) {
-    case 'requested': return 'Enviando';
-    case 'success': return 'Enviado';
-    case 'failure': return 'Falha';
+export const parseResponse = (res: ErrorResponse | SuccessResponse) => {
+  return {
+    for: (i: string) => {
+      switch (i) {
+        case 'btn':
+          if ('error' in res) {
+            return 'Falha';
+          }
+          return 'Enviado';
+        case 'input':
+          if ('error' in res) {
+            return 'Por favor, insira um recado para que você possa efetuar o envio.';
+          }
+          return '';
+      }
+    }
   }
 }
