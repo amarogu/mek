@@ -195,9 +195,12 @@ export type SuccessResponse = {
   };
 }
 
-export const parseResponse = (res: ErrorResponse | SuccessResponse) => {
+export const parseResponse = (res?: ErrorResponse | SuccessResponse) => {
   return {
     for: (i: string) => {
+      if (!res) {
+        return 'Falha';
+      }
       switch (i) {
         case 'btn':
           if ('error' in res) {
