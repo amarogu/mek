@@ -136,12 +136,49 @@ export const parseNavItem = (item: 'galeria' | 'recados' | 'presentes' | 'confir
   }
 }
 
-export const parseRes = (res: {message: string, error?: any}) => {
-  switch (res.message) {
-    case 'User not found': return {message: 'Usuário não encontrado', type: 'error'}
-    case 'Message sent successfully': return {message: 'Mensagem enviada com sucesso', type: 'success'}
-  }
-  if (res.error) {
-    return {message: 'Ocorreu um erro', type: 'error'}
+export type ErrorResponse = {
+  message: string;
+  error?: {
+    errors: {
+      content: {
+        name: string;
+        message: string;
+        properties: {
+          message: string;
+          type: string;
+          path: string;
+          value: string;
+        };
+        kind: string;
+        path: string;
+        value: string;
+      };
+    };
+    _message: string;
+    name: string;
+    message: string;
+  };
+}
+
+export type SuccessResponse = {
+  message: string;
+  msg?: {
+    owner: string;
+    content: string;
+    _id: string;
+    __v: number;
+  };
+}
+
+export type Status = {
+  status: 'requested' | 'success' | 'failure';
+  type: 'nonetwork' | 'network';
+}
+
+export const parseStatus = (status: 'requested' | 'success' | 'failure') => {
+  switch (status) {
+    case 'requested': return 'Enviando';
+    case 'success': return 'Enviado';
+    case 'failure': return 'Falha';
   }
 }
