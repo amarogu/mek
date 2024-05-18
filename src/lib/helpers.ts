@@ -216,3 +216,10 @@ export const parseResponse = (res?: ErrorResponse | SuccessResponse) => {
     }
   }
 }
+
+export const animationTimeouts = {
+  btn: {
+    requestless: 3000,
+    requested: 3550
+  }
+}

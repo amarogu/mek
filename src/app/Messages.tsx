@@ -29,26 +29,25 @@ export default function Messages({ item, id }: { item?: User | Group, id: string
         } 
     }, [])
 
-    const cleanup = (timeout: number) => {
-        setTimeout(() => {
-            setRes(undefined);
-            setClicked(false);
-        }, timeout);
+    const cleanup = () => {
+        setRes(undefined);
+        setClicked(false);
+        setMessage('');
     }
 
     const handleClick = async (message: string) => {
         setClicked(true);
         if (!message) {
-            setRes(emptyMsg);
-            return cleanup(3000);
+            return setRes(emptyMsg);
         };
         const res = await instance.post('/message', {owner: item?._id, content: message});
-        if (res.status !== 200) return setRes(undefined);
+        if (res.status !== 200) {
+            return setRes(undefined);
+        };
         if (res.data.error) {
             return setRes(res.data as ErrorResponse);
         }
-        setRes(res.data as SuccessResponse);
-        return cleanup(3550);
+        return setRes(res.data as SuccessResponse);
     }
 
     return (
@@ -59,7 +58,7 @@ export default function Messages({ item, id }: { item?: User | Group, id: string
                 <div className="flex flex-col gap-12 lg:w-2/3">
                     {item ? <div className="flex flex-col gap-4"><p className="uppercase text-2xl font-bold">Nome</p><p className={`uppercase origin-top-left text-2xl`}>{item.name}</p></div> : <StyledInput onChange={(e) => setName(e.target.value)} value={name} type="text" placeholder="Nome*" />}
                     <StyledInput res={res} desc="Sinta-se à vontade para enviar recadinhos! Iremos ficar muito felizes em lê-los. Responderemos assim que possível." value={message} onChange={(e) => setMessage(e.target.value)} type="textarea" placeholder="Recado*" />
-                    <Button clicked={clicked} onClick={() => handleClick(message)} res={res} text='Enviar' />
+                    <Button cleanup={cleanup} clicked={clicked} onClick={() => handleClick(message)} res={res} text='Enviar' />
                 </div>
             </form>
             <Image ref={imgRef} loading="eager" src={isMd ? MessagesMd : MessagesMobile} className="w-full lg:absolute right-0 md:self-start -z-10 relative lg:w-auto" alt="Grid de imagens de Maria e Kalil" />

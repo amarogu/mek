@@ -1,24 +1,35 @@
 import { ErrorResponse, SuccessResponse, parseResponse, emptyMsg } from "@/lib/helpers";
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap";
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 
-export default function Button({text, res, onClick, clicked}: {text: string, res?: SuccessResponse | ErrorResponse, onClick?: () => void, clicked: boolean}) {
+export default function Button({text, res, onClick, clicked, cleanup}: {text: string, res?: SuccessResponse | ErrorResponse, onClick?: () => void, clicked: boolean, cleanup?: () => void}) {
 
     const ref = useRef<HTMLDivElement>(null);
     const textRef = useRef<HTMLParagraphElement>(null);
     const statusRef = useRef<HTMLParagraphElement>(null);
     const resultRef = useRef<HTMLParagraphElement>(null);
     const textContainer = useRef<HTMLDivElement>(null);
+    const [completed, setCompleted] = useState<boolean[]>([false, false]);
 
     const tl = useRef<GSAPTimeline | null>();
 
 
     useGSAP(() => {
         if (res === emptyMsg) {
-            tl.current = gsap.timeline().to(ref.current, {xPercent: 100, duration: 1, ease: 'elastic.inOut'}).to(textRef.current, {opacity: 0, duration: 0.15}).to(resultRef.current, {opacity: 1, duration: 0.15}).to(resultRef.current, {opacity: 0, duration: 0.15}, '>0.25').to(ref.current, {xPercent: 200, duration: 1, ease: 'elastic.inOut'}, '>0.15').to(textRef.current, {opacity: 1, duration: 0.15});
+            tl.current = gsap.timeline({onComplete: cleanup}).to(ref.current, {xPercent: 100, duration: 1, ease: 'elastic.inOut'}).to(textRef.current, {opacity: 0, duration: 0.15}).to(resultRef.current, {opacity: 1, duration: 0.15}).to(resultRef.current, {opacity: 0, duration: 0.15}, '>0.25').to(ref.current, {xPercent: 200, duration: 1, ease: 'elastic.inOut'}, '>0.15').to(textRef.current, {opacity: 1, duration: 0.15});
         }
     }, {dependencies: [res], revertOnUpdate: true});
+
+    useGSAP(() => {
+        if (!res && clicked) {
+            return tl.current = gsap.timeline({onComplete: () => setCompleted([true, false])}).to(ref.current, {xPercent: 100, duration: 1, ease: 'elastic.inOut'}).to(textRef.current, {opacity: 0, duration: 0.15}).to(statusRef.current, {opacity: 1, duration: 0.15});
+        }
+        if (res && res !== emptyMsg && clicked && completed[0]) {
+            return tl.current = gsap.timeline({onComplete: () => {if (cleanup) cleanup(); setCompleted([false, true])}}).to(statusRef.current, {opacity: 0, duration: 0.15}).to(resultRef.current, {opacity: 1, duration: 0.15}, '>0.25').to(resultRef.current, {opacity: 0, duration: 0.15}, '>0.25').to(ref.current, {xPercent: 200, duration: 1, ease: 'elastic.inOut'}).to(textRef.current, {opacity: 1, duration: 0.15});
+        }
+        if (completed[1]) return tl.current = gsap.timeline({onComplete: () => setCompleted([false, false])}).to(ref.current, {xPercent: 0, duration: 0}).to(statusRef.current, {opacity: 0, duration: 0}).to(resultRef.current, {opacity: 0, duration: 0}).to(textRef.current, {opacity: 1, duration: 0});
+    }, [res, clicked, completed]);
 
     useEffect(() => {
         if (textContainer.current && textRef.current) textContainer.current.style.height = `${textRef.current.clientHeight}px`;
