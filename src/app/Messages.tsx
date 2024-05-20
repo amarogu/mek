@@ -33,6 +33,7 @@ export default function Messages({ item, id }: { item?: User | Group, id: string
         setRes(undefined);
         setClicked(false);
         setMessage('');
+        setName('');
     }
 
     const handleClick = async (message: string) => {
