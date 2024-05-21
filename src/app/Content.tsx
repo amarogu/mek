@@ -11,8 +11,10 @@ import { type User } from "@/lib/Models/User";
 import { type Group } from "@/lib/Models/Group";
 import Loading from "./loading";
 import Messages from "./Messages";
+import { type Gift } from "@/lib/Models/Gift";
+import Gifts from "./Gifts";
 
-export default function Content({item}: {item?: User | Group}) {
+export default function Content({item, gifts}: {item?: User | Group, gifts: Gift[]}) {
 
   const [isMounted, setIsMounted] = useState<boolean>(false);
 
@@ -58,6 +60,7 @@ export default function Content({item}: {item?: User | Group}) {
               <Hero item={item} id="hero" className="px-8" />
               <Us id="us" />
               <Messages id="messages" item={item} />
+              <Gifts gifts={gifts} />
             </main>
         </Context.Provider>
       </ReactLenis>

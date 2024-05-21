@@ -2,11 +2,13 @@ import { connectDb } from "@/lib/connect";
 import { User } from "@/lib/Models/User";
 import Content from "../../Content";
 import { redirect } from "next/navigation";
-import { usImgs } from "@/lib/imgs";
+import { getGifts } from "@/lib/serverHelpers";
 
 export default async function Home({params}: {params?: {_id: string}}) {
     let user: User | null = null;
     let parsedUser: User | null = null;
+
+    const gifts = await getGifts();
 
     await connectDb();
 
@@ -25,5 +27,5 @@ export default async function Home({params}: {params?: {_id: string}}) {
 
     if (!user || !parsedUser) redirect('/');
 
-    return <Content item={parsedUser} />;
+    return <Content gifts={gifts} item={parsedUser} />;
 }
