@@ -36,7 +36,7 @@ export default function Nav({open, setOpen}: {open: boolean, setOpen: Dispatch<S
     const secondUl = ['presentes', 'confirmar', 'festa']
 
     return (
-        <nav className="grid container grid-cols-3 mx-auto static z-30 items-center justify-items-center">
+        <nav className="grid container grid-cols-3 mx-auto static z-30 items-center md:justify-items-center">
             <ul className="md:flex hidden gap-12 justify-self-start font-bold">
                 {firstUl.map(i => <li key={i}><AnimatedText animation="upper-staggering" on="hover" el={<button onClick={() => lenis?.scrollTo(parseNavItem(i as 'galeria' | 'recados'), {duration: 2.5})} className="uppercase overflow-hidden h-[15px] text-[10px]"></button>} content={i}  /></li>)}
             </ul>
