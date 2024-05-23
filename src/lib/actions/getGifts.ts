@@ -1,5 +1,5 @@
-import { connectDb } from "./connect";
-import { Gift } from "./Models/Gift";
+import { connectDb } from "../connect";
+import { Gift } from "../Models/Gift";
 
 export async function getGifts() {
     await connectDb();

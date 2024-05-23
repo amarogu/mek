@@ -1,4 +1,4 @@
-import { getGifts } from "@/lib/serverHelpers";
+import { getGifts } from "@/lib/actions/getGifts";
 import Content from "./Content";
 
 export default async function Home() {

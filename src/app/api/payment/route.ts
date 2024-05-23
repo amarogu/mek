@@ -1,4 +1,4 @@
-import { Stripe } from 'stripe';
+import { Stripe } from 'stripe'
 import { connectDb } from '@/lib/connect';
 import { Gift } from '@/lib/Models/Gift';
 import { NextRequest } from 'next/server';

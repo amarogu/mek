@@ -2,7 +2,7 @@ import { connectDb } from "@/lib/connect";
 import { User } from "@/lib/Models/User";
 import Content from "../../Content";
 import { redirect } from "next/navigation";
-import { getGifts } from "@/lib/serverHelpers";
+import { getGifts } from "@/lib/actions/getGifts";
 
 export default async function Home({params}: {params?: {_id: string}}) {
     let user: User | null = null;

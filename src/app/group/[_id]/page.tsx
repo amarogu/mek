@@ -3,7 +3,7 @@ import Content from "../../Content";
 import { redirect } from "next/navigation";
 import { Group } from "@/lib/Models/Group";
 import { User } from "@/lib/Models/User";
-import { getGifts } from "@/lib/serverHelpers";
+import { getGifts } from "@/lib/actions/getGifts";
 
 export default async function Home({params}: {params?: {_id: string}}) {
     let group: Group | null = null;
