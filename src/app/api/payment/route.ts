@@ -4,13 +4,13 @@ import { Gift } from '@/lib/Models/Gift';
 import { NextRequest } from 'next/server';
 import 'dotenv/config';
 
-const stripe = new Stripe(process.env.STRIPE_PUBLISHABLE_KEY as string);
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
 const calculateAmount = async (_id: string) => {
     await connectDb();
     const gift = await Gift.findById(_id);
     if (!gift) return false;
-    return gift.value;
+    return gift.value * 100;
 }
 
 export async function POST(req: NextRequest) {
@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
             amount,
             currency: 'brl'
         });
-        return Response.json({client_secret: paymentIntent.client_secret});
+        return Response.json({clientSecret: paymentIntent.client_secret});
     } catch (e: any) {
         return Response.json({message: 'An error occurred', error: e});
     }

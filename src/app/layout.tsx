@@ -7,6 +7,7 @@ const manrope = Manrope({subsets: ["latin"]});
 export const metadata: Metadata = {
   title: "Maria & Kalil",
   description: "Casamento de Maria e Kalil",
+  
 };
 
 export default function RootLayout({
