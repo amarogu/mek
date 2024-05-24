@@ -223,3 +223,14 @@ export const animationTimeouts = {
     requested: 3550
   }
 }
+
+export const parseMessage = (message: string) => {
+  switch (message) {
+    case 'Payment succeeded!':
+      return 'Pagamento aprovado';
+    case 'Your payment is processing.':
+      return 'Processando';
+    default:
+      'Falha no pagamento';
+  }
+}
