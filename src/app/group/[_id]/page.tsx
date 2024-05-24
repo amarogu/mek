@@ -9,9 +9,9 @@ import { getGroup } from "@/lib/actions/getGroup";
 export default async function Home({params}: {params?: {_id: string}}) {
     const gifts = await getGifts();
 
-    const parsedGroup = await getGroup({params});
+    const group = await getGroup({params});
 
-    if (!parsedGroup) redirect('/');
+    if (!group) redirect('/');
 
-    return <Content gifts={gifts} item={parsedGroup} />;
+    return <Content gifts={gifts} item={group} />;
 }

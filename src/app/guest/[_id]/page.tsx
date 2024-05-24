@@ -9,9 +9,9 @@ export default async function Home({params}: {params?: {_id: string}}) {
 
     const gifts = await getGifts();
 
-    const parsedUser = await getGuest({params});
+    const guest = await getGuest({params});
 
-    if (!parsedUser) redirect('/');
+    if (!guest) redirect('/');
 
-    return <Content gifts={gifts} item={parsedUser} />;
+    return <Content gifts={gifts} item={guest} />;
 }

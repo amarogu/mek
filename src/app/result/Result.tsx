@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import {useStripe} from '@stripe/react-stripe-js';
-import { renderIcon } from "@/lib/actions/renderIcon";
+import { renderIcon } from "@/lib/rendering/renderIcon";
 import { parseMessage } from "@/lib/helpers";
 
 export default function Result({clientSecret}: {clientSecret: string}) {
