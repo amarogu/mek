@@ -1,23 +1,22 @@
 import { Gift } from "@/lib/Models/Gift";
 import { connectDb } from "@/lib/connect";
 import { redirect } from "next/navigation";
-import Content from "./Content";
+import Content from "@/lib/CheckoutComponents/Content";
 
-export default async function Home({params}: {params?: {gift_id: string}}) {
+export default async function Home({params}: {params?: {gift_id: string, _id: string}}) {
     await connectDb();
     let gift: Gift | null = null;
-    let parsedGift: Gift | null = null;
     try {
         if (params) {
             gift = await Gift.findById(params.gift_id);
         }
     } catch (e: any) {
-        redirect('/');
+        if (params) redirect(`/group/${params._id}`);
     }
 
-    if (!gift) redirect('/');
+    if (!gift) redirect(`/group/${params?._id}`);
 
-    parsedGift = {
+    const parsedGift = {
         _id: gift._id.toString(),
         title: gift.title,
         description: gift.description,
