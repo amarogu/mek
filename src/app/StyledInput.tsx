@@ -3,7 +3,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useRef, useState } from "react";
 
-export default function StyledInput({type, placeholder, value, onChange, desc, res}: {type: 'text' | 'textarea', placeholder: string, value: string, onChange: (e: React.ChangeEvent<HTMLTextAreaElement> | React.ChangeEvent<HTMLInputElement>) => void, desc?: string, res?: SuccessResponse | ErrorResponse}) {
+export default function StyledInput({type, placeholder, value, onChange, desc, res, horizontalForm, className}: {type: 'text' | 'textarea' | 'email', placeholder: string, value: string, onChange: (e: React.ChangeEvent<HTMLTextAreaElement> | React.ChangeEvent<HTMLInputElement>) => void, desc?: string, res?: SuccessResponse | ErrorResponse, horizontalForm?: boolean, className?: string}) {
 
     const [isFocused, setIsFocused] = useState<boolean>(false);
     const ref = useRef<HTMLParagraphElement>(null);
@@ -23,13 +23,6 @@ export default function StyledInput({type, placeholder, value, onChange, desc, r
     }, [res]);
 
     switch (type) {
-        case 'text':
-            return (
-                <div ref={divRef} className={`border-b relative py-4 transition-colors ${res === emptyMsg ? 'border-red-400' : 'border-text-100 dark:border-dark-text-100'}`}>
-                    <p ref={ref} className={`uppercase transition-colors origin-top-left text-2xl font-bold`}>{placeholder}</p>
-                    <input value={value} onChange={onChange} onFocus={() => setIsFocused(true)} onBlur={() => setIsFocused(false)} className="absolute top-1/2 z-10 bg-transparent outline-none -translate-y-1/2 w-full h-full left-0"></input>
-                </div>
-            )
         case 'textarea':
             return (
                 <div ref={divRef} className={`border-b relative h-96 pb-4 transition-colors ${res === emptyMsg ? 'border-red-400' : 'border-text-100 dark:border-dark-text-100' }`}>
@@ -41,6 +34,13 @@ export default function StyledInput({type, placeholder, value, onChange, desc, r
                         </div>
                     </div>
                     <textarea onChange={onChange} value={value} onFocus={() => setIsFocused(true)} onBlur={() => setIsFocused(false)} className="absolute text-xl text-text-100/75 dark:text-dark-text-100/75 top-1/2 z-10 bg-transparent outline-none -translate-y-1/2 w-full resize-none h-full left-0"></textarea>
+                </div>
+            )
+        default:
+            return (
+                <div ref={divRef} className={`border-b relative ${className ? className : ''} ${horizontalForm ? '' : 'py-4'} transition-colors ${res === emptyMsg ? 'border-red-400' : 'border-text-100 dark:border-dark-text-100'}`}>
+                    <p ref={ref} className={`uppercase transition-colors origin-top-left text-2xl font-bold`}>{placeholder}</p>
+                    <input value={value} type={type} onChange={onChange} onFocus={() => setIsFocused(true)} onBlur={() => setIsFocused(false)} className="absolute top-1/2 z-10 bg-transparent outline-none -translate-y-1/2 w-full h-full left-0"></input>
                 </div>
             )
     }
