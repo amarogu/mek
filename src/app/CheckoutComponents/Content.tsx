@@ -56,7 +56,7 @@ export default function Content({gift, item}: {gift: Gift, item?: User | Group})
                                 <p className="font-bold">{gift.title}</p>
                                 <p className="text-text-100/75 dark:text-dark-text-100/75">Categoria: {gift.description}</p>
                             </div>
-                            <p className="">BRL {gift.value}</p>
+                            <p className="">BRL {gift.value.toFixed(2)}</p>
                         </div>
                     </section>
                     <Divider />
@@ -67,6 +67,12 @@ export default function Content({gift, item}: {gift: Gift, item?: User | Group})
                     <Divider />
                     <section className="flex flex-col gap-6">
                         <h2 className="uppercase text-2xl font-bold">04. Forma de pagamento</h2>
+                        <Divider />
+                        <h3 className="uppercase flex justify-between text-xl font-bold">
+                            <p>Total:</p>
+                            <p>R${gift.value.toFixed(2)}</p>
+                        </h3>
+                        <Divider />
                         {clientSecret && (
                             <Elements options={{appearance: {theme: 'stripe', variables: {colorText: isDarkMode ? '#FFFFFF' : '#333333', fontFamily: 'Manrope', colorBackground: isDarkMode ? '#292929' : '#e8e8e8', colorPrimary: isDarkMode ? '#FFFFFF' : '#333333', colorDanger: '#F87171', fontSmooth: 'always', borderRadius: '0px', spacingUnit: '5px'}, rules: {'.Label': {paddingBottom: '6px'}}}, locale: 'pt-BR', clientSecret, fonts: [{cssSrc: 'https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap'}]}} stripe={stripePromise}>
                                 <CheckoutForm />
