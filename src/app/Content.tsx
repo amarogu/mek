@@ -60,7 +60,7 @@ export default function Content({item, gifts}: {item?: User | Group, gifts: Gift
               <Hero item={item} id="hero" className="px-8" />
               <Us id="us" />
               <Messages id="messages" item={item} />
-              <Gifts gifts={gifts} />
+              <Gifts item={item} gifts={gifts} />
             </main>
         </Context.Provider>
       </ReactLenis>

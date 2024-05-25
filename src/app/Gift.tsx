@@ -3,13 +3,17 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef, useState } from "react";
+import Link from "next/link";
+import { User } from "@/lib/Models/User";
+import { Group } from "@/lib/Models/Group";
 
-export default function Gift({gift}: {gift: GiftT}) {
+export default function Gift({gift, item}: {gift: GiftT, item?: User | Group}) {
 
     const upperContainer = useRef<HTMLDivElement>(null);
     const lowerContainer = useRef<HTMLDivElement>(null);
     const container = useRef<HTMLDivElement>(null);
     const [hovering, setHovering] = useState<boolean>(false);
+
 
     useGSAP(() => {
 
@@ -52,15 +56,17 @@ export default function Gift({gift}: {gift: GiftT}) {
     }, [hovering])
 
     return (
-        <div ref={container} onMouseEnter={() => setHovering(true)} onMouseLeave={() => setHovering(false)} className="w-full cursor-pointer relative overflow-y-hidden h-[464px] bg-bg-200 dark:bg-dark-bg-200 p-4 flex flex-col">
-            <div ref={upperContainer} style={{transform: 'translateY(-16px) translateY(-100%)'}} className="flex flex-col gap-2">
-                <h3 className="text-xl font-semibold">{gift.title}</h3>
-                <h4 className="text-xl">{gift.description}</h4>
+        <Link href={item ? 'users' in item ? `/group/${item._id}/gift/${gift._id}` : `/guest/${item._id}/gift/${gift._id}` : `/gift/${gift._id}`}>
+            <div ref={container} onMouseEnter={() => setHovering(true)} onMouseLeave={() => setHovering(false)} className="w-full cursor-pointer relative overflow-y-hidden h-[464px] bg-bg-200 dark:bg-dark-bg-200 p-4 flex flex-col">
+                <div ref={upperContainer} style={{transform: 'translateY(-16px) translateY(-100%)'}} className="flex flex-col gap-2">
+                    <h3 className="text-xl font-semibold">{gift.title}</h3>
+                    <h4 className="text-xl">{gift.description}</h4>
+                </div>
+                <div className="grow"></div>
+                <div ref={lowerContainer} style={{transform: 'translateY(16px) translateY(100%)'}}>
+                    <h3 className="text-xl font-semibold">R${gift.value.toFixed(2)}</h3>
+                </div>
             </div>
-            <div className="grow"></div>
-            <div ref={lowerContainer} style={{transform: 'translateY(16px) translateY(100%)'}}>
-                <h3 className="text-xl font-semibold">R${gift.value}</h3>
-            </div>
-        </div>
+        </Link>
     )
 }
