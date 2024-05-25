@@ -12,9 +12,9 @@ export default function StyledInput({type, placeholder, value, onChange, desc, r
     const msgRef = useRef<HTMLParagraphElement>(null);
 
     useGSAP(() => {
-        gsap.to(descRef.current, {scale: isFocused || value ? 0 : 1, duration: 0.2, ease: 'power2.inOut'});
-        gsap.to(msgRef.current, {scale: isFocused || value ? 0 : 1, duration: 0.2, ease: 'power2.inOut'});
-        gsap.to(ref.current, {yPercent: isFocused || value ? -100 : 0, scale: isFocused || value ? 0.75 : 1, opacity: isFocused || value ? 0.75 : 1, duration: 0.2, ease: 'power2.inOut'});
+        if (descRef.current) gsap.to(descRef.current, {scale: isFocused || value ? 0 : 1, duration: 0.2, ease: 'power2.inOut'});
+        if (msgRef.current) gsap.to(msgRef.current, {scale: isFocused || value ? 0 : 1, duration: 0.2, ease: 'power2.inOut'});
+        if (ref.current) gsap.to(ref.current, {yPercent: isFocused || value ? -100 : 0, scale: isFocused || value ? 0.75 : 1, opacity: isFocused || value ? 0.75 : 1, duration: 0.2, ease: 'power2.inOut'});
     }, [isFocused, value]);
 
     useGSAP(() => {

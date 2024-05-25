@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import Content from "@/lib/CheckoutComponents/Content";
+import Content from "@/app/CheckoutComponents/Content";
 import { getGift } from "@/lib/actions/getGift";
 import { getGroup } from "@/lib/actions/getGroup";
 
