@@ -13,6 +13,8 @@ import BackDark from '../../../public/arrow_back_dark.svg';
 import Image from "next/image";
 import StyledInput from "@/app/StyledInput";
 import Divider from "@/app/Divider";
+import { ReactLenis } from "@studio-freight/react-lenis";
+import Link from "next/link";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string);
 
@@ -31,46 +33,48 @@ export default function Content({gift, item}: {gift: Gift, item?: User | Group})
     }, []);
 
     return (
-        <main className="p-8">
-            <div className="flex flex-col gap-12">
-                <section className="flex text-2xl flex-col gap-6">
-                    <div className="flex gap-4 items-center">
-                        <div className="p-4 bg-bg-200 dark:bg-dark-bg-200">
-                            <Image src={isDarkMode ? BackDark : Back} alt="Voltar" />
+        <ReactLenis root>
+            <main className="p-8">
+                <div className="flex flex-col gap-12">
+                    <section className="flex text-2xl flex-col gap-6">
+                        <div className="flex gap-4 items-center">
+                            <div className="p-4 bg-bg-200 dark:bg-dark-bg-200">
+                                <Link href={`${item ? 'users' in item ? `/group/${item._id}` : `/guest/${item._id}` : '/'}`}><Image src={isDarkMode ? BackDark : Back} alt="Voltar" /></Link>
+                            </div>
+                            <h2 className="uppercase font-bold">01. Seus dados</h2>
                         </div>
-                        <h2 className="uppercase font-bold">01. Seus dados</h2>
-                    </div>
-                    <div className="flex gap-6 flex-col">
-                        <StyledInput value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email*" />
-                        {item ? <div className="flex flex-col gap-4"><p className="uppercase text-2xl font-bold">Nome</p><p className={`uppercase origin-top-left text-2xl`}>{item.name}</p></div> : <StyledInput onChange={(e) => setName(e.target.value)} value={name} type="text" placeholder="Nome*" />}
-                    </div>
-                </section>
-                <Divider />
-                <section className="flex text-2xl flex-col gap-6">
-                    <h2 className="uppercase font-bold">02. Seu presente</h2>
-                    <div className="flex flex-col gap-6 text-xl">
-                        <div className="flex flex-col gap-2">
-                            <p className="font-bold">{gift.title}</p>
-                            <p className="text-text-100/75 dark:text-dark-text-100/75">Categoria: {gift.description}</p>
+                        <div className="flex gap-6 flex-col">
+                            <StyledInput value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email*" />
+                            {item ? <div className="flex flex-col gap-4"><p className="uppercase text-2xl font-bold">Nome</p><p className={`uppercase origin-top-left text-2xl`}>{item.name}</p></div> : <StyledInput onChange={(e) => setName(e.target.value)} value={name} type="text" placeholder="Nome*" />}
                         </div>
-                        <p className="">BRL {gift.value}</p>
-                    </div>
-                </section>
-                <Divider />
-                <section className="flex flex-col gap-6 text-2xl">
-                    <h2 className="uppercase font-bold">03. Deixe uma mensagem</h2>
-                    <StyledInput type="text" placeholder="Mensagem" onChange={(e) => setMsg(e.target.value)} value={msg} />
-                </section>
-                <Divider />
-                <section className="flex flex-col gap-6">
-                    <h2 className="uppercase text-2xl font-bold">04. Forma de pagamento</h2>
-                    {clientSecret && (
-                        <Elements options={{appearance: {theme: 'stripe', variables: {colorText: isDarkMode ? '#FFFFFF' : '#333333', colorBackground: isDarkMode ? '#292929' : '#e8e8e8', colorPrimary: isDarkMode ? '#FFFFFF' : '#333333', colorDanger: '#F87171', borderRadius: '0px', spacingUnit: '5px'}, rules: {'.Label': {paddingBottom: '6px'}}}, locale: 'pt-BR', clientSecret, fonts: [{cssSrc: 'https://fonts.googleapis.com/css?family=Open+Sans'}]}} stripe={stripePromise}>
-                            <CheckoutForm />
-                        </Elements>
-                    )}
-                </section>
-            </div>
-        </main>
+                    </section>
+                    <Divider />
+                    <section className="flex text-2xl flex-col gap-6">
+                        <h2 className="uppercase font-bold">02. Seu presente</h2>
+                        <div className="flex flex-col gap-6 text-xl">
+                            <div className="flex flex-col gap-2">
+                                <p className="font-bold">{gift.title}</p>
+                                <p className="text-text-100/75 dark:text-dark-text-100/75">Categoria: {gift.description}</p>
+                            </div>
+                            <p className="">BRL {gift.value}</p>
+                        </div>
+                    </section>
+                    <Divider />
+                    <section className="flex flex-col gap-6 text-2xl">
+                        <h2 className="uppercase font-bold">03. Deixe uma mensagem</h2>
+                        <StyledInput type="text" placeholder="Mensagem" onChange={(e) => setMsg(e.target.value)} value={msg} />
+                    </section>
+                    <Divider />
+                    <section className="flex flex-col gap-6">
+                        <h2 className="uppercase text-2xl font-bold">04. Forma de pagamento</h2>
+                        {clientSecret && (
+                            <Elements options={{appearance: {theme: 'stripe', variables: {colorText: isDarkMode ? '#FFFFFF' : '#333333', fontFamily: 'Manrope', colorBackground: isDarkMode ? '#292929' : '#e8e8e8', colorPrimary: isDarkMode ? '#FFFFFF' : '#333333', colorDanger: '#F87171', fontSmooth: 'always', borderRadius: '0px', spacingUnit: '5px'}, rules: {'.Label': {paddingBottom: '6px'}}}, locale: 'pt-BR', clientSecret, fonts: [{cssSrc: 'https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap'}]}} stripe={stripePromise}>
+                                <CheckoutForm />
+                            </Elements>
+                        )}
+                    </section>
+                </div>
+            </main>
+        </ReactLenis>
     )
 }
