@@ -34,7 +34,7 @@ export default function Content({gift, item}: {gift: Gift, item?: User | Group})
 
     return (
         <ReactLenis root>
-            <main className="p-8">
+            <main className="p-8 container mx-auto">
                 <div className="flex flex-col gap-12">
                     <section className="flex text-2xl flex-col gap-6">
                         <div className="flex gap-4 items-center">
@@ -43,9 +43,9 @@ export default function Content({gift, item}: {gift: Gift, item?: User | Group})
                             </div>
                             <h2 className="uppercase font-bold">01. Seus dados</h2>
                         </div>
-                        <div className="flex gap-6 flex-col">
-                            <StyledInput value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email*" />
-                            {item ? <div className="flex flex-col gap-4"><p className="uppercase text-2xl font-bold">Nome</p><p className={`uppercase origin-top-left text-2xl`}>{item.name}</p></div> : <StyledInput onChange={(e) => setName(e.target.value)} value={name} type="text" placeholder="Nome*" />}
+                        <div className="flex gap-6 md:gap-0 flex-col md:flex-row">
+                            <StyledInput className="md:order-1 md:w-1/2" value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email*" />
+                            {item ? <div className="flex flex-col md:w-1/2 gap-4"><p className="uppercase text-2xl font-bold">Nome</p><p className={`uppercase origin-top-left text-2xl`}>{item.name}</p></div> : <StyledInput className="md:w-1/2" onChange={(e) => setName(e.target.value)} value={name} type="text" placeholder="Nome*" />}
                         </div>
                     </section>
                     <Divider />
