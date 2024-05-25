@@ -32,7 +32,7 @@ export default function Content({gift, item}: {gift: Gift, item?: User | Group})
 
     return (
         <main className="p-8">
-            <div className="flex flex-col gap-9">
+            <div className="flex flex-col gap-12">
                 <section className="flex text-2xl flex-col gap-6">
                     <div className="flex gap-4 items-center">
                         <div className="p-4 bg-bg-200 dark:bg-dark-bg-200">
