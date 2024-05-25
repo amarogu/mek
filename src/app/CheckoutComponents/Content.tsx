@@ -62,8 +62,8 @@ export default function Content({gift, item}: {gift: Gift, item?: User | Group})
                     <StyledInput type="text" placeholder="Mensagem" onChange={(e) => setMsg(e.target.value)} value={msg} />
                 </section>
                 <Divider />
-                <section className="flex text-2xl flex-col gap-6">
-                    <h2 className="uppercase font-bold">04. Forma de pagamento</h2>
+                <section className="flex flex-col gap-6">
+                    <h2 className="uppercase text-2xl font-bold">04. Forma de pagamento</h2>
                     {clientSecret && (
                         <Elements options={{appearance: {theme: 'stripe', variables: {colorText: isDarkMode ? '#FFFFFF' : '#333333', colorBackground: isDarkMode ? '#292929' : '#e8e8e8', colorPrimary: isDarkMode ? '#FFFFFF' : '#333333', colorDanger: '#F87171', borderRadius: '0px', spacingUnit: '5px'}, rules: {'.Label': {paddingBottom: '6px'}}}, locale: 'pt-BR', clientSecret, fonts: [{cssSrc: 'https://fonts.googleapis.com/css?family=Open+Sans'}]}} stripe={stripePromise}>
                             <CheckoutForm />
