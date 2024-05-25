@@ -34,7 +34,7 @@ export default function CheckoutForm() {
       };
 
     return (
-        <form id='payment-form' className='w-2/3 flex flex-col gap-6' onSubmit={(e) => handleSubmit(e)}>
+        <form id='payment-form' className='md:w-2/3  flex flex-col gap-6' onSubmit={(e) => handleSubmit(e)}>
             <PaymentElement options={{layout: 'tabs'}} />
             <button disabled={isLoading || !stripe || !elements} id="submit" className='px-8 overflow-hidden text-2xl relative uppercase font-bold text-center py-4 border transition-colors border-text-100 dark:border-dark-text-100'>
                 <span id="button-text">
