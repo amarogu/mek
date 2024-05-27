@@ -23,7 +23,8 @@ export async function getGroup({params}: {params?: {_id: string}}) {
             __v: group.__v,
             users: parsedUsers,
             link: group.link,
-            msgs: parsedMsgs
+            msgs: parsedMsgs,
+            giftsGiven: group.giftsGiven
         };
         return parsedGroup;
     } catch (e: any) {

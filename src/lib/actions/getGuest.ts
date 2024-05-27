@@ -14,7 +14,8 @@ export async function getGuest({params}: {params?: {_id: string}}) {
             name: user.name,
             msgs: user.msgs,
             gender: user.gender,
-            __v: user.__v
+            __v: user.__v,
+            giftsGiven: user.giftsGiven
         };
         return parsedUser;
     } catch (e: any) {

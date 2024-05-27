@@ -11,6 +11,7 @@ export type User = {
     link?: string;
     _id: string;
     __v: number;
+    giftsGiven: string[];
 }
 
 const userSchema = new mongoose.Schema({
@@ -30,6 +31,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum: ['male', 'female', 'non-binary', 'gender-fluid'],
         required: true
+    },
+    giftsGiven: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'Gift',
+        default: []
     }
 });
 

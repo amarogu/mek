@@ -13,6 +13,7 @@ export type Group = {
     msgs: string[];
     _id: string;
     __v: number;
+    giftsGiven: string[];
 }
 
 const groupSchema = new mongoose.Schema({
@@ -35,6 +36,11 @@ const groupSchema = new mongoose.Schema({
     msgs: {
         type: [mongoose.Schema.Types.ObjectId],
         ref: 'Msg',
+        default: []
+    },
+    giftsGiven: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'Gift',
         default: []
     }
 })
