@@ -24,7 +24,7 @@ export async function getGroup({params}: {params?: {_id: string}}) {
             users: parsedUsers,
             link: group.link,
             msgs: parsedMsgs,
-            giftsGiven: group.giftsGiven
+            giftsGiven: group.giftsGiven.map(gift => gift.toString())
         };
         return parsedGroup;
     } catch (e: any) {

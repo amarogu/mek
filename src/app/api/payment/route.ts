@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
                 currency: 'brl',
                 metadata: {
                     _id: group._id.toString(),
-                    gift: gift.gift.title
+                    gift_id: gift.gift._id.toString()
                 }
             });
             return Response.json({clientSecret: paymentIntent.client_secret});

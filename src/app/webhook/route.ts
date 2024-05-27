@@ -1,3 +1,6 @@
+import { Gift } from "@/lib/Models/Gift";
+import { Group } from "@/lib/Models/Group";
+import { User } from "@/lib/Models/User";
 import { NextRequest } from "next/server";
 import { Stripe } from 'stripe';
 
@@ -9,13 +12,30 @@ export const config = {
     api: {
         bodyParser: false
     }
-} 
+}
+
+const handleSuccess = async (metadata: { _id: string, gift_id: string }) => {
+    const user = await User.findById(metadata._id);
+    const group = await Group.findById(metadata._id);
+    const gift = await Gift.findById(metadata.gift_id);
+
+    if (!gift) return false
+    if (user) {
+        user.giftsGiven.push(gift._id);
+        await user.save();
+        return true;
+    }
+    if (group) {
+        group.giftsGiven.push(gift._id);
+        await group.save();
+        return true;
+    }
+    return false;
+}
 
 export async function POST(req: NextRequest) {
     const sig = req.headers.get('stripe-signature');
-
     const buf = await req.arrayBuffer();
-
     let e;
 
     try {
@@ -26,7 +46,7 @@ export async function POST(req: NextRequest) {
 
     switch (e.type) {
         case 'payment_intent.succeeded':
-            console.log(e.data.object.metadata);
+            handleSuccess(e.data.object.metadata as { _id: string, gift_id: string });
     }
 
     return Response.json({});

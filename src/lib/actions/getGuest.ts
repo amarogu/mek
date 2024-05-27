@@ -15,7 +15,7 @@ export async function getGuest({params}: {params?: {_id: string}}) {
             msgs: user.msgs,
             gender: user.gender,
             __v: user.__v,
-            giftsGiven: user.giftsGiven
+            giftsGiven: user.giftsGiven.map(gift => gift.toString())
         };
         return parsedUser;
     } catch (e: any) {
