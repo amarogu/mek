@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
 
     switch (e.type) {
         case 'payment_intent.succeeded':
-            console.log(e.data.object);
+            console.log(e.data.object.metadata);
     }
 
     return Response.json({});

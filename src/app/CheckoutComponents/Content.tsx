@@ -31,7 +31,7 @@ export default function Content({gift, item}: {gift: Gift, item?: User | Group})
     const isMd = useMediaQuery({query: '(min-width: 768px)'});
 
     useEffect(() => {
-        instance.post('/payment', {_id: gift._id}).then(res => res.data).then((data: {clientSecret: string}) => setClientSecret(data.clientSecret));
+        instance.post('/payment', {gift_id: gift._id, _id: item?._id}).then(res => res.data).then((data: {clientSecret: string}) => setClientSecret(data.clientSecret));
         setIsDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches);
     }, []);
 
