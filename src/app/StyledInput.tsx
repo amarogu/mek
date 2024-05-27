@@ -39,7 +39,7 @@ export default function StyledInput({type, placeholder, value, onChange, desc, r
         default:
             return (
                 <div ref={divRef} className={`border-b relative ${className ? className : ''} ${horizontalForm ? '' : 'py-4'} transition-colors ${res === emptyMsg ? 'border-red-400' : 'border-text-100 dark:border-dark-text-100'}`}>
-                    <p ref={ref} className={`uppercase transition-colors origin-top-left text-2xl font-bold`}>{placeholder}</p>
+                    <p ref={ref} className={`uppercase transition-colors origin-top-left ${res === emptyMsg ? 'text-red-400' : ''} text-2xl font-bold`}>{placeholder}</p>
                     <input value={value} type={type} onChange={onChange} onFocus={() => setIsFocused(true)} onBlur={() => setIsFocused(false)} className="absolute top-1/2 z-10 bg-transparent outline-none -translate-y-1/2 w-full h-full left-0"></input>
                 </div>
             )

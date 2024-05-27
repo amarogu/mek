@@ -16,6 +16,8 @@ import Divider from "@/app/Divider";
 import { ReactLenis } from "@studio-freight/react-lenis";
 import Link from "next/link";
 import { useMediaQuery } from "react-responsive";
+import { SuccessResponse, ErrorResponse, emptyMsg } from "@/lib/helpers";
+import Button from "../Button";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string);
 
@@ -27,13 +29,27 @@ export default function Content({gift, item}: {gift: Gift, item?: User | Group})
     const [name, setName] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [msg, setMsg] = useState<string>('');
+    const [res, setRes] = useState<undefined | SuccessResponse | ErrorResponse>(undefined);
+    const [clicked, setClicked] = useState<boolean>(false);
 
     const isMd = useMediaQuery({query: '(min-width: 768px)'});
 
-    useEffect(() => {
+    /*useEffect(() => {
         instance.post('/payment', {gift_id: gift._id, _id: item?._id}).then(res => res.data).then((data: {clientSecret: string}) => setClientSecret(data.clientSecret));
         setIsDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches);
-    }, []);
+    }, []);*/
+
+    const cleanup = () => {
+        setRes(undefined);
+        setClicked(false);
+    }
+
+    const handleClick = async () => {
+        setClicked(true);
+        if (!msg) {
+            setRes(emptyMsg);
+        }
+    }
 
     return (
         <ReactLenis root>
@@ -64,9 +80,10 @@ export default function Content({gift, item}: {gift: Gift, item?: User | Group})
                     <Divider />
                     <section className="flex flex-col gap-6 text-2xl">
                         <h2 className="uppercase font-bold">03. Deixe uma mensagem</h2>
-                        <StyledInput type="text" placeholder="Mensagem" onChange={(e) => setMsg(e.target.value)} value={msg} />
+                        <StyledInput res={res} type="text" placeholder="Mensagem" onChange={(e) => setMsg(e.target.value)} value={msg} />
                     </section>
                     <Divider />
+                    <Button clicked={clicked} cleanup={cleanup} onClick={handleClick} text="Próximo" res={res}  />
                     <section className="flex flex-col gap-6">
                         <h2 className="uppercase text-2xl font-bold">04. Forma de pagamento</h2>
                         <Divider />
