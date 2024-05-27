@@ -15,6 +15,7 @@ import StyledInput from "@/app/StyledInput";
 import Divider from "@/app/Divider";
 import { ReactLenis } from "@studio-freight/react-lenis";
 import Link from "next/link";
+import { useMediaQuery } from "react-responsive";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string);
 
@@ -26,6 +27,8 @@ export default function Content({gift, item}: {gift: Gift, item?: User | Group})
     const [name, setName] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [msg, setMsg] = useState<string>('');
+
+    const isMd = useMediaQuery({query: '(min-width: 768px)'});
 
     useEffect(() => {
         instance.post('/payment', {_id: gift._id}).then(res => res.data).then((data: {clientSecret: string}) => setClientSecret(data.clientSecret));
@@ -44,7 +47,7 @@ export default function Content({gift, item}: {gift: Gift, item?: User | Group})
                             <h2 className="uppercase font-bold">01. Seus dados</h2>
                         </div>
                         <div className="flex gap-6 md:gap-0 flex-col md:flex-row">
-                            <StyledInput className="md:order-1 md:w-1/2" value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email*" />
+                            <StyledInput horizontalForm={isMd ? true : false} className="md:order-1 md:w-1/2" value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email*" />
                             {item ? <div className="flex flex-col md:w-1/2 gap-4"><p className="uppercase text-2xl font-bold">Nome</p><p className={`uppercase origin-top-left text-2xl`}>{item.name}</p></div> : <StyledInput className="md:w-1/2" onChange={(e) => setName(e.target.value)} value={name} type="text" placeholder="Nome*" />}
                         </div>
                     </section>
