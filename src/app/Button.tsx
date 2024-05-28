@@ -23,15 +23,12 @@ export default function Button({text, res, onClick, clicked, cleanup, onComplete
 
     useGSAP(() => {
         if (!res && clicked && !completed[0]) {
-            console.log('started')
             return tl.current = gsap.timeline({onComplete: () => setCompleted([true, false])}).to(ref.current, {xPercent: 100, duration: 1, ease: 'elastic.inOut'}).to(textRef.current, {opacity: 0, duration: 0.15}).to(statusRef.current, {opacity: 1, duration: 0.15});
         }
         if (res && res !== emptyMsg && clicked && completed[0]) {
-            console.log('loading');
             return tl.current = gsap.timeline({onComplete: () => {setCompleted([false, true])}}).to(statusRef.current, {opacity: 0, duration: 0.15}).to(resultRef.current, {opacity: 1, duration: 0.15}, '>0.25').to(resultRef.current, {opacity: 0, duration: 0.15}, '>0.25').to(ref.current, {xPercent: 200, duration: 1, ease: 'elastic.inOut'}).to(textRef.current, {opacity: 1, duration: 0.15});
         }
         if (completed[1]) {
-            console.log('loaded');
             return tl.current = gsap.timeline({onComplete: () => {if (cleanup) cleanup(); setCompleted([false, false]); if (onComplete) onComplete()}}).to(ref.current, {xPercent: 0, duration: 0}).to(statusRef.current, {opacity: 0, duration: 0}).to(resultRef.current, {opacity: 0, duration: 0}).to(textRef.current, {opacity: 1, duration: 0});
         }
     }, [res, clicked, completed]);
