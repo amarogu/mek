@@ -19,7 +19,7 @@ const calculateAmount = async (_id: string) => {
 }
 
 export async function POST(req: NextRequest) {
-    const body = await req.json() as { gift_id: string, _id: string };
+    const body = await req.json() as { gift_id: string, _id: string, msg: string };
     const gift = await calculateAmount(body.gift_id);
     if (!gift) return Response.json({message: 'Gift not found'}, {status: 404});
     try {
@@ -31,7 +31,8 @@ export async function POST(req: NextRequest) {
                 currency: 'brl',
                 metadata: {
                     _id: user._id.toString(),
-                    gift: gift.gift.title
+                    gift_id: gift.gift._id.toString(),
+                    msg: body.msg
                 }
             });
             return Response.json({clientSecret: paymentIntent.client_secret});
@@ -42,7 +43,8 @@ export async function POST(req: NextRequest) {
                 currency: 'brl',
                 metadata: {
                     _id: group._id.toString(),
-                    gift_id: gift.gift._id.toString()
+                    gift_id: gift.gift._id.toString(),
+                    msg: body.msg
                 }
             });
             return Response.json({clientSecret: paymentIntent.client_secret});

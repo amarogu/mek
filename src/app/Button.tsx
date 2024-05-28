@@ -3,7 +3,7 @@ import { useGSAP } from "@gsap/react"
 import gsap from "gsap";
 import { useEffect, useRef, useState } from "react"
 
-export default function Button({text, res, onClick, clicked, cleanup}: {text: string, res?: SuccessResponse | ErrorResponse, onClick?: () => void, clicked: boolean, cleanup?: () => void}) {
+export default function Button({text, res, onClick, clicked, cleanup, onComplete}: {text: string, res?: SuccessResponse | ErrorResponse, onClick?: () => void, clicked: boolean, cleanup?: () => void, onComplete?: () => void}) {
 
     const ref = useRef<HTMLDivElement>(null);
     const textRef = useRef<HTMLParagraphElement>(null);
@@ -22,13 +22,18 @@ export default function Button({text, res, onClick, clicked, cleanup}: {text: st
     }, {dependencies: [res], revertOnUpdate: true});
 
     useGSAP(() => {
-        if (!res && clicked) {
+        if (!res && clicked && !completed[0]) {
+            console.log('started')
             return tl.current = gsap.timeline({onComplete: () => setCompleted([true, false])}).to(ref.current, {xPercent: 100, duration: 1, ease: 'elastic.inOut'}).to(textRef.current, {opacity: 0, duration: 0.15}).to(statusRef.current, {opacity: 1, duration: 0.15});
         }
         if (res && res !== emptyMsg && clicked && completed[0]) {
-            return tl.current = gsap.timeline({onComplete: () => {if (cleanup) cleanup(); setCompleted([false, true])}}).to(statusRef.current, {opacity: 0, duration: 0.15}).to(resultRef.current, {opacity: 1, duration: 0.15}, '>0.25').to(resultRef.current, {opacity: 0, duration: 0.15}, '>0.25').to(ref.current, {xPercent: 200, duration: 1, ease: 'elastic.inOut'}).to(textRef.current, {opacity: 1, duration: 0.15});
+            console.log('loading');
+            return tl.current = gsap.timeline({onComplete: () => {setCompleted([false, true])}}).to(statusRef.current, {opacity: 0, duration: 0.15}).to(resultRef.current, {opacity: 1, duration: 0.15}, '>0.25').to(resultRef.current, {opacity: 0, duration: 0.15}, '>0.25').to(ref.current, {xPercent: 200, duration: 1, ease: 'elastic.inOut'}).to(textRef.current, {opacity: 1, duration: 0.15});
         }
-        if (completed[1]) return tl.current = gsap.timeline({onComplete: () => setCompleted([false, false])}).to(ref.current, {xPercent: 0, duration: 0}).to(statusRef.current, {opacity: 0, duration: 0}).to(resultRef.current, {opacity: 0, duration: 0}).to(textRef.current, {opacity: 1, duration: 0});
+        if (completed[1]) {
+            console.log('loaded');
+            return tl.current = gsap.timeline({onComplete: () => {if (cleanup) cleanup(); setCompleted([false, false]); if (onComplete) onComplete()}}).to(ref.current, {xPercent: 0, duration: 0}).to(statusRef.current, {opacity: 0, duration: 0}).to(resultRef.current, {opacity: 0, duration: 0}).to(textRef.current, {opacity: 1, duration: 0});
+        }
     }, [res, clicked, completed]);
 
     useEffect(() => {
@@ -39,7 +44,7 @@ export default function Button({text, res, onClick, clicked, cleanup}: {text: st
         <button disabled={clicked ? true : false} onClick={(e) => {e.preventDefault(); if (onClick) onClick()}} className={`px-8 overflow-hidden text-2xl relative uppercase font-bold text-center py-4 border transition-colors ${res?.message === 'An error occurred' ? 'border-red-400' : 'border-text-100 dark:border-dark-text-100'}`}>
             <div ref={textContainer} className="relative z-10">
                 <p ref={textRef} className="inline absolute z-10 top-0 left-1/2 -translate-x-1/2">{text}</p>
-                {res !== emptyMsg ? <p ref={statusRef} className="opacity-0 inline absolute top-0 left-1/2 -translate-x-1/2 text-bg-100 dark:text-dark-bg-100">Enviando</p> : null}
+                <p ref={statusRef} className="opacity-0 inline absolute top-0 left-1/2 -translate-x-1/2 text-bg-100 dark:text-dark-bg-100">Enviando</p>
                 <p ref={resultRef} className="opacity-0 inline absolute top-0 left-1/2 -translate-x-1/2 text-bg-100 dark:text-dark-bg-100">{parseResponse(res).for('btn')}</p>
             </div>
             <div ref={ref} className={`absolute w-full h-full -translate-x-full top-0 left-0 ${res?.message === 'An error occurred' ? 'bg-red-400' : 'bg-text-100 dark:bg-dark-text-100'}`}></div>
