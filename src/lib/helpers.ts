@@ -234,3 +234,14 @@ export const parseMessage = (message: string) => {
       'Falha no pagamento';
   }
 }
+
+export const renderPaymentResultDescription = (message: string) => {
+  switch (message) {
+    case 'Payment succeeded!':
+      return 'Os noivos receberão a notificação do seu presente em breve.';
+    case 'Your payment is processing.':
+      return 'Seu pagamento está sendo processado.';
+    default:
+      return 'Algo deu errado. Por favor, tente novamente.';
+  }
+}

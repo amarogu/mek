@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import {useStripe} from '@stripe/react-stripe-js';
 import { renderIcon } from "@/lib/rendering/renderIcon";
-import { parseMessage } from "@/lib/helpers";
+import { parseMessage, renderPaymentResultDescription } from "@/lib/helpers";
 
 export default function Result({clientSecret}: {clientSecret: string}) {
     const [message, setMessage] = useState<string | undefined>(undefined);
@@ -40,13 +40,14 @@ export default function Result({clientSecret}: {clientSecret: string}) {
     }, [stripe]);
 
     return (
-        <main className="h-screen flex items-center">
+        <main className="h-screen flex p-8 items-center">
             {message && (
-              <div className="p-4 bg-bg-200 md:w-2/3 max-w-xl mx-auto dark:bg-dark-bg-200">
+              <div className="p-4 bg-bg-200 md:w-2/3 flex flex-col gap-4 max-w-xl mx-auto dark:bg-dark-bg-200">
                 <div className="flex gap-5 items-center">
                   {renderIcon(isDarkMode, message)}
                   <h1 className="text-3xl md:text-4xl font-bold">{parseMessage(message)}</h1>
                 </div>
+                <p>{renderPaymentResultDescription(message)}</p>
               </div>
             )}
         </main>

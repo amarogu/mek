@@ -123,7 +123,7 @@ export default function Content({gift, item}: {gift: Gift, item?: User | Group})
                         <Divider />
                         {clientSecret && (
                             <Elements options={{appearance: {theme: 'stripe', variables: {colorText: isDarkMode ? '#FFFFFF' : '#333333', fontFamily: 'Manrope', colorBackground: isDarkMode ? '#292929' : '#e8e8e8', colorPrimary: isDarkMode ? '#FFFFFF' : '#333333', colorDanger: '#F87171', fontSmooth: 'always', borderRadius: '0px', spacingUnit: '5px'}, rules: {'.Label': {paddingBottom: '6px'}}}, locale: 'pt-BR', clientSecret, fonts: [{cssSrc: 'https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap'}]}} stripe={stripePromise}>
-                                <CheckoutForm />
+                                <CheckoutForm item={item} />
                             </Elements>
                         )}
                     </section>
