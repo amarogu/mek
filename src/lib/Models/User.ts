@@ -40,13 +40,13 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.pre('save', function(next) {
-    this.link = `https://mariaekalil.com/${this._id}`;
+    this.link = `https://mariaekalil.com/guest/${this._id}`;
     next();
 });
 
 userSchema.pre('insertMany', function(next, docs) {
     docs.forEach((doc: User) => {
-        doc.link = `https://mariaekalil.com/${doc._id}`;
+        doc.link = `https://mariaekalil.com/guest/${doc._id}`;
     });
     next();
 });
