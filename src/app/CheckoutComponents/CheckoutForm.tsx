@@ -1,5 +1,5 @@
-import { Group } from '@/lib/Models/Group';
-import { User } from '@/lib/Models/User';
+import { type Group } from '@/lib/Models/Group';
+import { type User } from '@/lib/Models/User';
 import {PaymentElement, useStripe, useElements} from '@stripe/react-stripe-js';
 import { FormEvent, useState } from 'react';
 
@@ -22,7 +22,7 @@ export default function CheckoutForm({item}: {item?: User | Group}) {
         const { error } = await stripe.confirmPayment({
           elements,
           confirmParams: {
-            return_url: `http://localhost:3000/result?_id=${item?._id}`,
+            return_url: `http://localhost:3000/result?_id=${item?._id}&type=${'users' in item! ? 'group' : 'user'}`,
           },
         });
     
