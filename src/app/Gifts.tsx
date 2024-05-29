@@ -5,10 +5,12 @@ import { Group } from "@/lib/Models/Group";
 
 export default function Gifts({gifts, item}: {gifts: GiftT[], item?: User | Group}) {
     return (
-        <section className="pt-12 container mx-auto flex flex-col gap-8">
-            <h2 className="uppercase text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%]">Presenteie</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {gifts.map((gift, i) => <Gift item={item} key={i} gift={gift} />)}
+        <section className="pt-12 p-8">
+            <div className="container mx-auto flex flex-col gap-8">
+                <h2 className="uppercase text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%]">Presenteie</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    {gifts.map((gift, i) => <Gift item={item} key={i} gift={gift} />)}
+                </div>
             </div>
         </section>
     )
