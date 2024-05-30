@@ -1,8 +1,11 @@
 import mongoose from 'mongoose';
 import { Msg } from './Msg';
+import bcrypt from 'bcrypt';
 if (mongoose.models.User) {
     mongoose.deleteModel('User');
 }
+
+const saltRounds = 10;
 
 export type User = {
     name: string;
@@ -36,12 +39,33 @@ const userSchema = new mongoose.Schema({
         type: [mongoose.Schema.Types.ObjectId],
         ref: 'Gift',
         default: []
+    },
+    role: {
+        type: String,
+        enum: ['admin', 'individual'],
+        default: 'individual'
+    },
+    password: {
+        type: String,
+        minlength: 8,
+        maxlength: 64
     }
 });
 
 userSchema.pre('save', function(next) {
     this.link = `https://mariaekalil.com/guest/${this._id}`;
-    next();
+    if ((this.isNew || this.isModified('password')) && this.password) {
+        bcrypt.hash(this.password, saltRounds, (err, hashedPassword) => {
+            if (err) {
+                next(err);
+            } else {
+                this.password = hashedPassword;
+                next();
+            }
+        });
+    } else {
+        next();
+    }
 });
 
 userSchema.pre('insertMany', function(next, docs) {

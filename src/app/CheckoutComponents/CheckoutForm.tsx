@@ -40,7 +40,7 @@ export default function CheckoutForm({item}: {item?: User | Group}) {
             <PaymentElement options={{layout: 'tabs'}} />
             <button disabled={isLoading || !stripe || !elements} id="submit" className='px-8 overflow-hidden text-2xl relative uppercase font-bold text-center py-4 border transition-colors border-text-100 dark:border-dark-text-100'>
                 <span id="button-text">
-                {isLoading ? 'Enviando' : "Pagar"}
+                  {isLoading ? 'Enviando' : "Pagar"}
                 </span>
             </button>
             {message && <div id="payment-message">{message}</div>}
