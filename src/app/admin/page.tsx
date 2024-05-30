@@ -1,14 +1,13 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import Dashboard from "./Dashboard";
-import instance from "@/lib/axios";
+import { getMessages } from "@/lib/actions/getMessages";
 
 export default async function Home() {
 
     const session = await getServerSession(authOptions);
 
     if (session) {
-        
         return <Dashboard session={session} />
     }
 }
