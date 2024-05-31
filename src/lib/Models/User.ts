@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { Msg } from './Msg';
 import bcrypt from 'bcrypt';
+import { Gift } from './Gift';
 if (mongoose.models.User) {
     mongoose.deleteModel('User');
 }
@@ -9,12 +10,12 @@ const saltRounds = 10;
 
 export type User = {
     name: string;
-    msgs: string[];
+    msgs: string[] | Msg[];
     gender: 'male' | 'female' | 'non-binary' | 'gender-fluid';
     link?: string;
     _id: string;
     __v: number;
-    giftsGiven: string[];
+    giftsGiven: string[] | Gift[];
 }
 
 const userSchema = new mongoose.Schema({
