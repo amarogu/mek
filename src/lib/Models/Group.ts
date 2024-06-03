@@ -1,23 +1,23 @@
-import mongoose, { HydratedArraySubdocument } from 'mongoose';
+import { models, Types, Schema, model, deleteModel } from 'mongoose';
 import { getGender } from '../helpers';
 import { IUser } from './User';
 
-if (mongoose.models.Group) {
-    mongoose.deleteModel('Group');
+if (models.Group) {
+    deleteModel('Group');
 }
 
 export interface IGroup {
-    users: mongoose.Types.ObjectId[];
+    users: Types.ObjectId[];
     name: string;
     gender: 'male' | 'female' | 'non-binary' | 'gender-fluid';
     link?: string;
-    msgs: mongoose.Types.ObjectId[];
-    giftsGiven: mongoose.Types.ObjectId[];
+    msgs: Types.ObjectId[];
+    giftsGiven: Types.ObjectId[];
 }
 
-const groupSchema = new mongoose.Schema<IGroup>({
+const groupSchema = new Schema<IGroup>({
     users: {
-        type: [mongoose.Schema.Types.ObjectId],
+        type: [Schema.Types.ObjectId],
         ref: 'User',
         default: []
     },
@@ -33,12 +33,12 @@ const groupSchema = new mongoose.Schema<IGroup>({
         type: String
     },
     msgs: {
-        type: [mongoose.Schema.Types.ObjectId],
+        type: [Schema.Types.ObjectId],
         ref: 'Msg',
         default: []
     },
     giftsGiven: {
-        type: [mongoose.Schema.Types.ObjectId],
+        type: [Schema.Types.ObjectId],
         ref: 'Gift',
         default: []
     }
@@ -53,4 +53,4 @@ groupSchema.pre('save', async function(next) {
     next();
  });
 
-export const Group = mongoose.model<IGroup>('Group', groupSchema);
+export const Group = model<IGroup>('Group', groupSchema);
