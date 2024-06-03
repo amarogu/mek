@@ -8,8 +8,8 @@ export async function getMessages() {
     try {
         const users = await User.find().populate<{msgs: IMsg[]}>('msgs');
         const groups = await Group.find().populate<{msgs: IMsg[]}>('msgs');
-        if (users) return users;
-        if (groups) return groups;
+        const entities = [...users, ...groups];
+        if (entities) return entities;
         return null;
     } catch (e: any) {
         return null;

@@ -1,6 +1,6 @@
 import mongoose, { HydratedDocument } from 'mongoose';
-import { Msg } from './Msg';
 import bcrypt from 'bcrypt';
+
 if (mongoose.models.User) {
     mongoose.deleteModel('User');
 }
@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema<IUser>({
     },
     msgs: {
         type: [mongoose.Schema.Types.ObjectId],
-        ref: Msg,
+        ref: 'Msg',
         default: []
     },
     link: {

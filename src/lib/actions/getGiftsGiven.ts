@@ -1,6 +1,6 @@
 import { connectDb } from "../connect";
-import { IUser, User } from "../Models/User";
-import { Group, IGroup } from "../Models/Group";
+import { User } from "../Models/User";
+import { Group } from "../Models/Group";
 import { IGift } from "../Models/Gift";
 
 export async function getGiftsGiven() {
@@ -8,8 +8,8 @@ export async function getGiftsGiven() {
     try {
         const users = await User.find().populate<{giftsGiven: IGift[]}>('giftsGiven');
         const groups = await Group.find().populate<{giftsGiven: IGift[]}>('giftsGiven');
-        if (users) return users;
-        if (groups) return groups;
+        const entities = [...users, ...groups];
+        if (entities) return entities;
         return null;
     } catch (e: any) {
         console.log(e);

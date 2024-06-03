@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 if (mongoose.models.Msg) {
     mongoose.deleteModel("Msg");
 }
@@ -11,7 +12,7 @@ export interface IMsg {
 const msgSchema = new mongoose.Schema<IMsg>({
     owner: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User" || "Group",
+        ref: 'User' || 'Group',
         required: true
     },
     content: {
