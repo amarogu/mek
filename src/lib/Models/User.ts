@@ -1,29 +1,20 @@
-import mongoose, { HydratedDocument } from 'mongoose';
 import bcrypt from 'bcrypt';
+import {Schema, model, models, deleteModel, HydratedDocument} from 'mongoose';
+import { IUser } from './Interfaces';
 
-if (mongoose.models.User) {
-    mongoose.deleteModel('User');
+if (models.User) {
+    deleteModel('User');
 }
 
 const saltRounds = 10;
 
-export interface IUser {
-    name: string;
-    msgs: mongoose.Types.ObjectId[];
-    link?: string;
-    gender: 'male' | 'female' | 'non-binary' | 'gender-fluid';
-    giftsGiven: mongoose.Types.ObjectId[];
-    role: 'admin' | 'individual';
-    password?: string;
-}
-
-const userSchema = new mongoose.Schema<IUser>({
+const userSchema = new Schema<IUser>({
     name: {
         type: String,
         required: true
     },
     msgs: {
-        type: [mongoose.Schema.Types.ObjectId],
+        type: [Schema.Types.ObjectId],
         ref: 'Msg',
         default: []
     },
@@ -36,7 +27,7 @@ const userSchema = new mongoose.Schema<IUser>({
         required: true
     },
     giftsGiven: {
-        type: [mongoose.Schema.Types.ObjectId],
+        type: [Schema.Types.ObjectId],
         ref: 'Gift',
         default: []
     },
@@ -75,4 +66,4 @@ userSchema.pre('insertMany', function(next, docs) {
     next();
 });
 
-export const User = mongoose.model<IUser>('User', userSchema);
+export const User = model<IUser>('User', userSchema);

@@ -1,17 +1,13 @@
-import mongoose from "mongoose";
+import { deleteModel, Schema, models, model } from "mongoose";
+import { IMsg } from "./Interfaces";
 
-if (mongoose.models.Msg) {
-    mongoose.deleteModel("Msg");
+if (models.Msg) {
+    deleteModel("Msg");
 }
 
-export interface IMsg {
-    owner: mongoose.Types.ObjectId;
-    content: string;
-}
-
-const msgSchema = new mongoose.Schema<IMsg>({
+const msgSchema = new Schema<IMsg>({
     owner: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'User' || 'Group',
         required: true
     },
@@ -21,4 +17,4 @@ const msgSchema = new mongoose.Schema<IMsg>({
     }
 });
 
-export const Msg = mongoose.model<IMsg>("Msg", msgSchema);
+export const Msg = model<IMsg>("Msg", msgSchema);

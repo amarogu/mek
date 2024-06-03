@@ -1,7 +1,7 @@
 import { User } from "@/lib/Models/User";
 import { connectDb } from "@/lib/connect";
 import { Group } from "../Models/Group";
-import { IMsg } from "../Models/Msg";
+import { IMsg } from "../Models/Interfaces";
 
 export async function getMessages() {
     await connectDb();

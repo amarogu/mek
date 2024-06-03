@@ -1,15 +1,11 @@
-import mongoose from 'mongoose';
-if (mongoose.models.Gift) {
-    mongoose.deleteModel('Gift');
+import { deleteModel, Schema, model, models } from 'mongoose';
+import { IGift } from './Interfaces';
+
+if (models.Gift) {
+    deleteModel('Gift');
 }
 
-export interface IGift {
-    title: string;
-    description: string;
-    value: number;
-}
-
-const giftSchema = new mongoose.Schema<IGift>({
+const giftSchema = new Schema<IGift>({
     title: {
         type: String,
         required: true
@@ -24,4 +20,4 @@ const giftSchema = new mongoose.Schema<IGift>({
     }
 });
 
-export const Gift = mongoose.model<IGift>('Gift', giftSchema);
+export const Gift = model<IGift>('Gift', giftSchema);

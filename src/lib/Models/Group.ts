@@ -1,18 +1,9 @@
-import { models, Types, Schema, model, deleteModel } from 'mongoose';
+import { models, Schema, model, deleteModel } from 'mongoose';
 import { getGender } from '../helpers';
-import { IUser } from './User';
+import { IGroup, IUser } from './Interfaces';
 
 if (models.Group) {
     deleteModel('Group');
-}
-
-export interface IGroup {
-    users: Types.ObjectId[];
-    name: string;
-    gender: 'male' | 'female' | 'non-binary' | 'gender-fluid';
-    link?: string;
-    msgs: Types.ObjectId[];
-    giftsGiven: Types.ObjectId[];
 }
 
 const groupSchema = new Schema<IGroup>({
