@@ -7,11 +7,9 @@ import Nav from "./Nav";
 import Hero from "./Hero";
 import Slider from "./Slider";
 import Us from "./Us";
-import { IUser } from "@/lib/Models/User";
-import { IGroup } from "@/lib/Models/Group";
+import { IGift, IUser, IGroup } from "@/lib/Models/Interfaces";
 import Loading from "./loading";
 import Messages from "./Messages";
-import { IGift } from "@/lib/Models/Gift";
 import Gifts from "./Gifts";
 import { HydratedDocument } from "mongoose";
 

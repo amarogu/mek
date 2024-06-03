@@ -1,5 +1,4 @@
-import { IGroup, type Group } from '@/lib/Models/Group';
-import { IUser, type User } from '@/lib/Models/User';
+import { IGroup, IUser } from '@/lib/Models/Interfaces';
 import {PaymentElement, useStripe, useElements} from '@stripe/react-stripe-js';
 import { HydratedDocument } from 'mongoose';
 import { FormEvent, useState } from 'react';

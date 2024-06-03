@@ -1,6 +1,4 @@
-import { IUser, type User } from './Models/User';
-import { IGroup, type Group } from './Models/Group';
-import { Msg } from './Models/Msg';
+import { IGroup, IUser } from './Models/Interfaces';
 import { HydratedDocument } from 'mongoose';
 
 export function addClasses(element: HTMLElement, classes: string[]) {

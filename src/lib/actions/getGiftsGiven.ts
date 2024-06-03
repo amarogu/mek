@@ -1,7 +1,7 @@
 import { connectDb } from "../connect";
 import { User } from "../Models/User";
 import { Group } from "../Models/Group";
-import { IGift } from "../Models/Gift";
+import { IGift } from "../Models/Interfaces";
 
 export async function getGiftsGiven() {
     await connectDb();

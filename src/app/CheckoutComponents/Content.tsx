@@ -1,13 +1,11 @@
 'use client';
-import { Gift, IGift } from "@/lib/Models/Gift";
+import { IGift, IUser, IGroup } from "@/lib/Models/Interfaces";
 import instance from "@/lib/axios";
 import { loadStripe } from '@stripe/stripe-js';
 import 'dotenv/config';
 import { useEffect, useRef, useState } from "react";
 import {Elements} from '@stripe/react-stripe-js';
 import CheckoutForm from "./CheckoutForm";
-import { IUser, User } from "../../lib/Models/User";
-import { Group, IGroup } from "../../lib/Models/Group";
 import Back from '../../../public/arrow_back.svg';
 import BackDark from '../../../public/arrow_back_dark.svg';
 import Image from "next/image";

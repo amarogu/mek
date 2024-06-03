@@ -1,5 +1,4 @@
-import { IGroup, type Group } from "@/lib/Models/Group";
-import { IUser, type User } from "@/lib/Models/User";
+import { IGroup, IUser } from "@/lib/Models/Interfaces";
 import StyledInput from "./StyledInput";
 import { useEffect, useState } from "react";
 import Button from "./Button";

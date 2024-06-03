@@ -1,11 +1,7 @@
 import { HydratedDocument, MergeType } from "mongoose";
 import { getGiftsGiven } from "./getGiftsGiven";
 import { getMessages } from "./getMessages";
-import { IUser } from "../Models/User";
-import { IGroup } from "../Models/Group";
-import { IGift } from "../Models/Gift";
-import { IMsg } from "../Models/Msg";
-
+import { IGift, IUser, IGroup, IMsg } from "../Models/Interfaces";
 export interface IAdminData {
     giftsGiven: HydratedDocument<MergeType<IUser | IGroup, {giftsGiven: IGift[]}>>[];
     msgs: HydratedDocument<MergeType<IUser | IGroup, {msgs: IMsg[]}>>[];
