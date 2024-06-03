@@ -1,24 +1,23 @@
-import mongoose from 'mongoose';
+import mongoose, { HydratedDocument } from 'mongoose';
 import { Msg } from './Msg';
 import bcrypt from 'bcrypt';
-import { Gift } from './Gift';
 if (mongoose.models.User) {
     mongoose.deleteModel('User');
 }
 
 const saltRounds = 10;
 
-export type User = {
+export interface IUser {
     name: string;
-    msgs: string[] | Msg[];
-    gender: 'male' | 'female' | 'non-binary' | 'gender-fluid';
+    msgs: mongoose.Types.ObjectId[];
     link?: string;
-    _id: string;
-    __v: number;
-    giftsGiven: string[] | Gift[];
+    gender: 'male' | 'female' | 'non-binary' | 'gender-fluid';
+    giftsGiven: mongoose.Types.ObjectId[];
+    role: 'admin' | 'individual';
+    password?: string;
 }
 
-const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema<IUser>({
     name: {
         type: String,
         required: true
@@ -70,10 +69,10 @@ userSchema.pre('save', function(next) {
 });
 
 userSchema.pre('insertMany', function(next, docs) {
-    docs.forEach((doc: User) => {
+    docs.forEach((doc: HydratedDocument<IUser>) => {
         doc.link = `https://mariaekalil.com/guest/${doc._id}`;
     });
     next();
 });
 
-export const User = mongoose.model('User', userSchema);
+export const User = mongoose.model<IUser>('User', userSchema);

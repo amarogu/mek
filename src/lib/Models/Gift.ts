@@ -3,15 +3,13 @@ if (mongoose.models.Gift) {
     mongoose.deleteModel('Gift');
 }
 
-export type Gift = {
+export interface IGift {
     title: string;
     description: string;
     value: number;
-    _id: string;
-    __v: number;
 }
 
-const giftSchema = new mongoose.Schema({
+const giftSchema = new mongoose.Schema<IGift>({
     title: {
         type: String,
         required: true
@@ -26,4 +24,4 @@ const giftSchema = new mongoose.Schema({
     }
 });
 
-export const Gift = mongoose.model('Gift', giftSchema);
+export const Gift = mongoose.model<IGift>('Gift', giftSchema);

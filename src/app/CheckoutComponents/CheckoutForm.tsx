@@ -1,9 +1,10 @@
-import { type Group } from '@/lib/Models/Group';
-import { type User } from '@/lib/Models/User';
+import { IGroup, type Group } from '@/lib/Models/Group';
+import { IUser, type User } from '@/lib/Models/User';
 import {PaymentElement, useStripe, useElements} from '@stripe/react-stripe-js';
+import { HydratedDocument } from 'mongoose';
 import { FormEvent, useState } from 'react';
 
-export default function CheckoutForm({item}: {item?: User | Group}) {
+export default function CheckoutForm({item}: {item?: HydratedDocument<IUser> | HydratedDocument<IGroup>}) {
     const stripe = useStripe();
     const elements = useElements();
 

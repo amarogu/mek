@@ -1,6 +1,7 @@
-import { type User } from './Models/User';
-import { type Group } from './Models/Group';
+import { IUser, type User } from './Models/User';
+import { IGroup, type Group } from './Models/Group';
 import { Msg } from './Models/Msg';
+import { HydratedDocument } from 'mongoose';
 
 export function addClasses(element: HTMLElement, classes: string[]) {
     classes.forEach(className => {
@@ -34,7 +35,7 @@ export function easeOutBack(x: number): number {
   return x * x * x * x * x;
 }
 
-export const parseHeroContent = (item?: User | Group) => {
+export const parseHeroContent = (item?: HydratedDocument<IUser> | HydratedDocument<IGroup>) => {
   if (item) {
       if ('users' in item) {
           switch (item.gender) {
@@ -64,7 +65,7 @@ export const parseHeroContent = (item?: User | Group) => {
   }
 }
 
-export const parseMdHeroContent = (item?: User | Group) => {
+export const parseMdHeroContent = (item?: HydratedDocument<IUser> | HydratedDocument<IGroup>) => {
   if (item) {
       if ('users' in item) {
           switch (item.gender) {

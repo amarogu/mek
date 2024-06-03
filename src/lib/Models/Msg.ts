@@ -3,14 +3,12 @@ if (mongoose.models.Msg) {
     mongoose.deleteModel("Msg");
 }
 
-export type Msg = {
-    owner: string;
+export interface IMsg {
+    owner: mongoose.Types.ObjectId;
     content: string;
-    _id: string;
-    __v: number;
 }
 
-const msgSchema = new mongoose.Schema({
+const msgSchema = new mongoose.Schema<IMsg>({
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User" || "Group",
@@ -22,4 +20,4 @@ const msgSchema = new mongoose.Schema({
     }
 });
 
-export const Msg = mongoose.model("Msg", msgSchema);
+export const Msg = mongoose.model<IMsg>("Msg", msgSchema);

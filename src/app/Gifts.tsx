@@ -1,9 +1,10 @@
-import { type Gift as GiftT } from "@/lib/Models/Gift";
+import { IGift, type Gift as GiftT } from "@/lib/Models/Gift";
 import Gift from "./Gift";
-import { User } from "@/lib/Models/User";
-import { Group } from "@/lib/Models/Group";
+import { IUser, User } from "@/lib/Models/User";
+import { Group, IGroup } from "@/lib/Models/Group";
+import { HydratedDocument } from "mongoose";
 
-export default function Gifts({gifts, item}: {gifts: GiftT[], item?: User | Group}) {
+export default function Gifts({gifts, item}: {gifts: HydratedDocument<IGift>[], item?: HydratedDocument<IUser> | HydratedDocument<IGroup>}) {
     return (
         <section className="pt-12 p-8">
             <div className="container mx-auto flex flex-col gap-8">

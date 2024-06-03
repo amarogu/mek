@@ -1,13 +1,13 @@
 'use client';
-import { Gift } from "@/lib/Models/Gift";
+import { Gift, IGift } from "@/lib/Models/Gift";
 import instance from "@/lib/axios";
 import { loadStripe } from '@stripe/stripe-js';
 import 'dotenv/config';
 import { useEffect, useRef, useState } from "react";
 import {Elements} from '@stripe/react-stripe-js';
 import CheckoutForm from "./CheckoutForm";
-import { User } from "../../lib/Models/User";
-import { Group } from "../../lib/Models/Group";
+import { IUser, User } from "../../lib/Models/User";
+import { Group, IGroup } from "../../lib/Models/Group";
 import Back from '../../../public/arrow_back.svg';
 import BackDark from '../../../public/arrow_back_dark.svg';
 import Image from "next/image";
@@ -20,10 +20,11 @@ import { SuccessResponse, ErrorResponse, emptyMsg } from "@/lib/helpers";
 import Button from "../Button";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { HydratedDocument } from "mongoose";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string);
 
-export default function Content({gift, item}: {gift: Gift, item?: User | Group}) {
+export default function Content({gift, item}: {gift: HydratedDocument<IGift>, item?: HydratedDocument<IUser> | HydratedDocument<IGroup>}) {
 
     const [clientSecret, setClientSecret] = useState<string>('');
     const [isDarkMode, setIsDarkMode] = useState<boolean>(false);

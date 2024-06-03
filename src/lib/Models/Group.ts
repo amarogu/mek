@@ -1,22 +1,21 @@
-import mongoose from 'mongoose';
+import mongoose, { HydratedArraySubdocument } from 'mongoose';
 import { getGender } from '../helpers';
-import { type User } from './User';
+import { IUser } from './User';
+
 if (mongoose.models.Group) {
     mongoose.deleteModel('Group');
 }
 
-export type Group = {
-    users: string[] | User[];
-    gender: 'male' | 'female' | 'non-binary' | 'gender-fluid';
+export interface IGroup {
+    users: mongoose.Types.ObjectId[];
     name: string;
-    link: string;
-    msgs: string[];
-    _id: string;
-    __v: number;
-    giftsGiven: string[];
+    gender: 'male' | 'female' | 'non-binary' | 'gender-fluid';
+    link?: string;
+    msgs: mongoose.Types.ObjectId[];
+    giftsGiven: mongoose.Types.ObjectId[];
 }
 
-const groupSchema = new mongoose.Schema({
+const groupSchema = new mongoose.Schema<IGroup>({
     users: {
         type: [mongoose.Schema.Types.ObjectId],
         ref: 'User',
@@ -46,12 +45,12 @@ const groupSchema = new mongoose.Schema({
 })
 
 groupSchema.pre('save', async function(next) {
-    await this.populate('users');
-    const users = this.users as unknown as User[];
+    const populatedGroup = await this.populate<{ users: IUser[] }>('users');
+    const users = populatedGroup.users;
     const mostFrequentGender = getGender(users.map(user => user.gender));
     this.gender = mostFrequentGender;
     this.link = `https://mariaekalil.com/group/${this._id}`;
     next();
  });
 
-export const Group = mongoose.model('Group', groupSchema);
+export const Group = mongoose.model<IGroup>('Group', groupSchema);

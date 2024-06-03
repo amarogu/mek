@@ -7,14 +7,15 @@ import Nav from "./Nav";
 import Hero from "./Hero";
 import Slider from "./Slider";
 import Us from "./Us";
-import { type User } from "@/lib/Models/User";
-import { type Group } from "@/lib/Models/Group";
+import { IUser } from "@/lib/Models/User";
+import { IGroup } from "@/lib/Models/Group";
 import Loading from "./loading";
 import Messages from "./Messages";
-import { type Gift } from "@/lib/Models/Gift";
+import { IGift } from "@/lib/Models/Gift";
 import Gifts from "./Gifts";
+import { HydratedDocument } from "mongoose";
 
-export default function Content({item, gifts}: {item?: User | Group, gifts: Gift[]}) {
+export default function Content({item, gifts}: {item?: HydratedDocument<IUser> | HydratedDocument<IGroup>, gifts: HydratedDocument<IGift>[]}) {
 
   const [isMounted, setIsMounted] = useState<boolean>(false);
 

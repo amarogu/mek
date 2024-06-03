@@ -1,5 +1,5 @@
-import { type Group } from "@/lib/Models/Group";
-import { type User } from "@/lib/Models/User";
+import { IGroup, type Group } from "@/lib/Models/Group";
+import { IUser, type User } from "@/lib/Models/User";
 import StyledInput from "./StyledInput";
 import { useEffect, useState } from "react";
 import Button from "./Button";
@@ -10,8 +10,9 @@ import MessagesMd from '../../public/messages_medium.png';
 import { useRef } from "react";
 import instance from "@/lib/axios";
 import { ErrorResponse, SuccessResponse, emptyMsg } from "@/lib/helpers";
+import { HydratedDocument } from "mongoose";
 
-export default function Messages({ item, id }: { item?: User | Group, id: string }) {
+export default function Messages({ item, id }: { item?: HydratedDocument<IUser> | HydratedDocument<IGroup>, id: string }) {
 
     const [name, setName] = useState<string>('');
     const [message, setMessage] = useState<string>('');
