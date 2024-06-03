@@ -10,7 +10,7 @@ export default function Dashboard({session, data}: {session: Session, data?: IAd
             <h1>Dashboard</h1>
             <p>Welcome {session?.user?.name}</p>
             <button onClick={() => signOut()}>Sign out</button>
-            <p>{data?.giftsGiven[0].giftsGiven[0].title}</p>
+           
         </div>
     )
 }

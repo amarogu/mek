@@ -3,7 +3,6 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import 'dotenv/config';
 import { AuthOptions } from 'next-auth';
 import { connectDb } from '@/lib/connect';
-import { User } from '@/lib/Models/User';
 import bcrypt from 'bcrypt';
 
 export const authOptions: AuthOptions = {
@@ -11,19 +10,24 @@ export const authOptions: AuthOptions = {
         CredentialsProvider({
             name: 'credentials',
             credentials: {},
-            async authorize(credentials, req): Promise<any> {
+            async authorize(credentials): Promise<any> {
                 const { name, password } = credentials as { name: string, password: string };
                 try {
-                    await connectDb();
-                    const user = await User.findOne({ name });
-                    if (!user || !user.password) {
+                    const models = await connectDb();
+                    if (models) {
+                        const { User } = models;
+                        const user = await User.findOne({ name });
+                        if (!user || !user.password) {
+                            return null;
+                        }
+                        const passwordsMatch = await bcrypt.compare(password, user.password);
+                        if (!passwordsMatch) {
+                            return null;
+                        }
+                        return user;
+                    } else {
                         return null;
                     }
-                    const passwordsMatch = await bcrypt.compare(password, user.password);
-                    if (!passwordsMatch) {
-                        return null;
-                    }
-                    return user;
                 } catch (err) {
                     console.log(err);
                     return null;

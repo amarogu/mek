@@ -6,11 +6,6 @@ if (models.Msg) {
 }
 
 const msgSchema = new Schema<IMsg>({
-    owner: {
-        type: Schema.Types.ObjectId,
-        ref: 'User' || 'Group',
-        required: true
-    },
     content: {
         type: String,
         required: true

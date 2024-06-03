@@ -1,10 +1,20 @@
-import mongoose from "mongoose";
+import { connection, connect } from "mongoose";
+import { Gift } from "./Models/Gift";
+import { User } from "./Models/User";
+import { Group } from "./Models/Group";
+import { Msg } from "./Models/Msg";
 import 'dotenv/config';
 
 export const connectDb = async () => {
     try {
-        if (mongoose.connection.readyState !== 1) await mongoose.connect(process.env.DB_URI as string);
+        if (connection.readyState !== 1) await connect(process.env.DB_URI as string);
+        return {
+            User,
+            Group,
+            Gift,
+            Msg
+        }
     } catch(err) {
-        console.error(err);
+        return null;
     }
 }
