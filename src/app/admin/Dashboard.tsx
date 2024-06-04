@@ -4,11 +4,8 @@ import { signOut } from "next-auth/react";
 import { PlainAdminData } from "@/lib/helpers";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { IGift, IMsg } from "@/lib/Models/Interfaces";
-
-type TabData = {
-    tab: 'Mensagens' | 'Presentes',
-    entityPath: 'msgs' | 'giftsGiven'
-};
+import { TabData } from "@/lib/helpers";
+import Divider from "../Divider";
 
 const renderPath = (path: IMsg | IGift) => {
     if ('content' in path) {
@@ -67,10 +64,20 @@ const renderDashboard = (data: PlainAdminData) => {
                                                         return (
                                                             <div className="bg-bg-300 dark:bg-dark-bg-300 p-4 flex flex-col gap-4" key={entity._id}>
                                                                 {entity[entityPath].map((path, i) => (
-                                                                    <div key={i} className="flex flex-col gap-2">
-                                                                        {renderPath(path)}
-                                                                        <p className="text-text-100/75 dark:text-dark-text-100/75">{entity.name}</p>
-                                                                    </div>
+                                                                    entity[entityPath].length > 1 && i !== entity[entityPath].length - 1
+                                                                    ?
+                                                                        <div key={i} className="flex flex-col gap-4">
+                                                                            <div key={i} className="flex flex-col gap-2">
+                                                                                {renderPath(path)}
+                                                                                <p className="text-text-100/75 dark:text-dark-text-100/75">{entity.name}</p>
+                                                                            </div>
+                                                                            <Divider />
+                                                                        </div> 
+                                                                    :
+                                                                        <div key={i} className="flex flex-col gap-2">
+                                                                            {renderPath(path)}
+                                                                            <p className="text-text-100/75 dark:text-dark-text-100/75">{entity.name}</p>
+                                                                        </div>
                                                                 ))}
                                                             </div>
                                                         )
