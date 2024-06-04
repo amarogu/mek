@@ -3,24 +3,25 @@ import { authOptions } from "../api/auth/[...nextauth]/route";
 import Dashboard from "./Dashboard";
 import { getAdminData } from "@/lib/actions/getAdminData";
 import { connectDb } from "@/lib/connect";
-import { connection, models } from "mongoose";
+import { IGift, IGroup, IMsg, IUser } from "@/lib/Models/Interfaces";
+import { MergeType } from "mongoose";
 
 export default async function Home() {
 
     const session = await getServerSession(authOptions);
 
-    console.log(connection.readyState);
-
-    const modelsLocal = await connectDb();
-
-    console.log(connection.readyState);
-    console.log(models);
+    const models = await connectDb();
 
     if (session) {
-        if (modelsLocal) {
-            const {User, Group} = modelsLocal;
+        if (models) {
+            const {User, Group} = models;
             const data = await getAdminData({User, Group});
-            return null;
+            if (data) {
+                const parsedData: MergeType<IUser | IGroup, {msgs: IMsg[], giftsGiven: IGift[], _id: string}>[] = data.entities.map(entity => {
+                    return entity.toObject({flattenObjectIds: true});
+                });
+                return <Dashboard session={session} data={parsedData} />
+            }
             
         }
     }

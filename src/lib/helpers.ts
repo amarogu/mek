@@ -1,5 +1,5 @@
-import { IGroup, IUser } from './Models/Interfaces';
-import { HydratedDocument } from 'mongoose';
+import { IGroup, IUser, IGift, IMsg } from './Models/Interfaces';
+import { HydratedDocument, MergeType } from 'mongoose';
 
 export function addClasses(element: HTMLElement, classes: string[]) {
     classes.forEach(className => {
@@ -255,4 +255,8 @@ export const renderPaymentResultDescription = (message: string) => {
     default:
       return 'Algo deu errado. Por favor, tente novamente.';
   }
+}
+
+export const renderDashboard = (data: MergeType<IUser | IGroup, {msgs: IMsg[], giftsGiven: IGift[], _id: string}>[]) => {
+
 }
