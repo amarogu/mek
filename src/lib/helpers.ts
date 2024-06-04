@@ -1,5 +1,4 @@
 import { IGroup, IUser, IGift, IMsg } from './Models/Interfaces';
-import { HydratedDocument, MergeType } from 'mongoose';
 
 export function addClasses(element: HTMLElement, classes: string[]) {
     classes.forEach(className => {
@@ -33,7 +32,7 @@ export function easeOutBack(x: number): number {
   return x * x * x * x * x;
 }
 
-export const parseHeroContent = (item?: HydratedDocument<IUser> | HydratedDocument<IGroup>) => {
+export const parseHeroContent = (item?: LeanDocument<IUser> | LeanDocument<IGroup>) => {
   if (item) {
       if ('users' in item) {
           switch (item.gender) {
@@ -63,7 +62,7 @@ export const parseHeroContent = (item?: HydratedDocument<IUser> | HydratedDocume
   }
 }
 
-export const parseMdHeroContent = (item?: HydratedDocument<IUser> | HydratedDocument<IGroup>) => {
+export const parseMdHeroContent = (item?: LeanDocument<IUser> | LeanDocument<IGroup>) => {
   if (item) {
       if ('users' in item) {
           switch (item.gender) {

@@ -9,11 +9,11 @@ import { Parallax } from "./Parallax";
 import SlidingText from "./SlidingText";
 import LogoAlt from '../../public/meklogo_alt.svg';
 import LogoAltDark from '../../public/meklogo_alt_dark.svg';
-import { type User } from "@/lib/Models/User";
 import { parseHeroContent, parseMdHeroContent } from "@/lib/helpers";
-import { type Group } from "@/lib/Models/Group";
+import { LeanDocument } from "@/lib/helpers";
+import { IUser, IGroup } from "@/lib/Models/Interfaces";
 
-export default function Hero({className, id, item}: {className?: string, id?: string, item?: User | Group}) {
+export default function Hero({className, id, item}: {className?: string, id?: string, item?: LeanDocument<IUser> | LeanDocument<IGroup>}) {
 
     const isMd = useMediaQuery({query: '(min-width: 768px)'});
     const isXl = useMediaQuery({query: '(min-width: 1280px)'});
