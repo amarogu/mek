@@ -3,11 +3,30 @@ import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import { PlainAdminData } from "@/lib/helpers";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
+import { IGift, IMsg } from "@/lib/Models/Interfaces";
 
 type TabData = {
     tab: 'Mensagens' | 'Presentes',
     entityPath: 'msgs' | 'giftsGiven'
 };
+
+const renderPath = (path: IMsg | IGift) => {
+    if ('content' in path) {
+        return (
+            <p>
+                {path.content}
+            </p>
+        )
+    } else {
+        return (
+            <div className="flex flex-col gap-2">
+                <p>{path.title}</p>
+                <p className="text-text-100/75 dark:text-dark-text-100/75">{path.description}</p>
+                <p className="text-text-100/75 dark:text-dark-text-100/75">R$ {path.value}</p>
+            </div>
+        )
+    }
+}
 
 const renderDashboard = (data: PlainAdminData) => {
 
@@ -46,14 +65,10 @@ const renderDashboard = (data: PlainAdminData) => {
                                                 data.map(entity => {
                                                     if (entity[entityPath].length !== 0) {
                                                         return (
-                                                            <div className="bg-bg-300 dark:bg-dark-bg-300 p-4" key={entity._id}>
+                                                            <div className="bg-bg-300 dark:bg-dark-bg-300 p-4 flex flex-col gap-4" key={entity._id}>
                                                                 {entity[entityPath].map((path, i) => (
                                                                     <div key={i} className="flex flex-col gap-2">
-                                                                        <p>
-                                                                            {
-                                                                                'content' in path ? path.content : path.title
-                                                                            }
-                                                                        </p>
+                                                                        {renderPath(path)}
                                                                         <p className="text-text-100/75 dark:text-dark-text-100/75">{entity.name}</p>
                                                                     </div>
                                                                 ))}
