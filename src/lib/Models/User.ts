@@ -1,10 +1,6 @@
 import bcrypt from 'bcrypt';
-import {Schema, model, models, deleteModel, HydratedDocument} from 'mongoose';
+import {Schema, model, models, HydratedDocument, Model} from 'mongoose';
 import { IUser } from './Interfaces';
-
-if (models.User) {
-    deleteModel('User');
-}
 
 const saltRounds = 10;
 
@@ -66,4 +62,4 @@ userSchema.pre('insertMany', function(next, docs) {
     next();
 });
 
-export const User = model<IUser>('User', userSchema);
+export const User = models.User as Model<IUser> || model<IUser>('User', userSchema);

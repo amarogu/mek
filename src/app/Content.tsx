@@ -11,9 +11,10 @@ import { IGift, IUser, IGroup } from "@/lib/Models/Interfaces";
 import Loading from "./loading";
 import Messages from "./Messages";
 import Gifts from "./Gifts";
-import { HydratedDocument } from "mongoose";
+import { FlattenMaps, HydratedDocument } from "mongoose";
+import { LeanDocument } from "@/lib/helpers";
 
-export default function Content({item, gifts}: {item?: HydratedDocument<IUser> | HydratedDocument<IGroup>, gifts: HydratedDocument<IGift>[]}) {
+export default function Content({item, gifts}: {item?: LeanDocument<IUser> | LeanDocument<IGroup>, gifts: LeanDocument<IGift>[]}) {
 
   const [isMounted, setIsMounted] = useState<boolean>(false);
 

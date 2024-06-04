@@ -8,10 +8,10 @@ import MessagesMobile from '../../public/messages_mobile.png';
 import MessagesMd from '../../public/messages_medium.png';
 import { useRef } from "react";
 import instance from "@/lib/axios";
-import { ErrorResponse, SuccessResponse, emptyMsg } from "@/lib/helpers";
+import { ErrorResponse, LeanDocument, SuccessResponse, emptyMsg } from "@/lib/helpers";
 import { HydratedDocument } from "mongoose";
 
-export default function Messages({ item, id }: { item?: HydratedDocument<IUser> | HydratedDocument<IGroup>, id: string }) {
+export default function Messages({ item, id }: { item?: LeanDocument<IUser> | LeanDocument<IGroup>, id: string }) {
 
     const [name, setName] = useState<string>('');
     const [message, setMessage] = useState<string>('');

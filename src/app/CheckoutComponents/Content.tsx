@@ -14,7 +14,7 @@ import Divider from "@/app/Divider";
 import { ReactLenis } from "@studio-freight/react-lenis";
 import Link from "next/link";
 import { useMediaQuery } from "react-responsive";
-import { SuccessResponse, ErrorResponse, emptyMsg } from "@/lib/helpers";
+import { SuccessResponse, ErrorResponse, emptyMsg, LeanDocument } from "@/lib/helpers";
 import Button from "../Button";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -22,7 +22,7 @@ import { HydratedDocument } from "mongoose";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string);
 
-export default function Content({gift, item}: {gift: HydratedDocument<IGift>, item?: HydratedDocument<IUser> | HydratedDocument<IGroup>}) {
+export default function Content({gift, item}: {gift: LeanDocument<IGift>, item?: LeanDocument<IUser> | LeanDocument<IGroup>}) {
 
     const [clientSecret, setClientSecret] = useState<string>('');
     const [isDarkMode, setIsDarkMode] = useState<boolean>(false);

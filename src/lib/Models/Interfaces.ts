@@ -16,7 +16,6 @@ export interface IGroup {
 }
 
 export interface IMsg {
-    owner: Types.ObjectId;
     content: string;
 }
 

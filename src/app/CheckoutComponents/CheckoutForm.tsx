@@ -1,9 +1,10 @@
 import { IGroup, IUser } from '@/lib/Models/Interfaces';
+import { LeanDocument } from '@/lib/helpers';
 import {PaymentElement, useStripe, useElements} from '@stripe/react-stripe-js';
 import { HydratedDocument } from 'mongoose';
 import { FormEvent, useState } from 'react';
 
-export default function CheckoutForm({item}: {item?: HydratedDocument<IUser> | HydratedDocument<IGroup>}) {
+export default function CheckoutForm({item}: {item?: LeanDocument<IUser> | LeanDocument<IGroup>}) {
     const stripe = useStripe();
     const elements = useElements();
 

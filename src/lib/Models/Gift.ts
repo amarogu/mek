@@ -1,9 +1,5 @@
-import { deleteModel, Schema, model, models } from 'mongoose';
+import { Model, Schema, model, models } from 'mongoose';
 import { IGift } from './Interfaces';
-
-if (models.Gift) {
-    deleteModel('Gift');
-}
 
 const giftSchema = new Schema<IGift>({
     title: {
@@ -20,4 +16,4 @@ const giftSchema = new Schema<IGift>({
     }
 });
 
-export const Gift = model<IGift>('Gift', giftSchema);
+export const Gift = models.Gift as Model<IGift> || model<IGift>('Gift', giftSchema);

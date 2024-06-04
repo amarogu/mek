@@ -1,10 +1,6 @@
-import { models, Schema, model, deleteModel } from 'mongoose';
+import { models, Schema, model, Model } from 'mongoose';
 import { getGender } from '../helpers';
 import { IGroup, IUser } from './Interfaces';
-
-if (models.Group) {
-    deleteModel('Group');
-}
 
 const groupSchema = new Schema<IGroup>({
     users: {
@@ -44,4 +40,4 @@ groupSchema.pre('save', async function(next) {
     next();
  });
 
-export const Group = model<IGroup>('Group', groupSchema);
+export const Group = models.Group as Model<IGroup> || model<IGroup>('Group', groupSchema);

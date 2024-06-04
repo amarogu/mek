@@ -1,9 +1,5 @@
-import { deleteModel, Schema, models, model } from "mongoose";
+import { Schema, models, model, Model } from "mongoose";
 import { IMsg } from "./Interfaces";
-
-if (models.Msg) {
-    deleteModel("Msg");
-}
 
 const msgSchema = new Schema<IMsg>({
     content: {
@@ -12,4 +8,4 @@ const msgSchema = new Schema<IMsg>({
     }
 });
 
-export const Msg = model<IMsg>("Msg", msgSchema);
+export const Msg = models.Msg as Model<IMsg> || model<IMsg>("Msg", msgSchema);

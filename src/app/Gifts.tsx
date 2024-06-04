@@ -1,8 +1,9 @@
 import Gift from "./Gift";
 import { HydratedDocument } from "mongoose";
 import { IGift, IUser, IGroup } from "@/lib/Models/Interfaces";
+import { LeanDocument } from "@/lib/helpers";
 
-export default function Gifts({gifts, item}: {gifts: HydratedDocument<IGift>[], item?: HydratedDocument<IUser> | HydratedDocument<IGroup>}) {
+export default function Gifts({gifts, item}: {gifts: LeanDocument<IGift>[], item?: LeanDocument<IUser> | LeanDocument<IGroup>}) {
     return (
         <section className="pt-12 p-8">
             <div className="container mx-auto flex flex-col gap-8">

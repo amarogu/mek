@@ -7,7 +7,10 @@ import 'dotenv/config';
 
 export const connectDb = async () => {
     try {
-        if (connection.readyState !== 1) await connect(process.env.DB_URI as string);
+        if (connection.readyState !== 1) {
+            await connect(process.env.DB_URI as string);
+        }
+
         return {
             User,
             Group,
