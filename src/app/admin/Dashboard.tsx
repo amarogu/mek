@@ -8,16 +8,18 @@ const renderDashboard = (data: PlainAdminData) => {
         <h2>Sem dados cadastrados</h2>
     } else {
         return (
-            <div key={'identifier'}>
+            <div>
+                <div className="bg-bg-200 dark:bg-dark-bg-200 p-4 flex flex-col gap-4">
+                <h2 className="text-xl font-bold">Mensagens</h2>
                 {
                     data.map(entity => {
                         if (entity.msgs.length !== 0) {
                             return (
-                                <div key={entity._id}>
+                                <div className="bg-bg-300 dark:bg-dark-bg-300 p-4" key={entity._id}>
                                     {entity.msgs.map((msg, i) => (
-                                        <div key={i}>
+                                        <div key={i} className="flex flex-col gap-2">
                                             <p>{msg.content}</p>
-                                            <p>{entity.name}</p>
+                                            <p className="text-text-100/75 dark:text-dark-text-100/75">{entity.name}</p>
                                         </div>
                                     ))}
                                 </div>
@@ -25,6 +27,7 @@ const renderDashboard = (data: PlainAdminData) => {
                         }
                     })
                 }
+                </div>
             </div>
         )
     }
@@ -33,11 +36,15 @@ const renderDashboard = (data: PlainAdminData) => {
 export default function Dashboard({session, data}: {session: Session, data: PlainAdminData}) {
     
     return (
-        <div>
-            <h1>Dashboard</h1>
-            <p>Welcome {session?.user?.name}</p>
-            <button onClick={() => signOut()}>Sign out</button>
+        <main className="p-8 container mx-auto">
+            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-2">
+            <h1 className="text-2xl font-bold">Dashboard</h1>
+            <p>Bem-vindo(a) {session?.user?.name}</p>
+            <button className="text-left" onClick={() => signOut()}>Encerrar sessão</button>
+            </div>
             {renderDashboard(data)}
         </div>
+        </main>
     )
 }
