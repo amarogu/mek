@@ -96,12 +96,12 @@ const renderDashboard = (data: PlainAdminData) => {
                     }
                     <TabPanel>
                         <div>
-                            <div className="bg-bg-200 dark:bg-dark-bg-200 p-4 flex flex-col gap-4">
+                            <form encType="multipart/form-data" className="bg-bg-200 dark:bg-dark-bg-200 p-4 flex flex-col gap-4">
                                 <h2 className="text-xl font-bold">Cadastrar presente</h2>
                                 <SimpleInput type="text" placeholder="Título" />
                                 <SimpleInput type="text" placeholder="Descrição (ex: cozinha, casa, etc.)" />
                                 <SimpleInput type="number" placeholder="Valor (BRL)" />
-                            </div>
+                            </form>
                         </div>
                     </TabPanel>
                 </TabPanels>
