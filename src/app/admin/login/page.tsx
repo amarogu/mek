@@ -35,7 +35,7 @@ export default function App() {
             <form onSubmit={(e) => handleSubmit(e)} className="flex flex-col gap-6 w-full sm:w-2/3 md:w-1/3 bg-bg-200 p-8 dark:bg-dark-bg-200">
                 <h1 className="text-2xl font-bold">Login</h1>
                 <StyledInput value={name} onChange={(e) => setName(e.target.value)} placeholder="Nome" type="text"  />
-                <StyledInput value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Senha" type="text"  />
+                <StyledInput value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Senha" type="password"  />
                 <button type="submit" className={`px-8 overflow-hidden text-2xl relative uppercase font-bold text-center py-4 border transition-colors ${res?.status === 401 ? 'border-red-400' : 'border-text-100 dark:border-dark-text-100'}`}>Login</button>
                 <p>{res?.message}</p>
             </form>

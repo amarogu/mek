@@ -3,7 +3,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useRef, useState } from "react";
 
-export default function StyledInput({type, placeholder, value, onChange, desc, res, horizontalForm, className}: {type: 'text' | 'textarea' | 'email', placeholder: string, value: string, onChange: (e: React.ChangeEvent<HTMLTextAreaElement> | React.ChangeEvent<HTMLInputElement>) => void, desc?: string, res?: SuccessResponse | ErrorResponse, horizontalForm?: boolean, className?: string}) {
+export default function StyledInput({type, placeholder, value, onChange, desc, res, horizontalForm, className}: {type: 'text' | 'textarea' | 'email' | 'password', placeholder: string, value: string, onChange: (e: React.ChangeEvent<HTMLTextAreaElement> | React.ChangeEvent<HTMLInputElement>) => void, desc?: string, res?: SuccessResponse | ErrorResponse, horizontalForm?: boolean, className?: string}) {
 
     const [isFocused, setIsFocused] = useState<boolean>(false);
     const ref = useRef<HTMLParagraphElement>(null);

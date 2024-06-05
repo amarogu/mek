@@ -6,6 +6,7 @@ import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { IGift, IMsg } from "@/lib/Models/Interfaces";
 import { TabData } from "@/lib/helpers";
 import Divider from "../Divider";
+import SimpleInput from "../SimpleInput";
 
 const renderPath = (path: IMsg | IGift) => {
     if ('content' in path) {
@@ -27,6 +28,8 @@ const renderPath = (path: IMsg | IGift) => {
 
 const renderDashboard = (data: PlainAdminData) => {
 
+    const tabClassName = 'data-[selected]:text-text-100 transition-colors focus:outline-none data-[selected]:dark:text-dark-text-100 text-text-100/75 dark:text-dark-text-100/75';
+
     const tabs: TabData[] = [
         {
             tab: 'Mensagens',
@@ -46,9 +49,10 @@ const renderDashboard = (data: PlainAdminData) => {
                 <TabList className='gap-4 flex'>
                     {
                         tabs.map(({tab}, i) => {
-                            return <Tab key={i} className='data-[selected]:text-text-100 transition-colors focus:outline-none data-[selected]:dark:text-dark-text-100 text-text-100/75 dark:text-dark-text-100/75'>{tab}</Tab>
+                            return <Tab key={i} className={tabClassName}>{tab}</Tab>
                         })
                     }
+                    <Tab className={tabClassName}>Cadastrar presentes</Tab>
                 </TabList>
                 <TabPanels>
                     {
@@ -90,6 +94,16 @@ const renderDashboard = (data: PlainAdminData) => {
                             )
                         })
                     }
+                    <TabPanel>
+                        <div>
+                            <div className="bg-bg-200 dark:bg-dark-bg-200 p-4 flex flex-col gap-4">
+                                <h2 className="text-xl font-bold">Cadastrar presente</h2>
+                                <SimpleInput type="text" placeholder="Título" />
+                                <SimpleInput type="text" placeholder="Descrição (ex: cozinha, casa, etc.)" />
+                                <SimpleInput type="number" placeholder="Valor (BRL)" />
+                            </div>
+                        </div>
+                    </TabPanel>
                 </TabPanels>
             </TabGroup>
         )
