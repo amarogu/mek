@@ -11,7 +11,6 @@ import { IGift, IUser, IGroup } from "@/lib/Models/Interfaces";
 import Loading from "./loading";
 import Messages from "./Messages";
 import Gifts from "./Gifts";
-import { FlattenMaps, HydratedDocument } from "mongoose";
 import { LeanDocument } from "@/lib/helpers";
 
 export default function Content({item, gifts}: {item?: LeanDocument<IUser> | LeanDocument<IGroup>, gifts: LeanDocument<IGift>[]}) {
@@ -53,14 +52,14 @@ export default function Content({item, gifts}: {item?: LeanDocument<IUser> | Lea
             <header ref={header} className="md:h-[81px] flex px-8 pt-8 items-center fixed w-screen top-0 z-40">
               <Welcome name={item?.name} />
               <Nav open={open} setOpen={setOpen} />
-              <Slider open={open} />
+              <Slider header={header.current ? header.current : undefined} open={open} setOpen={setOpen} />
             </header>
             <main id="main" className="overflow-x-hidden overflow-y-hidden !h-screen">
               <div ref={spacer}></div>
               <Hero item={item} id="hero" className="px-8" />
               <Us id="us" />
               <Messages id="messages" item={item} />
-              <Gifts item={item} gifts={gifts} />
+              <Gifts id="gifts" item={item} gifts={gifts} />
             </main>
         </Context.Provider>
       </ReactLenis>
