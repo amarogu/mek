@@ -9,10 +9,9 @@ import { Dispatch, SetStateAction } from "react";
 interface SliderProps {
     open: boolean;
     setOpen: Dispatch<SetStateAction<boolean>>;
-    header?: HTMLElement;
 }
 
-export default function Slider({open, setOpen, header}: SliderProps) {
+export default function Slider({open, setOpen}: SliderProps) {
 
     const lenis = useLenis(() => {});
 
@@ -46,15 +45,21 @@ export default function Slider({open, setOpen, header}: SliderProps) {
         }
     }, [open]);
 
+    const [offset, setOffset] = useState(0);
+
     useEffect(() => {
         if (hasFinished && linkClicked && clickedItem) {
-            if (header) {
-                console.log(header.clientHeight);
-            }
-            lenis?.scrollTo(parseNavItem(clickedItem), {duration: 2.5, onComplete: () => setHasFinished(false), offset: header ? -header.clientHeight : 0});
+            lenis?.scrollTo(parseNavItem(clickedItem), {duration: 2.5, onComplete: () => setHasFinished(false), offset: offset});
             setLinkClicked(false);
         }
-    }, [hasFinished])
+    }, [hasFinished]);
+
+    useEffect(() => {
+        const header = document.getElementById('header');
+        if (header) {
+            setOffset(-header.clientHeight);
+        }
+    }, [])
 
     const data: ('galeria' | 'recados' | 'presentes' | 'confirmar' | 'festa')[] = ['galeria', 'recados', 'presentes', 'confirmar', 'festa']
 
