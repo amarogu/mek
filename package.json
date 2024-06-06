@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.5.4",
+    "@google-cloud/storage": "^7.11.1",
     "@gsap/react": "^2.1.0",
     "@headlessui/react": "^2.0.3",
     "@react-spring/web": "^9.7.3",
