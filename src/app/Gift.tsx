@@ -1,13 +1,12 @@
-import { type Gift as GiftT } from "@/lib/Models/Gift";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef, useState } from "react";
 import Link from "next/link";
-import { User } from "@/lib/Models/User";
-import { Group } from "@/lib/Models/Group";
+import { LeanDocument } from "@/lib/helpers";
+import { IGift, IUser, IGroup } from "@/lib/Models/Interfaces";
 
-export default function Gift({gift, item}: {gift: GiftT, item?: User | Group}) {
+export default function Gift({gift, item}: {gift: LeanDocument<IGift>, item?: LeanDocument<IUser> | LeanDocument<IGroup>}) {
 
     const upperContainer = useRef<HTMLDivElement>(null);
     const lowerContainer = useRef<HTMLDivElement>(null);
