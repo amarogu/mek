@@ -5,6 +5,11 @@ import { useRef, useState } from "react";
 import Link from "next/link";
 import { LeanDocument } from "@/lib/helpers";
 import { IGift, IUser, IGroup } from "@/lib/Models/Interfaces";
+import Image from "next/image";
+
+const imageLoader = ({src}: {src: string}) => {
+    return `../../${src}`;
+}
 
 export default function Gift({gift, item}: {gift: LeanDocument<IGift>, item?: LeanDocument<IUser> | LeanDocument<IGroup>}) {
 
@@ -12,7 +17,6 @@ export default function Gift({gift, item}: {gift: LeanDocument<IGift>, item?: Le
     const lowerContainer = useRef<HTMLDivElement>(null);
     const container = useRef<HTMLDivElement>(null);
     const [hovering, setHovering] = useState<boolean>(false);
-
 
     useGSAP(() => {
 
@@ -61,7 +65,9 @@ export default function Gift({gift, item}: {gift: LeanDocument<IGift>, item?: Le
                     <h3 className="text-xl font-semibold">{gift.title}</h3>
                     <h4 className="text-xl">{gift.description}</h4>
                 </div>
-                <div className="grow"></div>
+                <div className="grow">
+                    <Image alt={gift.title} width={500} height={500} src={`/${gift.img}`} />
+                </div>
                 <div ref={lowerContainer} style={{transform: 'translateY(16px) translateY(100%)'}}>
                     <h3 className="text-xl font-semibold">R${gift.value.toFixed(2)}</h3>
                 </div>
