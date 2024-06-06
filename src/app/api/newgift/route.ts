@@ -3,6 +3,16 @@ import { writeFile } from "fs/promises";
 import { existsSync, mkdirSync } from "fs";
 import { NextRequest } from "next/server";
 import path from "path";
+import { Storage } from '@google-cloud/storage';
+import 'dotenv/config';
+
+const storage = new Storage({
+    keyFilename: `@/../keys/${process.env.KEY_FILENAME}`
+});
+
+const bucketName = process.env.BUCKET_NAME as string;
+
+const bucket = storage.bucket(bucketName);
 
 export async function POST(req: NextRequest) {
     const body = await req.formData();
