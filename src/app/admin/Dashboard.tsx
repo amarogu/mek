@@ -7,6 +7,9 @@ import { IGift, IMsg } from "@/lib/Models/Interfaces";
 import { TabData } from "@/lib/helpers";
 import Divider from "../Divider";
 import SimpleInput from "../SimpleInput";
+import Button from "../Button";
+import { useRef } from "react";
+import instance from "@/lib/axios";
 
 const renderPath = (path: IMsg | IGift) => {
     if ('content' in path) {
@@ -27,6 +30,19 @@ const renderPath = (path: IMsg | IGift) => {
 }
 
 const renderDashboard = (data: PlainAdminData) => {
+
+    const fileInput = useRef<HTMLInputElement>(null);
+
+    const handleClick = async () => {
+        if (fileInput.current) console.log(fileInput.current.files?.item(0));
+        const res = await instance.post('/newgift', {
+            
+        }, {
+            headers: {
+            'Content-Type': 'multipart/form-data'
+            }
+        })
+    }
 
     const tabClassName = 'data-[selected]:text-text-100 transition-colors focus:outline-none data-[selected]:dark:text-dark-text-100 text-text-100/75 dark:text-dark-text-100/75';
 
@@ -96,11 +112,16 @@ const renderDashboard = (data: PlainAdminData) => {
                     }
                     <TabPanel>
                         <div>
-                            <form encType="multipart/form-data" className="bg-bg-200 dark:bg-dark-bg-200 p-4 flex flex-col gap-4">
+                            <form className="bg-bg-200 dark:bg-dark-bg-200 p-4 flex flex-col gap-4">
                                 <h2 className="text-xl font-bold">Cadastrar presente</h2>
                                 <SimpleInput type="text" placeholder="Título" />
                                 <SimpleInput type="text" placeholder="Descrição (ex: cozinha, casa, etc.)" />
                                 <SimpleInput type="number" placeholder="Valor (BRL)" />
+                                <div className="flex gap-4 items-center">
+                                    <label>Imagem:</label>
+                                    <SimpleInput ref={fileInput} type="file" />
+                                </div>
+                                <Button onClick={handleClick} text="Cadastrar" />
                             </form>
                         </div>
                     </TabPanel>
