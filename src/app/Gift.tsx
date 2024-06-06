@@ -7,10 +7,6 @@ import { LeanDocument } from "@/lib/helpers";
 import { IGift, IUser, IGroup } from "@/lib/Models/Interfaces";
 import Image from "next/image";
 
-const imageLoader = ({src}: {src: string}) => {
-    return `../../${src}`;
-}
-
 export default function Gift({gift, item}: {gift: LeanDocument<IGift>, item?: LeanDocument<IUser> | LeanDocument<IGroup>}) {
 
     const upperContainer = useRef<HTMLDivElement>(null);
@@ -60,13 +56,13 @@ export default function Gift({gift, item}: {gift: LeanDocument<IGift>, item?: Le
 
     return (
         <Link href={item ? 'users' in item ? `/group/${item._id}/gift/${gift._id}` : `/guest/${item._id}/gift/${gift._id}` : `/gift/${gift._id}`}>
-            <div ref={container} onMouseEnter={() => setHovering(true)} onMouseLeave={() => setHovering(false)} className="w-full cursor-pointer relative overflow-y-hidden h-[464px] bg-bg-200 dark:bg-dark-bg-200 p-4 flex flex-col">
+            <div ref={container} onMouseEnter={() => setHovering(true)} onMouseLeave={() => setHovering(false)} className="w-full cursor-pointer relative overflow-y-hidden h-[464px] bg-bg-200 dark:bg-dark-bg-200 p-4 flex gap-2 flex-col">
                 <div ref={upperContainer} style={{transform: 'translateY(-16px) translateY(-100%)'}} className="flex flex-col gap-2">
                     <h3 className="text-xl font-semibold">{gift.title}</h3>
                     <h4 className="text-xl">{gift.description}</h4>
                 </div>
                 <div className="grow">
-                    <Image alt={gift.title} width={500} height={500} src={`/${gift.img}`} />
+                    <Image className="object-cover h-full" loading="eager" alt={gift.title} width={500} height={500} src={gift.img} />
                 </div>
                 <div ref={lowerContainer} style={{transform: 'translateY(16px) translateY(100%)'}}>
                     <h3 className="text-xl font-semibold">R${gift.value.toFixed(2)}</h3>

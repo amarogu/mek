@@ -1,8 +1,5 @@
 import { connectDb } from "@/lib/connect";
-import { writeFile } from "fs/promises";
-import { existsSync, mkdirSync } from "fs";
 import { NextRequest } from "next/server";
-import path from "path";
 import { Storage } from '@google-cloud/storage';
 import 'dotenv/config';
 
@@ -29,17 +26,10 @@ export async function POST(req: NextRequest) {
                 const blob = bucket.file(`uploads/${filename}`);
                 const blobStream = blob.createWriteStream({resumable: false});
                 blobStream.end(buffer);
-                blob.makePublic(async function(err: any) {
-                    if (err) {
-                        return Response.json({message: 'An error occurred while making uploaded file available to the internet.', error: err});
-                    } else {
-                        const publicUrl = blob.publicUrl();
-                        const { Gift } = models;
-                        const gift = new Gift({title: body.get('title'), description: body.get('description'), value: body.get('value'), img: publicUrl});
-                        await gift.save();
-                        return Response.json({message: 'Gift succesfully registered'});
-                    }
-                })
+                const { Gift } = models;
+                const gift = new Gift({title: body.get('title'), description: body.get('description'), value: body.get('value'), img: blob.publicUrl()});
+                await gift.save();
+                return Response.json({message: 'Gift succesfully registered'});
             } else {
                 return Response.json({message: 'Please provide a valid image'}, {status: 400});
             }
