@@ -1,7 +1,7 @@
 import { connectDb } from "@/lib/connect";
 import { writeFile } from "fs/promises";
 import { existsSync, mkdirSync } from "fs";
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import path from "path";
 
 export async function POST(req: NextRequest) {
@@ -16,7 +16,6 @@ export async function POST(req: NextRequest) {
             if (image instanceof File) {
                 const buffer = Buffer.from(await image.arrayBuffer());
                 const filename = image.name.replaceAll(' ', '_');
-                console.log(path.join(process.cwd(), `uploads/${filename}`));
                 if (!existsSync(path.join(process.cwd(), 'uploads/'))) {
                     mkdirSync(path.join(process.cwd(), 'uploads/'));
                     await writeFile(path.join(process.cwd(), `uploads/${filename}`), buffer);
@@ -34,7 +33,6 @@ export async function POST(req: NextRequest) {
             return Response.json({message: 'No models found'});
         }
     } catch (e: any) {
-        console.log(e);
         return Response.json({message: 'An error occurred', error: e})
     }
 }
