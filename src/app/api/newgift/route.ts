@@ -26,16 +26,20 @@ export async function POST(req: NextRequest) {
             if (image instanceof File) {
                 const buffer = Buffer.from(await image.arrayBuffer());
                 const filename = image.name.replaceAll(' ', '_');
-                if (!existsSync(path.join(process.cwd(), 'uploads/'))) {
-                    mkdirSync(path.join(process.cwd(), 'uploads/'));
-                    await writeFile(path.join(process.cwd(), `uploads/${filename}`), buffer);
-                } else {
-                    await writeFile(path.join(process.cwd(), `uploads/${filename}`), buffer);
-                }
-                const { Gift } = models;
-                const gift = new Gift({title: body.get('title'), description: body.get('description'), value: body.get('value'), img: `uploads/${filename}`});
-                await gift.save();
-                return Response.json({message: 'Gift succesfully registered'});
+                const blob = bucket.file(`uploads/${filename}`);
+                const blobStream = blob.createWriteStream({resumable: false});
+                blobStream.end(buffer);
+                blob.makePublic(async function(err: any) {
+                    if (err) {
+                        return Response.json({message: 'An error occurred while making uploaded file available to the internet.', error: err});
+                    } else {
+                        const publicUrl = blob.publicUrl();
+                        const { Gift } = models;
+                        const gift = new Gift({title: body.get('title'), description: body.get('description'), value: body.get('value'), img: publicUrl});
+                        await gift.save();
+                        return Response.json({message: 'Gift succesfully registered'});
+                    }
+                })
             } else {
                 return Response.json({message: 'Please provide a valid image'}, {status: 400});
             }
