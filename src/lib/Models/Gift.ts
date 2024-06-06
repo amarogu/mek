@@ -13,6 +13,10 @@ const giftSchema = new Schema<IGift>({
     value: {
         type: Number,
         required: true
+    },
+    img: {
+        type: String,
+        required: true
     }
 });
 

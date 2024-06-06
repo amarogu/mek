@@ -1,7 +1,7 @@
 'use client';
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
-import { PlainAdminData } from "@/lib/helpers";
+import { ErrorResponse, PlainAdminData, SuccessResponse, emptyMsg } from "@/lib/helpers";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { IGift, IMsg } from "@/lib/Models/Interfaces";
 import { TabData } from "@/lib/helpers";
@@ -10,6 +10,7 @@ import SimpleInput from "../SimpleInput";
 import Button from "../Button";
 import { useRef } from "react";
 import instance from "@/lib/axios";
+import { useState } from "react";
 
 const renderPath = (path: IMsg | IGift) => {
     if ('content' in path) {
@@ -31,17 +32,42 @@ const renderPath = (path: IMsg | IGift) => {
 
 const renderDashboard = (data: PlainAdminData) => {
 
+    const [title, setTitle] = useState('');
+    const [desc, setDesc] = useState('');
+    const [value, setValue] = useState<number | string>('');
+    const [res, setRes] = useState<SuccessResponse | ErrorResponse | undefined>(undefined);
+    const [clicked, setClicked] = useState(false);
+
     const fileInput = useRef<HTMLInputElement>(null);
 
+    const cleanup = () => {
+        setRes(undefined);
+        setClicked(false);
+    }
+
     const handleClick = async () => {
-        if (fileInput.current) console.log(fileInput.current.files?.item(0));
-        const res = await instance.post('/newgift', {
-            
-        }, {
-            headers: {
-            'Content-Type': 'multipart/form-data'
+        setClicked(true);
+        if (fileInput.current && title && desc && value) {
+            const res = await instance.post('/newgift', {
+                title,
+                description: desc,
+                value,
+                image: fileInput.current.files?.item(0)
+            }, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            if (res.status !== 200) {
+                return setRes(undefined);
+            };
+            if (res.data.error) {
+                return setRes(res.data as ErrorResponse);
             }
-        })
+            return setRes(res.data as SuccessResponse);
+        } else {
+            setRes(emptyMsg);
+        }
     }
 
     const tabClassName = 'data-[selected]:text-text-100 transition-colors focus:outline-none data-[selected]:dark:text-dark-text-100 text-text-100/75 dark:text-dark-text-100/75';
@@ -114,14 +140,20 @@ const renderDashboard = (data: PlainAdminData) => {
                         <div>
                             <form className="bg-bg-200 dark:bg-dark-bg-200 p-4 flex flex-col gap-4">
                                 <h2 className="text-xl font-bold">Cadastrar presente</h2>
-                                <SimpleInput type="text" placeholder="Título" />
-                                <SimpleInput type="text" placeholder="Descrição (ex: cozinha, casa, etc.)" />
-                                <SimpleInput type="number" placeholder="Valor (BRL)" />
+                                <SimpleInput value={title} onChange={(e) => setTitle(e.target.value)} type="text" placeholder="Título *" />
+                                <SimpleInput value={desc} onChange={(e) => setDesc(e.target.value)} type="text" placeholder="Descrição (ex: cozinha, casa, etc.) *" />
+                                <SimpleInput value={value} onChange={(e) => {
+                                    if (Number(e.target.value)) {
+                                        setValue(Number(e.target.value));
+                                    } else {
+                                        setValue(e.target.value);
+                                    }
+                                }} type="number" placeholder="Valor (BRL) *" />
                                 <div className="flex gap-4 items-center">
-                                    <label>Imagem:</label>
+                                    <label>Imagem *:</label>
                                     <SimpleInput ref={fileInput} type="file" />
                                 </div>
-                                <Button onClick={handleClick} text="Cadastrar" />
+                                <Button clicked={clicked} cleanup={cleanup} res={res} onClick={handleClick} text="Cadastrar" />
                             </form>
                         </div>
                     </TabPanel>

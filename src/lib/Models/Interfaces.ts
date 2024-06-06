@@ -4,6 +4,7 @@ export interface IGift {
     title: string;
     description: string;
     value: number;
+    img: string;
 }
 
 export interface IGroup {
