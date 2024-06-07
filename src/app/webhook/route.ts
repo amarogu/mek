@@ -1,9 +1,6 @@
-import { Gift } from "@/lib/Models/Gift";
-import { Group } from "@/lib/Models/Group";
-import { Msg } from "@/lib/Models/Msg";
-import { User } from "@/lib/Models/User";
 import { NextRequest } from "next/server";
 import { Stripe } from 'stripe';
+import { connectDb } from "@/lib/connect";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
@@ -16,28 +13,43 @@ export const config = {
 }
 
 const handleSuccess = async (metadata: { _id: string, gift_id: string, msg: string }) => {
-    const user = await User.findById(metadata._id);
-    const group = await Group.findById(metadata._id);
-    const gift = await Gift.findById(metadata.gift_id);
-
-    if (!gift) return false
-    if (user) {
-        user.giftsGiven.push(gift._id);
-        const message = new Msg({owner: user._id, content: metadata.msg});
-        await message.save();
-        user.msgs.push(message._id);
-        await user.save();
-        return true;
+    const models = await connectDb();
+    try {
+        if (models) {
+            const { User, Group, Msg, Purchase, Gift } = models;
+            const user = await User.findById(metadata._id);
+            const group = await Group.findById(metadata._id);
+            const gift = await Gift.findById(metadata.gift_id);
+            
+            if (!gift) {
+                return false
+            } else {
+                if (user) {
+                    const message = new Msg({owner: user._id, content: metadata.msg});
+                    const purchase = new Purchase({giftGiven: gift._id, msg: message._id});
+                    await message.save();
+                    await purchase.save();
+                    user.purchases.push(purchase._id);
+                    await user.save();
+                    return true;
+                }
+                if (group) {
+                    const message = new Msg({owner: group._id, content: metadata.msg});
+                    const purchase = new Purchase({giftGiven: gift._id, msg: message._id});
+                    await message.save();
+                    await purchase.save();
+                    group.purchases.push(purchase._id);
+                    await group.save();
+                    return true;
+                }
+                return false;
+            }
+        } else {
+            return false;
+        }
+    } catch {
+        return false;
     }
-    if (group) {
-        group.giftsGiven.push(gift._id);
-        const message = new Msg({owner: group._id, content: metadata.msg});
-        await message.save();
-        group.msgs.push(message._id);
-        await group.save();
-        return true;
-    }
-    return false;
 }
 
 export async function POST(req: NextRequest) {

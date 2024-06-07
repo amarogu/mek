@@ -24,9 +24,9 @@ const groupSchema = new Schema<IGroup>({
         ref: 'Msg',
         default: []
     },
-    giftsGiven: {
+    purchases: {
         type: [Schema.Types.ObjectId],
-        ref: 'Gift',
+        ref: 'Purchase',
         default: []
     }
 })

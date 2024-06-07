@@ -22,9 +22,9 @@ const userSchema = new Schema<IUser>({
         enum: ['male', 'female', 'non-binary', 'gender-fluid'],
         required: true
     },
-    giftsGiven: {
+    purchases: {
         type: [Schema.Types.ObjectId],
-        ref: 'Gift',
+        ref: 'Purchase',
         default: []
     },
     role: {

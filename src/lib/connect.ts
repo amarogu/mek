@@ -4,6 +4,7 @@ import { User } from "./Models/User";
 import { Group } from "./Models/Group";
 import { Msg } from "./Models/Msg";
 import 'dotenv/config';
+import { Purchase } from "./Models/Purchase";
 
 export const connectDb = async () => {
     try {
@@ -15,7 +16,8 @@ export const connectDb = async () => {
             User,
             Group,
             Gift,
-            Msg
+            Msg,
+            Purchase
         }
     } catch(err) {
         return null;

@@ -13,7 +13,7 @@ export interface IGroup {
     gender: 'male' | 'female' | 'non-binary' | 'gender-fluid';
     link?: string;
     msgs: Types.ObjectId[];
-    giftsGiven: Types.ObjectId[];
+    purchases: Types.ObjectId[];
 }
 
 export interface IMsg {
@@ -25,7 +25,12 @@ export interface IUser {
     msgs: Types.ObjectId[];
     link?: string;
     gender: 'male' | 'female' | 'non-binary' | 'gender-fluid';
-    giftsGiven: Types.ObjectId[];
+    purchases: Types.ObjectId[];
     role: 'admin' | 'individual';
     password?: string;
+}
+
+export interface IPurchase {
+    giftGiven: Types.ObjectId;
+    msg: Types.ObjectId;
 }
