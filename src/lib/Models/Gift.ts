@@ -17,6 +17,10 @@ const giftSchema = new Schema<IGift>({
     img: {
         type: String,
         required: true
+    },
+    soldOut: {
+        type: Boolean,
+        required: true
     }
 });
 

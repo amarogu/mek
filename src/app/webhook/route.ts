@@ -24,6 +24,8 @@ const handleSuccess = async (metadata: { _id: string, gift_id: string, msg: stri
             if (!gift) {
                 return false
             } else {
+                gift.soldOut = true;
+                await gift.save();
                 if (user) {
                     const message = new Msg({owner: user._id, content: metadata.msg});
                     const purchase = new Purchase({giftGiven: gift._id, msg: message._id});

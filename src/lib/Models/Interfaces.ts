@@ -5,6 +5,7 @@ export interface IGift {
     description: string;
     value: number;
     img: string;
+    soldOut: boolean;
 }
 
 export interface IGroup {
