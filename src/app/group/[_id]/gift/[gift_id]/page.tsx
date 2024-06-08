@@ -10,12 +10,16 @@ export default async function Home({params}: {params?: {gift_id: string, _id: st
         const { Gift, Group } = models;
         const gift = await getGift({params, Gift});
 
-    const group = await getGroup({params, Group});
+        const group = await getGroup({params, Group});
 
-    if (!group) redirect('/');
+        if (!group) redirect('/');
 
-    if (!gift) redirect(`/group/${params?._id}`);
+        if (!gift) redirect(`/group/${params?._id}`);
 
-    return <Content gift={gift} item={group} />
+        if (gift.soldOut) redirect(`/group/${params?._id}`);
+
+        return <Content gift={gift} item={group} />
+    } else {
+        redirect('/');
     }
 }

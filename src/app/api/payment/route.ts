@@ -12,6 +12,7 @@ const calculateAmount = async (_id: string) => {
     await connectDb();
     const gift = await Gift.findById(_id);
     if (!gift) return false;
+    if (gift.soldOut) return false;
     return {
         value: gift.value * 100,
         gift: gift
@@ -21,7 +22,7 @@ const calculateAmount = async (_id: string) => {
 export async function POST(req: NextRequest) {
     const body = await req.json() as { gift_id: string, _id: string, msg: string };
     const gift = await calculateAmount(body.gift_id);
-    if (!gift) return Response.json({message: 'Gift not found'}, {status: 404});
+    if (!gift) return Response.json({message: 'Gift not found or sold out'}, {status: 404});
     try {
         const user = await User.findById(body._id);
         const group = await Group.findById(body._id);
