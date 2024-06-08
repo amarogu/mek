@@ -26,7 +26,7 @@ const renderPath = (path: LeanDocument<IMsg> | MergeType<LeanDocument<IPurchase>
                 <p>{path.giftGiven.title}</p>
                 <p className="text-text-100/75 dark:text-dark-text-100/75">{path.giftGiven.description}</p>
                 <p className="text-text-100/75 dark:text-dark-text-100/75">R$ {path.giftGiven.value}</p>
-                <div className="flex flex-col gap-2 bg-bg-300 dark:bg-dark-bg-300 p-4">
+                <div className="flex flex-col gap-2 bg-bg-200 dark:bg-dark-bg-200 p-4">
                     <p className="text-text-100/75 dark:text-dark-text-100/75">Mensagem</p>
                     <p>{path.msg.content}</p>
                 </div>
