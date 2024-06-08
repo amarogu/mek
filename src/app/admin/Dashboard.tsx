@@ -79,7 +79,7 @@ const renderDashboard = (data: PlainAdminData) => {
         },
         {
             tab: 'Presentes',
-            entityPath: 'giftsGiven'
+            entityPath: 'purchases'
         }
     ]
 

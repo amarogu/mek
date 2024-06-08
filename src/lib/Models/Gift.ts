@@ -20,6 +20,7 @@ const giftSchema = new Schema<IGift>({
     },
     soldOut: {
         type: Boolean,
+        default: false,
         required: true
     }
 });

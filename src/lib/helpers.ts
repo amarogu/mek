@@ -256,13 +256,13 @@ export const renderPaymentResultDescription = (message: string) => {
   }
 }
 
-export type PlainAdminData = (Omit<IUser | IGroup, "msgs" | "giftsGiven"> & { msgs: IMsg[]; purchases: IPurchase[]; } & { _id: string; } & Required<{ _id: string; }>)[];
+export type PlainAdminData = (Omit<IUser | IGroup, "msgs" | "purchases"> & { msgs: IMsg[]; purchases: IPurchase[]; } & { _id: string; } & Required<{ _id: string; }>)[];
 
-export type PlainAdminEntity = (Omit<IUser | IGroup, "msgs" | "giftsGiven"> & { msgs: IMsg[]; purchases: IPurchase[]; } & { _id: string; } & Required<{ _id: string; }>);
+export type PlainAdminEntity = (Omit<IUser | IGroup, "msgs" | "purchases"> & { msgs: IMsg[]; purchases: IPurchase[]; } & { _id: string; } & Required<{ _id: string; }>);
 
 export type LeanDocument<T> = (T & {_id: string} & Required<{_id: string}>);
 
 export type TabData = {
   tab: 'Mensagens' | 'Presentes',
-  entityPath: 'msgs' | 'giftsGiven'
+  entityPath: 'msgs' | 'purchases'
 };

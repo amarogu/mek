@@ -1,4 +1,3 @@
-import { Gift } from "../Models/Gift";
 import { IGift } from "../Models/Interfaces";
 import { Model } from "mongoose";
 
