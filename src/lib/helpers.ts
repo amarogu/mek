@@ -1,4 +1,5 @@
-import { IGroup, IUser, IMsg, IPurchase } from './Models/Interfaces';
+import { MergeType } from 'mongoose';
+import { IGroup, IUser, IMsg, IPurchase, IGift } from './Models/Interfaces';
 
 export function addClasses(element: HTMLElement, classes: string[]) {
     classes.forEach(className => {
@@ -256,11 +257,11 @@ export const renderPaymentResultDescription = (message: string) => {
   }
 }
 
-export type PlainAdminData = (Omit<IUser | IGroup, "msgs" | "purchases"> & { msgs: IMsg[]; purchases: IPurchase[]; } & { _id: string; } & Required<{ _id: string; }>)[];
-
-export type PlainAdminEntity = (Omit<IUser | IGroup, "msgs" | "purchases"> & { msgs: IMsg[]; purchases: IPurchase[]; } & { _id: string; } & Required<{ _id: string; }>);
-
 export type LeanDocument<T> = (T & {_id: string} & Required<{_id: string}>);
+
+export type AdminEntity = Omit<IUser | IGroup, "msgs" | "purchases"> & { msgs: LeanDocument<IMsg>[]; purchases: MergeType<LeanDocument<IPurchase>, {msg: LeanDocument<IMsg>, giftGiven: LeanDocument<IGift>}>[]; };
+
+export type AdminData = LeanDocument<AdminEntity>[];
 
 export type TabData = {
   tab: 'Mensagens' | 'Presentes',

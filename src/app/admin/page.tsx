@@ -3,7 +3,7 @@ import { authOptions } from "../api/auth/[...nextauth]/route";
 import Dashboard from "./Dashboard";
 import { getAdminData } from "@/lib/actions/getAdminData";
 import { connectDb } from "@/lib/connect";
-import { PlainAdminData } from "@/lib/helpers";
+import { AdminData } from "@/lib/helpers";
 
 export default async function Home() {
 
@@ -16,7 +16,7 @@ export default async function Home() {
             const {User, Group} = models;
             const data = await getAdminData({User, Group});
             if (data) {
-                const parsedData: PlainAdminData = data.entities.map(entity => {
+                const parsedData: AdminData = data.entities.map(entity => {
                     return entity.toObject({flattenObjectIds: true});
                 });
                 return <Dashboard session={session} data={parsedData} />

@@ -1,9 +1,9 @@
 'use client';
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
-import { ErrorResponse, PlainAdminData, SuccessResponse, emptyMsg } from "@/lib/helpers";
+import { AdminData, ErrorResponse, LeanDocument, SuccessResponse, emptyMsg } from "@/lib/helpers";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
-import { IGift, IMsg } from "@/lib/Models/Interfaces";
+import { IGift, IMsg, IPurchase } from "@/lib/Models/Interfaces";
 import { TabData } from "@/lib/helpers";
 import Divider from "../Divider";
 import SimpleInput from "../SimpleInput";
@@ -11,8 +11,9 @@ import Button from "../Button";
 import { useRef } from "react";
 import instance from "@/lib/axios";
 import { useState } from "react";
+import { MergeType } from "mongoose";
 
-const renderPath = (path: IMsg | IGift) => {
+const renderPath = (path: LeanDocument<IMsg> | MergeType<LeanDocument<IPurchase>, {msg: LeanDocument<IMsg>, giftGiven: LeanDocument<IGift>}>) => {
     if ('content' in path) {
         return (
             <p>
@@ -22,15 +23,19 @@ const renderPath = (path: IMsg | IGift) => {
     } else {
         return (
             <div className="flex flex-col gap-2">
-                <p>{path.title}</p>
-                <p className="text-text-100/75 dark:text-dark-text-100/75">{path.description}</p>
-                <p className="text-text-100/75 dark:text-dark-text-100/75">R$ {path.value}</p>
+                <p>{path.giftGiven.title}</p>
+                <p className="text-text-100/75 dark:text-dark-text-100/75">{path.giftGiven.description}</p>
+                <p className="text-text-100/75 dark:text-dark-text-100/75">R$ {path.giftGiven.value}</p>
+                <div className="flex flex-col gap-2 bg-bg-300 dark:bg-dark-bg-300 p-4">
+                    <p className="text-text-100/75 dark:text-dark-text-100/75">Mensagem</p>
+                    <p>{path.msg.content}</p>
+                </div>
             </div>
         )
     }
 }
 
-const renderDashboard = (data: PlainAdminData) => {
+const renderDashboard = (data: AdminData) => {
 
     const [title, setTitle] = useState('');
     const [desc, setDesc] = useState('');
@@ -163,7 +168,7 @@ const renderDashboard = (data: PlainAdminData) => {
     }
 }
 
-export default function Dashboard({session, data}: {session: Session, data: PlainAdminData}) {
+export default function Dashboard({session, data}: {session: Session, data: AdminData}) {
     
     return (
         <main className="p-8 container mx-auto">
