@@ -17,7 +17,7 @@ export default function Confirmation() {
             scrollTrigger: {
                 trigger: container.current,
                 start: 'top top',
-                end: 'bottom+=500% top',
+                end: 'bottom+=1500% top',
                 scrub: true,
                 pin: true,
                 markers: true
@@ -32,10 +32,10 @@ export default function Confirmation() {
     })
 
     return (
-        <section ref={container} className="text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%]">
+        <section ref={container} className="font-extrabold leading-[85%]">
             <div className="h-screen relative p-8">
                 {
-                    text.map((t, i) => <h2 key={i} ref={textRefs[i]} className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 ${i === 1 ? 'text-dark-text-100 dark:text-text-100' : ''}`}>{t}</h2>)
+                    text.map((t, i) => <h2 key={i} ref={textRefs[i]} className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 ${i === 1 ? 'text-dark-text-100 dark:text-text-100 scale-0 text-[100vh]' : 'scale-[0.12] text-[50vh]'}`}>{t}</h2>)
                 }
             </div>
         </section>
