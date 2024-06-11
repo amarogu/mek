@@ -2,7 +2,6 @@ import Image from "next/image";
 import { useMediaQuery } from "react-responsive";
 import { useEffect, useRef } from "react";
 import BottomTab from "./BottomTab";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { Parallax } from "./Parallax";
@@ -35,7 +34,7 @@ export default function Hero({className, id, item}: {className?: string, id?: st
     }
 
     useGSAP(() => {
-        gsap.registerPlugin(ScrollTrigger);
+    
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: document.body,

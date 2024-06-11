@@ -1,8 +1,6 @@
-"use client";
 import { gsap } from "gsap";
 import { useEffect, useRef } from "react";
 import { useWindowSize } from "@studio-freight/hamo";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 interface ParallaxProps {
     className?: string;
@@ -19,7 +17,6 @@ export function Parallax({ className, children, speed = 1, id = 'parallax', reve
     const { width: windowWidth } = useWindowSize() as { width: number };
 
     useEffect(() => {
-        gsap.registerPlugin(ScrollTrigger);
     
         const setY = gsap.quickSetter(target.current, "y", "px");
         const y = reverse ? (windowWidth * -speed * 0.1) : (windowWidth * speed * 0.1);

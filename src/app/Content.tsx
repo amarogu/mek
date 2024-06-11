@@ -12,6 +12,10 @@ import Loading from "./loading";
 import Messages from "./Messages";
 import Gifts from "./Gifts";
 import { LeanDocument } from "@/lib/helpers";
+import Confirmation from "./Confirmation";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import gsap from "gsap";
 
 export default function Content({item, gifts}: {item?: LeanDocument<IUser> | LeanDocument<IGroup>, gifts: LeanDocument<IGift>[]}) {
 
@@ -29,6 +33,45 @@ export default function Content({item, gifts}: {item?: LeanDocument<IUser> | Lea
       spacer.current.setAttribute('style', `height: ${header.current.clientHeight}px`);
     }
   }, [isMounted]);
+
+  useGSAP(() => {
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const prevHeightMap = new WeakMap();
+
+    const observer = new MutationObserver(mutationsList => {
+      for (let mutation of mutationsList) {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+          if (mutation.target instanceof Element) {
+            const target = mutation.target;
+            const prevHeight = prevHeightMap.get(target) || '';
+            const currentHeight = window.getComputedStyle(target).height;
+
+            // Check if the height has changed
+            if (prevHeight !== currentHeight) {
+              console.log('Height changed, refreshing');
+              ScrollTrigger.refresh();
+              // Update the stored height value
+              prevHeightMap.set(target, currentHeight);
+            }
+          }
+        }
+      }
+    });
+
+    // Select all elements on the page
+    const allElements = document.querySelectorAll('*');
+
+    // Observe each element for style attribute changes
+    allElements.forEach(element => {
+      // Store the initial height of the element
+      const initialHeight = window.getComputedStyle(element).height;
+      prevHeightMap.set(element, initialHeight);
+
+      observer.observe(element, { attributes: true, attributeFilter: ['style'] });
+    });
+  }, [isMounted])
 
   useEffect(() => {
     let height = window.innerHeight;
@@ -60,6 +103,7 @@ export default function Content({item, gifts}: {item?: LeanDocument<IUser> | Lea
               <Us id="us" />
               <Messages id="messages" item={item} />
               <Gifts id="gifts" item={item} gifts={gifts} />
+              <Confirmation />
             </main>
         </Context.Provider>
       </ReactLenis>

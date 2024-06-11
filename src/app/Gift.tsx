@@ -1,6 +1,5 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { LeanDocument } from "@/lib/helpers";
@@ -17,8 +16,6 @@ export default function Gift({gift, item}: {gift: LeanDocument<IGift>, item?: Le
     useGSAP(() => {
 
         let coarse = window.matchMedia('(pointer: coarse)').matches;
-
-        gsap.registerPlugin(ScrollTrigger);
 
         if (coarse) {
             gsap.to(upperContainer.current, {

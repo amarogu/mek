@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react"
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import { useMediaQuery } from "react-responsive";
 import { usImgs } from "@/lib/rendering/imgs";
@@ -38,9 +37,7 @@ export default function Us({id}: {id?: string}) {
     useGSAP(() => {
 
         const commonTweens = [gsap.to(container.current, {opacity: 0}), gsap.to(imgs[0].current, {xPercent: -105, yPercent: -50}), gsap.to(imgs[1].current, {xPercent: 105}), gsap.to(imgs[2].current, {xPercent: -105, yPercent: -155}), gsap.to(newImgs[0].current, {xPercent: 105, yPercent: -105}), gsap.to(newImgs[1].current, {xPercent: -105, yPercent: 105}), gsap.to(newImgs[2].current, {xPercent: 105, yPercent: 105}), gsap.to(newImgs[3].current, {yPercent: -105}), gsap.to(newImgs[4].current, {yPercent: 105})];
-        
-        const spacer = document.getElementById('spacer');
-        gsap.registerPlugin(ScrollTrigger);
+
         gsap.to('.hidingRect', {
             yPercent: 125,
             scrollTrigger: { trigger: container.current, start: 'top center' }
@@ -51,7 +48,8 @@ export default function Us({id}: {id?: string}) {
             start: 'top top',
             end: 'bottom+=3000 top',
             scrub: true,
-            pin: true
+            pin: true,
+            markers: true
         }})
 
         if (isMd) {
@@ -60,18 +58,6 @@ export default function Us({id}: {id?: string}) {
         } else {
             tl.to(imgs[0].current, {bottom: '50%', yPercent: isMd ? 0 : -50}).to(imgs[1].current, {bottom: '50%', yPercent: -50}).to(imgs[2].current, {bottom: '50%', yPercent: isMd ? -100 : -50}).to('.usImgs', {display: 'block', duration: 0}).add(commonTweens, "+=0");
         }
-
-        const observer = new MutationObserver((mutationsList, observer) => {
-            for(let mutation of mutationsList) {
-                if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
-                    ScrollTrigger.refresh();
-                }
-            }
-        });
-
-        if (spacer) observer.observe(spacer, { attributes: true, attributeFilter: ['style'] });
-
-        return () => observer.disconnect();
     }, [isMd])
 
     return (
