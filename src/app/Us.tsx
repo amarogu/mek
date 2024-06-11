@@ -49,7 +49,6 @@ export default function Us({id}: {id?: string}) {
             end: 'bottom+=3000 top',
             scrub: true,
             pin: true,
-            markers: true
         }})
 
         if (isMd) {

@@ -10,35 +10,32 @@ export default function Confirmation() {
 
     const textRefs = [useRef(null), useRef(null)];
 
-    useGSAP((_, contextSafe) => {
-        gsap.to(textRefs[0].current, {
-            scale: 200,
-            ease: 'power1.in',
+    const tl = useRef<GSAPTimeline | null>();
+
+    useGSAP(() => {
+        tl.current = gsap.timeline({
             scrollTrigger: {
                 trigger: container.current,
                 start: 'top top',
-                end: 'center top',
+                end: 'bottom+=500% top',
                 scrub: true,
-                pin: true
-            },
-            onComplete: () => {
-                if (contextSafe) {
-                    console.log('contextSafe');
-                    contextSafe(() => {
-                        gsap.to(textRefs[0].current, {
-                            opacity: 0
-                        });
-                    });
-                }
+                pin: true,
+                markers: true
             }
-        })
+        }).to(textRefs[0].current, {
+            scale: 25,
+            ease: 'power1.in'
+        }).to(textRefs[1].current, {
+            scale: 25,
+            ease: 'power1.in'
+        });
     })
 
     return (
-        <section ref={container} className="h-[1600vh] text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%]">
+        <section ref={container} className="text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%]">
             <div className="h-screen relative p-8">
                 {
-                    text.map((t, i) => <h2 key={i} ref={textRefs[i]} className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 ${i === 1 ? 'scale-0' : ''}`}>{t}</h2>)
+                    text.map((t, i) => <h2 key={i} ref={textRefs[i]} className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 ${i === 1 ? 'text-dark-text-100 dark:text-text-100' : ''}`}>{t}</h2>)
                 }
             </div>
         </section>
