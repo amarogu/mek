@@ -3,7 +3,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
 import { useMediaQuery } from "react-responsive";
-import { usImgs } from "@/lib/rendering/imgs";
+import { usImgs } from "@/lib/rendering/usImgs";
 
 export default function Us({id}: {id?: string}) {
 

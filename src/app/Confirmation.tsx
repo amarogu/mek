@@ -2,6 +2,8 @@ import { addClasses, removeClasses } from "@/lib/helpers";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { CSSProperties, useRef } from "react";
+import { confirmationImgs } from "@/lib/rendering/confirmationImgs";
+import Image from "next/image";
 
 export default function Confirmation() {
 
@@ -49,6 +51,11 @@ export default function Confirmation() {
                     {
                         text.map((t, i) => <h2 key={i} style={{'--progress': i === 1 ? '0' : '0.0048'} as CSSProperties} ref={textRefs[i]} className={`absolute text-[104.17vw] md:text-[75vw] xl:text-[1000px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 scale-[calc(var(--progress)*25)] origin-[calc(50%+var(--progress)*1%)_center] ${i === 1 ? 'text-dark-text-100 dark:text-text-100' : ''}`}>{t}</h2>)
                     }
+                    <div className="absolute items-center justify-items-center px-8 -z-10 w-full left-0 top-0 h-full grid grid-cols-2">
+                        {
+                            confirmationImgs.map((img, i) => <Image key={i} className="object-cover w-32 h-40" loading="eager" src={img} alt="Imagem de Maria e Kalil" />)
+                        }
+                    </div>
                 </div>
             </div>
             <div className="h-[200vh] bg-dark-text-100 dark:bg-text-100">
