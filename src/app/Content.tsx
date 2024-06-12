@@ -17,6 +17,8 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gsap from "gsap";
 
+gsap.registerPlugin(useGSAP);
+
 export default function Content({item, gifts}: {item?: LeanDocument<IUser> | LeanDocument<IGroup>, gifts: LeanDocument<IGift>[]}) {
 
   const [isMounted, setIsMounted] = useState<boolean>(false);
