@@ -2,6 +2,8 @@ import Img1 from '../../../public/img1_confirmation.png'; import Img2 from '../.
 import { shuffleArray } from '../helpers';
 
 const confirmationImgs = [Img1, Img2, Img3, Img4, Img5, Img6, Img7, Img8, Img9, Img10, Img11, Img12, Img13, Img14, Img15, Img16];
+const confirmationImgsMd = [...confirmationImgs, Img1, Img2, Img3, Img4, Img5, Img6, Img7, Img8];
+shuffleArray(confirmationImgsMd);
 shuffleArray(confirmationImgs);
 
-export default confirmationImgs;
+export {confirmationImgs, confirmationImgsMd};

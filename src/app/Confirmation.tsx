@@ -1,10 +1,11 @@
-import { addClasses, removeClasses, splitArrayInHalf } from "@/lib/helpers";
+import { addClasses, removeClasses, splitArray } from "@/lib/helpers";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { CSSProperties, useRef } from "react";
-import confirmationImgs from "@/lib/rendering/confirmationImgs";
+import {confirmationImgs, confirmationImgsMd} from "@/lib/rendering/confirmationImgs";
 import Image, { StaticImageData } from "next/image";
 import { useWindowSize } from "@studio-freight/hamo";
+import { useMediaQuery } from "react-responsive";
 
 export default function Confirmation() {
 
@@ -16,61 +17,75 @@ export default function Confirmation() {
 
     const tl = useRef<GSAPTimeline | null>();
 
+    const isMd = useMediaQuery({query: '(min-width: 768px)'});
+
+    const isLg = useMediaQuery({query: '(min-width: 1024px)'});
+
+    const getImgsArray = (isMd: boolean, isLg: boolean) => {
+        if (isMd) {
+            if (isLg) {
+                
+            }
+            return splitArray(confirmationImgsMd, 3);
+        }
+        return splitArray(confirmationImgs, 2);
+    }
+
     const { width: windowWidth } = useWindowSize() as { width: number };
 
     useGSAP((_, contextSafe) => {
-        if (contextSafe) {
-            const onUpdate = contextSafe((progress: number) => {
-                console.log(windowWidth);
-                gsap.to('.confirmationImgsColumn0', {
-                    y: progress * 2 * -windowWidth,
-                    stagger: 0.1
-                });
-                gsap.to('.confirmationImgsColumn1', {
-                    y: progress * 2 * -windowWidth,
-                    stagger: 0.1
-                })
-            })
-            tl.current = gsap.timeline({
-                scrollTrigger: {
-                    trigger: container.current,
-                    start: 'top top',
-                    end: 'bottom top',
-                    scrub: true,
-                    pin: true,
-                    pinSpacing: false,
-                    markers: true,
-                    onUpdate: (e) => {
-                        const progress = e.progress;
-                        onUpdate(progress);
-                    },
-                    onLeave: () => {
-                        textRefs.forEach(ref => {
-                            if (ref.current) addClasses(ref.current, ['hidden']);
+            if (contextSafe) {
+                const onUpdate = (progress: number) => {
+                    getImgsArray(isMd, isLg).forEach((imgs, i) => {
+                        imgs.forEach((_, j) => {
+                            contextSafe(() => {
+                                const setY = gsap.quickSetter(`#confirmationImg${i}${j}`, 'y', 'px');
+                                const y = progress * -(imgs.length * 4 - j * 4) * 0.4 * windowWidth;
+                                setY(y);
+                            })();
                         });
-                        const imgs = document.querySelectorAll('.confirmationImgs');
-                        imgs.forEach(img => {
-                            if (img instanceof HTMLElement) addClasses(img, ['hidden']);
-                        });
-                    },
-                    onEnterBack: () => {
-                        textRefs.forEach(ref => {
-                            if (ref.current) removeClasses(ref.current, ['hidden']);
-                        });
-                        const imgs = document.querySelectorAll('.confirmationImgs');
-                        imgs.forEach(img => {
-                            if (img instanceof HTMLElement) removeClasses(img, ['hidden']);
-                        });
+                    });
+                };
+                tl.current = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: container.current,
+                        start: 'top top',
+                        end: 'bottom top',
+                        scrub: true,
+                        pin: true,
+                        pinSpacing: false,
+                        markers: true,
+                        onUpdate: (e) => {
+                            const progress = e.progress;
+                            onUpdate(progress);
+                        },
+                        onLeave: () => {
+                            textRefs.forEach(ref => {
+                                if (ref.current) addClasses(ref.current, ['hidden']);
+                            });
+                            const imgs = document.querySelectorAll('.confirmationImgs');
+                            imgs.forEach(img => {
+                                if (img instanceof HTMLElement) addClasses(img, ['hidden']);
+                            });
+                        },
+                        onEnterBack: () => {
+                            textRefs.forEach(ref => {
+                                if (ref.current) removeClasses(ref.current, ['hidden']);
+                            });
+                            const imgs = document.querySelectorAll('.confirmationImgs');
+                            imgs.forEach(img => {
+                                if (img instanceof HTMLElement) removeClasses(img, ['hidden']);
+                            });
+                        }
                     }
-                }
-            }).to(textRefs[0].current, {
-                '--progress': 1,
-                ease: 'power1.in'
-            }).to(textRefs[1].current, {
-                '--progress': 1,
-                ease: 'power1.in'
-            });
-        }
+                }).to(textRefs[0].current, {
+                    '--progress': 1,
+                    ease: 'power1.in'
+                }).to(textRefs[1].current, {
+                    '--progress': 1,
+                    ease: 'power1.in'
+                });
+            }
     }, [windowWidth])
 
     return (
@@ -82,10 +97,10 @@ export default function Confirmation() {
                     }
                     <div className="absolute px-8 gap-6 -z-10 w-full overflow-y-hidden left-0 top-0 h-full flex">
                         {
-                            splitArrayInHalf(confirmationImgs).map((imgs: StaticImageData[], i) => (
-                                <div key={i} className={`flex justify-center items-center gap-6 flex-col w-1/2 h-full ${i === 1 ? 'mt-24' : ''}`}>
+                            getImgsArray(isMd, isLg).map((imgs: StaticImageData[], i) => (
+                                <div key={i} className={`flex justify-center items-center gap-6 flex-col w-1/2 h-full ${i % 2 === 0 ? 'mt-24' : ''}`}>
                                     {
-                                        imgs.map((img, j) => <Image key={j} className={`object-cover confirmationImgs w-full grayscale-[50%] opacity-50 confirmationImgsColumn${i}`} loading="eager" src={img} alt="Imagem de Maria e Kalil" />)
+                                        imgs.map((img, j) => <Image key={j} id={`confirmationImg${i}${j}`} className={`object-cover confirmationImgs w-full grayscale-[50%] opacity-50 confirmationImgsColumn${i}`} loading="eager" src={img} alt="Imagem de Maria e Kalil" />)
                                     }
                                 </div>
                             ))

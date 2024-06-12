@@ -268,11 +268,37 @@ export type TabData = {
   entityPath: 'msgs' | 'purchases'
 };
 
-export function splitArrayInHalf(array: any[]) {
+function splitArrayInHalf(array: any[]) {
   const midpoint = Math.ceil(array.length / 2);
   const firstHalf = array.slice(0, midpoint);
   const secondHalf = array.slice(midpoint);
   return [firstHalf, secondHalf];
+}
+
+function splitArrayInThirds(array: any[]) {
+  const firstThird = array.slice(0, Math.ceil(array.length / 3));
+  const secondThird = array.slice(Math.ceil(array.length / 3), Math.ceil(array.length * 2 / 3));
+  const thirdThird = array.slice(Math.ceil(array.length * 2 / 3));
+  return [firstThird, secondThird, thirdThird];
+}
+
+function splitArrayInFourths(array: any[]) {
+  const firstFourth = array.slice(0, Math.ceil(array.length / 4));
+  const secondFourth = array.slice(Math.ceil(array.length / 4), Math.ceil(array.length / 2));
+  const thirdFourth = array.slice(Math.ceil(array.length / 2), Math.ceil(array.length * 3 / 4));
+  const fourthFourth = array.slice(Math.ceil(array.length * 3 / 4));
+  return [firstFourth, secondFourth, thirdFourth, fourthFourth];
+}
+
+export function splitArray(array: any[], parts: 2 | 3 | 4) {
+  switch (parts) {
+    case 2:
+      return splitArrayInHalf(array);
+    case 3:
+      return splitArrayInThirds(array);
+    case 4:
+      return splitArrayInFourths(array);
+  }
 }
 
 export function shuffleArray(array: any[]) {
