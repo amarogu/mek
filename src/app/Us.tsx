@@ -13,14 +13,18 @@ export default function Us({id}: {id?: string}) {
 
     const isMd = useMediaQuery({query: '(min-width: 768px)'});
 
+    const isXl = useMediaQuery({query: '(min-width: 1280px)'});
+
     const allSrcs = usImgs;
-    const imgRefs = [useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null)]
+    const imgRefs = [useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null)];
     const imgs = imgRefs.slice(0, 3);
     const srcs = allSrcs.slice(0, 3);
     const newImgs = imgRefs.slice(3, 9);
-    const newImgsMd = imgRefs.slice(3);
+    const newImgsMd = imgRefs.slice(3, 15);
+    const newImgsXl = imgRefs.slice(3);
     const newSrcs = allSrcs.slice(3, 9);
-    const newSrcsMd = allSrcs.slice(3);
+    const newSrcsMd = allSrcs.slice(3, 15);
+    const newSrcsXl = allSrcs.slice(3);
 
     useEffect(() => {
         const usTitle = document.querySelectorAll('.usTitle');
