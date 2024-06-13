@@ -2,7 +2,7 @@ import { addClasses, removeClasses, splitArray } from "@/lib/helpers";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { CSSProperties, useRef } from "react";
-import {confirmationImgs, confirmationImgsMd} from "@/lib/rendering/confirmationImgs";
+import {confirmationImgs, confirmationImgsLg, confirmationImgsMd} from "@/lib/rendering/confirmationImgs";
 import Image, { StaticImageData } from "next/image";
 import { useWindowSize } from "@studio-freight/hamo";
 import { useMediaQuery } from "react-responsive";
@@ -12,6 +12,8 @@ export default function Confirmation() {
     const text = ['Confirmar', 'Presença'];
 
     const container = useRef(null);
+
+    const sectionRef = useRef(null);
 
     const textRefs = [useRef(null), useRef(null)];
 
@@ -24,7 +26,7 @@ export default function Confirmation() {
     const getImgsArray = (isMd: boolean, isLg: boolean) => {
         if (isMd) {
             if (isLg) {
-                
+                return splitArray(confirmationImgsLg, 4);
             }
             return splitArray(confirmationImgsMd, 3);
         }
@@ -67,6 +69,7 @@ export default function Confirmation() {
                             imgs.forEach(img => {
                                 if (img instanceof HTMLElement) addClasses(img, ['hidden']);
                             });
+                            if (sectionRef.current) addClasses(sectionRef.current, ['bg-dark-text-100', 'dark:bg-text-100']);
                         },
                         onEnterBack: () => {
                             textRefs.forEach(ref => {
@@ -76,6 +79,7 @@ export default function Confirmation() {
                             imgs.forEach(img => {
                                 if (img instanceof HTMLElement) removeClasses(img, ['hidden']);
                             });
+                            if (sectionRef.current) removeClasses(sectionRef.current, ['bg-dark-text-100', 'dark:bg-text-100']);
                         }
                     }
                 }).to(textRefs[0].current, {
@@ -89,13 +93,13 @@ export default function Confirmation() {
     }, [windowWidth])
 
     return (
-        <section>
-            <div ref={container} className="font-extrabold h-[1500vh] leading-[85%]">
-                <div className="h-screen relative p-8">
+        <section ref={sectionRef} className="p-8">
+            <div ref={container} className="font-extrabold container mx-auto h-[1500vh] leading-[85%]">
+                <div className="h-screen relative">
                     {
                         text.map((t, i) => <h2 key={i} style={{'--progress': i === 1 ? '0' : '0.0048'} as CSSProperties} ref={textRefs[i]} className={`absolute text-[104.17vw] md:text-[75vw] xl:text-[1000px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 scale-[calc(var(--progress)*25)] origin-[calc(50%+var(--progress)*1%)_center] ${i === 1 ? 'text-dark-text-100 dark:text-text-100' : ''}`}>{t}</h2>)
                     }
-                    <div className="absolute px-8 gap-6 -z-10 w-full overflow-y-hidden left-0 top-0 h-full flex">
+                    <div className="absolute gap-6 -z-10 w-full overflow-y-hidden left-0 top-0 h-full flex">
                         {
                             getImgsArray(isMd, isLg).map((imgs: StaticImageData[], i) => (
                                 <div key={i} className={`flex justify-center items-center gap-6 flex-col w-1/2 h-full ${i % 2 === 0 ? 'mt-24' : ''}`}>
@@ -108,7 +112,7 @@ export default function Confirmation() {
                     </div>
                 </div>
             </div>
-            <div className="h-[200vh] bg-dark-text-100 dark:bg-text-100">
+            <div className="h-[200vh]">
 
             </div>
         </section>

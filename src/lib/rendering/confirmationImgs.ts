@@ -3,7 +3,9 @@ import { shuffleArray } from '../helpers';
 
 const confirmationImgs = [Img1, Img2, Img3, Img4, Img5, Img6, Img7, Img8, Img9, Img10, Img11, Img12, Img13, Img14, Img15, Img16];
 const confirmationImgsMd = [...confirmationImgs, Img1, Img2, Img3, Img4, Img5, Img6, Img7, Img8];
+const confirmationImgsLg = [...confirmationImgs, ...confirmationImgs];
 shuffleArray(confirmationImgsMd);
 shuffleArray(confirmationImgs);
+shuffleArray(confirmationImgsLg);
 
-export {confirmationImgs, confirmationImgsMd};
+export {confirmationImgs, confirmationImgsMd, confirmationImgsLg};
