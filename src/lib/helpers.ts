@@ -259,7 +259,12 @@ export const renderPaymentResultDescription = (message: string) => {
 
 export type LeanDocument<T> = (T & {_id: string} & Required<{_id: string}>);
 
-export type PopulatedLeanDocument<T> = MergeType<LeanDocument<T>, { [key: string]: LeanDocument<any> | LeanDocument<any>[] }>;
+export type Populated<TBase, TPaths> = MergeType<
+  LeanDocument<TBase>,
+  {
+    [P in keyof TPaths]: TPaths[P] extends Array<infer U> ? LeanDocument<U>[] : LeanDocument<TPaths[P]>;
+  }
+>;
 
 export type AdminEntity = Omit<IUser | IGroup, "msgs" | "purchases"> & { msgs: LeanDocument<IMsg>[]; purchases: MergeType<LeanDocument<IPurchase>, {msg: LeanDocument<IMsg>, giftGiven: LeanDocument<IGift>}>[]; };
 
