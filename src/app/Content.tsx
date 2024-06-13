@@ -93,7 +93,7 @@ export default function Content({item, gifts}: {item?: LeanDocument<IUser> | Lea
 
   return (
       <ReactLenis root>
-        <Context.Provider value={{isDarkMode: isDarkMode, setIsDarkMode: setIsDarkMode}}>
+        <Context.Provider value={{isDarkMode: isDarkMode, setIsDarkMode: setIsDarkMode, item: item}}>
             <header id="header" ref={header} className="md:h-[81px] overflow-x-hidden flex px-8 pt-8 items-center fixed w-screen top-0 z-40">
               <Welcome name={item?.name} />
               <Nav open={open} setOpen={setOpen} />
