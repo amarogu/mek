@@ -105,7 +105,7 @@ export default function Content({item, gifts}: {item?: LeanDocument<IUser> | Lea
               <Us id="us" />
               <Messages id="messages" item={item} />
               <Gifts id="gifts" item={item} gifts={gifts} />
-              <Confirmation />
+              <Confirmation id="confirm" />
             </main>
         </Context.Provider>
       </ReactLenis>

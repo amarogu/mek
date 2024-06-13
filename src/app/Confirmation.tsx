@@ -7,7 +7,7 @@ import Image, { StaticImageData } from "next/image";
 import { useWindowSize } from "@studio-freight/hamo";
 import { useMediaQuery } from "react-responsive";
 
-export default function Confirmation() {
+export default function Confirmation({id}: {id?: string}) {
 
     const text = ['Confirmar', 'Presença'];
 
@@ -93,7 +93,7 @@ export default function Confirmation() {
     }, [windowWidth])
 
     return (
-        <section ref={sectionRef} className="p-8">
+        <section id={id} ref={sectionRef} className="p-8">
             <div ref={container} className="font-extrabold container mx-auto h-[1500vh] leading-[85%]">
                 <div className="h-screen relative">
                     {
