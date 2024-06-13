@@ -22,6 +22,8 @@ export default function Us({id}: {id?: string}) {
     const newImgs = imgRefs.slice(3, 9);
     const newImgsMd = imgRefs.slice(3, 15);
     const newImgsXl = imgRefs.slice(3);
+    console.log(newImgsXl.length);
+    console.log(newImgsMd.length);
     const newSrcs = allSrcs.slice(3, 9);
     const newSrcsMd = allSrcs.slice(3, 15);
     const newSrcsXl = allSrcs.slice(3);
@@ -57,11 +59,27 @@ export default function Us({id}: {id?: string}) {
 
         if (isMd) {
             const mdTweens = [gsap.to(newImgsMd[6].current, {xPercent: -210}), gsap.to(newImgsMd[7].current, {xPercent: 210}), gsap.to(newImgsMd[8].current, {xPercent: -210, yPercent: -105}), gsap.to(newImgsMd[9].current, {xPercent: 210, yPercent: -105}), gsap.to(newImgsMd[10].current, {xPercent: -210, yPercent: 105}), gsap.to(newImgsMd[11].current, {xPercent: 210, yPercent: 105})];
-            tl.to(imgs[0].current, {bottom: '50%', yPercent: isMd ? 0 : -50}).to(imgs[1].current, {bottom: '50%', yPercent: -50}).to(imgs[2].current, {bottom: '50%', yPercent: isMd ? -100 : -50}).to('.usImgs', {display: 'block', duration: 0}).add([...commonTweens, ...mdTweens], "+=0");
+            if (isXl) {
+                const xlTweens = [gsap.to(newImgsXl[12].current, {xPercent: -315}), gsap.to(newImgsXl[13].current, {xPercent: 315}), gsap.to(newImgsXl[14].current, {xPercent: -315, yPercent: -105}), gsap.to(newImgsXl[15].current, {xPercent: 315, yPercent: -105}), gsap.to(newImgsXl[16].current, {xPercent: -315, yPercent: 105}), gsap.to(newImgsXl[17].current, {xPercent: 315, yPercent: 105})];
+                tl.to(imgs[0].current, {bottom: '50%', yPercent: isMd ? 0 : -50}).to(imgs[1].current, {bottom: '50%', yPercent: -50}).to(imgs[2].current, {bottom: '50%', yPercent: -100}).to('.usImgs', {display: 'block', duration: 0}).add([...commonTweens, ...mdTweens, ...xlTweens], "+=0");
+                return;
+            }
+            tl.to(imgs[0].current, {bottom: '50%', yPercent: isMd ? 0 : -50}).to(imgs[1].current, {bottom: '50%', yPercent: -50}).to(imgs[2].current, {bottom: '50%', yPercent: -100}).to('.usImgs', {display: 'block', duration: 0}).add([...commonTweens, ...mdTweens], "+=0");
         } else {
-            tl.to(imgs[0].current, {bottom: '50%', yPercent: isMd ? 0 : -50}).to(imgs[1].current, {bottom: '50%', yPercent: -50}).to(imgs[2].current, {bottom: '50%', yPercent: isMd ? -100 : -50}).to('.usImgs', {display: 'block', duration: 0}).add(commonTweens, "+=0");
+            tl.to(imgs[0].current, {bottom: '50%', yPercent: isMd ? 0 : -50}).to(imgs[1].current, {bottom: '50%', yPercent: -50}).to(imgs[2].current, {bottom: '50%', yPercent: -50}).to('.usImgs', {display: 'block', duration: 0}).add(commonTweens, "+=0");
         }
-    }, [isMd])
+    }, [isMd, isXl])
+
+    const renderNewImgs = () => {
+        if (isMd) {
+            if (isXl) {
+                return newImgsXl.map((img, i) => <Image loading="eager" key={i} ref={img} src={newSrcsXl[i]} alt="Imagem de Maria e Kalil" style={{transform: 'translateY(50%)', bottom: '50%'}} width={193} height={258} className="md:w-[193px] hidden usImg usImgs md:h-[258px] w-[180px] h-[240.53px] absolute" />);
+            }
+            return newImgsMd.map((img, i) => <Image loading="eager" key={i} ref={img} src={newSrcsMd[i]} alt="Imagem de Maria e Kalil" style={{transform: 'translateY(50%)', bottom: '50%'}} width={193} height={258} className="md:w-[193px] hidden usImg usImgs md:h-[258px] w-[180px] h-[240.53px] absolute" />);
+        } else {
+            return newImgs.map((img, i) => <Image loading="eager" width={193} height={258} key={i} ref={img} src={newSrcs[i]} alt="Imagem de Maria e Kalil" style={{transform: 'translateY(50%)', bottom: '50%'}} className="md:w-[193px] usImg hidden usImgs md:h-[258px] w-[180px] h-[240.53px] absolute" />);
+        }
+    }
 
     return (
         <section id={id ?? ''} className="flex relative m-4 items-center text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%] text-center justify-center h-screen">
@@ -75,7 +93,7 @@ export default function Us({id}: {id?: string}) {
                     )
                 })}
             </div>
-            {isMd ? newImgsMd.map((img, i) => <Image loading="eager" key={i} ref={img} src={newSrcsMd[i]} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translateY(50%)', bottom: '50%'}} width={193} height={258} className="md:w-[193px] hidden usImg usImgs md:h-[258px] w-[180px] h-[240.53px] absolute" />) : newImgs.map((img, i) => <Image loading="eager" width={193} height={258} key={i} ref={img} src={newSrcs[i]} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translateY(50%)', bottom: '50%'}} className="md:w-[193px] usImg hidden usImgs md:h-[258px] w-[180px] h-[240.53px] absolute" />)}
+            {renderNewImgs()}
             {imgs.map((img, i) => <Image loading="eager" key={i} ref={img} src={srcs[i]} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translate(0, 100%)', bottom: '0'}} width={193} height={258} className="md:w-[193px] usImg usImgs md:h-[258px] w-[180px] h-[240.53px] absolute" />)}
         </section>
     )
