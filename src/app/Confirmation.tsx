@@ -6,6 +6,7 @@ import {confirmationImgs, confirmationImgsLg, confirmationImgsMd} from "@/lib/re
 import Image, { StaticImageData } from "next/image";
 import { useWindowSize } from "@studio-freight/hamo";
 import { useMediaQuery } from "react-responsive";
+import ConfirmationForm from "./ConfirmationForm";
 
 export default function Confirmation({id}: {id?: string}) {
 
@@ -112,8 +113,8 @@ export default function Confirmation({id}: {id?: string}) {
                     </div>
                 </div>
             </div>
-            <div className="h-[200vh]">
-
+            <div className="h-screen flex items-center justify-center">
+                <ConfirmationForm />
             </div>
         </section>
     )
