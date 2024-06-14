@@ -24,6 +24,8 @@ export default function Confirmation({id}: {id?: string}) {
 
     const isLg = useMediaQuery({query: '(min-width: 1024px)'});
 
+    const imgsContainer = useRef(null);
+
     const getImgsArray = (isMd: boolean, isLg: boolean) => {
         if (isMd) {
             if (isLg) {
@@ -63,24 +65,18 @@ export default function Confirmation({id}: {id?: string}) {
                             onUpdate(progress);
                         },
                         onLeave: () => {
-                            textRefs.forEach(ref => {
+                            /*textRefs.forEach(ref => {
                                 if (ref.current) addClasses(ref.current, ['hidden']);
                             });
-                            const imgs = document.querySelectorAll('.confirmationImgs');
-                            imgs.forEach(img => {
-                                if (img instanceof HTMLElement) addClasses(img, ['hidden']);
-                            });
-                            if (sectionRef.current) addClasses(sectionRef.current, ['bg-dark-text-100', 'dark:bg-text-100']);
+                            if (imgsContainer.current) addClasses(imgsContainer.current, ['hidden']);
+                            if (sectionRef.current) addClasses(sectionRef.current, ['bg-dark-text-100', 'dark:bg-text-100']);*/
                         },
                         onEnterBack: () => {
-                            textRefs.forEach(ref => {
+                            /*textRefs.forEach(ref => {
                                 if (ref.current) removeClasses(ref.current, ['hidden']);
                             });
-                            const imgs = document.querySelectorAll('.confirmationImgs');
-                            imgs.forEach(img => {
-                                if (img instanceof HTMLElement) removeClasses(img, ['hidden']);
-                            });
-                            if (sectionRef.current) removeClasses(sectionRef.current, ['bg-dark-text-100', 'dark:bg-text-100']);
+                            if (imgsContainer.current) removeClasses(imgsContainer.current, ['hidden']);
+                            if (sectionRef.current) removeClasses(sectionRef.current, ['bg-dark-text-100', 'dark:bg-text-100']);*/
                         }
                     }
                 }).to(textRefs[0].current, {
@@ -100,7 +96,7 @@ export default function Confirmation({id}: {id?: string}) {
                     {
                         text.map((t, i) => <h2 key={i} style={{'--progress': i === 1 ? '0' : '0.0048'} as CSSProperties} ref={textRefs[i]} className={`absolute text-[104.17vw] md:text-[75vw] xl:text-[1000px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 scale-[calc(var(--progress)*25)] origin-[calc(50%+var(--progress)*1%)_center] ${i === 1 ? 'text-dark-text-100 dark:text-text-100' : ''}`}>{t}</h2>)
                     }
-                    <div className="absolute gap-6 -z-10 w-full overflow-y-hidden left-0 top-0 h-full flex">
+                    <div ref={imgsContainer} className="absolute gap-6 -z-10 w-full overflow-y-hidden left-0 top-0 h-full flex">
                         {
                             getImgsArray(isMd, isLg).map((imgs: StaticImageData[], i) => (
                                 <div key={i} className={`flex justify-center items-center gap-6 flex-col w-1/2 h-full ${i % 2 === 0 ? 'mt-24' : ''}`}>
@@ -113,7 +109,7 @@ export default function Confirmation({id}: {id?: string}) {
                     </div>
                 </div>
             </div>
-            <div className="h-screen flex items-center justify-center">
+            <div className="h-screen relative z-20 flex items-center justify-center">
                 <ConfirmationForm />
             </div>
         </section>
