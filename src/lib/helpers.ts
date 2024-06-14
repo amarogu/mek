@@ -1,4 +1,4 @@
-import { MergeType, HydratedDocument } from 'mongoose';
+import { MergeType, HydratedDocument, Document } from 'mongoose';
 import { IGroup, IUser, IMsg, IPurchase, IGift } from './Models/Interfaces';
 
 export function addClasses(element: HTMLElement, classes: string[]) {
@@ -259,7 +259,7 @@ export const renderPaymentResultDescription = (message: string) => {
 
 export type LeanDocument<T> = (T & {_id: string} & Required<{_id: string}>);
 
-export type Populated<TBase, TPaths> = TBase extends HydratedDocument<TBase>
+export type Populated<TBase, TPaths> = TBase extends Document
   ? 
     HydratedDocument<MergeType<TBase, {
       [P in keyof TPaths]: TPaths[P] extends Array<infer U>
