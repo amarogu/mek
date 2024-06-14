@@ -259,26 +259,22 @@ export const renderPaymentResultDescription = (message: string) => {
 
 export type LeanDocument<T> = (T & {_id: string} & Required<{_id: string}>);
 
-export type Populated<TBase, TPaths> = TBase extends Document
-  ? 
-    HydratedDocument<MergeType<TBase, {
-      [P in keyof TPaths]: TPaths[P] extends Array<infer U>
-        ? HydratedDocument<U>[]
-        : HydratedDocument<TPaths[P]>;
-    }>>
-  : 
-    MergeType<
-      LeanDocument<TBase>,
-      {
-        [P in keyof TPaths]: TPaths[P] extends Array<infer U>
-          ? LeanDocument<U>[]
-          : LeanDocument<TPaths[P]>;
-      }
-    >;
+export type Populated<TBase, TPaths> = MergeType<
+  LeanDocument<TBase>,
+  {
+    [P in keyof TPaths]: TPaths[P] extends Array<infer U>
+      ? U extends Populated<infer _, infer _>
+        ? TPaths[P]
+        : LeanDocument<U>[]
+      : TPaths[P] extends Populated<infer _, infer _>
+      ? TPaths[P]
+      : LeanDocument<TPaths[P]>
+  }
+>;
 
-export type AdminEntity = Omit<IUser | IGroup, "msgs" | "purchases"> & { msgs: LeanDocument<IMsg>[]; purchases: MergeType<LeanDocument<IPurchase>, {msg: LeanDocument<IMsg>, giftGiven: LeanDocument<IGift>}>[]; };
+export type AdminEntity = Populated<IUser | IGroup, { msgs: IMsg[]; purchases: Populated<IPurchase, {msg: IMsg, giftGiven: IGift}>[] }>;
 
-export type AdminData = LeanDocument<AdminEntity>[];
+export type AdminData = AdminEntity[];
 
 export type TabData = {
   tab: 'Mensagens' | 'Presentes',

@@ -1,7 +1,7 @@
 'use client';
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
-import { AdminData, ErrorResponse, LeanDocument, SuccessResponse, emptyMsg } from "@/lib/helpers";
+import { AdminData, ErrorResponse, LeanDocument, Populated, SuccessResponse, emptyMsg } from "@/lib/helpers";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { IGift, IMsg, IPurchase } from "@/lib/Models/Interfaces";
 import { TabData } from "@/lib/helpers";
@@ -11,9 +11,8 @@ import Button from "../Button";
 import { useRef } from "react";
 import instance from "@/lib/axios";
 import { useState } from "react";
-import { MergeType } from "mongoose";
 
-const renderPath = (path: LeanDocument<IMsg> | MergeType<LeanDocument<IPurchase>, {msg: LeanDocument<IMsg>, giftGiven: LeanDocument<IGift>}>) => {
+const renderPath = (path: LeanDocument<IMsg> | Populated<IPurchase, {msg: IMsg, giftGiven: IGift}>) => {
     if ('content' in path) {
         return (
             <p>
