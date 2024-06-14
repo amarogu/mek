@@ -11,7 +11,7 @@ import { IGift, IUser, IGroup } from "@/lib/Models/Interfaces";
 import Loading from "./loading";
 import Messages from "./Messages";
 import Gifts from "./Gifts";
-import { LeanDocument } from "@/lib/helpers";
+import { LeanDocument, Populated } from "@/lib/helpers";
 import Confirmation from "./Confirmation";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -19,7 +19,7 @@ import gsap from "gsap";
 
 gsap.registerPlugin(useGSAP);
 
-export default function Content({item, gifts}: {item?: LeanDocument<IUser> | LeanDocument<IGroup>, gifts: LeanDocument<IGift>[]}) {
+export default function Content({item, gifts}: {item?: LeanDocument<IUser> | Populated<IGroup, {users: IUser[]}>, gifts: LeanDocument<IGift>[]}) {
 
   const [isMounted, setIsMounted] = useState<boolean>(false);
 
@@ -101,10 +101,10 @@ export default function Content({item, gifts}: {item?: LeanDocument<IUser> | Lea
             </header>
             <main id="main" className="overflow-x-hidden overflow-y-hidden !h-screen">
               <div ref={spacer}></div>
-              <Hero item={item} id="hero" className="px-8" />
+              <Hero id="hero" className="px-8" />
               <Us id="us" />
-              <Messages id="messages" item={item} />
-              <Gifts id="gifts" item={item} gifts={gifts} />
+              <Messages id="messages" />
+              <Gifts id="gifts" gifts={gifts} />
               <Confirmation id="confirm" />
             </main>
         </Context.Provider>

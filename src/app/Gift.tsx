@@ -1,17 +1,20 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { LeanDocument } from "@/lib/helpers";
-import { IGift, IUser, IGroup } from "@/lib/Models/Interfaces";
+import { IGift } from "@/lib/Models/Interfaces";
 import Image from "next/image";
+import Context from "./Context";
 
-export default function Gift({gift, item}: {gift: LeanDocument<IGift>, item?: LeanDocument<IUser> | LeanDocument<IGroup>}) {
+export default function Gift({gift}: {gift: LeanDocument<IGift>}) {
 
     const upperContainer = useRef<HTMLDivElement>(null);
     const lowerContainer = useRef<HTMLDivElement>(null);
     const container = useRef<HTMLDivElement>(null);
     const [hovering, setHovering] = useState<boolean>(false);
+
+    const {item} = useContext(Context);
 
     useGSAP(() => {
 

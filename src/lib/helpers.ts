@@ -1,4 +1,4 @@
-import { MergeType } from 'mongoose';
+import { MergeType, HydratedDocument } from 'mongoose';
 import { IGroup, IUser, IMsg, IPurchase, IGift } from './Models/Interfaces';
 
 export function addClasses(element: HTMLElement, classes: string[]) {
@@ -33,7 +33,7 @@ export function easeOutBack(x: number): number {
   return x * x * x * x * x;
 }
 
-export const parseHeroContent = (item?: LeanDocument<IUser> | LeanDocument<IGroup>) => {
+export const parseHeroContent = (item?: LeanDocument<IUser> | Populated<IGroup, {users: IUser[]}>) => {
   if (item) {
       if ('users' in item) {
           switch (item.gender) {
@@ -63,7 +63,7 @@ export const parseHeroContent = (item?: LeanDocument<IUser> | LeanDocument<IGrou
   }
 }
 
-export const parseMdHeroContent = (item?: LeanDocument<IUser> | LeanDocument<IGroup>) => {
+export const parseMdHeroContent = (item?: LeanDocument<IUser> | Populated<IGroup, {users: IUser[]}>) => {
   if (item) {
       if ('users' in item) {
           switch (item.gender) {
@@ -259,12 +259,22 @@ export const renderPaymentResultDescription = (message: string) => {
 
 export type LeanDocument<T> = (T & {_id: string} & Required<{_id: string}>);
 
-export type Populated<TBase, TPaths> = MergeType<
-  LeanDocument<TBase>,
-  {
-    [P in keyof TPaths]: TPaths[P] extends Array<infer U> ? LeanDocument<U>[] : LeanDocument<TPaths[P]>;
-  }
->;
+export type Populated<TBase, TPaths> = TBase extends HydratedDocument<TBase>
+  ? 
+    HydratedDocument<MergeType<TBase, {
+      [P in keyof TPaths]: TPaths[P] extends Array<infer U>
+        ? HydratedDocument<U>[]
+        : HydratedDocument<TPaths[P]>;
+    }>>
+  : 
+    MergeType<
+      LeanDocument<TBase>,
+      {
+        [P in keyof TPaths]: TPaths[P] extends Array<infer U>
+          ? LeanDocument<U>[]
+          : LeanDocument<TPaths[P]>;
+      }
+    >;
 
 export type AdminEntity = Omit<IUser | IGroup, "msgs" | "purchases"> & { msgs: LeanDocument<IMsg>[]; purchases: MergeType<LeanDocument<IPurchase>, {msg: LeanDocument<IMsg>, giftGiven: LeanDocument<IGift>}>[]; };
 

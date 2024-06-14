@@ -1,6 +1,6 @@
 import { IGroup, IUser } from "@/lib/Models/Interfaces";
 import StyledInput from "./StyledInput";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Button from "./Button";
 import { useMediaQuery } from "react-responsive";
 import Image from "next/image";
@@ -10,8 +10,9 @@ import { useRef } from "react";
 import instance from "@/lib/axios";
 import { ErrorResponse, LeanDocument, SuccessResponse, emptyMsg } from "@/lib/helpers";
 import { HydratedDocument } from "mongoose";
+import Context from "./Context";
 
-export default function Messages({ item, id }: { item?: LeanDocument<IUser> | LeanDocument<IGroup>, id: string }) {
+export default function Messages({ id }: { id: string }) {
 
     const [name, setName] = useState<string>('');
     const [message, setMessage] = useState<string>('');
@@ -22,6 +23,8 @@ export default function Messages({ item, id }: { item?: LeanDocument<IUser> | Le
 
     const formRef = useRef<HTMLFormElement>(null);
     const imgRef = useRef<HTMLImageElement>(null);
+
+    const {item} = useContext(Context);
 
     useEffect(() => {
         if (isMd) {

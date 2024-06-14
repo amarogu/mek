@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useMediaQuery } from "react-responsive";
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import BottomTab from "./BottomTab";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -9,15 +9,16 @@ import SlidingText from "./SlidingText";
 import LogoAlt from '../../public/meklogo_alt.svg';
 import LogoAltDark from '../../public/meklogo_alt_dark.svg';
 import { parseHeroContent, parseMdHeroContent } from "@/lib/helpers";
-import { LeanDocument } from "@/lib/helpers";
-import { IUser, IGroup } from "@/lib/Models/Interfaces";
+import Context from "./Context";
 
-export default function Hero({className, id, item}: {className?: string, id?: string, item?: LeanDocument<IUser> | LeanDocument<IGroup>}) {
+export default function Hero({className, id}: {className?: string, id?: string}) {
 
     const isMd = useMediaQuery({query: '(min-width: 768px)'});
     const isXl = useMediaQuery({query: '(min-width: 1280px)'});
     const heroRef = useRef<HTMLElement>(null);
     const slidingText = useRef<HTMLDivElement>(null);
+
+    const {item} = useContext(Context);
 
     const calculateOverlap = () => {
         const imgRect = actualImgHelper.current?.getBoundingClientRect();
