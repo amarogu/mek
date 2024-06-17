@@ -63,20 +63,6 @@ export default function Confirmation({id}: {id?: string}) {
                         onUpdate: (e) => {
                             const progress = e.progress;
                             onUpdate(progress);
-                        },
-                        onLeave: () => {
-                            /*textRefs.forEach(ref => {
-                                if (ref.current) addClasses(ref.current, ['hidden']);
-                            });
-                            if (imgsContainer.current) addClasses(imgsContainer.current, ['hidden']);
-                            if (sectionRef.current) addClasses(sectionRef.current, ['bg-dark-text-100', 'dark:bg-text-100']);*/
-                        },
-                        onEnterBack: () => {
-                            /*textRefs.forEach(ref => {
-                                if (ref.current) removeClasses(ref.current, ['hidden']);
-                            });
-                            if (imgsContainer.current) removeClasses(imgsContainer.current, ['hidden']);
-                            if (sectionRef.current) removeClasses(sectionRef.current, ['bg-dark-text-100', 'dark:bg-text-100']);*/
                         }
                     }
                 }).to(textRefs[0].current, {

@@ -1,5 +1,9 @@
 import { useContext } from "react"
 import Context from "./Context"
+import Image from "next/image";
+import Click from '../../public/left_click.svg';
+import ClickDark from '../../public/left_click_dark.svg';
+import ThemeImage from "./ThemeImage";
 
 export default function ConfirmationForm() {
 
@@ -9,7 +13,7 @@ export default function ConfirmationForm() {
         if (item) {
             if ('users' in item) {
                 return (
-                    <>
+                    <div className="flex flex-col gap-4">
                         {
                             item.users.map((u, i) => {
                                 return (
@@ -17,7 +21,7 @@ export default function ConfirmationForm() {
                                 )
                             })
                         }
-                    </>
+                    </div>
                 )
             } else {
                 return (
@@ -36,6 +40,11 @@ export default function ConfirmationForm() {
             {
               renderConfirmationPanel()  
             }
+            <div>
+                <p>
+                   <ThemeImage srcDark={ClickDark} srcLight={Click} alt="Duplo-clique para confirmar" />
+                </p>
+            </div>
         </form>
     )
 }
