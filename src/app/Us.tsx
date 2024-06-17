@@ -22,8 +22,6 @@ export default function Us({id}: {id?: string}) {
     const newImgs = imgRefs.slice(3, 9);
     const newImgsMd = imgRefs.slice(3, 15);
     const newImgsXl = imgRefs.slice(3);
-    console.log(newImgsXl.length);
-    console.log(newImgsMd.length);
     const newSrcs = allSrcs.slice(3, 9);
     const newSrcsMd = allSrcs.slice(3, 15);
     const newSrcsXl = allSrcs.slice(3);

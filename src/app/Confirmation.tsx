@@ -59,7 +59,6 @@ export default function Confirmation({id}: {id?: string}) {
                         scrub: true,
                         pin: true,
                         pinSpacing: false,
-                        markers: true,
                         onUpdate: (e) => {
                             const progress = e.progress;
                             onUpdate(progress);
