@@ -11,6 +11,8 @@ import Button from "../Button";
 import { useRef } from "react";
 import instance from "@/lib/axios";
 import { useState } from "react";
+import GuestForm from "./GuestForm";
+import GroupForm from "./GroupForm";
 
 const renderPath = (path: LeanDocument<IMsg> | Populated<IPurchase, {msg: IMsg, giftGiven: IGift}>) => {
     if ('content' in path) {
@@ -41,6 +43,19 @@ const renderDashboard = (data: AdminData) => {
     const [value, setValue] = useState<number | string>('');
     const [res, setRes] = useState<SuccessResponse | ErrorResponse | undefined>(undefined);
     const [clicked, setClicked] = useState(false);
+
+    const [state, setState] = useState<'selection' | 'user' | 'group'>('selection');
+
+    const renderContent = (state: 'selection' | 'user' | 'group') => {
+        switch (state) {
+            case 'selection':
+                return <div className="flex gap-4"><button onClick={() => setState('user')} className="text-left bg-accent-100 dark:bg-dark-accent-100 px-4 py-2 rounded-sm focus:outline outline-offset-2 outline-accent">Cadastrar convidado</button><button onClick={() => setState('group')} className="text-left bg-accent-100 dark:bg-dark-accent-100 px-4 py-2 rounded-sm focus:outline outline-offset-2 outline-accent">Cadastrar grupo</button></div>;
+            case 'user':
+                return <GuestForm />;
+            case 'group':
+                return <GroupForm />;
+        }
+    }
 
     const fileInput = useRef<HTMLInputElement>(null);
 
@@ -99,6 +114,7 @@ const renderDashboard = (data: AdminData) => {
                         })
                     }
                     <Tab className={tabClassName}>Cadastrar presentes</Tab>
+                    <Tab className={tabClassName}>Cadastrar convidados</Tab>
                 </TabList>
                 <TabPanels>
                     {
@@ -158,6 +174,17 @@ const renderDashboard = (data: AdminData) => {
                                     <SimpleInput ref={fileInput} type="file" />
                                 </div>
                                 <Button clicked={clicked} cleanup={cleanup} res={res} onClick={handleClick} text="Cadastrar" />
+                            </form>
+                        </div>
+                    </TabPanel>
+                    <TabPanel>
+                        <div>
+                            <form className="bg-bg-200 dark:bg-dark-bg-200 p-4 flex flex-col gap-4">
+                                <div className="flex items-center gap-4">
+                                    <button onClick={(e) => {e.preventDefault(); setState('selection')}} className="text-left bg-accent-100 dark:bg-dark-accent-100 px-4 py-2 rounded-sm focus:outline outline-offset-2 outline-accent">Voltar</button>
+                                    <h1 className="text-2xl font-bold">Cadastro de convidados</h1>
+                                </div>
+                                {renderContent(state)}
                             </form>
                         </div>
                     </TabPanel>
