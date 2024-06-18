@@ -1,9 +1,10 @@
-import { useContext } from "react"
+import { useContext, useRef } from "react"
 import Context from "./Context"
-import Image from "next/image";
 import Click from '../../public/left_click.svg';
 import ClickDark from '../../public/left_click_dark.svg';
 import ThemeImage from "./ThemeImage";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 export default function ConfirmationForm() {
 
@@ -13,13 +14,31 @@ export default function ConfirmationForm() {
         return Math.max(max, 1 - decrement * i);
     }
 
+    const container = useRef(null);
+
+    const tl = useRef<GSAPTimeline | null>();
+
+    useGSAP(() => {
+        tl.current = gsap.timeline({
+            scrollTrigger: {
+                trigger: container.current,
+                start: 'top top',
+                end: 'bottom top',
+                scrub: true,
+                markers: true,
+                pin: true,
+                pinSpacing: false
+            }
+        })
+    })
+
     const renderConfirmationPanel = () => {
         if (item) {
             if ('users' in item) {
                 return (
                     <div className="flex relative flex-col gap-4">
                         {
-                            item.users.map((u, i) => {
+                            item.users.sort((a, b) => b.name.length - a.name.length).map((u, i) => {
                                 return (
                                     <h2 className={`${i === 0 ? '' : 'absolute left-1/2'}`} style={{transform: i !== 0 ? `translateX(-50%) scale(${fadingFactor(i)}) translateY(${-55 * i}%)` : '', opacity: i !== 0 ? `${fadingFactor(i, 0, 0.4)}` : '', filter: i !== 0 ? `blur(${1.5 * i}px)` : ''}} key={i}>{u.name}</h2>
                                 )
@@ -40,16 +59,20 @@ export default function ConfirmationForm() {
     }
 
     return (
-        <form className="flex flex-col gap-4">
-            <div className="uppercase text-center text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%]">
-                {
-                renderConfirmationPanel()  
-                }
+        <div ref={container} className="h-[500vh] static z-20 bg-dark-text-100 dark:bg-text-100">
+            <div className="relative flex items-center justify-center h-screen">
+                <form className="flex flex-col gap-4">
+                    <div className="uppercase text-center text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%]">
+                        {
+                        renderConfirmationPanel()  
+                        }
+                    </div>
+                    <div className="flex gap-4 font-semibold items-center">
+                        <ThemeImage loading="eager" srcDark={ClickDark} srcLight={Click} alt="Duplo-clique para confirmar" />
+                        <p>Duplo-clique para confirmar</p>
+                    </div>
+                </form>
             </div>
-            <div className="flex gap-4 font-semibold items-center">
-                <ThemeImage loading="eager" srcDark={ClickDark} srcLight={Click} alt="Duplo-clique para confirmar" />
-                <p>Duplo-clique para confirmar</p>
-            </div>
-        </form>
+        </div>
     )
 }
