@@ -1,4 +1,4 @@
-import { useContext, useRef } from "react"
+import { useContext, useRef, useState } from "react"
 import Context from "./Context"
 import Click from '../../public/left_click.svg';
 import ClickDark from '../../public/left_click_dark.svg';
@@ -10,11 +10,17 @@ export default function ConfirmationForm() {
 
     const { item } = useContext(Context);
 
+    if (!item) {
+        return null;
+    }
+
     const fadingFactor = (i: number, max = 0.5, decrement = 0.125) => {
         return Math.max(max, 1 - decrement * i);
     }
 
     const container = useRef(null);
+
+    const h2Refs = useRef<(HTMLHeadingElement | null)[]>([]);
 
     const tl = useRef<GSAPTimeline | null>();
 
@@ -29,31 +35,46 @@ export default function ConfirmationForm() {
                 pin: true,
                 pinSpacing: false
             }
+        });
+
+        let localIndex = 0;
+
+        h2Refs.current.forEach((h2, i, arr) => {
+            if (h2 && tl.current) {
+                for (...) {
+                    console.log(j);
+                    tl.current.add(gsap.to(h2, {
+                        yPercent: -55 * j,
+                        scale: fadingFactor(j),
+                        opacity: fadingFactor(j, 0, 0.4),
+                        filter: `blur(${1.5 * j}px)`,
+                        ease: 'power1.inOut'
+                    }), 0)
+                }
+            }
         })
     })
 
     const renderConfirmationPanel = () => {
-        if (item) {
-            if ('users' in item) {
-                return (
-                    <div className="flex relative flex-col gap-4">
-                        {
-                            item.users.sort((a, b) => b.name.length - a.name.length).map((u, i) => {
-                                return (
-                                    <h2 className={`${i === 0 ? '' : 'absolute left-1/2'}`} style={{transform: i !== 0 ? `translateX(-50%) scale(${fadingFactor(i)}) translateY(${-55 * i}%)` : '', opacity: i !== 0 ? `${fadingFactor(i, 0, 0.4)}` : '', filter: i !== 0 ? `blur(${1.5 * i}px)` : ''}} key={i}>{u.name}</h2>
-                                )
-                            })
-                        }
-                    </div>
-                )
-            } else {
-                return (
-                    <h2><button>Clique aqui para confirmar</button></h2>
-                )
-            }
+        if ('users' in item) {
+            return (
+                <div className="flex relative flex-col gap-4">
+                    {
+                        item.users.sort((a, b) => b.name.length - a.name.length).map((u, i) => {
+                            return (
+                                <h2 ref={el => {
+                                    if (el !== null) {
+                                        h2Refs.current[i] = el;
+                                    }
+                                }} className={`${i === 0 ? '' : 'absolute left-1/2'}`} style={{transform: i !== 0 ? `translateX(-50%) scale(${fadingFactor(i)}) translateY(${-55 * i}%)` : '', opacity: i !== 0 ? `${fadingFactor(i, 0, 0.4)}` : '', filter: i !== 0 ? `blur(${1.5 * i}px)` : ''}} key={i}>{u.name}</h2>
+                            )
+                        })
+                    }
+                </div>
+            )
         } else {
             return (
-                <p>Unavailable</p>
+                <h2><button>Clique aqui para confirmar</button></h2>
             )
         }
     }
