@@ -5,6 +5,7 @@ import ClickDark from '../../public/left_click_dark.svg';
 import ThemeImage from "./ThemeImage";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function ConfirmationForm() {
 
@@ -25,6 +26,16 @@ export default function ConfirmationForm() {
     const tl = useRef<GSAPTimeline | null>();
 
     useGSAP(() => {
+        /*ScrollTrigger.create({
+            trigger: container.current,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: true,
+            markers: true,
+            pin: true,
+            pinSpacing: false,
+        });*/
+
         tl.current = gsap.timeline({
             scrollTrigger: {
                 trigger: container.current,
@@ -34,12 +45,117 @@ export default function ConfirmationForm() {
                 markers: true,
                 pin: true,
                 pinSpacing: false,
-                onUpdate: (e) => {
-                    
-                },
-                
             }
-        });
+        })
+
+        tl.current.to(h2Refs.current[0], {
+            opacity: 0,
+        }).add([
+            gsap.to(h2Refs.current[1], {
+                scale: 1,
+                opacity: 1,
+                y: 0,
+                filter: 'blur(0px)'
+            }),
+            gsap.to(h2Refs.current[2], {
+                scale: fadingFactor(1),
+                opacity: fadingFactor(1, 0, 0.4),
+                y: '-55%',
+                filter: `blur(${1.5}px)`,
+            }),
+            gsap.to(h2Refs.current[3], {
+                scale: fadingFactor(2),
+                opacity: fadingFactor(2, 0, 0.4),
+                y: '-110%',
+                filter: `blur(${3}px)`
+            })
+        ]).to(h2Refs.current[1], {
+            opacity: 0,
+        }).add([
+            gsap.to(h2Refs.current[2], {
+                scale: 1,
+                opacity: 1,
+                y: 0,
+                filter: 'blur(0px)'
+            }),
+            gsap.to(h2Refs.current[3], {
+                scale: fadingFactor(1),
+                opacity: fadingFactor(1, 0, 0.4),
+                y: '-55%',
+                filter: `blur(${1.5}px)`,
+            }),
+            gsap.to(h2Refs.current[4], {
+                scale: fadingFactor(2),
+                opacity: fadingFactor(2, 0, 0.4),
+                y: '-110%',
+                filter: `blur(${3}px)`
+            })
+        ]).to(h2Refs.current[2], {
+            opacity: 0
+        }).add([
+            gsap.to(h2Refs.current[3], {
+                scale: 1,
+                opacity: 1,
+                y: 0,
+                filter: 'blur(0px)'
+            }),
+            gsap.to(h2Refs.current[4], {
+                scale: fadingFactor(1),
+                opacity: fadingFactor(1, 0, 0.4),
+                y: '-55%',
+                filter: `blur(${1.5}px)`,
+            }),
+            gsap.to(h2Refs.current[5], {
+                scale: fadingFactor(2),
+                opacity: fadingFactor(2, 0, 0.4),
+                y: '-110%',
+                filter: `blur(${3}px)`
+            })
+        ]).to(h2Refs.current[3], {
+            opacity: 0
+        }).add([
+            gsap.to(h2Refs.current[4], {
+                scale: 1,
+                opacity: 1,
+                y: 0,
+                filter: 'blur(0px)'
+            }),
+            gsap.to(h2Refs.current[5], {
+                scale: fadingFactor(1),
+                opacity: fadingFactor(1, 0, 0.4),
+                y: '-55%',
+                filter: `blur(${1.5}px)`,
+            }),
+            gsap.to(h2Refs.current[6], {
+                scale: fadingFactor(2),
+                opacity: fadingFactor(2, 0, 0.4),
+                y: '-110%',
+                filter: `blur(${3}px)`
+            })
+        ]).to(h2Refs.current[4], {
+            opacity: 0
+        }).add([
+            gsap.to(h2Refs.current[5], {
+                scale: 1,
+                opacity: 1,
+                y: 0,
+                filter: 'blur(0px)'
+            }),
+            gsap.to(h2Refs.current[6], {
+                scale: fadingFactor(1),
+                opacity: fadingFactor(1, 0, 0.4),
+                y: '-55%',
+                filter: `blur(${1.5}px)`,
+            }),
+        ]).to(h2Refs.current[5], {
+            opacity: 0
+        }).add(gsap.to(h2Refs.current[6], {
+            scale: 1,
+            opacity: 1,
+            y: 0,
+            filter: 'blur(0px)'
+        }));
+        console.log(tl.current.getChildren());
     })
 
     const renderConfirmationPanel = () => {

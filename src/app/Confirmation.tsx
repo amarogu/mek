@@ -97,6 +97,7 @@ export default function Confirmation({id}: {id?: string}) {
                 </div>
             </div>
             <ConfirmationForm />
+            <div className="h-screen"></div>
         </section>
     )
 }
