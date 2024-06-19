@@ -10,7 +10,7 @@ export default function ConfirmationForm() {
 
     const { item } = useContext(Context);
 
-    if (!item) {
+    if (!item || !('users' in item)) {
         return null;
     }
 
@@ -33,35 +33,13 @@ export default function ConfirmationForm() {
                 scrub: true,
                 markers: true,
                 pin: true,
-                pinSpacing: false
-            }
-        });
-
-        let localIndex = 0;
-
-        h2Refs.current.forEach((h2, i, arr) => {
-            if (h2 && tl.current) {
-                for (let j = i; j < arr.length && !(j < 0); j--) {
-                    console.log(j);
-                    if (j === 0) {
-                        tl.current.add(gsap.to(h2, {
-                            opacity: 0,
-                            ease: 'power1.inOut',
-                        }));
-                    } else {
-                        tl.current.add(gsap.to(h2, {
-                            y: -55 * (j - 1),
-                            scale: j === 0 ? 1 : fadingFactor(j - 1),
-                            opacity: j === 0 ? 1 : fadingFactor(j - 1, 0, 0.4),
-                            filter: `blur(${1.5 * (j - 1)}px)`,
-                            ease: 'power1.inOut',
-                        }));
-                    }
-                }
+                pinSpacing: false,
+                onUpdate: (e) => {
+                    
+                },
                 
             }
         });
-        console.log(tl.current.getChildren());
     })
 
     const renderConfirmationPanel = () => {
