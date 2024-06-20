@@ -5,6 +5,7 @@ import ClickDark from '../../public/left_click_dark.svg';
 import ThemeImage from "./ThemeImage";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { calculateConfirmationFormHeight } from "@/lib/helpers";
 
 export default function ConfirmationForm() {
 
@@ -24,15 +25,15 @@ export default function ConfirmationForm() {
 
     const tl = useRef<GSAPTimeline | null>();
 
-    useGSAP(() => {
+    const containerHeight = calculateConfirmationFormHeight(item.users.length);
 
+    useGSAP(() => {
         tl.current = gsap.timeline({
             scrollTrigger: {
                 trigger: container.current,
                 start: 'top top',
                 end: 'bottom top',
                 scrub: true,
-                markers: true,
                 pin: true,
                 pinSpacing: false,
             }
@@ -62,9 +63,7 @@ export default function ConfirmationForm() {
                 })] : []),
             ]);
         }
-        
-        console.log(tl.current.getChildren());
-    })
+    });
 
     const renderConfirmationPanel = () => {
         if ('users' in item) {
@@ -91,7 +90,7 @@ export default function ConfirmationForm() {
     }
 
     return (
-        <div ref={container} className="h-[1500vh] static z-20 bg-dark-text-100 dark:bg-text-100">
+        <div ref={container} style={{height: `${containerHeight}vh`}} className="static z-20 bg-dark-text-100 dark:bg-text-100">
             <div className="relative flex items-center justify-center h-screen">
                 <form className="flex flex-col gap-4">
                     <div className="uppercase text-center text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%]">

@@ -320,3 +320,11 @@ export function shuffleArray(array: any[]) {
       [array[i], array[j]] = [array[j], array[i]]; // Swap elements
   }
 }
+
+export function calculateConfirmationFormHeight(length: number) {
+  if (length <= 3) {
+    return 100 * length;
+  } else {
+    return 200 * length;
+  }
+}
