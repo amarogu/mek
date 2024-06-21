@@ -36,6 +36,10 @@ const userSchema = new Schema<IUser>({
         type: String,
         minlength: 8,
         maxlength: 64
+    },
+    confirmed: {
+        type: Boolean,
+        default: false
     }
 });
 

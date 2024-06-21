@@ -1,4 +1,4 @@
-import { useContext, useRef } from "react"
+import { TouchEvent, useContext, useRef, useState } from "react"
 import Context from "./Context"
 import Click from '../../public/left_click.svg';
 import ClickDark from '../../public/left_click_dark.svg';
@@ -14,6 +14,8 @@ export default function ConfirmationForm() {
     if (!item || !('users' in item)) {
         return null;
     }
+
+    const [users, setUsers] = useState(item.users.toSorted((a, b) => b.name.length - a.name.length));
 
     const fadingFactor = (i: number, max = 0.5, decrement = 0.125) => {
         return Math.max(max, 1 - decrement * i);
@@ -70,7 +72,7 @@ export default function ConfirmationForm() {
             return (
                 <div className="flex relative flex-col gap-4">
                     {
-                        item.users.sort((a, b) => b.name.length - a.name.length).map((u, i) => {
+                        item.users.toSorted((a, b) => b.name.length - a.name.length).map((u, i) => {
                             return (
                                 <h2 ref={el => {
                                     if (el !== null) {
@@ -89,9 +91,31 @@ export default function ConfirmationForm() {
         }
     }
 
+    const handleDoubleClick = () => {
+        if (h2Refs.current) {
+            h2Refs.current.forEach(h2 => {
+                
+            })
+        }
+    }
+
+    let doubleTapped = false;
+
+    const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
+        if (!doubleTapped) {
+            doubleTapped = true;
+            setTimeout(() => {
+                doubleTapped = false
+            }, 300);
+            return false;
+        }
+        
+        console.log('double tap');
+    }
+
     return (
         <div ref={container} style={{height: `${containerHeight}vh`}} className="static z-20 bg-dark-text-100 dark:bg-text-100">
-            <div className="relative flex items-center justify-center h-screen">
+            <div onDoubleClickCapture={handleDoubleClick} onTouchStartCapture={e => {handleTouchStart(e)}} className="relative touch-none flex items-center justify-center h-screen">
                 <form className="flex flex-col gap-4">
                     <div className="uppercase text-center text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%]">
                         {

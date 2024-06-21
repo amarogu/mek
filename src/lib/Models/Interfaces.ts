@@ -29,6 +29,7 @@ export interface IUser {
     purchases: Types.ObjectId[];
     role: 'admin' | 'individual';
     password?: string;
+    confirmed: boolean;
 }
 
 export interface IPurchase {
