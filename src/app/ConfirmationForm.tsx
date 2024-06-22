@@ -6,6 +6,7 @@ import ThemeImage from "./ThemeImage";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { calculateConfirmationFormHeight } from "@/lib/helpers";
+import instance from "@/lib/axios";
 
 export default function ConfirmationForm() {
 
@@ -103,6 +104,13 @@ export default function ConfirmationForm() {
 
     let doubleTapped = false;
 
+    const handleConfirmation = async (confirmed: boolean, _id: string) => {
+        const res = await instance.post('/confirm', {
+            confirmed, _id
+        });
+        console.log(res);
+    }
+
     const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
         if (!doubleTapped) {
             doubleTapped = true;
@@ -111,21 +119,25 @@ export default function ConfirmationForm() {
             }, 300);
             return false;
         }
+
         
         if (h2Refs.current) {
-            h2Refs.current.forEach(h2 => {
+            users.forEach((u, i) => {
+                const h2 = h2Refs.current[i];
                 if (h2) {
                     const transforms = h2.attributeStyleMap.getAll('transform');
                     const opacity = h2.computedStyleMap().get('opacity');
                     if (transforms.length === 0 && (opacity && parseFloat(opacity.toString()))) {
-                        console.log(h2.textContent)
+                        handleConfirmation(!u.confirmed, u._id);
+                        setUsers(users.map((user, index) => index === i ? {...user, confirmed: !user.confirmed} : user));
                     } else {
                         transforms.forEach(t => {
                             const tString = t.toString();
                             const scaleMatches = tString.match(/scale\(([^)]+)\)/);
                             const scaleValue = scaleMatches ? parseFloat(scaleMatches[1]) : null;
                             if ((opacity && parseFloat(opacity.toString())) && (!t || !tString.includes('scale') || (scaleValue && scaleValue > 0.9))) {
-                                console.log(h2.textContent);
+                                handleConfirmation(!u.confirmed, u._id);
+                                setUsers(users.map((user, index) => index === i ? {...user, confirmed: !user.confirmed} : user));
                             }
                         });
                     }

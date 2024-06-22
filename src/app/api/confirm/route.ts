@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
             const { User } = models;
             const u = await User.findById(body._id);
             if (u) {
-                u.confirmed = true;
+                u.confirmed = body.confirmed;
                 u.save();
                 return Response.json({message: 'User confirmed successfully', user: u});
             } else {
