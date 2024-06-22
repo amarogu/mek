@@ -68,18 +68,22 @@ export default function ConfirmationForm() {
         }
     });
 
+    useGSAP(() => {
+
+    }, [users])
+
     const renderConfirmationPanel = () => {
         if ('users' in item) {
             return (
                 <div className="flex relative flex-col gap-4">
                     {
-                        item.users.toSorted((a, b) => b.name.length - a.name.length).map((u, i) => {
+                        users.map((u, i) => {
                             return (
                                 <h2 ref={el => {
                                     if (el !== null) {
                                         h2Refs.current[i] = el;
                                     }
-                                }} className={`${i === 0 ? '' : 'absolute left-1/2'}`} style={{transform: i !== 0 ? `translateX(-50%) scale(${fadingFactor(i)}) translateY(${-55 * i}%)` : '', opacity: i !== 0 ? `${fadingFactor(i, 0, 0.4)}` : '', filter: i !== 0 ? `blur(${1.5 * i}px)` : ''}} key={i}>{u.name}</h2>
+                                }} className={`${i === 0 ? 'relative' : 'absolute left-1/2'} transition-colors ${u.confirmed ? 'text-green-400' : ''}`} style={{transform: i !== 0 ? `translateX(-50%) scale(${fadingFactor(i)}) translateY(${-55 * i}%)` : '', opacity: i !== 0 ? `${fadingFactor(i, 0, 0.4)}` : '', filter: i !== 0 ? `blur(${1.5 * i}px)` : '', zIndex: users.length - i}} key={i}>{u.name}</h2>
                             )
                         })
                     }
@@ -105,10 +109,9 @@ export default function ConfirmationForm() {
     let doubleTapped = false;
 
     const handleConfirmation = async (confirmed: boolean, _id: string) => {
-        const res = await instance.post('/confirm', {
+        await instance.post('/confirm', {
             confirmed, _id
         });
-        console.log(res);
     }
 
     const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
@@ -122,21 +125,21 @@ export default function ConfirmationForm() {
 
         
         if (h2Refs.current) {
-            users.forEach((u, i) => {
+            users.forEach(async (u, i) => {
                 const h2 = h2Refs.current[i];
                 if (h2) {
                     const transforms = h2.attributeStyleMap.getAll('transform');
                     const opacity = h2.computedStyleMap().get('opacity');
                     if (transforms.length === 0 && (opacity && parseFloat(opacity.toString()))) {
-                        handleConfirmation(!u.confirmed, u._id);
+                        await handleConfirmation(!u.confirmed, u._id);
                         setUsers(users.map((user, index) => index === i ? {...user, confirmed: !user.confirmed} : user));
                     } else {
-                        transforms.forEach(t => {
+                        transforms.forEach(async (t) => {
                             const tString = t.toString();
                             const scaleMatches = tString.match(/scale\(([^)]+)\)/);
                             const scaleValue = scaleMatches ? parseFloat(scaleMatches[1]) : null;
                             if ((opacity && parseFloat(opacity.toString())) && (!t || !tString.includes('scale') || (scaleValue && scaleValue > 0.9))) {
-                                handleConfirmation(!u.confirmed, u._id);
+                                await handleConfirmation(!u.confirmed, u._id);
                                 setUsers(users.map((user, index) => index === i ? {...user, confirmed: !user.confirmed} : user));
                             }
                         });
