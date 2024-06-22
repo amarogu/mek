@@ -94,7 +94,9 @@ export default function ConfirmationForm() {
     const handleDoubleClick = () => {
         if (h2Refs.current) {
             h2Refs.current.forEach(h2 => {
-                
+                if (h2?.computedStyleMap().get('scale') === 1) {
+                    console.log(h2.textContent)
+                }
             })
         }
     }
@@ -110,7 +112,26 @@ export default function ConfirmationForm() {
             return false;
         }
         
-        console.log('double tap');
+        if (h2Refs.current) {
+            h2Refs.current.forEach(h2 => {
+                if (h2) {
+                    const transforms = h2.attributeStyleMap.getAll('transform');
+                    const opacity = h2.computedStyleMap().get('opacity');
+                    if (transforms.length === 0 && (opacity && parseFloat(opacity.toString()))) {
+                        console.log(h2.textContent)
+                    } else {
+                        transforms.forEach(t => {
+                            const tString = t.toString();
+                            const scaleMatches = tString.match(/scale\(([^)]+)\)/);
+                            const scaleValue = scaleMatches ? parseFloat(scaleMatches[1]) : null;
+                            if ((opacity && parseFloat(opacity.toString())) && (!t || !tString.includes('scale') || (scaleValue && scaleValue > 0.9))) {
+                                console.log(h2.textContent);
+                            }
+                        });
+                    }
+                }
+            })
+        }
     }
 
     return (
