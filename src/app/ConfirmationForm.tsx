@@ -1,4 +1,4 @@
-import { TouchEvent, useContext, useRef, useState } from "react"
+import { CSSProperties, TouchEvent, useContext, useEffect, useRef, useState } from "react"
 import Context from "./Context"
 import Click from '../../public/left_click.svg';
 import ClickDark from '../../public/left_click_dark.svg';
@@ -68,9 +68,49 @@ export default function ConfirmationForm() {
         }
     });
 
-    useGSAP(() => {
+    const [opacityHelper, setOpacityHelper] = useState<(number | boolean)[][]>([]);
 
-    }, [users])
+    useEffect(() => {
+        setOpacityHelper(users.map((u, i) => {
+            if (h2Refs.current) {
+                const h2 = h2Refs.current[i];
+                if (h2) {
+                    const rawOpacity = h2.computedStyleMap().get('opacity');
+                    if (rawOpacity) {
+                        const opacity = parseFloat(rawOpacity.toString());
+                        return [opacity, false];
+                    }
+                }
+            }
+            return [0, false];
+        }));
+    }, [users]);
+
+    useGSAP(() => {
+        console.log(opacityHelper);
+        if (opacityHelper.length) {
+            users.forEach((u, i) => {
+                if (u.confirmed) {
+                    gsap.to(h2Refs.current[i], {
+                        '--progress': 1,
+                        opacity: 1
+                    });
+                    opacityHelper[i][1] = true;
+                } else {
+                    if (opacityHelper[i][1]) {
+                        const rawOpacity = h2Refs.current[i]?.computedStyleMap().get('opacity');
+                        if (rawOpacity) {
+                            opacityHelper[i][0] = parseFloat(rawOpacity.toString());
+                        }
+                    }
+                    gsap.to(h2Refs.current[i], {
+                        '--progress': 0.04,
+                        opacity: opacityHelper[i][0] as number
+                    });
+                }
+            });
+        }
+    }, [users, opacityHelper])
 
     const renderConfirmationPanel = () => {
         if ('users' in item) {
@@ -83,7 +123,7 @@ export default function ConfirmationForm() {
                                     if (el !== null) {
                                         h2Refs.current[i] = el;
                                     }
-                                }} className={`${i === 0 ? 'relative' : 'absolute left-1/2'} transition-colors ${u.confirmed ? 'text-green-400' : ''}`} style={{transform: i !== 0 ? `translateX(-50%) scale(${fadingFactor(i)}) translateY(${-55 * i}%)` : '', opacity: i !== 0 ? `${fadingFactor(i, 0, 0.4)}` : '', filter: i !== 0 ? `blur(${1.5 * i}px)` : '', zIndex: users.length - i}} key={i}>{u.name}</h2>
+                                }} className={`${i === 0 ? 'relative' : 'absolute left-1/2'} scale-[calc(var(--progress)*25)] origin-[calc(50%+var(--progress)*1%)_center] transition-colors`} style={{transform: i !== 0 ? `translateX(-50%) scale(${fadingFactor(i)}) translateY(${-55 * i}%)` : '', opacity: i !== 0 ? `${fadingFactor(i, 0, 0.4)}` : '', filter: i !== 0 ? `blur(${1.5 * i}px)` : '', zIndex: users.length - i, '--progress': '0.04'} as CSSProperties} key={i}>{u.name}</h2>
                             )
                         })
                     }
@@ -155,7 +195,7 @@ export default function ConfirmationForm() {
                 <form className="flex flex-col gap-4">
                     <div className="uppercase text-center text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%]">
                         {
-                        renderConfirmationPanel()  
+                            renderConfirmationPanel()  
                         }
                     </div>
                     <div className="flex gap-4 font-semibold justify-center items-center">
