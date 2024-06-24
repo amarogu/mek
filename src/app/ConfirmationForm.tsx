@@ -7,10 +7,13 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { calculateConfirmationFormHeight } from "@/lib/helpers";
 import instance from "@/lib/axios";
+import Check from '../../public/check_circle_neutral.svg';
+import CheckDark from '../../public/check_circle_neutral_dark.svg';
+import Image from "next/image";
 
 export default function ConfirmationForm() {
 
-    const { item } = useContext(Context);
+    const { item, isDarkMode } = useContext(Context);
 
     if (!item || !('users' in item)) {
         return null;
@@ -27,10 +30,11 @@ export default function ConfirmationForm() {
     const h2Refs = useRef<(HTMLHeadingElement | null)[]>([]);
 
     const tl = useRef<GSAPTimeline | null>();
+    const confirmationTl = useRef<GSAPTimeline | null>();
 
     const containerHeight = calculateConfirmationFormHeight(item.users.length);
 
-    useGSAP(() => {
+    const {contextSafe} = useGSAP(() => {
         tl.current = gsap.timeline({
             scrollTrigger: {
                 trigger: container.current,
@@ -44,7 +48,12 @@ export default function ConfirmationForm() {
 
         for (let i = 0; i < h2Refs.current.length - 1; i++) {
             tl.current.to(h2Refs.current[i], {
+                opacity: 1,
+            }).to(h2Refs.current[i], {
                 opacity: 0,
+                scrollTrigger: {
+                    scrub: false
+                }
             }).add([
                 gsap.to(h2Refs.current[i + 1], {
                     scale: 1,
@@ -68,50 +77,6 @@ export default function ConfirmationForm() {
         }
     });
 
-    const [opacityHelper, setOpacityHelper] = useState<(number | boolean)[][]>([]);
-
-    useEffect(() => {
-        setOpacityHelper(users.map((u, i) => {
-            if (h2Refs.current) {
-                const h2 = h2Refs.current[i];
-                if (h2) {
-                    const rawOpacity = h2.computedStyleMap().get('opacity');
-                    if (rawOpacity) {
-                        const opacity = parseFloat(rawOpacity.toString());
-                        return [opacity, false];
-                    }
-                }
-            }
-            return [0, false];
-        }));
-    }, [users]);
-
-    useGSAP(() => {
-        console.log(opacityHelper);
-        if (opacityHelper.length) {
-            users.forEach((u, i) => {
-                if (u.confirmed) {
-                    gsap.to(h2Refs.current[i], {
-                        '--progress': 1,
-                        opacity: 1
-                    });
-                    opacityHelper[i][1] = true;
-                } else {
-                    if (opacityHelper[i][1]) {
-                        const rawOpacity = h2Refs.current[i]?.computedStyleMap().get('opacity');
-                        if (rawOpacity) {
-                            opacityHelper[i][0] = parseFloat(rawOpacity.toString());
-                        }
-                    }
-                    gsap.to(h2Refs.current[i], {
-                        '--progress': 0.04,
-                        opacity: opacityHelper[i][0] as number
-                    });
-                }
-            });
-        }
-    }, [users, opacityHelper])
-
     const renderConfirmationPanel = () => {
         if ('users' in item) {
             return (
@@ -119,11 +84,14 @@ export default function ConfirmationForm() {
                     {
                         users.map((u, i) => {
                             return (
-                                <h2 ref={el => {
+                                <div ref={el => {
                                     if (el !== null) {
                                         h2Refs.current[i] = el;
                                     }
-                                }} className={`${i === 0 ? 'relative' : 'absolute left-1/2'} scale-[calc(var(--progress)*25)] origin-[calc(50%+var(--progress)*1%)_center] transition-colors`} style={{transform: i !== 0 ? `translateX(-50%) scale(${fadingFactor(i)}) translateY(${-55 * i}%)` : '', opacity: i !== 0 ? `${fadingFactor(i, 0, 0.4)}` : '', filter: i !== 0 ? `blur(${1.5 * i}px)` : '', zIndex: users.length - i, '--progress': '0.04'} as CSSProperties} key={i}>{u.name}</h2>
+                                }} className={`${i === 0 ? 'relative' : 'absolute left-1/2'} flex gap-4 items-center scale-[calc(var(--progress)*25)] origin-[calc(50%+var(--progress)*1%)_center]`} style={{transform: i !== 0 ? `translateX(-50%) scale(${fadingFactor(i)}) translateY(${-55 * i}%)` : '', opacity: i !== 0 ? `${fadingFactor(i, 0, 0.4)}` : '', filter: i !== 0 ? `blur(${1.5 * i}px)` : '', zIndex: users.length - i, '--progress': '0.04'} as CSSProperties} key={i}>
+                                    <Image width={38} height={38} alt="Ícone de confirmação" src={isDarkMode ? CheckDark : Check} loading="eager" style={{display: u.confirmed ? 'block' : 'none'}} />
+                                    <h2>{u.name}</h2>
+                                </div>
                             )
                         })
                     }
@@ -154,6 +122,14 @@ export default function ConfirmationForm() {
         });
     }
 
+    const pulse = contextSafe((el: HTMLHeadingElement, confirmed: boolean) => {
+        const img = el.firstChild as HTMLImageElement;
+        confirmationTl.current = gsap.timeline().to(el, {opacity: 0}).add([
+            gsap.to(el, {opacity: 1}),
+            gsap.set(img, {display: confirmed ? 'block' : 'none'})
+        ]);
+    })
+
     const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
         if (!doubleTapped) {
             doubleTapped = true;
@@ -173,6 +149,7 @@ export default function ConfirmationForm() {
                     if (transforms.length === 0 && (opacity && parseFloat(opacity.toString()))) {
                         await handleConfirmation(!u.confirmed, u._id);
                         setUsers(users.map((user, index) => index === i ? {...user, confirmed: !user.confirmed} : user));
+                        pulse(h2, !u.confirmed);
                     } else {
                         transforms.forEach(async (t) => {
                             const tString = t.toString();
