@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
+import Context from './Context';
 
 type DotStyle = {
     position: 'absolute',
@@ -13,8 +14,10 @@ export default function FooterAnimation({className}: {className?: string}) {
     const footerRef = useRef<HTMLDivElement>(null);
     const [dots, setDots] = useState<DotStyle[]>([]);
 
+    const { isDarkMode } = useContext(Context);
+
     useEffect(() => {
-        const dotSize = 1.5;
+        const dotSize = 2;
         const preferredDotSpace = 47; // your preferred dot spacing
 
         const footerEle = footerRef.current;
@@ -35,7 +38,7 @@ export default function FooterAnimation({className}: {className?: string}) {
                         position: 'absolute',
                         height: `${dotSize}px`,
                         width: `${dotSize}px`,
-                        backgroundColor: 'white',
+                        backgroundColor: isDarkMode ? '#333333' : '#ffffff',
                         left: `${j * (dotSize + actualDotSpaceHorizontal)}px`,
                         top: `${i * (dotSize + actualDotSpaceVertical)}px`
                     };

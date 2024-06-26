@@ -230,7 +230,7 @@ export default function ConfirmationForm() {
     }
 
     return (
-        <div ref={container} style={{height: `${containerHeight}vh`}} className="static z-20 bg-dark-text-100 dark:bg-text-100">
+        <div ref={container} style={{height: `${containerHeight}vh`}} className="static z-20 bg-bg-100 dark:bg-dark-bg-100">
             <div onDoubleClickCapture={handleDoubleClickCapture} onTouchStartCapture={e => {handleTouchStart(e)}} className="relative flex items-center justify-center h-screen">
                 <form className="flex flex-col items-center gap-4">
                     <div className="uppercase text-center text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%]">

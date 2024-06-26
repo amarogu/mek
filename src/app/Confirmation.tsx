@@ -80,7 +80,7 @@ export default function Confirmation({id}: {id?: string}) {
                 <div ref={container} className="font-extrabold container mx-auto h-[1500vh] leading-[85%]">
                     <div className="h-screen relative">
                         {
-                            text.map((t, i) => <h2 key={i} style={{'--progress': i === 1 ? '0' : '0.0048'} as CSSProperties} ref={textRefs[i]} className={`absolute text-[104.17vw] md:text-[75vw] xl:text-[1000px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 scale-[calc(var(--progress)*25)] origin-[calc(50%+var(--progress)*1%)_center] ${i === 1 ? 'text-dark-text-100 dark:text-text-100' : ''}`}>{t}</h2>)
+                            text.map((t, i) => <h2 key={i} style={{'--progress': i === 1 ? '0' : '0.0048'} as CSSProperties} ref={textRefs[i]} className={`absolute text-[104.17vw] md:text-[75vw] xl:text-[1000px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 scale-[calc(var(--progress)*25)] origin-[calc(50%+var(--progress)*1%)_center] ${i === 1 ? 'text-bg-100 dark:text-dark-bg-100' : ''}`}>{t}</h2>)
                         }
                         <div ref={imgsContainer} className="absolute gap-6 -z-10 w-full overflow-y-hidden left-0 top-0 h-full flex">
                             {
