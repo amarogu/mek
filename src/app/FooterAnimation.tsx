@@ -9,7 +9,7 @@ type DotStyle = {
     top: string
 }
 
-export default function FooterAnimation() {
+export default function FooterAnimation({className}: {className?: string}) {
     const footerRef = useRef<HTMLDivElement>(null);
     const [dots, setDots] = useState<DotStyle[]>([]);
 
@@ -49,7 +49,7 @@ export default function FooterAnimation() {
     }, []);
 
     return (
-        <div ref={footerRef} className='relative mb-6 h-96 w-full'>
+        <div ref={footerRef} className={`relative mb-6 md:mb-12 h-96 w-full ${className}`}>
             {dots.map((dot, index) => (
                 <div key={index} style={dot} />
             ))}

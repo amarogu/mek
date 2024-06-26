@@ -14,7 +14,7 @@ export default function Footer({id}: {id?: string}) {
     const info = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const cEl = copyright.current;
+        /*const cEl = copyright.current;
         const aEl = allRightsReserved.current;
         const iEl = info.current;
         if (cEl && aEl && iEl) {
@@ -23,17 +23,17 @@ export default function Footer({id}: {id?: string}) {
                 cEl.style.width = `${aElWidth}px`;
                 iEl.style.width = `${aElWidth}px`;
             }
-        }
+        }*/
     })
 
     return (
         <footer id={id} className='relative text-[10px] font-bold z-20 p-8'>
-            <div className='container md:items-end flex-col md:flex-row mx-auto flex gap-8'>
-                <FooterAnimation />
-                <div className='flex justify-between md:grow md:justify-normal md:flex-col md:items-end md:gap-[1px] md:order-3'>
-                    <p ref={copyright} className='md:w-full'>&copy; 2024, Gustavo Amaro</p>
+            <div className='container md:items-end flex-col md:grid md:grid-cols mx-auto flex gap-8'>
+                <FooterAnimation className='col-span-3' />
+                <div className='flex justify-between md:justify-normal md:justify-self-end md:flex-col md:gap-[1px] md:order-3'>
+                    <p ref={copyright}>&copy; 2024, Gustavo Amaro</p>
                     <p ref={allRightsReserved} className='uppercase'>Todos os direitos reservados</p>
-                    <div ref={info} className='hidden md:flex w-full lg:w-[initial] flex-col gap-[1px] mt-5'>
+                    <div ref={info} className='hidden md:flex flex-col gap-[1px] mt-5'>
                         <p>+5519996698631, BR</p>
                         <a href='https://gustavoamaro.com/'>gustavoamaro.com</a>
                         <a href='mailto:info@gustavoamaro.com'>info@gustavoamaro.com</a>
@@ -52,7 +52,7 @@ export default function Footer({id}: {id?: string}) {
                         <a target='_blank' href='https://www.instagram.com/kalilalvess/'>@kalil</a>
                     </div>
                 </div>
-                <ThemeImage srcLight={Logo} srcDark={LogoDark} alt='Logo (Maria & Kalil)' />
+                <ThemeImage className='w-full' srcLight={Logo} srcDark={LogoDark} alt='Logo (Maria & Kalil)' />
             </div>
         </footer>
     )
