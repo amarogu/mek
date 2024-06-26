@@ -16,6 +16,7 @@ import Confirmation from "./Confirmation";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gsap from "gsap";
+import Footer from "./Footer";
 
 gsap.registerPlugin(useGSAP);
 
@@ -106,6 +107,7 @@ export default function Content({item, gifts}: {item?: LeanDocument<IUser> | Pop
               <Messages id="messages" />
               <Gifts id="gifts" gifts={gifts} />
               <Confirmation id="confirm" />
+              <Footer id='footer' />
             </main>
         </Context.Provider>
       </ReactLenis>
