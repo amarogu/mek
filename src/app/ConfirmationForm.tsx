@@ -12,6 +12,7 @@ import CheckDark from '../../public/check_circle_neutral_dark.svg';
 import Image from "next/image";
 import { IUser } from "@/lib/Models/Interfaces";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { MouseEvent } from "react";
 
 export default function ConfirmationForm() {
 
@@ -90,7 +91,7 @@ export default function ConfirmationForm() {
     const renderConfirmationPanel = () => {
         if ('users' in item) {
             return (
-                <div ref={usersContainer} className="flex relative flex-col gap-4">
+                <div ref={usersContainer} className="relative w-full">
                     {
                         users.map((u, i) => {
                             return (
@@ -98,8 +99,8 @@ export default function ConfirmationForm() {
                                     if (el !== null) {
                                         h2Refs.current[i] = el;
                                     }
-                                }} className={`${i === 0 ? 'relative' : 'absolute left-1/2'} flex gap-4 justify-center items-center`} style={{transform: i !== 0 ? `translateX(-50%) scale(${fadingFactor(i)}) translateY(${-55 * i}%)` : '', opacity: i !== 0 ? `${fadingFactor(i, 0, 0.4)}` : '', filter: i !== 0 ? `blur(${1.5 * i}px)` : '', zIndex: users.length - i} as CSSProperties} key={i}>
-                                    <Image width={38} height={38} alt="Ícone de confirmação" src={isDarkMode ? CheckDark : Check} loading="eager" style={{display: initialConfirmedUsers[i] ? 'block' : 'none'}} />
+                                }} className={`absolute left-1/2 flex justify-center items-center`} style={{transform: i !== 0 ? `translateX(-50%) scale(${fadingFactor(i)}) translateY(${-55 * i}%)` : 'translateX(-50%)', opacity: i !== 0 ? `${fadingFactor(i, 0, 0.4)}` : '', filter: i !== 0 ? `blur(${1.5 * i}px)` : '', zIndex: users.length - i} as CSSProperties} key={i}>
+                                    <Image width={38} height={38} alt="Ícone de confirmação" src={isDarkMode ? CheckDark : Check} loading="eager" className={`${initialConfirmedUsers[i] ? 'opacity-1 relative' : 'opacity-0 absolute'}`} />
                                     <h2>{u.name}</h2>
                                 </div>
                             )
@@ -114,8 +115,6 @@ export default function ConfirmationForm() {
         }
     }
 
-    let doubleTapped = false;
-
     const handleConfirmation = async (confirmed: boolean, _id: string) => {
         await instance.post('/confirm', {
             confirmed, _id
@@ -125,23 +124,22 @@ export default function ConfirmationForm() {
     const confirmationTl = useRef<GSAPTimeline>();
 
     const pulse = contextSafe((el: HTMLHeadingElement, confirmed: boolean, i: number) => {
+        const h2 = el.lastChild as HTMLHeadingElement;
         const img = el.firstChild as HTMLImageElement;
         if (confirmationTl.current) {
             confirmationTl.current.kill();
         }
-        if (usersContainer.current && tl.current) {
-                tl.current.pause();
-            
-           
-                confirmationTl.current = gsap.timeline({onComplete: () => {tl.current?.resume()}}).to(el, {opacity: 0}).add([
-                    gsap.to(el, {opacity: 1}),
-                    gsap.set(img, {display: confirmed ? 'block' : 'none'})
-                ]);
-            
-        }
+        confirmationTl.current = gsap.timeline().add([
+            gsap.to(h2, {opacity: 0}),
+            gsap.to(img, {opacity: 0})
+        ]).set(img, {position: confirmed ? 'relative' : 'absolute'}).add([
+            gsap.to(h2, {opacity: 1}),
+            gsap.to(img, {opacity: confirmed ? 1 : 0})
+        ]);
     })
 
-    const handleDoubleClickCapture = () => {
+    const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
         if (h2Refs.current) {
             users.forEach(async (u, i) => {
                 const h2 = h2Refs.current[i];
@@ -152,11 +150,15 @@ export default function ConfirmationForm() {
                         const opacity = parseFloat(opacityStyle.toString());
                         const isScaled = transform.toString().includes('scale');
                         if (opacity === 1 && !isScaled) {
+                            await handleConfirmation(!u.confirmed, u._id);
+                            setUsers(users.map((user, index) => index === i ? {...user, confirmed: !user.confirmed} : user));
                             pulse(h2, !u.confirmed, i);
                         }
                     } else if (opacityStyle) {
                         const opacity = parseFloat(opacityStyle.toString());
                         if (opacity === 1) {
+                            await handleConfirmation(!u.confirmed, u._id);
+                            setUsers(users.map((user, index) => index === i ? {...user, confirmed: !user.confirmed} : user));
                             pulse(h2, !u.confirmed, i);
                         }
                     }
@@ -164,84 +166,21 @@ export default function ConfirmationForm() {
                 }
             })
         }
-    }
-
-    const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
-        if (!doubleTapped) {
-            doubleTapped = true;
-            setTimeout(() => {
-                doubleTapped = false
-            }, 300);
-            return false;
-        }
-
-        if (h2Refs.current) {
-            users.forEach(async (u, i) => {
-                const h2 = h2Refs.current[i];
-                if (h2) {
-                    const transform = h2.computedStyleMap().get('transform');
-                    const opacityStyle = h2.computedStyleMap().get('opacity');
-                    if (transform && opacityStyle) {
-                        const opacity = parseFloat(opacityStyle.toString());
-                        const isScaled = transform.toString().includes('scale');
-                        if (opacity === 1 && !isScaled) {
-                            pulse(h2, !u.confirmed, i);
-                        }
-                    } else if (opacityStyle) {
-                        const opacity = parseFloat(opacityStyle.toString());
-                        if (opacity === 1) {
-                            pulse(h2, !u.confirmed, i);
-                        }
-                    }
-                    
-                }
-            })
-        }
-        
-        /*if (h2Refs.current) {
-            users.forEach(async (u, i) => {
-                const h2 = h2Refs.current[i];
-                if (h2) {
-                    const transforms = h2.attributeStyleMap.getAll('transform');
-                    const opacity = h2.computedStyleMap().get('opacity');
-                    if (transforms.length === 0 && (opacity && (parseFloat(opacity.toString()) === 1))) {
-                        await handleConfirmation(!u.confirmed, u._id);
-                        pulse(h2, !u.confirmed, i);
-                        setUsers(users.map((user, index) => index === i ? {...user, confirmed: !user.confirmed} : user));
-                        
-                        console.log(h2.textContent);
-                    } else {
-                        transforms.forEach(async (t) => {
-                            const tString = t.toString();
-                            const scaleMatches = tString.match(/scale\(([^)]+)\)/);
-                            const scaleValue = scaleMatches ? parseFloat(scaleMatches[1]) : null;
-                            if ((opacity && (parseFloat(opacity.toString()) === 1)) && (!t || !tString.includes('scale') || (scaleValue && scaleValue > 0.9))) {
-                                await handleConfirmation(!u.confirmed, u._id);
-                                pulse(h2, !u.confirmed, i);
-                                setUsers(users.map((user, index) => index === i ? {...user, confirmed: !user.confirmed} : user));
-                                
-                                console.log(h2.textContent);
-                            }
-                        });
-                    }
-                }
-            })
-        }*/
     }
 
     return (
         <div ref={container} style={{height: `${containerHeight}vh`}} className="static z-20 bg-bg-100 dark:bg-dark-bg-100">
-            <div onDoubleClickCapture={handleDoubleClickCapture} onTouchStartCapture={e => {handleTouchStart(e)}} className="relative flex items-center justify-center h-screen">
-                <form className="flex flex-col items-center gap-4">
+            <div className="relative flex items-center justify-center h-screen">
+                <form className="relative w-full">
                     <div className="uppercase text-center text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%]">
                         {
                             renderConfirmationPanel()  
                         }
                     </div>
-                    <div className="flex gap-4 font-semibold justify-center items-center">
-                        <ThemeImage loading="eager" srcDark={ClickDark} srcLight={Click} alt="Duplo-clique para confirmar" />
-                        <p>Duplo-clique para confirmar</p>
-                    </div>
+                    <button onClick={(e) => {handleClick(e)}} className="uppercase text-xs absolute right-0 translate-x-1/3 -translate-y-[10%] font-bold border border-dark-bg-300/50 rounded-full w-[150px] h-[150px] dark:border-bg-300/50">
+                        <p>Confirmar</p>
+                        <p>Presença</p>
+                    </button>
                 </form>
             </div>
         </div>

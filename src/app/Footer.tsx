@@ -27,7 +27,7 @@ export default function Footer({id}: {id?: string}) {
     })
 
     return (
-        <footer id={id} className='relative text-[10px] font-bold z-20 dark:bg-bg-100 dark:text-text-100 px-8 pt-20 pb-12'>
+        <footer id={id} className='relative text-[10px] font-bold z-20 dark:bg-bg-100 bg-dark-bg-100 text-dark-text-100 dark:text-text-100 px-8 pt-20 pb-12'>
             <div className='container md:items-end flex-col md:grid md:grid-cols mx-auto flex gap-8'>
                 <FooterAnimation className='col-span-3' />
                 <div className='flex justify-between md:justify-normal md:justify-self-end md:flex-col md:gap-[1px] md:order-3'>
