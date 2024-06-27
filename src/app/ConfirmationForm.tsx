@@ -99,7 +99,7 @@ export default function ConfirmationForm() {
                                     if (el !== null) {
                                         h2Refs.current[i] = el;
                                     }
-                                }} className={`absolute left-1/2 flex justify-center items-center`} style={{transform: i !== 0 ? `translateX(-50%) scale(${fadingFactor(i)}) translateY(${-55 * i}%)` : 'translateX(-50%)', opacity: i !== 0 ? `${fadingFactor(i, 0, 0.4)}` : '', filter: i !== 0 ? `blur(${1.5 * i}px)` : '', zIndex: users.length - i} as CSSProperties} key={i}>
+                                }} className={`absolute left-1/2 flex justify-center w-full gap-4 items-center`} style={{transform: i !== 0 ? `translateX(-50%) scale(${fadingFactor(i)}) translateY(${-55 * i}%)` : 'translateX(-50%)', opacity: i !== 0 ? `${fadingFactor(i, 0, 0.4)}` : '', filter: i !== 0 ? `blur(${1.5 * i}px)` : '', zIndex: users.length - i} as CSSProperties} key={i}>
                                     <Image width={38} height={38} alt="Ícone de confirmação" src={isDarkMode ? CheckDark : Check} loading="eager" className={`${initialConfirmedUsers[i] ? 'opacity-1 relative' : 'opacity-0 absolute'}`} />
                                     <h2>{u.name}</h2>
                                 </div>
