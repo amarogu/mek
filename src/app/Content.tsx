@@ -41,6 +41,8 @@ export default function Content({item, gifts}: {item?: LeanDocument<IUser> | Pop
 
     gsap.registerPlugin(ScrollTrigger);
 
+    ScrollTrigger.normalizeScroll(true);
+
     const prevHeightMap = new WeakMap();
 
     const observer = new MutationObserver(mutationsList => {
@@ -93,7 +95,7 @@ export default function Content({item, gifts}: {item?: LeanDocument<IUser> | Pop
   if (!isMounted) return <Loading />;
 
   return (
-      <ReactLenis root>
+      <ReactLenis options={{syncTouch: true}} root>
         <Context.Provider value={{isDarkMode: isDarkMode, setIsDarkMode: setIsDarkMode, item: item}}>
             <header id="header" ref={header} className="md:h-[81px] overflow-x-hidden flex px-8 pt-8 items-center fixed w-screen top-0 z-40">
               <Welcome name={item?.name} />

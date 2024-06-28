@@ -1,8 +1,5 @@
-import { CSSProperties, TouchEvent, useContext, useEffect, useRef, useState } from "react"
+import { CSSProperties, useContext, useEffect, useRef, useState } from "react"
 import Context from "./Context"
-import Click from '../../public/left_click.svg';
-import ClickDark from '../../public/left_click_dark.svg';
-import ThemeImage from "./ThemeImage";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { LeanDocument, calculateConfirmationFormHeight } from "@/lib/helpers";
@@ -10,9 +7,8 @@ import instance from "@/lib/axios";
 import Check from '../../public/check_circle_neutral.svg';
 import CheckDark from '../../public/check_circle_neutral_dark.svg';
 import Image from "next/image";
-import { IUser } from "@/lib/Models/Interfaces";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MouseEvent } from "react";
+import { IUser } from "@/lib/Models/Interfaces";
 
 export default function ConfirmationForm() {
 
@@ -40,49 +36,104 @@ export default function ConfirmationForm() {
 
     const containerHeight = calculateConfirmationFormHeight(item.users.length);
 
-    const {contextSafe} = useGSAP(() => {
+    const btnRef = useRef<HTMLButtonElement>(null);
 
-        tl.current = gsap.timeline({
-            id: 'tl',
-            scrollTrigger: {
-                trigger: container.current,
-                start: 'top top',
-                end: 'bottom top',
-                scrub: true,
-                pin: true,
-                pinSpacing: false,
-                markers: true
-            }
-        });
+    const [activeUser, setActiveUser] = useState<LeanDocument<IUser> | null>(null);
 
-        for (let i = 0; i < h2Refs.current.length - 1; i++) {
-            tl.current.to(h2Refs.current[i], {
-                opacity: 1,
-            }).to(h2Refs.current[i], {
-                opacity: 0,
-                scrollTrigger: {
-                    scrub: false
+    /*const handleTriggerUpdate = () => {
+        users.forEach((u, i) => {
+            const h2 = h2Refs.current[i];
+            if (h2) {
+                const transform = h2.computedStyleMap().get('transform');
+                const opacityStyle = h2.computedStyleMap().get('opacity');
+                if (transform && opacityStyle) {
+                    const opacity = parseFloat(opacityStyle.toString());
+                    const isScaled = transform.toString().includes('scale');
+                    if (opacity === 1 && !isScaled) {
+                        setActiveUser(u);
+                        console.log('updated');
+                    }
                 }
-            }).add([
-                gsap.to(h2Refs.current[i + 1], {
-                    scale: 1,
+            }
+        })
+    }*/
+
+    const observer = new MutationObserver(list => {
+        list.forEach(mutation => {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+                const t = mutation.target as HTMLHeadingElement;
+                const opacityStyle = t.computedStyleMap().get('opacity');
+                const transform = t.computedStyleMap().get('transform');
+
+                if (transform && opacityStyle) {
+                    const opacity = parseFloat(opacityStyle.toString());
+                    const isScaled = transform.toString().includes('scale');
+                    if (opacity === 1 && !isScaled) {
+                        setActiveUser(users[h2Refs.current.indexOf(t)]);
+                    } else if (!isScaled) {
+                        setActiveUser(null);
+                    }
+                }
+            }
+        })
+    });
+
+    useEffect(() => {
+        h2Refs.current.forEach(h2 => {
+            if (h2) {
+                observer.observe(h2, {
+                    attributes: true,
+                    attributeFilter: ['style']
+                });
+            }
+        })
+    });
+
+    const {contextSafe} = useGSAP((_, contextSafe) => {
+
+        if (contextSafe) {
+            tl.current = gsap.timeline({
+                id: 'tl',
+                scrollTrigger: {
+                    trigger: container.current,
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: true,
+                    pin: true,
+                    pinSpacing: false
+                }
+            });
+    
+            for (let i = 0; i < h2Refs.current.length - 1; i++) {
+                tl.current.to(h2Refs.current[i], {
                     opacity: 1,
-                    y: 0,
-                    filter: 'blur(0px)',
-                }),
-                ...( h2Refs.current[i + 2] ? [ gsap.to(h2Refs.current[i + 2], {
-                    scale: fadingFactor(1),
-                    opacity: fadingFactor(1, 0, 0.4),
-                    y: '-55%',
-                    filter: `blur(${1.5}px)`,
-                })] : []),
-                ...( h2Refs.current[i + 3] ? [ gsap.to(h2Refs.current[i + 3], {
-                    scale: fadingFactor(2),
-                    opacity: fadingFactor(2, 0, 0.4),
-                    y: '-110%',
-                    filter: `blur(${3}px)`,
-                })] : []),
-            ]);
+                }).to(h2Refs.current[i], {
+                    opacity: 0,
+                    scrollTrigger: {
+                        scrub: false
+                    }
+                }).add([
+                    gsap.to(h2Refs.current[i + 1], {
+                        scale: 1,
+                        opacity: 1,
+                        y: 0,
+                        filter: 'blur(0px)'
+                    }),
+                    ...( h2Refs.current[i + 2] ? [ gsap.to(h2Refs.current[i + 2], {
+                        scale: fadingFactor(1),
+                        opacity: fadingFactor(1, 0, 0.4),
+                        y: '-55%',
+                        filter: `blur(${1.5}px)`,
+                        
+                    })] : []),
+                    ...( h2Refs.current[i + 3] ? [ gsap.to(h2Refs.current[i + 3], {
+                        scale: fadingFactor(2),
+                        opacity: fadingFactor(2, 0, 0.4),
+                        y: '-110%',
+                        filter: `blur(${3}px)`,
+                    })] : []),
+                ]);
+            }
         }
     });
 
@@ -123,7 +174,7 @@ export default function ConfirmationForm() {
 
     const confirmationTl = useRef<GSAPTimeline>();
 
-    const pulse = contextSafe((el: HTMLHeadingElement, confirmed: boolean, i: number) => {
+    const pulse = contextSafe((el: HTMLHeadingElement, confirmed: boolean) => {
         const h2 = el.lastChild as HTMLHeadingElement;
         const img = el.firstChild as HTMLImageElement;
         if (confirmationTl.current) {
@@ -138,35 +189,23 @@ export default function ConfirmationForm() {
         ]);
     })
 
-    const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
+    const handleClick = async (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        if (h2Refs.current) {
-            users.forEach(async (u, i) => {
-                const h2 = h2Refs.current[i];
-                if (h2) {
-                    const transform = h2.computedStyleMap().get('transform');
-                    const opacityStyle = h2.computedStyleMap().get('opacity');
-                    if (transform && opacityStyle) {
-                        const opacity = parseFloat(opacityStyle.toString());
-                        const isScaled = transform.toString().includes('scale');
-                        if (opacity === 1 && !isScaled) {
-                            await handleConfirmation(!u.confirmed, u._id);
-                            setUsers(users.map((user, index) => index === i ? {...user, confirmed: !user.confirmed} : user));
-                            pulse(h2, !u.confirmed, i);
-                        }
-                    } else if (opacityStyle) {
-                        const opacity = parseFloat(opacityStyle.toString());
-                        if (opacity === 1) {
-                            await handleConfirmation(!u.confirmed, u._id);
-                            setUsers(users.map((user, index) => index === i ? {...user, confirmed: !user.confirmed} : user));
-                            pulse(h2, !u.confirmed, i);
-                        }
-                    }
-                    
-                }
-            })
+        if (activeUser) {
+            await handleConfirmation(!activeUser.confirmed, activeUser._id);
+            setUsers(users.map(u => u._id === activeUser._id ? {...u, confirmed: !u.confirmed} : u));
+            const h2 = h2Refs.current[users.indexOf(activeUser)];
+            if (h2) {
+                pulse(h2, !activeUser.confirmed);
+            }
         }
     }
+
+    useGSAP(() => {
+        gsap.to(btnRef.current, {
+            opacity: activeUser ? 1 : 0.35
+        })
+    }, [activeUser]);
 
     return (
         <div ref={container} style={{height: `${containerHeight}vh`}} className="static z-20 bg-bg-100 dark:bg-dark-bg-100">
@@ -177,7 +216,7 @@ export default function ConfirmationForm() {
                             renderConfirmationPanel()  
                         }
                     </div>
-                    <button onClick={(e) => {handleClick(e)}} className="uppercase text-xs absolute right-0 translate-x-1/3 -translate-y-[10%] font-bold border border-dark-bg-300/50 rounded-full w-[150px] h-[150px] dark:border-bg-300/50">
+                    <button disabled={activeUser ? false : true} ref={btnRef} onClick={(e) => {handleClick(e)}} className="uppercase text-xs absolute right-0 -translate-x-1/4 translate-y-[10%] font-bold border border-dark-bg-300/50 rounded-full w-[150px] h-[150px] dark:border-bg-300/50">
                         <p>Confirmar</p>
                         <p>Presença</p>
                     </button>
