@@ -199,8 +199,6 @@ export default function ConfirmationForm() {
     const btnTextTl = useRef<GSAPTimeline | null>();
 
     useGSAP(() => {
-        console.log(activeUser);
-
         gsap.to(btnRef.current, {
             opacity: activeUser ? 1 : 0.35
         });

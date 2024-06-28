@@ -2,7 +2,6 @@ import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useSpring, animated } from '@react-spring/web';
 import Language from '../../public/language.svg';
 import LanguageDark from '../../public/language_dark.svg';
-import Image from 'next/image';
 import { addClasses, removeClasses } from '@/lib/helpers';
 import ThemeImage from './ThemeImage';
 
@@ -59,9 +58,14 @@ export default function Welcome({ name }: { name?: string }) {
 
     return (
         <animated.div style={styles} className="fixed z-50 flex justify-center items-center top-0 left-0 w-full h-screen dark:bg-dark-bg-100/75 backdrop-blur-lg dark:border-dark-bg-300/50 bg-bg-100/75">
-            <div ref={container} className='flex gap-4 items-center'>
+            <div ref={container} className={`${name ? name.length > 7 ? 'gap-y-1' : '' : ''} flex gap-4 items-center flex-wrap justify-center`}>
                 <ThemeImage loading='eager' srcDark={LanguageDark} srcLight={Language} width={20} height={20} alt='Linguagem' />
-                <p className='text-3xl'>{message} {name ? name : ''}</p>
+                {
+                    name ? name.length > 7 ? <p className='text-3xl'>{message}</p> : <p className='text-3xl'>{message} {name}</p> : <p className='text-3xl'>{message}</p>
+                }
+                {
+                    name ? name.length > 7 ? <p className='text-3xl text-center w-full'>{name}</p> : null : null
+                }
             </div>
         </animated.div>
     )
