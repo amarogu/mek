@@ -39,6 +39,22 @@ export default function Content({item, gifts}: {item?: LeanDocument<IUser> | Pop
 
   useGSAP(() => {
 
+    gsap.registerEffect({
+      name: 'fadeOut',
+      effect: (targets: GSAPTweenTarget) => {
+        return gsap.to(targets, {opacity: 0});
+      },
+      extendTimeline: true
+    });
+
+    gsap.registerEffect({
+      name: 'fadeIn',
+      effect: (targets: GSAPTweenTarget) => {
+        return gsap.to(targets, {opacity: 1});
+      },
+      extendTmeline: true
+    });
+
     gsap.registerPlugin(ScrollTrigger);
 
     ScrollTrigger.normalizeScroll(true);
@@ -53,11 +69,9 @@ export default function Content({item, gifts}: {item?: LeanDocument<IUser> | Pop
             const prevHeight = prevHeightMap.get(target) || '';
             const currentHeight = window.getComputedStyle(target).height;
 
-            // Check if the height has changed
             if (prevHeight !== currentHeight) {
               console.log('Height changed, refreshing');
               ScrollTrigger.refresh();
-              // Update the stored height value
               prevHeightMap.set(target, currentHeight);
             }
           }
@@ -65,17 +79,17 @@ export default function Content({item, gifts}: {item?: LeanDocument<IUser> | Pop
       }
     });
 
-    // Select all elements on the page
-    const allElements = document.querySelectorAll('*');
+    const allElements = document.querySelectorAll('div, span, main, header');
 
-    // Observe each element for style attribute changes
     allElements.forEach(element => {
-      // Store the initial height of the element
       const initialHeight = window.getComputedStyle(element).height;
       prevHeightMap.set(element, initialHeight);
-
       observer.observe(element, { attributes: true, attributeFilter: ['style'] });
     });
+
+    return () => {
+      observer.disconnect();
+    }
   }, [isMounted])
 
   useEffect(() => {
@@ -90,7 +104,7 @@ export default function Content({item, gifts}: {item?: LeanDocument<IUser> | Pop
     return () => {
         window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  });
 
   if (!isMounted) return <Loading />;
 

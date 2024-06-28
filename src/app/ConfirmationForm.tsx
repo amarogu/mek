@@ -38,25 +38,7 @@ export default function ConfirmationForm() {
 
     const btnRef = useRef<HTMLButtonElement>(null);
 
-    const [activeUser, setActiveUser] = useState<LeanDocument<IUser> | null>(null);
-
-    /*const handleTriggerUpdate = () => {
-        users.forEach((u, i) => {
-            const h2 = h2Refs.current[i];
-            if (h2) {
-                const transform = h2.computedStyleMap().get('transform');
-                const opacityStyle = h2.computedStyleMap().get('opacity');
-                if (transform && opacityStyle) {
-                    const opacity = parseFloat(opacityStyle.toString());
-                    const isScaled = transform.toString().includes('scale');
-                    if (opacity === 1 && !isScaled) {
-                        setActiveUser(u);
-                        console.log('updated');
-                    }
-                }
-            }
-        })
-    }*/
+    const [activeUser, setActiveUser] = useState<LeanDocument<IUser> | null>(users[0]);
 
     const observer = new MutationObserver(list => {
         list.forEach(mutation => {
@@ -86,11 +68,14 @@ export default function ConfirmationForm() {
                     attributeFilter: ['style']
                 });
             }
-        })
+        });
+
+        return () => {
+            observer.disconnect();
+        }
     });
 
     const {contextSafe} = useGSAP((_, contextSafe) => {
-
         if (contextSafe) {
             tl.current = gsap.timeline({
                 id: 'tl',
@@ -174,7 +159,7 @@ export default function ConfirmationForm() {
 
     const confirmationTl = useRef<GSAPTimeline>();
 
-    const pulse = contextSafe((el: HTMLHeadingElement, confirmed: boolean) => {
+    const pulseUser = contextSafe((el: HTMLHeadingElement, confirmed: boolean) => {
         const h2 = el.lastChild as HTMLHeadingElement;
         const img = el.firstChild as HTMLImageElement;
         if (confirmationTl.current) {
@@ -194,9 +179,13 @@ export default function ConfirmationForm() {
         if (activeUser) {
             await handleConfirmation(!activeUser.confirmed, activeUser._id);
             setUsers(users.map(u => u._id === activeUser._id ? {...u, confirmed: !u.confirmed} : u));
-            const h2 = h2Refs.current[users.indexOf(activeUser)];
-            if (h2) {
-                pulse(h2, !activeUser.confirmed);
+            setActiveUser(u => u ? {...u, confirmed: !u.confirmed} : null);
+            const user = users.find(u => u._id === activeUser._id);
+            if (user) {
+                const h2 = h2Refs.current[users.indexOf(user)];
+                if (h2) {
+                    pulseUser(h2, !activeUser.confirmed);
+                }
             }
         }
     }
@@ -207,10 +196,44 @@ export default function ConfirmationForm() {
     const confirmTextRefs = useRef<(HTMLParagraphElement | null)[]>([]);
     const removeConfirmationTextRefs = useRef<(HTMLParagraphElement | null)[]>([]);
 
+    const btnTextTl = useRef<GSAPTimeline | null>();
+
     useGSAP(() => {
+        console.log(activeUser);
+
         gsap.to(btnRef.current, {
             opacity: activeUser ? 1 : 0.35
         });
+
+        if (activeUser) {
+            if (activeUser.confirmed) {
+                btnTextTl.current = gsap.timeline().to(confirmTextRefs.current, {
+                    opacity: 0
+                }).add([
+                    gsap.set(removeConfirmationTextRefs.current, {
+                        display: 'block'
+                    }),
+                    gsap.set(confirmTextRefs.current, {
+                        display: 'none'
+                    })
+                ]).to(removeConfirmationTextRefs.current, {
+                    opacity: 1
+                });
+            } else {
+                btnTextTl.current = gsap.timeline().to(removeConfirmationTextRefs.current, {
+                    opacity: 0
+                }).add([
+                    gsap.set(confirmTextRefs.current, {
+                        display: 'block'
+                    }),
+                    gsap.set(removeConfirmationTextRefs.current,  {
+                        display: 'none'
+                    })
+                ]).to(confirmTextRefs.current, {
+                    opacity: 1
+                });
+            }
+        }
     }, [activeUser]);
 
     return (
@@ -230,7 +253,7 @@ export default function ConfirmationForm() {
                                         if (el !== null) {
                                             confirmTextRefs.current[i] = el;
                                         }
-                                    }} key={i} className={`${users[0].confirmed ? 'hidden' : ''}`}></p>
+                                    }} key={i} className={`${users[0].confirmed ? 'hidden opacity-0' : ''}`}>{t}</p>
                                 )
                             })
                         }
@@ -241,7 +264,7 @@ export default function ConfirmationForm() {
                                         if (el !== null) {
                                             removeConfirmationTextRefs.current[i] = el;
                                         }
-                                    }} key={i} className={`${users[0].confirmed ? '' : 'hidden'}`}></p>
+                                    }} key={i} className={`${users[0].confirmed ? '' : 'hidden opacity-0'}`}>{t}</p>
                                 )
                             })
                         }

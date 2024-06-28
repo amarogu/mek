@@ -1,4 +1,4 @@
-import { MergeType, HydratedDocument, Document } from 'mongoose';
+import { MergeType } from 'mongoose';
 import { IGroup, IUser, IMsg, IPurchase, IGift } from './Models/Interfaces';
 
 export function addClasses(element: HTMLElement, classes: string[]) {
