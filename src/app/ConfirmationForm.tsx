@@ -201,10 +201,16 @@ export default function ConfirmationForm() {
         }
     }
 
+    const confirmText = ['Confirmar', 'Presença'];
+    const removeConfirmationText = ['Remover', 'Confirmação'];
+
+    const confirmTextRefs = useRef<(HTMLParagraphElement | null)[]>([]);
+    const removeConfirmationTextRefs = useRef<(HTMLParagraphElement | null)[]>([]);
+
     useGSAP(() => {
         gsap.to(btnRef.current, {
             opacity: activeUser ? 1 : 0.35
-        })
+        });
     }, [activeUser]);
 
     return (
@@ -217,8 +223,28 @@ export default function ConfirmationForm() {
                         }
                     </div>
                     <button disabled={activeUser ? false : true} ref={btnRef} onClick={(e) => {handleClick(e)}} className="uppercase text-xs absolute right-0 -translate-x-1/4 translate-y-[10%] font-bold border border-dark-bg-300/50 rounded-full w-[150px] h-[150px] dark:border-bg-300/50">
-                        <p>Confirmar</p>
-                        <p>Presença</p>
+                        {
+                            confirmText.map((t, i) => {
+                                return (
+                                    <p ref={el => {
+                                        if (el !== null) {
+                                            confirmTextRefs.current[i] = el;
+                                        }
+                                    }} key={i} className={`${users[0].confirmed ? 'hidden' : ''}`}></p>
+                                )
+                            })
+                        }
+                        {
+                            removeConfirmationText.map((t, i) => {
+                                return (
+                                    <p ref={el => {
+                                        if (el !== null) {
+                                            removeConfirmationTextRefs.current[i] = el;
+                                        }
+                                    }} key={i} className={`${users[0].confirmed ? '' : 'hidden'}`}></p>
+                                )
+                            })
+                        }
                     </button>
                 </form>
             </div>
