@@ -157,7 +157,6 @@ export default function Hero({className, id}: {className?: string, id?: string})
                 <div className="text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%]">
                     {renderContent(isMd)}
                 </div>
-                <BottomTab />
             </section>
             <div id="spacer"></div>
         </>

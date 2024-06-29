@@ -194,7 +194,7 @@ const renderDashboard = (data: AdminData) => {
                             <h2 className="text-xl font-bold">Lista de convidados</h2>
                             {
                                data.map(e => {
-                                if ('users' in e) {
+                                /*if ('users' in e) {
                                     return (
                                         <div key={e._id} className="bg-bg-300 dark:bg-dark-bg-300 p-4 flex flex-col gap-4">
                                             <p className="text-xl font-bold">{e.name}</p>
@@ -203,7 +203,7 @@ const renderDashboard = (data: AdminData) => {
                                                     return (
                                                         <div key={u._id} className="bg-bg-200 dark:bg-dark-bg-200 p-4 flex flex-col gap-4">
                                                             <p>{u.name}</p>
-                                                            <p>{u.confirmed}</p>
+                                                            <p>{u.confirmed ? 'Confirmou' : 'Não confirmou'}</p>
                                                         </div>
                                                     )
                                                 })
@@ -215,10 +215,11 @@ const renderDashboard = (data: AdminData) => {
                                     return (
                                         <div key={user._id} className="bg-bg-300 dark:bg-dark-bg-300 p-4 flex flex-col gap-4">
                                             <p className="text-xl font-bold">{user.name}</p>
-                                            <p>{user.confirmed}</p>
+                                            <p>{user.confirmed ? 'Confirmado' : 'Não confirmou'}</p>
                                         </div>
                                     )
-                                }
+                                }*/
+                               return <></>
                                }) 
                             }
                         </div>

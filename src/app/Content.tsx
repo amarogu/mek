@@ -17,6 +17,7 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gsap from "gsap";
 import Footer from "./Footer";
+import BottomTab from "./BottomTab";
 
 gsap.registerPlugin(useGSAP);
 
@@ -119,6 +120,7 @@ export default function Content({item, gifts}: {item?: LeanDocument<IUser> | Pop
             <main id="main" className="overflow-x-hidden overflow-y-hidden !h-screen">
               <div ref={spacer}></div>
               <Hero id="hero" className="px-8" />
+              <BottomTab />
               <Us id="us" />
               <Messages id="messages" />
               <Gifts id="gifts" gifts={gifts} />

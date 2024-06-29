@@ -1,7 +1,7 @@
 import { addClasses, removeClasses, splitArray } from "@/lib/helpers";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { CSSProperties, useRef } from "react";
+import { CSSProperties, useEffect, useRef } from "react";
 import {confirmationImgs, confirmationImgsLg, confirmationImgsMd} from "@/lib/rendering/confirmationImgs";
 import Image, { StaticImageData } from "next/image";
 import { useWindowSize } from "@studio-freight/hamo";
@@ -39,7 +39,11 @@ export default function Confirmation({id}: {id?: string}) {
     const { width: windowWidth } = useWindowSize() as { width: number };
 
     useGSAP((_, contextSafe) => {
+        const handleScroll = (e: Event) => {
+            e.preventDefault();
+        };
             if (contextSafe) {
+                
                 const onUpdate = (progress: number) => {
                     getImgsArray(isMd, isLg).forEach((imgs, i) => {
                         imgs.forEach((_, j) => {
