@@ -272,7 +272,7 @@ export type Populated<TBase, TPaths> = MergeType<
   }
 >;
 
-export type AdminEntity = Populated<IUser | IGroup, { msgs: IMsg[]; purchases: Populated<IPurchase, {msg: IMsg, giftGiven: IGift}>[] }>;
+export type AdminEntity = Populated<IUser | IGroup, { msgs: IMsg[], purchases: Populated<IPurchase, {msg: IMsg, giftGiven: IGift}>[] } | { msgs: IMsg[], purchases: Populated<IPurchase, {msg: IMsg, giftGiven: IGift}>[], users: IUser[] }>;
 
 export type AdminData = AdminEntity[];
 

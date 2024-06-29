@@ -3,7 +3,7 @@ import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import { AdminData, ErrorResponse, LeanDocument, Populated, SuccessResponse, emptyMsg } from "@/lib/helpers";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
-import { IGift, IMsg, IPurchase } from "@/lib/Models/Interfaces";
+import { IGift, IGroup, IMsg, IPurchase, IUser } from "@/lib/Models/Interfaces";
 import { TabData } from "@/lib/helpers";
 import Divider from "../Divider";
 import SimpleInput from "../SimpleInput";
@@ -115,6 +115,7 @@ const renderDashboard = (data: AdminData) => {
                     }
                     <Tab className={tabClassName}>Cadastrar presentes</Tab>
                     <Tab className={tabClassName}>Cadastrar convidados</Tab>
+                    <Tab className={tabClassName}>Confirmação dos convidados</Tab>
                 </TabList>
                 <TabPanels>
                     {
@@ -186,6 +187,40 @@ const renderDashboard = (data: AdminData) => {
                                 </div>
                                 {renderContent(state)}
                             </form>
+                        </div>
+                    </TabPanel>
+                    <TabPanel>
+                        <div className="bg-bg-200 dark:bg-dark-bg-200 p-4 flex flex-col gap-4">
+                            <h2 className="text-xl font-bold">Lista de convidados</h2>
+                            {
+                               data.map(e => {
+                                if ('users' in e) {
+                                    return (
+                                        <div key={e._id} className="bg-bg-300 dark:bg-dark-bg-300 p-4 flex flex-col gap-4">
+                                            <p className="text-xl font-bold">{e.name}</p>
+                                            {
+                                                e.users.map(u => {
+                                                    return (
+                                                        <div key={u._id} className="bg-bg-200 dark:bg-dark-bg-200 p-4 flex flex-col gap-4">
+                                                            <p>{u.name}</p>
+                                                            <p>{u.confirmed}</p>
+                                                        </div>
+                                                    )
+                                                })
+                                            }
+                                        </div>
+                                    )
+                                } else {
+                                    const user = e as Populated<IUser, { msgs: IMsg[], purchases: Populated<IPurchase, {msg: IMsg, giftGiven: IGift}>[] }>
+                                    return (
+                                        <div key={user._id} className="bg-bg-300 dark:bg-dark-bg-300 p-4 flex flex-col gap-4">
+                                            <p className="text-xl font-bold">{user.name}</p>
+                                            <p>{user.confirmed}</p>
+                                        </div>
+                                    )
+                                }
+                               }) 
+                            }
                         </div>
                     </TabPanel>
                 </TabPanels>
