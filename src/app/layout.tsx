@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='pt'>
-      <body className={`${manrope.className} text-text-100 dark:text-dark-text-100 bg-bg-100 dark:bg-dark-bg-100 antialiased`}>{children}</body>
+      <body className={`${manrope.className} text-text-100 dark:text-dark-text-100 bg-bg-100 dark:bg-dark-bg-100 subpixel-antialiased`}>{children}</body>
     </html>
   );
 }
