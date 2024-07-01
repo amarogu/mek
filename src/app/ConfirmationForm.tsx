@@ -4,6 +4,7 @@ import ArrowDark from '../../public/keyboard_arrow_down_dark.svg';
 import Arrow from '../../public/keyboard_arrow_down.svg';
 import ThemeImage from "./ThemeImage";
 import Image from "next/image";
+import Dropdown from "./Dropdown";
 
 export default function ConfirmationForm() {
 
@@ -31,10 +32,7 @@ export default function ConfirmationForm() {
                         return (
                             <Fragment key={i}>
                                 <p className="">{u.name}</p>
-                                <button className="flex gap-4 justify-between text-xl opacity-75 items-center uppercase">
-                                    <span>{u.confirmed ? 'Sim' : 'Não'}</span>
-                                    <ThemeImage srcDark={ArrowDark} srcLight={Arrow} alt={`Lista de opções de confirmação ${u.gender === 'female' ? 'da convidada' : 'do convidado'}`} />
-                                </button>
+                                <Dropdown style={{zIndex: users.length - i}} text={u.confirmed ? 'Sim' : 'Não'} options={['Sim', 'Não']} alt={`Lista de opções de confirmação ${u.gender === 'female' ? 'da convidada' : 'do convidado'}`} />
                             </Fragment>
                         )
                     })
