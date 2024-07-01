@@ -19,6 +19,8 @@ export default function Dropdown({text, alt, options, className, style, action, 
 
     const [labelText, setLabelText] = useState('');
 
+    const [disabled, setDisabled] = useState(false);
+
     const {contextSafe} = useGSAP(() => {
         gsap.registerPlugin(CustomEase);
 
@@ -33,14 +35,8 @@ export default function Dropdown({text, alt, options, className, style, action, 
         });
     }, [open]);
 
-    useGSAP(() => {
-        gsap.to([label.current, indicator.current], {
-            opacity: 1,
-            duration: 0.2
-        });
-    }, [labelText])
-
     const handleClick = contextSafe(async (e: MouseEvent<HTMLParagraphElement, globalThis.MouseEvent>) => {
+        setDisabled(true)
         if (action && _id) {
             const option = e.currentTarget.textContent === 'Sim';
             const res = await action(option, _id);
@@ -51,6 +47,13 @@ export default function Dropdown({text, alt, options, className, style, action, 
                     duration: 0.2,
                     onComplete: () => {
                         setLabelText(option ? 'Sim' : 'Não');
+                        gsap.to([label.current, indicator.current], {
+                            opacity: 1,
+                            duration: 0.2,
+                            onComplete: () => {
+                                setDisabled(false);
+                            }
+                        });
                     }
                 })
             }
@@ -58,7 +61,7 @@ export default function Dropdown({text, alt, options, className, style, action, 
     });
 
     return (
-        <button style={style} onBlur={() => {setOpen(false)}} onClick={() => {setOpen(!open)}} className={`flex text-left uppercase font-normal relative gap-4 justify-between text-xl items-center ${className}`}>
+        <button disabled={disabled} style={style} onBlur={() => {setOpen(false)}} onClick={() => {setOpen(!open)}} className={`flex text-left uppercase font-normal relative gap-4 justify-between text-xl items-center ${className}`}>
             <span ref={label}>{labelText ? labelText : text}</span>
             <ThemeImage ref={indicator} srcDark={ArrowDark} srcLight={Arrow} alt={alt} />
             <div ref={dropdown} style={{transform: 'translateY(105%) scale(0)'}} className="absolute rounded-lg w-32 gap-4 text-base origin-top-right flex flex-col bg-bg-200/75 dark:bg-dark-bg-200/75 backdrop-blur-md right-0 bottom-0 py-4">
