@@ -1,57 +1,65 @@
-import React, { useEffect, useRef } from "react";
-import { useGSAP } from "@gsap/react";
+import { useLenis } from "@studio-freight/react-lenis";
+import { parseNavItem } from "@/lib/helpers";
+import { useRef } from "react";
 import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
-interface TextProps {
-    on: 'hover' | 'mount' | 'click';
-    animation: 'upper-staggering';
-    el: React.ReactNode;
-    content: string;
-}
+export default function AnimatedText({content, offset}: {content: string, offset: number}) {
 
-export default function AnimatedText({on, el, content, animation}: TextProps) {
+    const lenis = useLenis(() => {});
 
-    const ref = useRef<HTMLElement>(null);
-    const upperRef = useRef<HTMLDivElement>(null);
-    const lowerRef = useRef<HTMLDivElement>(null);
-    let tl: gsap.core.Timeline = gsap.timeline({paused: true});
+    const letterRefs = useRef<HTMLSpanElement[]>([]);
+    const lowerLetterRefs = useRef<HTMLSpanElement[]>([]);
 
-    useGSAP(() => {
-        switch (animation) {
-            case 'upper-staggering':
-                    const chars = upperRef.current as HTMLDivElement;
-                    const lowerChars = lowerRef.current as HTMLDivElement;
-                    tl.to(chars.children, {y: -15, stagger: 0.025, duration: 0.3, ease: 'power2.inOut'});
-                    tl.to(lowerChars.children, {y: '-100%', stagger: 0.05, duration: 0.3}, '-=0.3');
-            break;
-            default:
-                return;
+    const tl = useRef<GSAPTimeline | null>();
+
+    const { contextSafe } = useGSAP(() => {
+        tl.current = gsap.timeline().to(letterRefs.current, {
+            y: -15,
+            stagger: 0.01,
+            duration: 0.2
+        }).to(lowerLetterRefs.current, {
+            stagger: 0.02,
+            duration: 0.2,
+            yPercent: -100
+        }).pause();
+    });
+
+    const handleMouseEnter = contextSafe(() => {
+        if (tl.current) {
+            console.log(tl.current.getChildren());
+            tl.current.restart();
         }
-    }, [])
+    });
 
-    useEffect(() => {
-        switch (on) {
-            case 'hover':
-                const chars = ref.current as HTMLElement;
-                chars.addEventListener('mouseenter', () => tl.play());
-                chars.addEventListener('mouseleave', () => tl.reverse());
-                return () => {
-                    chars.removeEventListener('mouseenter', () => tl.play());
-                    chars.removeEventListener('mouseleave', () => tl.reverse());
+    return (
+        <button onMouseEnter={handleMouseEnter} className="uppercase overflow-hidden h-[15px] text-xs" onClick={() => lenis?.scrollTo(parseNavItem(content), {duration: 2.5, offset: offset})}>
+            <div>
+                {
+                    Array.from(content).map((l, j) =>
+                        <span ref={el => {
+                            if (el) {
+                                letterRefs.current[j] = el;
+                            }
+                        }} className="inline-block" key={j}>
+                            {l}
+                        </span>
+                    )
                 }
-            case 'mount':
-                tl.play();
-                break;
-            case 'click':
-                const charsClick = ref.current as HTMLElement;
-                charsClick.addEventListener('click', () => tl.play());
-                return () => {
-                    charsClick.removeEventListener('click', () => tl.play());
+            </div>
+            <div>
+                {
+                    Array.from(content).map((l, j) =>
+                        <span ref={el => {
+                            if (el) {
+                                lowerLetterRefs.current[j] = el;
+                            }
+                        }} className="inline-block" key={j}>
+                            {l}
+                        </span>
+                    )
                 }
-        }
-    }, [on, tl])
-
-    const characters = content.split('').map((char, index) => <span className="inline-block" key={index}>{char}</span>);
-    const children = <div className="flex flex-col"><div ref={upperRef}>{characters}</div><div ref={lowerRef}>{characters}</div></div>
-    return React.cloneElement(el as React.ReactElement, {ref}, children);
+            </div>
+        </button>
+    )
 }

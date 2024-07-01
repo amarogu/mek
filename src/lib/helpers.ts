@@ -126,7 +126,7 @@ export const preventInteraction = (prevent: boolean) => {
   }
 }
 
-export const parseNavItem = (item: 'galeria' | 'recados' | 'presentes' | 'confirmar' | 'festa') => {
+export const parseNavItem = (item: string) => {
   switch (item) {
     case 'galeria': return '#us';
     case 'recados': return '#messages';
@@ -134,6 +134,7 @@ export const parseNavItem = (item: 'galeria' | 'recados' | 'presentes' | 'confir
     case 'confirmar': return '#confirm';
     case 'festa': return '#party';
   }
+  return '';
 }
 
 export type ErrorResponse = {

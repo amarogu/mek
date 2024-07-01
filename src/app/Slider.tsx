@@ -21,7 +21,7 @@ export default function Slider({open, setOpen}: SliderProps) {
 
     const [linkClicked, setLinkClicked] = useState(false);
 
-    const [clickedItem, setClickedItem] = useState<'galeria' | 'recados' | 'presentes' | 'confirmar' | 'festa' | null>(null);
+    const [clickedItem, setClickedItem] = useState<string | null>(null);
 
     const tl = useRef<GSAPTimeline | null>();
 
@@ -61,7 +61,7 @@ export default function Slider({open, setOpen}: SliderProps) {
         }
     }, [])
 
-    const data: ('galeria' | 'recados' | 'presentes' | 'confirmar' | 'festa')[] = ['galeria', 'recados', 'presentes', 'confirmar', 'festa']
+    const data = ['galeria', 'recados', 'presentes', 'confirmar', 'festa']
 
     const igs = [['maria', 'https://www.instagram.com/mariaisabel_amaro/'], ['kalil', 'https://www.instagram.com/kalilalvess/']]
 
