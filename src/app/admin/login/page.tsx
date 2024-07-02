@@ -22,7 +22,7 @@ export default function App() {
             if (res?.error) {
                 setRes(new AuthRes('Invalid credentials', 401));
             }
-            router.replace('/admin');
+            router.push('/admin');
         } catch(err: any) {
             console.log(err);
         }
