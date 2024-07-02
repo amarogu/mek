@@ -44,10 +44,22 @@ export default function Confirmation({id}: {id?: string}) {
     const text = ['Confirmar', 'presença', 'no evento'];
     const confirmedText = ['Presença', 'confirmada', 'no evento'];
 
+    const rotatingSquareRef = useRef<HTMLSpanElement | null>(null);
+
     const { contextSafe } = useGSAP(() => {
         xTo.current = gsap.quickTo(btnRef.current, 'left', {duration: 0.2});
         yTo.current = gsap.quickTo(btnRef.current, 'top', {duration: 0.2});
+        if (rotatingSquareRef.current) {
+            gsap.to(rotatingSquareRef.current, {
+                rotate: 360,
+                duration: 0.95,
+                repeat: -1,
+                ease: 'power1.inOut'
+            });
+        }
     });
+
+    const indicatorRef = useRef<HTMLParagraphElement | null>(null);
 
     const handleMouseLeave = contextSafe(() => {
         if (btnRef.current) {
@@ -175,9 +187,98 @@ export default function Confirmation({id}: {id?: string}) {
         }
     });
 
+    const pulsingTl = useRef<GSAPTimeline | null>(null);
+
+    const handleTouchBasedClick = contextSafe(async () => {
+        if (isNotGroup && isTouchBased && !disabled && guest && confirmTextRefs.current && removeConfirmationTextRefs.current) {
+            const option = !guest.confirmed;
+            const _id = item._id;
+            const res = await handleConfirmation(option, _id);
+            if (res === 'User confirmed successfully') {
+                setGuest(g => {
+                    if (g) {
+                        return {
+                            ...g,
+                            confirmed: option
+                        }
+                    } else {
+                        return null;
+                    }
+                });
+                if (option) {
+                    sliderTl.current = gsap.timeline({
+                        onComplete: handleOnComplete,
+                        onStart: handleOnStart
+                    }).to(sliderRefs.current, {x: '0%', duration: 0.5, ease: 'power1.in', onComplete: () => {
+                        if (textRefs.current) {
+                            textRefs.current.forEach((t, i) => {
+                                if (t) {
+                                    t.textContent = confirmedText[i];
+                                }
+                            })
+                        }
+                    }}).to(sliderRefs.current, {x: '100%', duration: 0.4, ease: 'power1.in'}, '+=0.2');
+                    pulsingTl.current = gsap.timeline().to(indicatorRef.current, {
+                        opacity: 0,
+                        duration: 0.2,
+                        onComplete: () => {
+                            if (indicatorRef.current) {
+                                const lastChild = indicatorRef.current.lastElementChild;
+                                if (lastChild) {
+                                    lastChild.textContent = 'Clique para remover confirmação';
+                                }
+                            }
+                        }
+                    }).to(indicatorRef.current, {
+                        opacity: 1,
+                        duration: 0.2
+                    });
+                } else {
+                    sliderTl.current = gsap.timeline({
+                        onComplete: handleOnComplete,
+                        onStart: handleOnStart
+                    }).to(sliderRefs.current, {x: '0%', duration: 0.5, ease: 'power1.in', onComplete: () => {
+                        if (textRefs.current) {
+                            textRefs.current.forEach((t, i) => {
+                                if (t) {
+                                    t.textContent = text[i];
+                                }
+                            })
+                        }
+                    }}).to(sliderRefs.current, {x: '100%', duration: 0.4, ease: 'power1.in'}, '+=0.2');
+                    pulsingTl.current = gsap.timeline().to(indicatorRef.current, {
+                        opacity: 0,
+                        duration: 0.2,
+                        onComplete: () => {
+                            if (indicatorRef.current) {
+                                const lastChild = indicatorRef.current.lastElementChild;
+                                if (lastChild) {
+                                    lastChild.textContent = 'Clique para confirmar';
+                                }
+                            }
+                        }
+                    }).to(indicatorRef.current, {
+                        opacity: 1,
+                        duration: 0.2
+                    });
+                }
+            }
+        }
+    })
+
     return (
         <section id={id} ref={sectionRef} className="p-8 pt-20 pb-28">
-            <div ref={parentRef} onMouseMove={isNotGroup ? (e) => { handleMouseMove(e) } : () => {}} onMouseLeave={isNotGroup ? handleMouseLeave : () => {}} className={`text-[12.5vw] relative flex flex-col gap-16 items-center md:text-[9vw] xl:text-[120px] container mx-auto font-extrabold leading-[85%] ${isNotGroup ? 'cursor-pointer gap-0' : ''}`}>
+            <div onClick={handleTouchBasedClick} ref={parentRef} onMouseMove={isNotGroup ? (e) => { handleMouseMove(e) } : () => {}} onMouseLeave={isNotGroup ? handleMouseLeave : () => {}} className={`text-[12.5vw] relative flex flex-col gap-16 items-center md:text-[9vw] xl:text-[120px] container mx-auto font-extrabold leading-[85%] ${isNotGroup ? 'cursor-pointer gap-0' : ''}`}>
+                {
+                    isNotGroup ? isTouchBased ? <p ref={indicatorRef} className="uppercase text-xs font-normal mb-6 animate-pulse items-center flex gap-4">
+                        <span ref={rotatingSquareRef} className="w-[6px] h-[6px] bg-text-100 dark:bg-dark-text-100"></span>
+                        <span>
+                            {
+                                item.confirmed ? 'Clique para remover confirmação' : 'Clique para confirmar'
+                            }
+                        </span>
+                    </p> : null : null
+                }
                 <h2 ref={titleRef} className="flex flex-col items-end">
                     <p className="ml-16 relative overflow-hidden self-start">
                         <span ref={el => {
