@@ -27,7 +27,6 @@ export default function AnimatedText({content, offset}: {content: string, offset
 
     const handleMouseEnter = contextSafe(() => {
         if (tl.current) {
-            console.log(tl.current.getChildren());
             tl.current.restart();
         }
     });
