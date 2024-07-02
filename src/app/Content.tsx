@@ -105,7 +105,7 @@ export default function Content({item, gifts}: {item?: LeanDocument<IUser> | Pop
     return () => {
         window.removeEventListener('resize', handleResize);
     };
-  });
+  }, []);
 
   if (!isMounted) return <Loading />;
 

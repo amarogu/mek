@@ -36,7 +36,7 @@ const renderPath = (path: LeanDocument<IMsg> | Populated<IPurchase, {msg: IMsg, 
     }
 }
 
-const renderDashboard = (data: AdminData) => {
+const RenderDashboard = ({data}: {data: AdminData}) => {
 
     const [title, setTitle] = useState('');
     const [desc, setDesc] = useState('');
@@ -240,7 +240,7 @@ export default function Dashboard({session, data}: {session: Session, data: Admi
                     <p>Bem-vindo(a) {session?.user?.name}</p>
                     <button className="text-left" onClick={() => signOut()}>Encerrar sessão</button>
                 </div>
-                {renderDashboard(data)}
+                <RenderDashboard data={data} />
             </div>
         </main>
     )

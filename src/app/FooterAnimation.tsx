@@ -49,7 +49,7 @@ export default function FooterAnimation({className}: {className?: string}) {
             setDots(newDots);
         }
         
-    }, []);
+    }, [isDarkMode]);
 
     return (
         <div ref={footerRef} className={`relative mb-6 md:mb-12 h-96 w-full ${className}`}>

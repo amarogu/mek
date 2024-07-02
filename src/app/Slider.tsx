@@ -52,7 +52,7 @@ export default function Slider({open, setOpen}: SliderProps) {
             lenis?.scrollTo(parseNavItem(clickedItem), {duration: 2.5, onComplete: () => setHasFinished(false), offset: offset});
             setLinkClicked(false);
         }
-    }, [hasFinished]);
+    }, [hasFinished, lenis, linkClicked, clickedItem, offset]);
 
     useEffect(() => {
         const header = document.getElementById('header');

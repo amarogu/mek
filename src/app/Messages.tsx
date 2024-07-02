@@ -30,7 +30,7 @@ export default function Messages({ id }: { id: string }) {
         if (isMd) {
             if (imgRef.current) imgRef.current.style.height = `${formRef.current?.clientHeight}px`;
         } 
-    }, [])
+    }, [isMd]);
 
     const cleanup = () => {
         setRes(undefined);

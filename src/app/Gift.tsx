@@ -17,7 +17,6 @@ export default function Gift({gift}: {gift: LeanDocument<IGift>}) {
     const {item} = useContext(Context);
 
     useGSAP(() => {
-
         let coarse = window.matchMedia('(pointer: coarse)').matches;
 
         if (coarse) {
@@ -51,12 +50,11 @@ export default function Gift({gift}: {gift: LeanDocument<IGift>}) {
                 y: hovering ? 0 : 16
             });
         }
-
     }, [hovering]);
 
     useEffect(() => {
         if (gift.soldOut) setHovering(true);
-    }, [])
+    }, [gift.soldOut])
 
     return (
         <Link aria-disabled={gift.soldOut} className={`${gift.soldOut ? 'pointer-events-none relative' : ''}`} href={item ? 'users' in item ? `/group/${item._id}/gift/${gift._id}` : `/guest/${item._id}/gift/${gift._id}` : `/gift/${gift._id}`}>

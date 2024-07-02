@@ -47,7 +47,7 @@ export default function Result({clientSecret}: {clientSecret: string}) {
                 break;
             }
           });
-    }, [stripe]);
+    }, [stripe, clientSecret]);
 
     return (
         <main className="h-screen grid grid-rows-3 p-8 max-w-xl mx-auto items-center">

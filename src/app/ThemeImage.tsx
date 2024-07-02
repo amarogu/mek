@@ -10,4 +10,6 @@ const ThemeImage = forwardRef<HTMLPictureElement, {srcLight: StaticImageData, sr
     )
 });
 
+ThemeImage.displayName = 'ThemeImage';
+
 export default ThemeImage;
