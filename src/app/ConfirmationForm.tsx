@@ -3,7 +3,7 @@ import Context from "./Context"
 import Dropdown from "./Dropdown";
 import instance from "@/lib/axios";
 
-export default function ConfirmationForm() {
+export default function ConfirmationForm({handleConfirmation}: {handleConfirmation: (option: boolean, _id: string) => Promise<any>}) {
 
     const { item } = useContext(Context);
 
@@ -12,17 +12,6 @@ export default function ConfirmationForm() {
     }
 
     const sortedItems = item.users.toSorted((a, b) => b.name.length - a.name.length);
-
-    const handleConfirmation = async (option: boolean, _id: string) => {
-        const res = await instance.post('/confirm', {
-            confirmed: option, _id
-        });
-        if (res.data.message === 'User confirmed successfully') {
-            return res.data.message;
-        } else {
-            return '';
-        }
-    }
 
     return (
         <div className="flex uppercase flex-col gap-7">
