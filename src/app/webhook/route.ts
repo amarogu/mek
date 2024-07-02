@@ -6,12 +6,6 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
 const endpointSecret = process.env.STRIPE_WH_SECRET as string;
 
-export const config = {
-    api: {
-        bodyParser: false
-    }
-}
-
 const handleSuccess = async (metadata: { _id: string, gift_id: string, msg: string }) => {
     const models = await connectDb();
     try {
