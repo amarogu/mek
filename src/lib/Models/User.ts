@@ -40,7 +40,15 @@ const userSchema = new Schema<IUser>({
     confirmed: {
         type: Boolean,
         default: false
+    },
+    lastConfirmed: {
+        type: Date
+    },
+    lastRevokedConfirmation: {
+        type: Date
     }
+}, {
+    timestamps: true
 });
 
 userSchema.pre('save', function(next) {

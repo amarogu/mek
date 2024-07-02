@@ -30,6 +30,8 @@ export interface IUser {
     role: 'admin' | 'individual';
     password?: string;
     confirmed: boolean;
+    lastConfirmed: Date;
+    lastRevokedConfirmation: Date;
 }
 
 export interface IPurchase {
