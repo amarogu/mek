@@ -4,7 +4,6 @@ import Arrow from '../../public/keyboard_arrow_down.svg';
 import { CSSProperties, Fragment, MouseEvent, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { CustomEase } from "gsap/CustomEase";
 import Divider from "./Divider";
 
 export default function Dropdown({text, alt, options, className, style, action, _id}: {text: string, alt: string, options: string[], className?: string, style?: CSSProperties, action?: (option: boolean, _id: string) => Promise<string>, _id?: string}) {
@@ -22,8 +21,6 @@ export default function Dropdown({text, alt, options, className, style, action, 
     const [disabled, setDisabled] = useState(false);
 
     const {contextSafe} = useGSAP(() => {
-        gsap.registerPlugin(CustomEase);
-
         gsap.to(dropdown.current, {
             scale: open ? 1 : 0,
             duration: 0.2

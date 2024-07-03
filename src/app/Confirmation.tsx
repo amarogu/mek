@@ -6,48 +6,47 @@ import Context from "./Context";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import instance from "@/lib/axios";
-import { LeanDocument } from "@/lib/helpers";
-import { IUser } from "@/lib/Models/Interfaces";
+import { MutableRefObject } from "react";
 import { useMediaQuery } from "react-responsive";
 
 export default function Confirmation({id}: {id?: string}) {
-    const sectionRef = useRef(null);
-
-    const titleRef = useRef<HTMLHeadingElement | null>(null);
-
-    const formRef = useRef<HTMLDivElement | null>(null);
-
     const { item } = useContext(Context);
 
     if (!item) {
         return null;
     }
 
-    const isTouchBased = useMediaQuery({query: '(pointer: coarse)'});
-
     const isNotGroup = !('users' in item);
 
-    const [guest, setGuest] = useState<LeanDocument<IUser> | null>(isNotGroup ? item : null);
+    const isTouchBased = useMediaQuery({query: '(pointer: coarse)'});
+
+    const sectionRef = useRef<HTMLElement | null>(null);
+    const titleRef = useRef<HTMLHeadingElement | null>(null);
+    const formRef = useRef<HTMLDivElement | null>(null);
 
     const xTo = useRef<gsap.QuickToFunc | null>(null);
     const yTo = useRef<gsap.QuickToFunc | null>(null);
 
-    const btnRef = useRef<HTMLButtonElement>(null);
     const parentRef = useRef<HTMLDivElement>(null);
 
-    const tl = useRef<GSAPTimeline | null>(null);
-    const sliderTl = useRef<GSAPTimeline | null>(null);
-
-    const sliderRefs = useRef<(HTMLSpanElement | null)[]>([]);
+    const titleText = ['Confirmar', 'presença', 'no evento'];
+    const titleConfirmedText = ['Presença', 'confirmada', 'no evento'];
     const textRefs = useRef<(HTMLSpanElement | null)[]>([]);
-
-    const text = ['Confirmar', 'presença', 'no evento'];
-    const confirmedText = ['Presença', 'confirmada', 'no evento'];
+    const sliderRefs = useRef<(HTMLSpanElement | null)[]>([]);
+    const sliderTl = useRef<GSAPTimeline | null>(null);
 
     const lastUpdatedRef = useRef<HTMLParagraphElement | null>(null);
     const lastUpdatedTl = useRef<GSAPTimeline | null>(null);
 
     const rotatingSquareRef = useRef<HTMLSpanElement | null>(null);
+    const indicatorTl = useRef<GSAPTimeline | null>(null);
+    const indicatorRef = useRef<HTMLParagraphElement | null>(null);
+
+    const btnConfirmText = ['Confirmar', 'Presença'];
+    const btnRevokeText = ['Remover', 'Confirmação'];
+    const btnRef = useRef<HTMLButtonElement>(null);
+    const btnTextRefs = useRef<(HTMLParagraphElement | null)[]>([]);
+    const btnTextTl = useRef<GSAPTimeline | null>(null);
 
     const { contextSafe } = useGSAP(() => {
         xTo.current = gsap.quickTo(btnRef.current, 'left', {duration: 0.2});
@@ -62,7 +61,12 @@ export default function Confirmation({id}: {id?: string}) {
         }
     });
 
-    const indicatorRef = useRef<HTMLParagraphElement | null>(null);
+    useEffect(() => {
+        if (titleRef.current && formRef.current) {
+            const width = titleRef.current.clientWidth;
+            formRef.current.setAttribute('style', `width: ${width}px`);
+        }
+    });
 
     const handleMouseLeave = contextSafe(() => {
         if (btnRef.current) {
@@ -92,13 +96,6 @@ export default function Confirmation({id}: {id?: string}) {
         }
     });
 
-    useEffect(() => {
-        if (titleRef.current && formRef.current) {
-            const width = titleRef.current.clientWidth;
-            formRef.current.setAttribute('style', `width: ${width}px`);
-        }
-    });
-
     const handleConfirmation = async (option: boolean, _id: string) => {
         const res = await instance.post('/confirm', {
             confirmed: option, _id
@@ -110,226 +107,84 @@ export default function Confirmation({id}: {id?: string}) {
         }
     }
 
-    const confirmText = ['Confirmar', 'Presença'];
-    const removeConfirmationText = ['Remover', 'Confirmação'];
-
-    const confirmTextRefs = useRef<(HTMLParagraphElement | null)[]>([]);
-    const removeConfirmationTextRefs = useRef<(HTMLParagraphElement | null)[]>([]);
-
-    const pulse = (elFadeIn: (HTMLParagraphElement | null)[], elFadeOut: (HTMLParagraphElement | null)[]) => {
-        tl.current = gsap.timeline().to(elFadeOut, {
+    const pulse = contextSafe((tl: MutableRefObject<GSAPTimeline | null>, target: MutableRefObject<HTMLParagraphElement | null> | MutableRefObject<(HTMLParagraphElement | null)[]>, replacementContent: string | string[]) => {
+        tl.current = gsap.timeline().to(target.current, {
             opacity: 0,
-            duration: 0.2
-        }).set(elFadeOut, {
-            display: 'none'
-        }).set(elFadeIn, {
-            display: 'block'
-        }).to(elFadeIn, {
+            duration: 0.2,
+            onComplete: () => {
+                if (target.current instanceof Array) {
+                    target.current.forEach((t, i) => {
+                        if (t) t.textContent = replacementContent[i];
+                    });
+                } else {
+                    if (target.current && !(replacementContent instanceof Array)) target.current.textContent = replacementContent;
+                }
+            }
+        }).to(target.current, {
             opacity: 1,
             duration: 0.2
-        });
-    }
+        })
+    });
+
+    const sliderAnimation = contextSafe((replacementText: string[]) => {
+        const handleOnComplete = () => {
+            if (sliderTl.current) sliderTl.current.revert();
+            setDisabled(false);
+        }
+    
+        const handleOnStart = () => {
+            setDisabled(true);
+        }
+
+        sliderTl.current = gsap.timeline({
+            onComplete: handleOnComplete,
+            onStart: handleOnStart
+        }).to(sliderRefs.current, {x: '0%', duration: 0.5, ease: 'power1.in', onComplete: () => {
+                if (textRefs.current) {
+                    textRefs.current.forEach((t, i) => {
+                        if (t) {
+                            t.textContent = replacementText[i];
+                        }
+                    })
+                }
+            }}).to(sliderRefs.current, {x: '100%', duration: 0.4, ease: 'power1.in'}, '+=0.2');
+    });
 
     const [disabled, setDisabled] = useState(false);
 
-    const handleOnComplete = () => {
-        if (sliderTl.current) sliderTl.current.revert();
-        setDisabled(false);
-    }
-
-    const handleOnStart = () => {
-        setDisabled(true);
-    }
-
     const handleClick = contextSafe(async () => {
-        if (isNotGroup && guest  && confirmTextRefs.current && removeConfirmationTextRefs.current) {
-            const option = !guest.confirmed;
+        if (isNotGroup && textRefs.current[0]) {
+            const option = textRefs.current[0].textContent === titleText[0] ? true : false;
             const _id = item._id;
             const res = await handleConfirmation(option, _id);
             if (res === 'User confirmed successfully') {
-                setGuest(g => {
-                    if (g) {
-                        if (option) {
-                            return {
-                                ...g,
-                                confirmed: option,
-                                lastConfirmed: new Date()
-                            }
-                        } else {
-                            return {
-                                ...g,
-                                confirmed: option,
-                                lastRevokedConfirmation: new Date()
-                            }
-                        }
-                    } else {
-                        return null;
-                    }
-                });
                 if (option) {
-                    sliderTl.current = gsap.timeline({
-                        onComplete: handleOnComplete,
-                        onStart: handleOnStart
-                    }).to(sliderRefs.current, {x: '0%', duration: 0.5, ease: 'power1.in', onComplete: () => {
-                        if (textRefs.current) {
-                            textRefs.current.forEach((t, i) => {
-                                if (t) {
-                                    t.textContent = confirmedText[i];
-                                }
-                            })
-                        }
-                    }}).to(sliderRefs.current, {x: '100%', duration: 0.4, ease: 'power1.in'}, '+=0.2');
-                    pulse(removeConfirmationTextRefs.current, confirmTextRefs.current);
-                    lastUpdatedTl.current = gsap.timeline().to(lastUpdatedRef.current, {
-                        opacity: 0,
-                        duration: 0.2,
-                        onComplete: () => {
-                            if (lastUpdatedRef.current) {
-                                lastUpdatedRef.current.textContent = `Presença confirmada pela última vez em ${guest.lastConfirmed.toLocaleString('pt-BR', {timeZone: 'America/Sao_Paulo'})}`;
-                            }
-                        }
-                    }).to(lastUpdatedRef.current, {
-                        opacity: 1,
-                        duration: 0.2
-                    });
+                    sliderAnimation(titleConfirmedText);
+                    pulse(btnTextTl, btnTextRefs, btnRevokeText);
+                    pulse(lastUpdatedTl, lastUpdatedRef, `Presença confirmada pela última vez em ${new Date().toLocaleString('pt-BR', {timeZone: 'America/Sao_Paulo'})}`);
                 } else {
-                    sliderTl.current = gsap.timeline({
-                        onComplete: handleOnComplete,
-                        onStart: handleOnStart
-                    }).to(sliderRefs.current, {x: '0%', duration: 0.5, ease: 'power1.in', onComplete: () => {
-                        if (textRefs.current) {
-                            textRefs.current.forEach((t, i) => {
-                                if (t) {
-                                    t.textContent = text[i];
-                                }
-                            })
-                        }
-                    }}).to(sliderRefs.current, {x: '100%', duration: 0.4, ease: 'power1.in'}, '+=0.2');
-                    pulse(confirmTextRefs.current, removeConfirmationTextRefs.current);
-                    lastUpdatedTl.current = gsap.timeline().to(lastUpdatedRef.current, {
-                        opacity: 0,
-                        duration: 0.2,
-                        onComplete: () => {
-                            if (lastUpdatedRef.current) {
-                                lastUpdatedRef.current.textContent = `Confirmação removida pela última vez em ${guest.lastRevokedConfirmation.toLocaleString('pt-BR', {timeZone: 'America/Sao_Paulo'})}`;
-                            }
-                        }
-                    }).to(lastUpdatedRef.current, {
-                        opacity: 1,
-                        duration: 0.2
-                    });
+                    sliderAnimation(titleText);
+                    pulse(btnTextTl, btnTextRefs, btnConfirmText);
+                    pulse(lastUpdatedTl, lastUpdatedRef, `Confirmação removida pela última vez em ${new Date().toLocaleString('pt-BR', {timeZone: 'America/Sao_Paulo'})}`);
                 }
             }
         }
     });
 
-    const pulsingTl = useRef<GSAPTimeline | null>(null);
-
     const handleTouchBasedClick = contextSafe(async () => {
-        if (isNotGroup && isTouchBased && !disabled && guest && confirmTextRefs.current && removeConfirmationTextRefs.current) {
-            const option = !guest.confirmed;
+        if (isNotGroup && textRefs.current[0] && isTouchBased && !disabled) {
+            const option = textRefs.current[0].textContent === titleText[0] ? true : false;
             const _id = item._id;
             const res = await handleConfirmation(option, _id);
             if (res === 'User confirmed successfully') {
-                setGuest(g => {
-                    if (g) {
-                        if (option) {
-                            return {
-                                ...g,
-                                confirmed: option,
-                                lastConfirmed: new Date()
-                            }
-                        } else {
-                            return {
-                                ...g,
-                                confirmed: option,
-                                lastRevokedConfirmation: new Date()
-                            }
-                        }
-                    } else {
-                        return null;
-                    }
-                });
                 if (option) {
-                    sliderTl.current = gsap.timeline({
-                        onComplete: handleOnComplete,
-                        onStart: handleOnStart
-                    }).to(sliderRefs.current, {x: '0%', duration: 0.5, ease: 'power1.in', onComplete: () => {
-                        if (textRefs.current) {
-                            textRefs.current.forEach((t, i) => {
-                                if (t) {
-                                    t.textContent = confirmedText[i];
-                                }
-                            })
-                        }
-                    }}).to(sliderRefs.current, {x: '100%', duration: 0.4, ease: 'power1.in'}, '+=0.2');
-                    pulsingTl.current = gsap.timeline().to(indicatorRef.current, {
-                        opacity: 0,
-                        duration: 0.2,
-                        onComplete: () => {
-                            if (indicatorRef.current) {
-                                const lastChild = indicatorRef.current.lastElementChild;
-                                if (lastChild) {
-                                    lastChild.textContent = 'Clique para remover confirmação';
-                                }
-                            }
-                        }
-                    }).to(indicatorRef.current, {
-                        opacity: 1,
-                        duration: 0.2
-                    });
-                    lastUpdatedTl.current = gsap.timeline().to(lastUpdatedRef.current, {
-                        opacity: 0,
-                        duration: 0.2,
-                        onComplete: () => {
-                            if (lastUpdatedRef.current) {
-                                lastUpdatedRef.current.textContent = `Presença confirmada pela última vez em ${guest.lastConfirmed.toLocaleString('pt-BR', {timeZone: 'America/Sao_Paulo'})}`;
-                            }
-                        }
-                    }).to(lastUpdatedRef.current, {
-                        opacity: 1,
-                        duration: 0.2
-                    });
+                    sliderAnimation(titleConfirmedText);
+                    pulse(indicatorTl, indicatorRef, 'Clique para remover confirmação');
+                    pulse(lastUpdatedTl, lastUpdatedRef, `Presença confirmada pela última vez em ${new Date().toLocaleString('pt-BR', {timeZone: 'America/Sao_Paulo'})}`);
                 } else {
-                    sliderTl.current = gsap.timeline({
-                        onComplete: handleOnComplete,
-                        onStart: handleOnStart
-                    }).to(sliderRefs.current, {x: '0%', duration: 0.5, ease: 'power1.in', onComplete: () => {
-                        if (textRefs.current) {
-                            textRefs.current.forEach((t, i) => {
-                                if (t) {
-                                    t.textContent = text[i];
-                                }
-                            })
-                        }
-                    }}).to(sliderRefs.current, {x: '100%', duration: 0.4, ease: 'power1.in'}, '+=0.2');
-                    pulsingTl.current = gsap.timeline().to(indicatorRef.current, {
-                        opacity: 0,
-                        duration: 0.2,
-                        onComplete: () => {
-                            if (indicatorRef.current) {
-                                const lastChild = indicatorRef.current.lastElementChild;
-                                if (lastChild) {
-                                    lastChild.textContent = 'Clique para confirmar';
-                                }
-                            }
-                        }
-                    }).to(indicatorRef.current, {
-                        opacity: 1,
-                        duration: 0.2
-                    });
-                    lastUpdatedTl.current = gsap.timeline().to(lastUpdatedRef.current, {
-                        opacity: 0,
-                        duration: 0.2,
-                        onComplete: () => {
-                            if (lastUpdatedRef.current) {
-                                lastUpdatedRef.current.textContent = `Confirmação removida pela última vez em ${guest.lastRevokedConfirmation.toLocaleString('pt-BR', {timeZone: 'America/Sao_Paulo'})}`;
-                            }
-                        }
-                    }).to(lastUpdatedRef.current, {
-                        opacity: 1,
-                        duration: 0.2
-                    });
+                    sliderAnimation(titleText);
+                    pulse(indicatorTl, indicatorRef, 'Clique para confirmar');
+                    pulse(lastUpdatedTl, lastUpdatedRef, `Confirmação removida pela última vez em ${new Date().toLocaleString('pt-BR', {timeZone: 'America/Sao_Paulo'})}`);
                 }
             }
         }
@@ -354,7 +209,7 @@ export default function Confirmation({id}: {id?: string}) {
                             if (el) return textRefs.current[0] = el;
                         }}>
                             {
-                                isNotGroup ? (item ? (item.confirmed ? confirmedText[0] : text[0]) : null) : text[0]
+                                isNotGroup ? (item ? (item.confirmed ? titleConfirmedText[0] : titleText[0]) : null) : titleText[0]
                             }
                         </span>
                         {
@@ -368,7 +223,7 @@ export default function Confirmation({id}: {id?: string}) {
                             if (el) return textRefs.current[1] = el;
                         }}>
                             {
-                                isNotGroup ? (item ? (item.confirmed ? confirmedText[1] : text[1]) : null) : text[1]
+                                isNotGroup ? (item ? (item.confirmed ? titleConfirmedText[1] : titleText[1]) : null) : titleText[1]
                             }
                         </span>
                         <Image className="md:w-[240px] md:h-[105px] w-[113px] h-[49px] sm:w-[185px] sm:h-[80.22px] object-cover object-[center_30%]" loading="eager" src={Img} alt="Imagem de Maria e Kalil" />
@@ -383,7 +238,7 @@ export default function Confirmation({id}: {id?: string}) {
                             if (el) return textRefs.current[2] = el;
                         }}>
                             {
-                                isNotGroup ? (item ? (item.confirmed ? confirmedText[2] : text[2]) : null) : text[2]
+                                isNotGroup ? (item ? (item.confirmed ? titleConfirmedText[2] : titleText[2]) : null) : titleText[2]
                             }
                         </span>
                         {
@@ -399,33 +254,28 @@ export default function Confirmation({id}: {id?: string}) {
                 {
                     isNotGroup ? <p ref={lastUpdatedRef} className="text-xs font-normal mt-16">
                         {
-                            item.confirmed ? (item.lastConfirmed ? `Presença confirmada pela última vez em ${item.lastConfirmed.toLocaleString('pt-BR', {timeZone: 'America/Sao_Paulo'})}` : null) : (item.lastRevokedConfirmation ? `Confirmação removida pela última vez em ${item.lastRevokedConfirmation.toLocaleString('pt-BR', {timeZone: 'America/Sao_Paulo'})}` : null)
+                            item.confirmed ? (item.lastConfirmed ? `Presença confirmada pela última vez em ${item.lastConfirmed.toLocaleString('pt-BR', {timeZone: 'America/Sao_Paulo', timeStyle: 'short'})}` : null) : (item.lastRevokedConfirmation ? `Confirmação removida pela última vez em ${item.lastRevokedConfirmation.toLocaleString('pt-BR', {timeZone: 'America/Sao_Paulo', timeStyle: 'short'})}` : null)
                         }
                     </p> : null
                 }
                 <button disabled={disabled} onClick={isNotGroup ? handleClick : () => {}} style={{transform: 'translate(-50%, -60%) scale(0)'}} ref={btnRef} className={`absolute uppercase z-10 text-xs font-bold border backdrop-blur-md border-dark-bg-300/50 rounded-full w-[150px] h-[150px] dark:border-bg-300/50 ${isTouchBased ? 'hidden' : ''}`}>
                     {
                         isNotGroup ?
-                            confirmText.map((t, i) => {
+                            item.confirmed ? btnConfirmText.map((t, i) => {
                                 return (
                                     <p ref={el => {
                                         if (el !== null) {
-                                            confirmTextRefs.current[i] = el;
+                                            btnTextRefs.current[i] = el;
                                         }
-                                    }} key={i} className={`${item.confirmed ? 'hidden opacity-0' : ''}`}>{t}</p>
+                                    }} key={i}>{t}</p>
                                 )
-                            }) :
-                            null
-                    }
-                    {
-                        isNotGroup ?
-                            removeConfirmationText.map((t, i) => {
+                            }) : btnRevokeText.map((t, i) => {
                                 return (
                                     <p ref={el => {
                                         if (el !== null) {
-                                            removeConfirmationTextRefs.current[i] = el;
+                                            btnTextRefs.current[i] = el;
                                         }
-                                    }} key={i} className={`${item.confirmed ? '' : 'hidden opacity-0'}`}>{t}</p>
+                                    }} key={i}>{t}</p>
                                 )
                             }) :
                             null
