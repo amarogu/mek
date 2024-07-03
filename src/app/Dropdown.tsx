@@ -61,14 +61,14 @@ export default function Dropdown({text, alt, options, className, style, action, 
         <button disabled={disabled} style={style} onBlur={() => {setOpen(false)}} onClick={() => {setOpen(!open)}} className={`flex text-left uppercase font-normal relative gap-4 justify-between text-xl items-center ${className}`}>
             <span ref={label}>{labelText ? labelText : text}</span>
             <ThemeImage ref={indicator} srcDark={ArrowDark} srcLight={Arrow} alt={alt} />
-            <div ref={dropdown} style={{transform: 'translateY(105%) scale(0)'}} className="absolute rounded-lg w-32 gap-4 text-base origin-top-right flex flex-col bg-bg-200/75 dark:bg-dark-bg-200/75 backdrop-blur-md right-0 bottom-0 py-4">
+            <div ref={dropdown} style={{transform: 'translateY(105%) scale(0)'}} className="absolute rounded-lg w-32 text-base origin-top-right flex flex-col bg-bg-200/75 dark:bg-dark-bg-200/75 backdrop-blur-md right-0 bottom-0">
                 {
                     options.map((o, i) => {
                         return (
                             <Fragment key={i}>
                                 <p onClick={(e) => {
                                     handleClick(e);
-                                }} className="px-4">{o}</p>
+                                }} className="p-4">{o}</p>
                                 {
                                     i < options.length - 1 && i % 2 === 0 ? <Divider /> : null
                                 }
