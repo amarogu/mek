@@ -9,6 +9,11 @@ export async function POST(req: NextRequest) {
             const { User } = models;
             const u = await User.findById(body._id);
             if (u) {
+                if (u.confirmed) {
+                    u.lastRevokedConfirmation = new Date();
+                } else {
+                    u.lastConfirmed = new Date();
+                }
                 u.confirmed = body.confirmed;
                 u.save();
                 return Response.json({message: 'User confirmed successfully', user: u});

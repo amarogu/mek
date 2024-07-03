@@ -44,6 +44,9 @@ export default function Confirmation({id}: {id?: string}) {
     const text = ['Confirmar', 'presença', 'no evento'];
     const confirmedText = ['Presença', 'confirmada', 'no evento'];
 
+    const lastUpdatedRef = useRef<HTMLParagraphElement | null>(null);
+    const lastUpdatedTl = useRef<GSAPTimeline | null>(null);
+
     const rotatingSquareRef = useRef<HTMLSpanElement | null>(null);
 
     const { contextSafe } = useGSAP(() => {
@@ -146,9 +149,18 @@ export default function Confirmation({id}: {id?: string}) {
             if (res === 'User confirmed successfully') {
                 setGuest(g => {
                     if (g) {
-                        return {
-                            ...g,
-                            confirmed: option
+                        if (option) {
+                            return {
+                                ...g,
+                                confirmed: option,
+                                lastConfirmed: new Date()
+                            }
+                        } else {
+                            return {
+                                ...g,
+                                confirmed: option,
+                                lastRevokedConfirmation: new Date()
+                            }
                         }
                     } else {
                         return null;
@@ -168,6 +180,18 @@ export default function Confirmation({id}: {id?: string}) {
                         }
                     }}).to(sliderRefs.current, {x: '100%', duration: 0.4, ease: 'power1.in'}, '+=0.2');
                     pulse(removeConfirmationTextRefs.current, confirmTextRefs.current);
+                    lastUpdatedTl.current = gsap.timeline().to(lastUpdatedRef.current, {
+                        opacity: 0,
+                        duration: 0.2,
+                        onComplete: () => {
+                            if (lastUpdatedRef.current) {
+                                lastUpdatedRef.current.textContent = `Presença confirmada pela última vez em ${guest.lastConfirmed.toLocaleString('pt-BR', {timeZone: 'America/Sao_Paulo'})}`;
+                            }
+                        }
+                    }).to(lastUpdatedRef.current, {
+                        opacity: 1,
+                        duration: 0.2
+                    });
                 } else {
                     sliderTl.current = gsap.timeline({
                         onComplete: handleOnComplete,
@@ -182,6 +206,18 @@ export default function Confirmation({id}: {id?: string}) {
                         }
                     }}).to(sliderRefs.current, {x: '100%', duration: 0.4, ease: 'power1.in'}, '+=0.2');
                     pulse(confirmTextRefs.current, removeConfirmationTextRefs.current);
+                    lastUpdatedTl.current = gsap.timeline().to(lastUpdatedRef.current, {
+                        opacity: 0,
+                        duration: 0.2,
+                        onComplete: () => {
+                            if (lastUpdatedRef.current) {
+                                lastUpdatedRef.current.textContent = `Confirmação removida pela última vez em ${guest.lastRevokedConfirmation.toLocaleString('pt-BR', {timeZone: 'America/Sao_Paulo'})}`;
+                            }
+                        }
+                    }).to(lastUpdatedRef.current, {
+                        opacity: 1,
+                        duration: 0.2
+                    });
                 }
             }
         }
@@ -197,9 +233,18 @@ export default function Confirmation({id}: {id?: string}) {
             if (res === 'User confirmed successfully') {
                 setGuest(g => {
                     if (g) {
-                        return {
-                            ...g,
-                            confirmed: option
+                        if (option) {
+                            return {
+                                ...g,
+                                confirmed: option,
+                                lastConfirmed: new Date()
+                            }
+                        } else {
+                            return {
+                                ...g,
+                                confirmed: option,
+                                lastRevokedConfirmation: new Date()
+                            }
                         }
                     } else {
                         return null;
@@ -233,6 +278,18 @@ export default function Confirmation({id}: {id?: string}) {
                         opacity: 1,
                         duration: 0.2
                     });
+                    lastUpdatedTl.current = gsap.timeline().to(lastUpdatedRef.current, {
+                        opacity: 0,
+                        duration: 0.2,
+                        onComplete: () => {
+                            if (lastUpdatedRef.current) {
+                                lastUpdatedRef.current.textContent = `Presença confirmada pela última vez em ${guest.lastConfirmed.toLocaleString('pt-BR', {timeZone: 'America/Sao_Paulo'})}`;
+                            }
+                        }
+                    }).to(lastUpdatedRef.current, {
+                        opacity: 1,
+                        duration: 0.2
+                    });
                 } else {
                     sliderTl.current = gsap.timeline({
                         onComplete: handleOnComplete,
@@ -261,6 +318,18 @@ export default function Confirmation({id}: {id?: string}) {
                         opacity: 1,
                         duration: 0.2
                     });
+                    lastUpdatedTl.current = gsap.timeline().to(lastUpdatedRef.current, {
+                        opacity: 0,
+                        duration: 0.2,
+                        onComplete: () => {
+                            if (lastUpdatedRef.current) {
+                                lastUpdatedRef.current.textContent = `Confirmação removida pela última vez em ${guest.lastRevokedConfirmation.toLocaleString('pt-BR', {timeZone: 'America/Sao_Paulo'})}`;
+                            }
+                        }
+                    }).to(lastUpdatedRef.current, {
+                        opacity: 1,
+                        duration: 0.2
+                    });
                 }
             }
         }
@@ -268,7 +337,7 @@ export default function Confirmation({id}: {id?: string}) {
 
     return (
         <section id={id} ref={sectionRef} className="p-8 pt-20 pb-28">
-            <div onClick={handleTouchBasedClick} ref={parentRef} onMouseMove={isNotGroup ? (e) => { handleMouseMove(e) } : () => {}} onMouseLeave={isNotGroup ? handleMouseLeave : () => {}} className={`text-[12.5vw] relative flex flex-col gap-16 items-center md:text-[9vw] xl:text-[120px] container mx-auto font-extrabold leading-[85%] ${isNotGroup ? 'cursor-pointer gap-0' : ''}`}>
+            <div onClick={handleTouchBasedClick} ref={parentRef} onMouseMove={isNotGroup ? (e) => { handleMouseMove(e) } : () => {}} onMouseLeave={isNotGroup ? handleMouseLeave : () => {}} className={`text-[12.5vw] relative flex flex-col items-center md:text-[9vw] xl:text-[120px] container mx-auto font-extrabold leading-[85%] ${isNotGroup ? 'cursor-pointer gap-0' : 'gap-16'}`}>
                 {
                     isNotGroup ? isTouchBased ? <p ref={indicatorRef} className="uppercase text-xs font-normal mb-6 animate-pulse items-center flex gap-4">
                         <span ref={rotatingSquareRef} className="w-[6px] h-[6px] bg-text-100 dark:bg-dark-text-100"></span>
@@ -327,6 +396,13 @@ export default function Confirmation({id}: {id?: string}) {
                 <div ref={formRef} className="text-3xl w-full">
                     <ConfirmationForm handleConfirmation={handleConfirmation} />
                 </div>
+                {
+                    isNotGroup ? <p ref={lastUpdatedRef} className="text-xs font-normal mt-16">
+                        {
+                            item.confirmed ? (item.lastConfirmed ? `Presença confirmada pela última vez em ${item.lastConfirmed.toLocaleString('pt-BR', {timeZone: 'America/Sao_Paulo'})}` : null) : (item.lastRevokedConfirmation ? `Confirmação removida pela última vez em ${item.lastRevokedConfirmation.toLocaleString('pt-BR', {timeZone: 'America/Sao_Paulo'})}` : null)
+                        }
+                    </p> : null
+                }
                 <button disabled={disabled} onClick={isNotGroup ? handleClick : () => {}} style={{transform: 'translate(-50%, -60%) scale(0)'}} ref={btnRef} className={`absolute uppercase z-10 text-xs font-bold border backdrop-blur-md border-dark-bg-300/50 rounded-full w-[150px] h-[150px] dark:border-bg-300/50 ${isTouchBased ? 'hidden' : ''}`}>
                     {
                         isNotGroup ?
