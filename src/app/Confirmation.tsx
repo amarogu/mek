@@ -38,9 +38,8 @@ export default function Confirmation({id}: {id?: string}) {
     const lastUpdatedRef = useRef<HTMLParagraphElement | null>(null);
     const lastUpdatedTl = useRef<GSAPTimeline | null>(null);
 
-    const rotatingSquareRef = useRef<HTMLSpanElement | null>(null);
     const indicatorTl = useRef<GSAPTimeline | null>(null);
-    const indicatorRef = useRef<HTMLParagraphElement | null>(null);
+    const indicatorRef = useRef<(HTMLParagraphElement | HTMLSpanElement | null)[]>([]);
 
     const btnConfirmText = ['Confirmar', 'Presença'];
     const btnRevokeText = ['Remover', 'Confirmação'];
@@ -51,8 +50,8 @@ export default function Confirmation({id}: {id?: string}) {
     const { contextSafe } = useGSAP(() => {
         xTo.current = gsap.quickTo(btnRef.current, 'left', {duration: 0.2});
         yTo.current = gsap.quickTo(btnRef.current, 'top', {duration: 0.2});
-        if (rotatingSquareRef.current) {
-            gsap.to(rotatingSquareRef.current, {
+        if (indicatorRef.current[0]) {
+            gsap.to(indicatorRef.current[0], {
                 rotate: 360,
                 duration: 0.95,
                 repeat: -1,
@@ -107,14 +106,19 @@ export default function Confirmation({id}: {id?: string}) {
         }
     }
 
-    const pulse = contextSafe((tl: MutableRefObject<GSAPTimeline | null>, target: MutableRefObject<HTMLParagraphElement | null> | MutableRefObject<(HTMLParagraphElement | null)[]>, replacementContent: string | string[]) => {
+    const pulse = contextSafe((tl: MutableRefObject<GSAPTimeline | null>, target: MutableRefObject<HTMLParagraphElement | null> | MutableRefObject<(HTMLParagraphElement | HTMLSpanElement | null)[]>, replacementContent: string | string[]) => {
         tl.current = gsap.timeline().to(target.current, {
             opacity: 0,
             duration: 0.2,
             onComplete: () => {
                 if (target.current instanceof Array) {
                     target.current.forEach((t, i) => {
-                        if (t) t.textContent = replacementContent[i];
+                        if (t && t.textContent && replacementContent instanceof Array) {
+                            t.textContent = replacementContent[i];
+                        }
+                        if (t && t.textContent && !(replacementContent instanceof Array)) {
+                            t.textContent = replacementContent;
+                        }
                     });
                 } else {
                     if (target.current && !(replacementContent instanceof Array)) target.current.textContent = replacementContent;
@@ -194,13 +198,17 @@ export default function Confirmation({id}: {id?: string}) {
         <section id={id} ref={sectionRef} className="p-8 pt-20 pb-28">
             <div onClick={handleTouchBasedClick} ref={parentRef} onMouseMove={isNotGroup ? (e) => { handleMouseMove(e) } : () => {}} onMouseLeave={isNotGroup ? handleMouseLeave : () => {}} className={`text-[12.5vw] relative flex flex-col items-center md:text-[9vw] xl:text-[120px] container mx-auto font-extrabold leading-[85%] ${isNotGroup ? 'cursor-pointer gap-0' : 'gap-16'}`}>
                 {
-                    isNotGroup ? isTouchBased ? <p ref={indicatorRef} className="uppercase text-xs font-normal mb-6 animate-pulse items-center flex gap-4">
-                        <span ref={rotatingSquareRef} className="w-[6px] h-[6px] bg-text-100 dark:bg-dark-text-100"></span>
-                        <span>
+                    isNotGroup ? isTouchBased ? <p className="uppercase text-xs font-normal mb-6 animate-pulse items-center flex gap-4">
+                        <span ref={el => {
+                            if (el) return indicatorRef.current[0] = el;
+                        }} className="w-[6px] h-[6px] bg-text-100 dark:bg-dark-text-100"></span>
+                        <span ref={el => {
+                        if (el) return indicatorRef.current[1] = el;
+                        }}>
                             {
                                 item.confirmed ? 'Clique para remover confirmação' : 'Clique para confirmar'
-                            }
-                        </span>
+                            }    
+                        </span> 
                     </p> : null : null
                 }
                 <h2 ref={titleRef} className="flex flex-col items-end">
@@ -252,16 +260,16 @@ export default function Confirmation({id}: {id?: string}) {
                     <ConfirmationForm handleConfirmation={handleConfirmation} />
                 </div>
                 {
-                    isNotGroup ? <p ref={lastUpdatedRef} className="text-xs font-normal mt-16">
+                    isNotGroup ? <p ref={lastUpdatedRef} className="text-xs font-normal mt-6">
                         {
-                            item.confirmed ? (item.lastConfirmed ? `Presença confirmada pela última vez em ${item.lastConfirmed.toLocaleString('pt-BR', {timeZone: 'America/Sao_Paulo', timeStyle: 'short'})}` : null) : (item.lastRevokedConfirmation ? `Confirmação removida pela última vez em ${item.lastRevokedConfirmation.toLocaleString('pt-BR', {timeZone: 'America/Sao_Paulo', timeStyle: 'short'})}` : null)
+                            item.confirmed ? (item.lastConfirmed ? `Presença confirmada pela última vez em ${item.lastConfirmed.toLocaleString('pt-BR', {timeZone: 'America/Sao_Paulo'})}` : null) : (item.lastRevokedConfirmation ? `Confirmação removida pela última vez em ${item.lastRevokedConfirmation.toLocaleString('pt-BR', {timeZone: 'America/Sao_Paulo'})}` : null)
                         }
                     </p> : null
                 }
                 <button disabled={disabled} onClick={isNotGroup ? handleClick : () => {}} style={{transform: 'translate(-50%, -60%) scale(0)'}} ref={btnRef} className={`absolute uppercase z-10 text-xs font-bold border backdrop-blur-md border-dark-bg-300/50 rounded-full w-[150px] h-[150px] dark:border-bg-300/50 ${isTouchBased ? 'hidden' : ''}`}>
                     {
                         isNotGroup ?
-                            item.confirmed ? btnConfirmText.map((t, i) => {
+                            item.confirmed ? btnRevokeText.map((t, i) => {
                                 return (
                                     <p ref={el => {
                                         if (el !== null) {
@@ -269,7 +277,7 @@ export default function Confirmation({id}: {id?: string}) {
                                         }
                                     }} key={i}>{t}</p>
                                 )
-                            }) : btnRevokeText.map((t, i) => {
+                            }) : btnConfirmText.map((t, i) => {
                                 return (
                                     <p ref={el => {
                                         if (el !== null) {
