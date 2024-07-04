@@ -52,7 +52,7 @@ const userSchema = new Schema<IUser>({
 });
 
 userSchema.pre('save', function(next) {
-    this.link = `https://mariaekalil.com/guest/${this._id}`;
+    this.link = `https://mariaekalil.com/${this._id}`;
     if ((this.isNew || this.isModified('password')) && this.password) {
         bcrypt.hash(this.password, saltRounds, (err, hashedPassword) => {
             if (err) {
@@ -69,7 +69,7 @@ userSchema.pre('save', function(next) {
 
 userSchema.pre('insertMany', function(next, docs) {
     docs.forEach((doc: HydratedDocument<IUser>) => {
-        doc.link = `https://mariaekalil.com/guest/${doc._id}`;
+        doc.link = `https://mariaekalil.com/${doc._id}`;
     });
     next();
 });

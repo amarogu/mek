@@ -51,7 +51,7 @@ export default function Result({clientSecret}: {clientSecret: string}) {
 
     return (
         <main className="h-screen grid grid-rows-3 p-8 max-w-xl mx-auto items-center">
-          <Link href={`${type === 'group' ? `/group/${id}` : `/guest/${id}`}`} className="p-4 bg-bg-200 self-start justify-self-start dark:bg-dark-bg-200">
+          <Link href={`/${id}`} className="p-4 bg-bg-200 self-start justify-self-start dark:bg-dark-bg-200">
             <Image src={isDarkMode ? BackDark : Back} alt="Voltar" />
           </Link>
           {message && (

@@ -36,7 +36,7 @@ groupSchema.pre('save', async function(next) {
     const users = populatedGroup.users;
     const mostFrequentGender = getGender(users.map(user => user.gender));
     this.gender = mostFrequentGender;
-    this.link = `https://mariaekalil.com/group/${this._id}`;
+    this.link = `https://mariaekalil.com/${this._id}`;
     next();
  });
 

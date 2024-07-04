@@ -20,7 +20,7 @@ import gsap from "gsap";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string);
 
-export default function Content({gift, item}: {gift: LeanDocument<IGift>, item?: LeanDocument<IUser> | Populated<IGroup, {users: IUser[]}>}) {
+export default function CheckoutContent({gift, item}: {gift: LeanDocument<IGift>, item?: LeanDocument<IUser> | Populated<IGroup, {users: IUser[]}>}) {
 
     const [clientSecret, setClientSecret] = useState<string>('');
     const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
@@ -77,7 +77,7 @@ export default function Content({gift, item}: {gift: LeanDocument<IGift>, item?:
                 <div ref={info} className="flex absolute w-full p-8 top-0 left-0 flex-col gap-12">
                     <section className="flex text-2xl flex-col gap-12">
                         <div className="flex gap-4 items-center">
-                            <Link href={`${item ? 'users' in item ? `/group/${item._id}` : `/guest/${item._id}` : '/'}`} className="p-4 bg-bg-200 dark:bg-dark-bg-200">
+                            <Link href={`${item ? `/${item._id}` : '/'}`} className="p-4 bg-bg-200 dark:bg-dark-bg-200">
                                 <Image src={isDarkMode ? BackDark : Back} alt="Voltar" />
                             </Link>
                             <h2 className="uppercase font-bold">01. Seus dados</h2>
