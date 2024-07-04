@@ -4,7 +4,7 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
-export default function AnimatedText({content, offset}: {content: string, offset: number}) {
+export default function AnimatedText({content, offset, disabled, className}: {content: string, offset: number, disabled?: boolean, className?: string}) {
 
     const lenis = useLenis(() => {});
 
@@ -32,7 +32,7 @@ export default function AnimatedText({content, offset}: {content: string, offset
     });
 
     return (
-        <button onMouseEnter={handleMouseEnter} className="uppercase overflow-hidden h-[15px] text-xs" onClick={() => lenis?.scrollTo(parseNavItem(content), {duration: 2.5, offset: offset})}>
+        <button disabled={disabled} onMouseEnter={handleMouseEnter} className={`uppercase overflow-hidden h-[15px] text-xs ${className ? className : ''}`} onClick={() => lenis?.scrollTo(parseNavItem(content), {duration: 2.5, offset: offset})}>
             <div>
                 {
                     Array.from(content).map((l, j) =>

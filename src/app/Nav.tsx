@@ -17,7 +17,7 @@ export default function Nav({open, setOpen}: {open: boolean, setOpen: Dispatch<S
 
     const lenis = useLenis(() => {});
 
-    const { isDarkMode } = useContext(Context);
+    const { isDarkMode, item } = useContext(Context);
 
     const topBar = useSpring({
         transform: open ? "rotate(45deg)" : "rotate(0deg)",
@@ -57,9 +57,9 @@ export default function Nav({open, setOpen}: {open: boolean, setOpen: Dispatch<S
             <Image onClick={() => lenis?.scrollTo(0, {duration: 2.5})} src={isDarkMode ? LogoDark : Logo} className="col-start-1 md:col-start-2 cursor-pointer" alt="Maria & Kalil, com amor," />
             <ul className="md:flex hidden gap-12 text-nowrap justify-self-end font-bold">
                 {
-                    secondUl.map(i => 
+                    secondUl.map((t, i) => 
                         <li key={i}>
-                            <AnimatedText content={i} offset={offset} />
+                            <AnimatedText disabled={item ? false : (i === 1 || i === 2 ? true : false)} className={item ? '' : (i === 1 || i === 2 ? 'opacity-50' : '')} content={t} offset={offset} />
                         </li>
                     )
                 }
