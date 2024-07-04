@@ -18,10 +18,12 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gsap from "gsap";
 import Footer from "./Footer";
 import BottomTab from "./BottomTab";
+import {APIProvider} from '@vis.gl/react-google-maps';
+import 'dotenv/config';
 
 gsap.registerPlugin(useGSAP);
 
-export default function Content({item, gifts}: {item?: LeanDocument<IUser> | Populated<IGroup, {users: IUser[]}>, gifts?: LeanDocument<IGift>[]}) {
+export default function Content({item, gifts, gmpApiKey}: {item?: LeanDocument<IUser> | Populated<IGroup, {users: IUser[]}>, gifts?: LeanDocument<IGift>[], gmpApiKey?: string}) {
 
   const [isMounted, setIsMounted] = useState<boolean>(false);
 
@@ -109,25 +111,33 @@ export default function Content({item, gifts}: {item?: LeanDocument<IUser> | Pop
 
   if (!isMounted) return <Loading />;
 
-  return (
-      <ReactLenis options={{syncTouch: true}} root>
-        <Context.Provider value={{isDarkMode: isDarkMode, setIsDarkMode: setIsDarkMode, item: item}}>
-            <header id="header" ref={header} className="md:h-[81px] overflow-x-hidden flex px-8 pt-8 items-center fixed w-screen top-0 z-40">
-              <Welcome name={item?.name} />
-              <Nav open={open} setOpen={setOpen} />
-              <Slider open={open} setOpen={setOpen} />
-            </header>
-            <main id="main" className="overflow-x-hidden overflow-y-hidden !h-screen">
-              <div ref={spacer}></div>
-              <Hero id="hero" className="px-8" />
-              <BottomTab />
-              <Us id="us" />
-              <Messages id="messages" />
-              <Gifts id="gifts" gifts={gifts} />
-              <Confirmation id="confirm" />
-              <Footer id='footer' />
-            </main>
-        </Context.Provider>
-      </ReactLenis>
-  );
+  const body = (
+    <ReactLenis options={{syncTouch: true}} root>
+      <Context.Provider value={{isDarkMode: isDarkMode, setIsDarkMode: setIsDarkMode, item: item}}>
+          <header id="header" ref={header} className="md:h-[81px] overflow-x-hidden flex px-8 pt-8 items-center fixed w-screen top-0 z-40">
+            <Welcome name={item?.name} />
+            <Nav open={open} setOpen={setOpen} />
+            <Slider open={open} setOpen={setOpen} />
+          </header>
+          <main id="main" className="overflow-x-hidden overflow-y-hidden !h-screen">
+            <div ref={spacer}></div>
+            <Hero id="hero" className="px-8" />
+            <BottomTab />
+            <Us id="us" />
+            <Messages id="messages" />
+            <Gifts id="gifts" gifts={gifts} />
+            <Confirmation id="confirm" />
+            <Footer id='footer' />
+          </main>
+      </Context.Provider>
+    </ReactLenis>
+  )
+
+  if (gmpApiKey) {
+    return (
+      <APIProvider apiKey={gmpApiKey}>{body}</APIProvider>
+    )
+  } else {
+    return body;
+  }
 }
