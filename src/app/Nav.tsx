@@ -47,9 +47,9 @@ export default function Nav({open, setOpen}: {open: boolean, setOpen: Dispatch<S
         <nav id="nav" className="grid container grid-cols-3 mx-auto static z-30 items-center md:justify-items-center">
             <ul className="md:flex hidden gap-12 justify-self-start font-bold">
                 {
-                    firstUl.map(i => 
+                    firstUl.map((t, i) => 
                         <li key={i}>
-                            <AnimatedText content={i} offset={offset} />
+                            <AnimatedText disabled={item ? false : i === 1 ? true : false} className={item ? '' : i === 1 ? 'opacity-50' : ''} content={t} offset={offset} />
                         </li>
                     )
                 }
@@ -59,7 +59,7 @@ export default function Nav({open, setOpen}: {open: boolean, setOpen: Dispatch<S
                 {
                     secondUl.map((t, i) => 
                         <li key={i}>
-                            <AnimatedText disabled={item ? false : (i === 1 || i === 2 ? true : false)} className={item ? '' : (i === 1 || i === 2 ? 'opacity-50' : '')} content={t} offset={offset} />
+                            <AnimatedText disabled={item ? false : true} className={item ? '' : 'opacity-50'} content={t} offset={offset} />
                         </li>
                     )
                 }
