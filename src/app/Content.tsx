@@ -21,7 +21,7 @@ import BottomTab from "./BottomTab";
 
 gsap.registerPlugin(useGSAP);
 
-export default function Content({item, gifts}: {item?: LeanDocument<IUser> | Populated<IGroup, {users: IUser[]}>, gifts: LeanDocument<IGift>[]}) {
+export default function Content({item, gifts}: {item?: LeanDocument<IUser> | Populated<IGroup, {users: IUser[]}>, gifts?: LeanDocument<IGift>[]}) {
 
   const [isMounted, setIsMounted] = useState<boolean>(false);
 

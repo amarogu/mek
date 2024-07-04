@@ -1,4 +1,3 @@
-import { IGroup, IUser } from "@/lib/Models/Interfaces";
 import StyledInput from "./StyledInput";
 import { useContext, useEffect, useState } from "react";
 import Button from "./Button";
@@ -8,11 +7,13 @@ import MessagesMobile from '../../public/messages_mobile.png';
 import MessagesMd from '../../public/messages_medium.png';
 import { useRef } from "react";
 import instance from "@/lib/axios";
-import { ErrorResponse, LeanDocument, SuccessResponse, emptyMsg } from "@/lib/helpers";
-import { HydratedDocument } from "mongoose";
+import { ErrorResponse, SuccessResponse, emptyMsg } from "@/lib/helpers";
 import Context from "./Context";
 
 export default function Messages({ id }: { id: string }) {
+    const {item} = useContext(Context);
+
+    if (!item) return null;
 
     const [name, setName] = useState<string>('');
     const [message, setMessage] = useState<string>('');
@@ -23,8 +24,6 @@ export default function Messages({ id }: { id: string }) {
 
     const formRef = useRef<HTMLFormElement>(null);
     const imgRef = useRef<HTMLImageElement>(null);
-
-    const {item} = useContext(Context);
 
     useEffect(() => {
         if (isMd) {

@@ -12,9 +12,7 @@ import { useMediaQuery } from "react-responsive";
 export default function Confirmation({id}: {id?: string}) {
     const { item } = useContext(Context);
 
-    if (!item) {
-        return null;
-    }
+    if (!item) return null;
 
     const isNotGroup = !('users' in item);
 

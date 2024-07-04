@@ -8,7 +8,6 @@ import Image from "next/image";
 import Context from "./Context";
 
 export default function Gift({gift}: {gift: LeanDocument<IGift>}) {
-
     const upperContainer = useRef<HTMLDivElement>(null);
     const lowerContainer = useRef<HTMLDivElement>(null);
     const container = useRef<HTMLDivElement>(null);

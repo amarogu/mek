@@ -1,7 +1,6 @@
 import { Fragment, useContext } from "react"
 import Context from "./Context"
 import Dropdown from "./Dropdown";
-import instance from "@/lib/axios";
 
 export default function ConfirmationForm({handleConfirmation}: {handleConfirmation: (option: boolean, _id: string) => Promise<any>}) {
 

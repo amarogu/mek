@@ -1,13 +1,9 @@
 import Gift from "./Gift";
-import { HydratedDocument } from "mongoose";
-import { IGift, IUser, IGroup } from "@/lib/Models/Interfaces";
+import { IGift } from "@/lib/Models/Interfaces";
 import { LeanDocument } from "@/lib/helpers";
-import { useContext } from "react";
-import Context from "./Context";
 
-export default function Gifts({gifts, id}: {gifts: LeanDocument<IGift>[], id: string}) {
-
-    const {item} = useContext(Context);
+export default function Gifts({gifts, id}: {gifts?: LeanDocument<IGift>[], id: string}) {
+    if (!gifts) return null;
 
     return (
         <section id={id} className="pt-12 p-8">
