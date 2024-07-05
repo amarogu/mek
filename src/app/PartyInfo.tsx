@@ -5,6 +5,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
 import PinGlyph from '../../public/icon_marker.svg';
+import BottomTab from "./BottomTab";
 
 export default function PartyInfo() {
     const {item} = useContext(Context);
@@ -27,9 +28,23 @@ export default function PartyInfo() {
 
     const location = {lat: -22.984946169512966, lng: -47.14577928970697};
 
+    const firstChild = (
+        <div className="flex flex-col gap-1">
+            <p>R. Idalino Gomes de Melo - 13056-273</p>
+            <p>Jd. São Cristóvão</p>
+            <p className="uppercase">Campinas - SP</p>
+        </div>
+    )
+
     return (
-        <section style={{opacity: 0}} ref={sectionRef} className="relative">
+        <section style={{opacity: 0}} ref={sectionRef} className="relative -z-10">
             <div className="absolute top-0 w-full z-10 h-8 bg-gradient-to-b dark:from-dark-bg-100 dark:to-dark-bg-100/0"></div>
+            <div className='absolute flex flex-col gap-6 z-20 bottom-0 w-full'>
+                <div className="px-8 text-[14.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%]">
+                    
+                </div>
+                <BottomTab omitMiddleChild firstChild={firstChild} noScrollTrigger className="!pb-12" containerClassName="!relative" /> 
+            </div>
             <Map
                 defaultZoom={16}
                 center={location}

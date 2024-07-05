@@ -198,10 +198,10 @@ export default function Confirmation({id}: {id?: string}) {
                 {
                     isNotGroup ? isTouchBased ? <p className="uppercase text-xs font-normal mb-6 animate-pulse items-center flex gap-4">
                         <span ref={el => {
-                            if (el) return indicatorRef.current[0] = el;
+                            if (el) indicatorRef.current[0] = el;
                         }} className="w-[6px] h-[6px] bg-text-100 dark:bg-dark-text-100"></span>
                         <span ref={el => {
-                        if (el) return indicatorRef.current[1] = el;
+                        if (el) indicatorRef.current[1] = el;
                         }}>
                             {
                                 item.confirmed ? 'Clique para remover confirmação' : 'Clique para confirmar'
@@ -212,7 +212,7 @@ export default function Confirmation({id}: {id?: string}) {
                 <h2 ref={titleRef} className="flex flex-col items-end">
                     <p className="ml-16 relative overflow-hidden self-start">
                         <span ref={el => {
-                            if (el) return textRefs.current[0] = el;
+                            if (el) textRefs.current[0] = el;
                         }}>
                             {
                                 isNotGroup ? (item ? (item.confirmed ? titleConfirmedText[0] : titleText[0]) : null) : titleText[0]
@@ -220,13 +220,13 @@ export default function Confirmation({id}: {id?: string}) {
                         </span>
                         {
                             isNotGroup ? <span ref={el => {
-                                if (el) return sliderRefs.current[0] = el;
+                                if (el) sliderRefs.current[0] = el;
                             }} style={{transform: 'translateX(-100%)'}} className="absolute top-0 left-0 h-full inline-block w-full z-10 bg-bg-100 dark:bg-dark-bg-100"></span> : null
                         }
                     </p>
                     <p className="flex gap-4 relative items-center">
                         <span ref={el => {
-                            if (el) return textRefs.current[1] = el;
+                            if (el) textRefs.current[1] = el;
                         }}>
                             {
                                 isNotGroup ? (item ? (item.confirmed ? titleConfirmedText[1] : titleText[1]) : null) : titleText[1]
@@ -235,13 +235,13 @@ export default function Confirmation({id}: {id?: string}) {
                         <Image className="md:w-[240px] md:h-[105px] w-[113px] h-[49px] sm:w-[185px] sm:h-[80.22px] object-cover object-[center_30%]" loading="eager" src={Img} alt="Imagem de Maria e Kalil" />
                         {
                             isNotGroup ? <span ref={el => {
-                                if (el) return sliderRefs.current[1] = el;
+                                if (el) sliderRefs.current[1] = el;
                             }} style={{transform: 'translateX(-100%)'}} className="absolute left-0 top-0 h-[calc(100%+16px)] xl:h-[calc(100%+32px)] inline-block w-full z-10 bg-bg-100 dark:bg-dark-bg-100"></span> : null
                         }
                     </p>
                     <p className="ml-6 overflow-hidden relative md:ml-0 md:mr-6">
                         <span ref={el => {
-                            if (el) return textRefs.current[2] = el;
+                            if (el) textRefs.current[2] = el;
                         }}>
                             {
                                 isNotGroup ? (item ? (item.confirmed ? titleConfirmedText[2] : titleText[2]) : null) : titleText[2]
@@ -249,7 +249,7 @@ export default function Confirmation({id}: {id?: string}) {
                         </span>
                         {
                             isNotGroup ? <span ref={el => {
-                                if (el) return sliderRefs.current[2] = el;
+                                if (el) sliderRefs.current[2] = el;
                             }} style={{transform: 'translateX(-100%)'}} className="absolute left-0 top-0 inline-block h-full w-full z-10 bg-bg-100 dark:bg-dark-bg-100"></span> : null
                         }
                     </p>

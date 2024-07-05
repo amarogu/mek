@@ -1,11 +1,11 @@
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap";
-import { MutableRefObject } from "react";
+import { MutableRefObject, ReactNode } from "react";
 import { useRef, useState } from "react"
 import moment from 'moment';
 moment().format();
 
-export default function BottomTab({className}: {className?: string}) {
+export default function BottomTab({className, containerClassName, noScrollTrigger = false, firstChild, omitMiddleChild}: {className?: string, containerClassName?: string, noScrollTrigger?: boolean, firstChild?: ReactNode, omitMiddleChild?: boolean}) {
 
     const timeRef = useRef<HTMLParagraphElement>(null);
     const timeTl = useRef<GSAPTimeline | null>(null);
@@ -37,7 +37,7 @@ export default function BottomTab({className}: {className?: string}) {
     };
 
     useGSAP((_, contextSafe) => {
-        if (contextSafe) {
+        if (contextSafe && !omitMiddleChild) {
             setTimeout(contextSafe(() => {
                 const now = moment();
                 const wedding = moment([2024, 10, 9, 4, 30]);
@@ -49,12 +49,14 @@ export default function BottomTab({className}: {className?: string}) {
     }, [timeOption])
 
     return (
-        <div className="px-8 absolute bottom-0 flex w-full justify-center">
-            <div className={`grid bottomTab z-10 text-xs container pb-8 grid-cols-3 ${className ? className : ''}`}>
-                <p className="justify-self-start"><a href="https://maps.app.goo.gl/bS5KpEtKDsBoigbM7" target="_blank">Saint German Eventos</a></p>
-                <p ref={timeRef} className="justify-self-center">
-                    16:30
-                </p>
+        <div className={`px-8 absolute bottom-0 flex w-full justify-center ${containerClassName ? containerClassName : ''}`}>
+            <div className={`grid ${noScrollTrigger ? '' : 'bottomTab'} z-10 text-[10px] container pb-8 ${omitMiddleChild ? 'grid-cols-2' : 'grid-cols-3'} ${className ? className : ''}`}>
+                {
+                    firstChild ? firstChild : <p className="justify-self-start"><a href="https://maps.app.goo.gl/bS5KpEtKDsBoigbM7" target="_blank">Saint German Eventos</a></p>
+                }
+                {
+                    omitMiddleChild ? null : <p ref={timeRef} className="justify-self-center">16:30</p>
+                }
                 <p className="justify-self-end">09 NOV 2024</p>
             </div>
         </div>
