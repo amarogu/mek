@@ -193,34 +193,41 @@ const RenderDashboard = ({data}: {data: AdminData}) => {
                         <div className="bg-bg-200 dark:bg-dark-bg-200 p-4 flex flex-col gap-4">
                             <h2 className="text-xl font-bold">Lista de convidados</h2>
                             {
-                               data.map(e => {
-                                /*if ('users' in e) {
-                                    return (
-                                        <div key={e._id} className="bg-bg-300 dark:bg-dark-bg-300 p-4 flex flex-col gap-4">
-                                            <p className="text-xl font-bold">{e.name}</p>
-                                            {
-                                                e.users.map(u => {
-                                                    return (
-                                                        <div key={u._id} className="bg-bg-200 dark:bg-dark-bg-200 p-4 flex flex-col gap-4">
-                                                            <p>{u.name}</p>
-                                                            <p>{u.confirmed ? 'Confirmou' : 'Não confirmou'}</p>
-                                                        </div>
-                                                    )
-                                                })
-                                            }
-                                        </div>
-                                    )
-                                } else {
-                                    const user = e as Populated<IUser, { msgs: IMsg[], purchases: Populated<IPurchase, {msg: IMsg, giftGiven: IGift}>[] }>
-                                    return (
-                                        <div key={user._id} className="bg-bg-300 dark:bg-dark-bg-300 p-4 flex flex-col gap-4">
-                                            <p className="text-xl font-bold">{user.name}</p>
-                                            <p>{user.confirmed ? 'Confirmado' : 'Não confirmou'}</p>
-                                        </div>
-                                    )
-                                }*/
-                               return <></>
-                               }) 
+                                data.map((e, i) => {
+                                    if ('users' in e) {
+                                        return (
+                                            <div key={i} className="bg-bg-300 flex flex-col gap-4 dark:bg-dark-bg-300 p-4">
+                                                <h3 className="text-lg font-bold">{e.name}</h3>
+                                                <div className="flex flex-col gap-4">
+                                                    {
+                                                        e.users.map((u, j) => {
+                                                            return (
+                                                                <div className="bg-bg-200 p-4 flex flex-col gap-2 dark:bg-dark-bg-200" key={j}>
+                                                                    <div className="flex justify-between">
+                                                                        <p>{u.name}</p>
+                                                                        <p>{u.confirmed ? 'Sim' : 'Não'}</p>
+                                                                    </div>
+                                                                    {u.confirmed ? (u.lastConfirmed ? <p><span className="opacity-75">Confirmado pela última vez em:</span> {u.lastConfirmed.toLocaleString('pt-BR', {timeZone: 'America/Sao_Paulo'})}</p> : null) : u.lastRevokedConfirmation ? <p><span className="opacity-75">Confirmação revogada pela última vez em:</span> {u.lastRevokedConfirmation.toLocaleString('pt-BR', {timeZone: 'America/Sao_Paulo'})}</p> : null}
+                                                                </div>
+                                                            )
+                                                        })
+                                                    }
+                                                </div>
+                                            </div>
+                                        )
+                                    } else {
+                                        const u = e as Populated<IUser, { msgs: IMsg[], purchases: Populated<IPurchase, {msg: IMsg, giftGiven: IGift}>[] }>;
+                                        return (
+                                            <div key={i} className="bg-bg-300 flex p-4 flex-col gap-2 dark:bg-dark-bg-300">
+                                                <div className="flex justify-between">
+                                                    <h3 className="text-lg font-bold">{u.name}</h3>
+                                                    <p>{u.confirmed ? 'Sim' : 'Não'}</p>
+                                                </div>
+                                                {u.confirmed ? (u.lastConfirmed ? <p><span className="opacity-75">Confirmado pela última vez em:</span> {u.lastConfirmed.toLocaleString('pt-BR', {timeZone: 'America/Sao_Paulo'})}</p> : null) : u.lastRevokedConfirmation ? <p><span className="opacity-75">Confirmação revogada pela última vez em:</span> {u.lastRevokedConfirmation.toLocaleString('pt-BR', {timeZone: 'America/Sao_Paulo'})}</p> : null}
+                                            </div>
+                                        )
+                                    }
+                                })
                             }
                         </div>
                     </TabPanel>
@@ -231,7 +238,18 @@ const RenderDashboard = ({data}: {data: AdminData}) => {
 }
 
 export default function Dashboard({session, data}: {session: Session, data: AdminData}) {
-    
+    const groups = data.filter(e => 'users' in e);
+    const individuals = data.filter(e => !('users' in e));
+    const groupedIndividuals: string[] = [];
+
+    groups.forEach(g => {
+        g.users.forEach(u => {
+            groupedIndividuals.push(u._id);
+        });
+    });
+
+    const parsedData = [...groups, ...individuals.filter(i => (!groupedIndividuals.includes(i._id) && i.name !== 'admin'))];
+
     return (
         <main className="p-8 container mx-auto">
             <div className="flex flex-col gap-8">
@@ -240,7 +258,7 @@ export default function Dashboard({session, data}: {session: Session, data: Admi
                     <p>Bem-vindo(a) {session?.user?.name}</p>
                     <button className="text-left" onClick={() => signOut()}>Encerrar sessão</button>
                 </div>
-                <RenderDashboard data={data} />
+                <RenderDashboard data={parsedData} />
             </div>
         </main>
     )
