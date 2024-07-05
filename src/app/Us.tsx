@@ -71,9 +71,9 @@ export default function Us({id}: {id?: string}) {
     const renderNewImgs = () => {
         if (isMd) {
             if (isXl) {
-                return newImgsXl.map((img, i) => <Image loading="eager" key={i} ref={img} src={newSrcsXl[i]} alt="Imagem de Maria e Kalil" style={{transform: 'translateY(50%)', bottom: '50%'}} width={193} height={258} className="md:w-[193px] xl:w-[224px] xl:h-[299.44px] hidden usImg usImgs md:h-[258px] w-[180px] h-[240.53px] absolute" />);
+                return newImgsXl.map((img, i) => <Image loading="eager" key={i} ref={img} src={newSrcsXl[i]} alt="Imagem de Maria e Kalil" style={{transform: 'translateY(50%)', bottom: '50%'}} width={224} height={299.44} className="md:w-[193px] xl:w-[224px] xl:h-[299.44px] hidden usImg usImgs md:h-[258px] w-[180px] h-[240.53px] absolute" />);
             }
-            return newImgsMd.map((img, i) => <Image loading="eager" key={i} ref={img} src={newSrcsMd[i]} alt="Imagem de Maria e Kalil" style={{transform: 'translateY(50%)', bottom: '50%'}} width={193} height={258} className="md:w-[193px] hidden usImg usImgs md:h-[258px] w-[180px] h-[240.53px] absolute" />);
+            return newImgsMd.map((img, i) => <Image loading="eager" key={i} ref={img} src={newSrcsMd[i]} alt="Imagem de Maria e Kalil" style={{transform: 'translateY(50%)', bottom: '50%'}} width={200} height={267.36} className="md:w-[200px] hidden usImg usImgs md:h-[267.36px] w-[180px] h-[240.53px] absolute" />);
         } else {
             return newImgs.map((img, i) => <Image loading="eager" width={193} height={258} key={i} ref={img} src={newSrcs[i]} alt="Imagem de Maria e Kalil" style={{transform: 'translateY(50%)', bottom: '50%'}} className="md:w-[193px] usImg hidden usImgs md:h-[258px] w-[180px] h-[240.53px] absolute" />);
         }
@@ -92,7 +92,7 @@ export default function Us({id}: {id?: string}) {
                 })}
             </div>
             {renderNewImgs()}
-            {imgs.map((img, i) => <Image loading="eager" key={i} ref={img} src={srcs[i]} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translate(0, 100%)', bottom: '0'}} width={224} height={299.44} className="md:w-[193px] xl:w-[224px] xl:h-[299.44px] usImg usImgs md:h-[258px] w-[180px] h-[240.53px] absolute" />)}
+            {imgs.map((img, i) => <Image loading="eager" key={i} ref={img} src={srcs[i]} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translate(0, 100%)', bottom: '0'}} width={224} height={299.44} className="md:w-[200px] xl:w-[224px] xl:h-[299.44px] usImg usImgs md:h-[267.36px] w-[180px] h-[240.53px] absolute" />)}
         </section>
     )
 }

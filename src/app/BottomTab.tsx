@@ -5,7 +5,7 @@ import { useRef, useState } from "react"
 import moment from 'moment';
 moment().format();
 
-export default function BottomTab({className, containerClassName, noScrollTrigger = false, firstChild, omitMiddleChild}: {className?: string, containerClassName?: string, noScrollTrigger?: boolean, firstChild?: ReactNode, omitMiddleChild?: boolean}) {
+export default function BottomTab({className, containerClassName, noScrollTrigger = false, firstChild, omitMiddleChild, lastChild}: {className?: string, containerClassName?: string, noScrollTrigger?: boolean, firstChild?: ReactNode, omitMiddleChild?: boolean, lastChild?: ReactNode}) {
 
     const timeRef = useRef<HTMLParagraphElement>(null);
     const timeTl = useRef<GSAPTimeline | null>(null);
@@ -57,7 +57,9 @@ export default function BottomTab({className, containerClassName, noScrollTrigge
                 {
                     omitMiddleChild ? null : <p ref={timeRef} className="justify-self-center">16:30</p>
                 }
-                <p className="justify-self-end">09 NOV 2024</p>
+                {
+                    lastChild ? lastChild : <p className="justify-self-end">09 NOV 2024</p>
+                }
             </div>
         </div>
     )

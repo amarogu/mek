@@ -31,9 +31,9 @@ const config: Config = {
         'dark-accent-200': '#f7f7f7',
         'dark-text-100': '#FFFFFF',
         'dark-text-200': '#e0e0e0',
-        'dark-bg-100': '#1A1A1A',
-        'dark-bg-200': '#292929',
-        'dark-bg-300': '#404040'
+        'dark-bg-100': '#010101',
+        'dark-bg-200': '#161616',
+        'dark-bg-300': '#2d2d2d'
       }
     },
   },

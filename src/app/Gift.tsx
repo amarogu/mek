@@ -60,7 +60,7 @@ export default function Gift({gift}: {gift: LeanDocument<IGift>}) {
             <div className={`${gift.soldOut ? 'absolute z-20 flex items-center justify-center w-full h-full' : 'hidden'}`}>
                 <p className="uppercase text-2xl font-bold p-4 bg-primary-200 dark:bg-dark-primary-100 border border-primary-300 dark:border-dark-primary-300">Esgotado</p>
             </div>
-            <div ref={container} onMouseEnter={() => setHovering(true)} onMouseLeave={() => setHovering(false)} className={`w-full cursor-pointer relative overflow-y-hidden bg-bg-200 dark:bg-dark-bg-200 p-4 flex gap-12 flex-col ${gift.soldOut ? 'opacity-25' : ''}`}>
+            <div ref={container} onMouseEnter={() => setHovering(true)} onMouseLeave={() => setHovering(false)} className={`w-full cursor-pointer relative overflow-y-hidden bg-bg-200 dark:bg-dark-bg-200 p-4 flex gap-12 flex-col ${gift.soldOut ? 'opacity-25 dark:opacity-50' : ''}`}>
                 <div ref={upperContainer} style={{transform: 'translateY(-16px) translateY(-100%)'}} className="flex flex-col gap-2">
                     <h3 className="text-xl font-semibold">{gift.title}</h3>
                     <h4 className="text-xl">{gift.description}</h4>
