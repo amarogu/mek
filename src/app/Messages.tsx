@@ -23,13 +23,13 @@ export default function Messages({ id }: { id: string }) {
     const formRef = useRef<HTMLFormElement>(null);
     const imgRef = useRef<HTMLImageElement>(null);
 
-    if (!item) return null;
-
     useEffect(() => {
         if (isMd) {
             if (imgRef.current) imgRef.current.style.height = `${formRef.current?.clientHeight}px`;
         } 
     }, [isMd]);
+
+    if (!item) return null;
 
     const cleanup = () => {
         setRes(undefined);
