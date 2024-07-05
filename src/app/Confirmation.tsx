@@ -41,10 +41,6 @@ export default function Confirmation({id}: {id?: string}) {
     const btnTextRefs = useRef<(HTMLParagraphElement | null)[]>([]);
     const btnTextTl = useRef<GSAPTimeline | null>(null);
 
-    if (!item) return null;
-
-    const isNotGroup = !('users' in item);
-
     const { contextSafe } = useGSAP(() => {
         xTo.current = gsap.quickTo(btnRef.current, 'left', {duration: 0.2});
         yTo.current = gsap.quickTo(btnRef.current, 'top', {duration: 0.2});
@@ -153,6 +149,10 @@ export default function Confirmation({id}: {id?: string}) {
     });
 
     const [disabled, setDisabled] = useState(false);
+
+    if (!item) return null;
+
+    const isNotGroup = !('users' in item);
 
     const handleClick = contextSafe(async () => {
         if (isNotGroup && textRefs.current[0]) {
