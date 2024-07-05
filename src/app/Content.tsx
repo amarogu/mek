@@ -20,6 +20,7 @@ import Footer from "./Footer";
 import BottomTab from "./BottomTab";
 import {APIProvider} from '@vis.gl/react-google-maps';
 import 'dotenv/config';
+import PartyInfo from "./PartyInfo";
 
 gsap.registerPlugin(useGSAP);
 
@@ -127,6 +128,7 @@ export default function Content({item, gifts, gmpApiKey}: {item?: LeanDocument<I
             <Messages id="messages" />
             <Gifts id="gifts" gifts={gifts} />
             <Confirmation id="confirm" />
+            <PartyInfo />
             <Footer id='footer' />
           </main>
       </Context.Provider>
