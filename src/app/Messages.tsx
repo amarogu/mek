@@ -13,8 +13,6 @@ import Context from "./Context";
 export default function Messages({ id }: { id: string }) {
     const {item} = useContext(Context);
 
-    if (!item) return null;
-
     const [name, setName] = useState<string>('');
     const [message, setMessage] = useState<string>('');
     const [res, setRes] = useState<undefined | SuccessResponse | ErrorResponse>(undefined);
@@ -24,6 +22,8 @@ export default function Messages({ id }: { id: string }) {
 
     const formRef = useRef<HTMLFormElement>(null);
     const imgRef = useRef<HTMLImageElement>(null);
+
+    if (!item) return null;
 
     useEffect(() => {
         if (isMd) {

@@ -12,10 +12,6 @@ import { useMediaQuery } from "react-responsive";
 export default function Confirmation({id}: {id?: string}) {
     const { item } = useContext(Context);
 
-    if (!item) return null;
-
-    const isNotGroup = !('users' in item);
-
     const isTouchBased = useMediaQuery({query: '(pointer: coarse)'});
 
     const sectionRef = useRef<HTMLElement | null>(null);
@@ -44,6 +40,10 @@ export default function Confirmation({id}: {id?: string}) {
     const btnRef = useRef<HTMLButtonElement>(null);
     const btnTextRefs = useRef<(HTMLParagraphElement | null)[]>([]);
     const btnTextTl = useRef<GSAPTimeline | null>(null);
+
+    if (!item) return null;
+
+    const isNotGroup = !('users' in item);
 
     const { contextSafe } = useGSAP(() => {
         xTo.current = gsap.quickTo(btnRef.current, 'left', {duration: 0.2});

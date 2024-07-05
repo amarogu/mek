@@ -11,8 +11,6 @@ import fitty from 'fitty';
 export default function PartyInfo({id}: {id: string}) {
     const {item} = useContext(Context);
 
-    if (!item) return null;
-
     const {contextSafe} = useGSAP();
 
     const sectionRef = useRef<HTMLElement>(null);
@@ -53,6 +51,8 @@ export default function PartyInfo({id}: {id: string}) {
             <p>Às 16:30</p>
         </div>
     )
+
+    if (!item) return null;
 
     return (
         <section id={id} style={{opacity: 0}} ref={sectionRef} className="relative -z-10">
