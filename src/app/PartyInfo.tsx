@@ -8,7 +8,7 @@ import PinGlyph from '../../public/icon_marker.svg';
 import BottomTab from "./BottomTab";
 import fitty from 'fitty';
 
-export default function PartyInfo() {
+export default function PartyInfo({id}: {id: string}) {
     const {item} = useContext(Context);
 
     if (!item) return null;
@@ -55,13 +55,13 @@ export default function PartyInfo() {
     )
 
     return (
-        <section style={{opacity: 0}} ref={sectionRef} className="relative -z-10">
+        <section id={id} style={{opacity: 0}} ref={sectionRef} className="relative -z-10">
             <div className='absolute flex flex-col gap-6 z-20 bottom-0 w-full container left-1/2 -translate-x-1/2'>
                 <h2 className="mx-8 font-extrabold leading-none">
                     <p ref={fittyTitleRef}>Saint</p>
                     <p ref={fittySubRef} className="uppercase">Germain Eventos</p>
                 </h2>
-                <BottomTab lastChild={lastChild} omitMiddleChild firstChild={firstChild} noScrollTrigger className="!pb-12" containerClassName="!relative" /> 
+                <BottomTab lastChild={lastChild} omitMiddleChild firstChild={firstChild} noScrollTrigger className="!pb-10" containerClassName="!relative" /> 
             </div>
             <Image loading="eager" className="w-14 absolute z-30 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-14" src={PinGlyph} ref={glyphRef} alt="Saint German Eventos" />
             <Map
