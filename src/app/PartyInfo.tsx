@@ -56,8 +56,8 @@ export default function PartyInfo({id}: {id: string}) {
 
     return (
         <section id={id} style={{opacity: 0}} ref={sectionRef} className="relative -z-10">
-            <div className='absolute flex flex-col gap-6 z-20 bottom-0 w-full container left-1/2 -translate-x-1/2'>
-                <h2 className="mx-8 font-extrabold leading-none">
+            <div className='absolute flex flex-col gap-6 z-20 bottom-0 w-full px-8'>
+                <h2 className="font-extrabold leading-none container mx-auto">
                     <p ref={fittyTitleRef}>Saint</p>
                     <p ref={fittySubRef} className="uppercase">Germain Eventos</p>
                 </h2>

@@ -42,7 +42,6 @@ export default function Content({item, gifts, gmpApiKey}: {item?: LeanDocument<I
   }, [isMounted]);
 
   useGSAP(() => {
-
     gsap.registerEffect({
       name: 'fadeOut',
       effect: (targets: GSAPTweenTarget) => {
@@ -97,18 +96,30 @@ export default function Content({item, gifts, gmpApiKey}: {item?: LeanDocument<I
   }, [isMounted])
 
   useEffect(() => {
-    let height = window.innerHeight;
-    let width = window.innerWidth;
-    const handleResize = () => {
-      if (window.innerHeight === height && window.innerWidth !== width) location.reload();
-    }
-    window.addEventListener('resize', handleResize);
     setIsDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches);
     setIsMounted(true);
-    return () => {
-        window.removeEventListener('resize', handleResize);
-    };
   }, []);
+
+  useGSAP((_, contextSafe) => {
+    if (contextSafe) {
+      let timeout: NodeJS.Timeout;
+      const handleResize = contextSafe(() => {
+        gsap.to('body', {
+          filter: 'blur(10px)'
+        });
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+          location.reload();
+        }, 100);
+      });
+
+      window.addEventListener('resize', handleResize);
+
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      }
+    }
+  })
 
   if (!isMounted) return <Loading />;
 
