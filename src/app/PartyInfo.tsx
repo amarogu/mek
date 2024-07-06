@@ -61,7 +61,7 @@ export default function PartyInfo({id}: {id: string}) {
                     <p ref={fittyTitleRef}>Saint</p>
                     <p ref={fittySubRef} className="uppercase">Germain Eventos</p>
                 </h2>
-                <BottomTab lastChild={lastChild} omitMiddleChild firstChild={firstChild} noScrollTrigger className="!pb-10" containerClassName="!relative" /> 
+                <BottomTab lastChild={lastChild} omitMiddleChild firstChild={firstChild} noScrollTrigger className="!pb-10" containerClassName="!relative !px-0" /> 
             </div>
             <Image loading="eager" className="w-14 absolute z-30 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-14" src={PinGlyph} ref={glyphRef} alt="Saint German Eventos" />
             <Map

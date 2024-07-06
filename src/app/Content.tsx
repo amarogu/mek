@@ -137,7 +137,6 @@ export default function Content({item, gifts, gmpApiKey}: {item?: LeanDocument<I
             <BottomTab />
             <Us id="us" />
             <Messages id="messages" />
-            <Gifts id="gifts" gifts={gifts} />
             <Confirmation id="confirm" />
             <PartyInfo id="party" />
             <Footer id='footer' />

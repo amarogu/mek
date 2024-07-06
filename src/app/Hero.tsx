@@ -10,6 +10,7 @@ import LogoAlt from '../../public/meklogo_alt.svg';
 import LogoAltDark from '../../public/meklogo_alt_dark.svg';
 import { parseHeroContent, parseMdHeroContent } from "@/lib/helpers";
 import Context from "./Context";
+import Magnetic from "./Magnetic";
 
 export default function Hero({className, id}: {className?: string, id?: string}) {
 
@@ -35,7 +36,6 @@ export default function Hero({className, id}: {className?: string, id?: string})
     }
 
     useGSAP(() => {
-    
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: document.body,
@@ -63,8 +63,8 @@ export default function Hero({className, id}: {className?: string, id?: string})
                 end: 'bottom+=50 top',
                 scrub: true
             }
-        })
-    }, []);
+        });
+    });
 
     const content = parseHeroContent(item);
     const mdContent = parseMdHeroContent(item);
@@ -82,6 +82,61 @@ export default function Hero({className, id}: {className?: string, id?: string})
     const img = <video playsInline autoPlay muted loop ref={actualImg} className={`z-10 md:w-[240px] md:h-[105px] w-[113px] h-[49px] sm:w-[185px] sm:h-[80.22px]`}><source src="../../weddingvideo.mp4" type="video/mp4" /></video>;
     const imgHelper = <div ref={actualImgHelper} style={{transform: isMd ? (isXl ? 'translateY(500px) scale(8) ' : 'translateY(500px) scale(6)') : 'translate(-50%, 400px) scale(5)' }} className={`absolute top-0 md:w-[240px] md:h-[105px] w-[113px] h-[49px] sm:w-[185px] sm:h-[80.22px]`}></div>;
 
+    let xTo: gsap.QuickToFunc | null = null;
+    let yTo: gsap.QuickToFunc | null = null;
+    
+    const {contextSafe} = useGSAP(() => {
+        if (ref.current) {
+            xTo = gsap.quickTo(ref.current, 'x', {duration: 0.3, ease: 'power2.out'});
+            yTo = gsap.quickTo(ref.current, 'y', {duration: 0.3, ease: 'power2.out'});
+        }
+    })
+
+    const handleMouseEnter = contextSafe(() => {
+        if (container.current) {
+            const h = container.current.clientHeight;
+            const w = container.current.clientWidth;
+
+            gsap.to(container.current, {
+                duration: 0.3,
+                height: h + 50,
+                width: w + 50
+            });
+
+            gsap.to(ref.current, {
+                duration: 0.3,
+                scale: 1.3
+            });
+        }
+    });
+
+    const handleMouseLeave = contextSafe(() => {
+        if (container.current) {
+            const h = container.current.clientHeight;
+            const w = container.current.clientWidth;
+
+            gsap.to(container.current, {
+                duration: 0.3,
+                height: h - 50,
+                width: w - 50
+            });
+
+            gsap.to(ref.current, {
+                duration: 0.3,
+                scale: 1
+            });
+        }
+    })
+
+    const magnetic = contextSafe((e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>) => {
+        if (container.current && ref.current && xTo && yTo) {
+            const relX = e.pageX - container.current.offsetLeft;
+            const relY = e.pageY - container.current.offsetTop;
+            xTo((relX - container.current.clientWidth / 2) / container.current.clientWidth * 100);
+            yTo((relY - container.current.clientHeight / 2) / container.current.clientHeight * 100);
+        }
+    });
+
     const renderContent = (isMd: boolean) => {
         if (isMd) {
             return (
@@ -95,10 +150,12 @@ export default function Hero({className, id}: {className?: string, id?: string})
                                 <span>{mdContent[1]}</span>
                             </Parallax>
                             <div ref={imgRef} className='z-10 relative w-[240px] h-[105px]'>
-                                {img}
-                                {imgHelper}
-                                <div ref={slidingText} style={{opacity: 0}} className="-translate-y-full">
-                                    <SlidingText className="text-[30%] text-dark-text-100" text="Venham saber mais" img={<Image src={LogoAlt} alt="Logo alternativa; Maria & Kalil escritos em iniciais, abaixo a palavra love" className="w-[24px]" width={24} />} darkImg={<Image width={24} className="w-[24px]" src={LogoAltDark} alt="Logo alternativa; Maria & Kalil escritos em iniciais, abaixo a palavra love" />} />
+                                <div>
+                                    {img}
+                                    {imgHelper}
+                                    <div ref={slidingText} style={{opacity: 0}} className="-translate-y-full">
+                                        <SlidingText className="text-[30%] text-dark-text-100" text="Venham saber mais" img={<Image src={LogoAlt} alt="Logo alternativa; Maria & Kalil escritos em iniciais, abaixo a palavra love" className="w-[24px]" width={24} />} darkImg={<Image width={24} className="w-[24px]" src={LogoAltDark} alt="Logo alternativa; Maria & Kalil escritos em iniciais, abaixo a palavra love" />} />
+                                    </div>
                                 </div>
                             </div>
                             <Parallax reverse>

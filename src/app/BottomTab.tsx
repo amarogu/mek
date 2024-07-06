@@ -12,7 +12,10 @@ export default function BottomTab({className, containerClassName, noScrollTrigge
 
     const [timeOption, setTimeOption] = useState<'time' | 'timeUntil'>('time');
 
-    const pulse = (tl: MutableRefObject<GSAPTimeline | null>, target: MutableRefObject<HTMLParagraphElement | null> | MutableRefObject<(HTMLParagraphElement | HTMLSpanElement | null)[]>, replacementContent: string | string[]) => {
+    const locRef = useRef<HTMLAnchorElement>(null);
+    const locTl = useRef<GSAPTimeline | null>(null);
+
+    const pulse = (tl: MutableRefObject<GSAPTimeline | null>, target: MutableRefObject<HTMLParagraphElement | HTMLAnchorElement | null> | MutableRefObject<(HTMLParagraphElement | HTMLSpanElement | null)[]>, replacementContent: string | string[]) => {
         tl.current = gsap.timeline().to(target.current, {
             opacity: 0,
             duration: 0.2,
@@ -37,13 +40,14 @@ export default function BottomTab({className, containerClassName, noScrollTrigge
     };
 
     useGSAP((_, contextSafe) => {
-        if (contextSafe && !omitMiddleChild) {
+        if (contextSafe && !omitMiddleChild && !firstChild) {
             setTimeout(contextSafe(() => {
                 const now = moment();
                 const wedding = moment([2024, 10, 9, 4, 30]);
                 const diff = wedding.diff(now, 'days');
                 setTimeOption(timeOption === 'time' ? 'timeUntil' : 'time');
                 pulse(timeTl, timeRef, timeOption === 'time' ? '16:30' : `Faltam ${diff} dias`);
+                pulse(locTl, locRef, timeOption === 'time' ? 'Saint German Eventos' : 'Clique aqui para ver no mapa');
             }), 2000);
         }
     }, [timeOption])
@@ -52,7 +56,7 @@ export default function BottomTab({className, containerClassName, noScrollTrigge
         <div className={`px-8 absolute bottom-0 flex w-full justify-center ${containerClassName ? containerClassName : ''}`}>
             <div className={`grid ${noScrollTrigger ? '' : 'bottomTab'} z-10 text-[10px] container pb-8 ${omitMiddleChild ? 'grid-cols-2' : 'grid-cols-3'} ${className ? className : ''}`}>
                 {
-                    firstChild ? firstChild : <p className="justify-self-start"><a href="https://maps.app.goo.gl/bS5KpEtKDsBoigbM7" target="_blank">Saint German Eventos</a></p>
+                    firstChild ? firstChild : <p className="justify-self-start underline underline-offset-2"><a href="https://maps.app.goo.gl/bS5KpEtKDsBoigbM7" ref={locRef} target="_blank">Saint German Eventos</a></p>
                 }
                 {
                     omitMiddleChild ? null : <p ref={timeRef} className="justify-self-center">16:30</p>
