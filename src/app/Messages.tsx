@@ -3,12 +3,15 @@ import { useContext, useEffect, useState } from "react";
 import Button from "./Button";
 import { useMediaQuery } from "react-responsive";
 import Image from "next/image";
+import MessagesMobileDark from '../../public/messages_mobile_dark.png';
+import MessagesMdDark from '../../public/messages_medium_dark.png';
 import MessagesMobile from '../../public/messages_mobile.png';
 import MessagesMd from '../../public/messages_medium.png';
 import { useRef } from "react";
 import instance from "@/lib/axios";
 import { ErrorResponse, SuccessResponse, emptyMsg } from "@/lib/helpers";
 import Context from "./Context";
+import ThemeImage from "./ThemeImage";
 
 export default function Messages({ id }: { id: string }) {
     const {item} = useContext(Context);
@@ -25,7 +28,14 @@ export default function Messages({ id }: { id: string }) {
 
     useEffect(() => {
         if (isMd) {
-            if (imgRef.current) imgRef.current.style.height = `${formRef.current?.clientHeight}px`;
+            if (imgRef.current) {
+                const children = imgRef.current.children;
+                imgRef.current.style.height = `${formRef.current?.clientHeight}px`;
+                Array.from(children).forEach(c => {
+                    c.setAttribute('style', `height: ${formRef.current?.clientHeight}px`);
+                })
+            }
+            
         } 
     }, [isMd]);
 
@@ -64,7 +74,7 @@ export default function Messages({ id }: { id: string }) {
                         <Button cleanup={cleanup} clicked={clicked} onClick={() => handleClick(message)} res={res} text='Enviar' />
                     </div>
                 </form>
-                <Image ref={imgRef} loading="eager" src={isMd ? MessagesMd : MessagesMobile} className="w-full lg:absolute right-0 md:self-start -z-10 relative lg:w-auto" alt="Grid de imagens de Maria e Kalil" />
+                <ThemeImage ref={imgRef} loading="eager" srcDark={isMd ? MessagesMdDark : MessagesMobileDark} srcLight={isMd ? MessagesMd : MessagesMobile} className="lg:w-[auto]" containerClassName="w-full lg:absolute right-0 md:self-start -z-10 relative lg:w-[auto]" alt="Grid de imagens de Maria e Kalil" />
             </div>
         </section>
     )

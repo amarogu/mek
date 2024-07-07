@@ -9,12 +9,12 @@ export default function Magnetic({children, container, mov = 100, scaleEffect = 
     let xTo: gsap.QuickToFunc | null = null;
     let yTo: gsap.QuickToFunc | null = null;
     
-    const {contextSafe} = useGSAP(() => {
+    const { contextSafe } = useGSAP(() => {
         if (ref.current) {
             xTo = gsap.quickTo(ref.current, 'x', {duration: 0.3, ease: 'power2.out'});
             yTo = gsap.quickTo(ref.current, 'y', {duration: 0.3, ease: 'power2.out'});
         }
-    })
+    });
 
     const handleMouseEnter = contextSafe(() => {
         if (!(ScrollTrigger.isScrolling()) && xTo && yTo) {

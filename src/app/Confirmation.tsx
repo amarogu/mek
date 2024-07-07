@@ -145,7 +145,7 @@ export default function Confirmation({id}: {id?: string}) {
                         }
                     })
                 }
-            }}).to(sliderRefs.current, {x: '100%', duration: 0.4, ease: 'power1.in'}, '+=0.2');
+        }}).to(sliderRefs.current, {x: '100%', duration: 0.4, ease: 'power1.in'}, '+=0.2');
     });
 
     const [disabled, setDisabled] = useState(false);
@@ -194,7 +194,7 @@ export default function Confirmation({id}: {id?: string}) {
 
     return (
         <section id={id} ref={sectionRef} className="p-8 pt-20 pb-28">
-            <div onClick={handleTouchBasedClick} ref={parentRef} onMouseMove={isNotGroup ? (e) => { handleMouseMove(e) } : () => {}} onMouseLeave={isNotGroup ? handleMouseLeave : () => {}} className={`text-[12.5vw] relative flex flex-col items-center md:text-[9vw] xl:text-[120px] container mx-auto font-extrabold leading-[85%] ${isNotGroup ? 'cursor-pointer gap-0' : 'gap-16 lg:flex-row lg:items-start'}`}>
+            <div onClick={handleTouchBasedClick} ref={parentRef} onMouseMove={isNotGroup ? (e) => { handleMouseMove(e) } : () => {}} onMouseLeave={isNotGroup ? handleMouseLeave : () => {}} className={`text-[12.5vw] relative flex flex-col items-center md:text-[9vw] xl:text-[120px] container mx-auto font-extrabold leading-[85%] ${isNotGroup ? 'cursor-pointer gap-0' : 'gap-16 lg:flex-row lg:items-stretch'}`}>
                 {
                     isNotGroup ? isTouchBased ? <p className="uppercase text-xs font-normal mb-6 animate-pulse items-center flex gap-4">
                         <span ref={el => {
@@ -254,10 +254,17 @@ export default function Confirmation({id}: {id?: string}) {
                         }
                     </p>
                 </h2>
-                <div ref={formRef} className="text-3xl flex flex-col justify-between w-full">
+                <div ref={formRef} className="text-3xl flex flex-col gap-16 justify-between w-full">
                     <ConfirmationForm handleConfirmation={handleConfirmation} />
-                    <div className="text-[10px]">
-
+                    <div className="text-[10px] gap-4 leading-none font-normal flex justify-between">
+                        <div className="flex flex-col gap-2">
+                            <p className="w-2/3 md:w-[initial]">Sua presença é muito importante para nós!</p>
+                            <p className="w-[60%] md:w-[initial]">Se possível confirmar até <span className="font-bold">15 OUT 2024</span>.</p>
+                        </div>
+                        <div className="flex flex-col gap-1 items-center">
+                            <p className="uppercase tracking-[1.92px]">Com amor,</p>
+                            <p className="text-base font-bold text-nowrap">Maria & Kalil</p>
+                        </div>
                     </div>
                 </div>
                 {

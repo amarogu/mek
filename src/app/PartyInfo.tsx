@@ -5,11 +5,13 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
 import PinGlyph from '../../public/icon_marker.svg';
+import PinGlyphDark from '../../public/icon_marker_dark.svg';
 import BottomTab from "./BottomTab";
 import fitty from 'fitty';
+import ThemeImage from "./ThemeImage";
 
 export default function PartyInfo({id}: {id: string}) {
-    const {item} = useContext(Context);
+    const {item, isDarkMode} = useContext(Context);
 
     const {contextSafe} = useGSAP();
 
@@ -29,6 +31,196 @@ export default function PartyInfo({id}: {id: string}) {
 
     const fittyTitleRef = useRef<HTMLParagraphElement>(null);
     const fittySubRef = useRef<HTMLParagraphElement>(null);
+
+    const styling = [
+        {
+          "elementType": "labels.icon",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "elementType": "labels.text",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "administrative",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "landscape.man_made",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "landscape.natural.landcover",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "landscape",
+          "stylers": [
+            {
+              "color": "#f2f2f2"
+            }
+          ]
+        },
+        {
+          "featureType": "poi",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "road",
+          "elementType": "geometry",
+          "stylers": [
+            {
+              "color": "#e6e6e6"
+            },
+            {
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "featureType": "transit.line",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "transit.station.airport",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "water",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        }
+      ]
+
+    const stylingDark = [
+        {
+          "elementType": "labels.icon",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "elementType": "labels.text",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "administrative",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "landscape.man_made",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "landscape.natural.landcover",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "landscape",
+          "stylers": [
+            {
+              "color": '#010101'
+            }
+          ]
+        },
+        {
+          "featureType": "poi",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "road",
+          "elementType": "geometry",
+          "stylers": [
+            {
+              "color": '#1f1f1f'
+            },
+            {
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "featureType": "transit.line",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "transit.station.airport",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "water",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        }
+      ]
 
     useEffect(() => {
         if (fittyTitleRef.current && fittySubRef.current) {
@@ -63,18 +255,34 @@ export default function PartyInfo({id}: {id: string}) {
                 </h2>
                 <BottomTab lastChild={lastChild} omitMiddleChild firstChild={firstChild} noScrollTrigger className="!pb-10" containerClassName="!relative !px-0" /> 
             </div>
-            <Image loading="eager" className="w-14 absolute z-30 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-14" src={PinGlyph} ref={glyphRef} alt="Saint German Eventos" />
-            <Map
-                defaultZoom={16}
-                center={location}
-                className="w-full h-screen brightness-75"
-                mapId='5f106ba5b2d1ba7a'
-                onTilesLoaded={handleLoad}
-                disableDefaultUI={true}
-                gestureHandling={'none'}
-                keyboardShortcuts={false}
-            >
-            </Map>
+            <ThemeImage containerClassName="w-10 xl:w-14 xl:h-14 absolute z-30 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-10 brightness-150" srcLight={PinGlyph} srcDark={PinGlyphDark} ref={glyphRef} alt="Pin de localização" />
+            {
+                isDarkMode ? (
+                    <Map
+                        defaultZoom={16}
+                        center={location}
+                        className="w-full h-screen"
+                        styles={stylingDark}
+                        onTilesLoaded={handleLoad}
+                        disableDefaultUI={true}
+                        gestureHandling={'none'}
+                        keyboardShortcuts={false}
+                    >
+                    </Map>
+                ) : (
+                    <Map
+                        defaultZoom={16}
+                        center={location}
+                        className="w-full h-screen"
+                        styles={styling}
+                        onTilesLoaded={handleLoad}
+                        disableDefaultUI={true}
+                        gestureHandling={'none'}
+                        keyboardShortcuts={false}
+                    >
+                    </Map>
+                )
+            }
         </section>
     )    
 }

@@ -6,6 +6,8 @@ import { useContext, Dispatch, useState, SetStateAction, useEffect } from "react
 import { useSpring, animated } from "@react-spring/web";
 import AnimatedText from "./AnimatedText";
 import { useLenis } from "@studio-freight/react-lenis";
+import Link from "next/link";
+import ThemeImage from "./ThemeImage";
 
 const config = {
     mass: 1,
@@ -54,12 +56,21 @@ export default function Nav({open, setOpen}: {open: boolean, setOpen: Dispatch<S
                     )
                 }
             </ul>
-            <Image onClick={() => lenis?.scrollTo(0, {duration: 2.5})} src={isDarkMode ? LogoDark : Logo} className="col-start-1 md:col-start-2 cursor-pointer" alt="Maria & Kalil, com amor," />
+            <ThemeImage srcDark={LogoDark} onClick={() => lenis?.scrollTo(0, {duration: 2.5})} srcLight={Logo} containerClassName="col-start-1 md:col-start-2 cursor-pointer" alt="Maria & Kalil, com amor." />
             <ul className="md:flex hidden gap-12 text-nowrap justify-self-end font-bold">
                 {
                     secondUl.map((t, i) => 
                         <li key={i}>
-                            <AnimatedText disabled={item ? false : true} className={item ? '' : 'opacity-50'} content={t} offset={offset} />
+                            {
+                                i === 0 ? 
+                                (
+                                    <Link href='https://sites.icasei.com.br/kalilemaria' target="_blank">
+                                        <AnimatedText disabled={item ? false : true} className={item ? '' : 'opacity-50'} content={t} offset={offset} />
+                                    </Link>
+                                ) : (
+                                    <AnimatedText disabled={item ? false : true} className={item ? '' : 'opacity-50'} content={t} offset={offset} />
+                                )
+                            }
                         </li>
                     )
                 }
