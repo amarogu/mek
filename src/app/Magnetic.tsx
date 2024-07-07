@@ -1,11 +1,11 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { cloneElement, MouseEvent, ReactElement, useRef } from "react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { cloneElement, ReactElement, RefObject, useEffect, useRef } from "react";
 
-export default function Magnetic({children}: {children: ReactElement}) {
+export default function Magnetic({children, container, mov = 100, scaleEffect = 1.75}: {children: ReactElement, container: RefObject<HTMLElement>, mov?: number, scaleEffect?: number}) {
 
     const ref = useRef<HTMLElement>(null);
-    const container = useRef<HTMLDivElement>(null);
     let xTo: gsap.QuickToFunc | null = null;
     let yTo: gsap.QuickToFunc | null = null;
     
@@ -17,55 +17,53 @@ export default function Magnetic({children}: {children: ReactElement}) {
     })
 
     const handleMouseEnter = contextSafe(() => {
-        if (container.current) {
-            const h = container.current.clientHeight;
-            const w = container.current.clientWidth;
-
-            gsap.to(container.current, {
-                duration: 0.3,
-                height: h + 50,
-                width: w + 50
-            });
-
+        if (!(ScrollTrigger.isScrolling()) && xTo && yTo) {
             gsap.to(ref.current, {
                 duration: 0.3,
-                scale: 1.3
+                scale: scaleEffect
             });
+            xTo(0);
+            yTo(0);
         }
     });
 
     const handleMouseLeave = contextSafe(() => {
-        if (container.current) {
-            const h = container.current.clientHeight;
-            const w = container.current.clientWidth;
-
-            gsap.to(container.current, {
-                duration: 0.3,
-                height: h - 50,
-                width: w - 50
-            });
-
+        if (!(ScrollTrigger.isScrolling()) && xTo && yTo) {
             gsap.to(ref.current, {
                 duration: 0.3,
                 scale: 1
             });
+            xTo(0);
+            yTo(0);
         }
     })
 
-    const magnetic = contextSafe((e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>) => {
-        if (container.current && ref.current && xTo && yTo) {
+    const magnetic = contextSafe((e: MouseEvent) => {
+        if (container.current && ref.current && xTo && yTo && !(ScrollTrigger.isScrolling())) {
             const relX = e.pageX - container.current.offsetLeft;
             const relY = e.pageY - container.current.offsetTop;
-            xTo((relX - container.current.clientWidth / 2) / container.current.clientWidth * 100);
-            yTo((relY - container.current.clientHeight / 2) / container.current.clientHeight * 100);
+            xTo((relX - container.current.clientWidth / 2) / container.current.clientWidth * mov);
+            yTo((relY - container.current.clientHeight / 2) / container.current.clientHeight * mov);
         }
     });
 
-    return (
-        <div ref={container} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onMouseMove={(e) => magnetic(e)}>
-            {
-                cloneElement(children, {ref})
+    useEffect(() => {
+        if (container.current) {
+            container.current.addEventListener('mouseenter', handleMouseEnter);
+            container.current.addEventListener('mouseleave', handleMouseLeave);
+            container.current.addEventListener('mousemove', magnetic);
+        }
+
+        return () => {
+            if (container.current) {
+                container.current.removeEventListener('mouseenter', handleMouseEnter);
+                container.current.removeEventListener('mouseleave', handleMouseLeave);
+                container.current.removeEventListener('mousemove', magnetic);
             }
-        </div>
+        }
+    }, [])
+
+    return (
+        cloneElement(children, {ref})
     )
 }
