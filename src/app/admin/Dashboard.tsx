@@ -34,7 +34,7 @@ const DashboardContent = ({data, parsedData}: {data: AdminData, parsedData: Admi
                 <TabList className='gap-4 flex'>
                     <Tab className={tabClassName}>Mensagens</Tab>
                     <Tab className={tabClassName}>Cadastrar convidados</Tab>
-                    <Tab className={tabClassName}>Confirmação dos convidados</Tab>
+                    <Tab className={tabClassName}>Lista de convidados</Tab>
                 </TabList>
                 <TabPanels>
                     <TabPanel>
