@@ -34,8 +34,10 @@ export default function Hero({className, id}: {className?: string, id?: string})
         }
     }
 
+    const tl = useRef<GSAPTimeline | null>(null);
+
     useGSAP(() => {
-        const tl = gsap.timeline({
+        tl.current = gsap.timeline({
             scrollTrigger: {
                 trigger: document.body,
                 start: 'top top',
@@ -45,7 +47,7 @@ export default function Hero({className, id}: {className?: string, id?: string})
         });
     
         if (imgRef.current?.childNodes) {
-            tl.to(imgRef.current.childNodes, {
+            tl.current.to(imgRef.current.childNodes, {
                 scale: isMd ? (isXl ? 8 : 6) : 6,
                 y: isMd ? 500 : 400,
                 x: isMd ? 0 : '-50%',

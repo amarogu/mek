@@ -4,6 +4,7 @@ import gsap from "gsap";
 import Image from "next/image";
 import { useMediaQuery } from "react-responsive";
 import { usImgs } from "@/lib/rendering/usImgs";
+import { createImgProps } from "@/lib/helpers";
 
 export default function Us({id}: {id?: string}) {
 
@@ -16,15 +17,18 @@ export default function Us({id}: {id?: string}) {
     const isXl = useMediaQuery({query: '(min-width: 1280px)'});
 
     const allSrcs = usImgs;
-    const imgRefs = [useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null)];
-    const imgs = imgRefs.slice(0, 3);
+    const imgs = useRef<HTMLImageElement[]>([]);
+    const newImgs = useRef<HTMLImageElement[]>([]);
+    const newImgsMd = useRef<HTMLImageElement[]>([]);
+    const newImgsXl = useRef<HTMLImageElement[]>([]);
     const srcs = allSrcs.slice(0, 3);
-    const newImgs = imgRefs.slice(3, 9);
-    const newImgsMd = imgRefs.slice(3, 15);
-    const newImgsXl = imgRefs.slice(3);
     const newSrcs = allSrcs.slice(3, 9);
-    const newSrcsMd = allSrcs.slice(3, 15);
-    const newSrcsXl = allSrcs.slice(3);
+    const newSrcsMd = allSrcs.slice(9, 15);
+    const newSrcsXl = allSrcs.slice(15);
+
+    const section = useRef<HTMLElement>(null);
+
+    const tl = useRef<GSAPTimeline | null>(null);
 
     useEffect(() => {
         const usTitle = document.querySelectorAll('.usTitle');
@@ -39,48 +43,108 @@ export default function Us({id}: {id?: string}) {
     }, []);
 
     useGSAP(() => {
-
-        const commonTweens = [gsap.to(container.current, {opacity: 0}), gsap.to(imgs[0].current, {xPercent: -105, yPercent: -50}), gsap.to(imgs[1].current, {xPercent: 105}), gsap.to(imgs[2].current, {xPercent: -105, yPercent: -155}), gsap.to(newImgs[0].current, {xPercent: 105, yPercent: -105}), gsap.to(newImgs[1].current, {xPercent: -105, yPercent: 105}), gsap.to(newImgs[2].current, {xPercent: 105, yPercent: 105}), gsap.to(newImgs[3].current, {yPercent: -105}), gsap.to(newImgs[4].current, {yPercent: 105})];
+        if (tl.current) {
+            tl.current.kill();
+            tl.current = null;
+        }
 
         gsap.to('.hidingRect', {
             yPercent: 125,
             scrollTrigger: { trigger: container.current, start: 'top center' }
         });
 
-        const tl = gsap.timeline({scrollTrigger: {
-            trigger: '#us',
+        tl.current = gsap.timeline({scrollTrigger: {
+            trigger: section.current,
             start: 'top top',
             end: 'bottom+=3000 top',
             scrub: true,
             pin: true,
-        }})
+        }});
 
         if (isMd) {
-            const mdTweens = [gsap.to(newImgsMd[6].current, {xPercent: -210}), gsap.to(newImgsMd[7].current, {xPercent: 210}), gsap.to(newImgsMd[8].current, {xPercent: -210, yPercent: -105}), gsap.to(newImgsMd[9].current, {xPercent: 210, yPercent: -105}), gsap.to(newImgsMd[10].current, {xPercent: -210, yPercent: 105}), gsap.to(newImgsMd[11].current, {xPercent: 210, yPercent: 105})];
             if (isXl) {
-                const xlTweens = [gsap.to(newImgsXl[12].current, {xPercent: -315}), gsap.to(newImgsXl[13].current, {xPercent: 315}), gsap.to(newImgsXl[14].current, {xPercent: -315, yPercent: -105}), gsap.to(newImgsXl[15].current, {xPercent: 315, yPercent: -105}), gsap.to(newImgsXl[16].current, {xPercent: -315, yPercent: 105}), gsap.to(newImgsXl[17].current, {xPercent: 315, yPercent: 105})];
-                tl.to(imgs[0].current, {bottom: '50%', yPercent: isMd ? 0 : -50}).to(imgs[1].current, {bottom: '50%', yPercent: -50}).to(imgs[2].current, {bottom: '50%', yPercent: -100}).to('.usImgs', {display: 'block', duration: 0}).add([...commonTweens, ...mdTweens, ...xlTweens], "+=0");
-                return;
+                tl.current
+                .to(imgs.current[0], {bottom: '50%'})
+                .to(imgs.current[1], {bottom: '50%', yPercent: -50})
+                .to(imgs.current[2], {bottom: '50%', yPercent: -100})
+                .set([newImgs.current, newImgsMd.current, newImgsXl.current], {display: 'block'})
+                .add([
+                    gsap.to(container.current, {opacity: 0}),
+                    gsap.to(imgs.current[0], {xPercent: -105, yPercent: -50}),
+                    gsap.to(imgs.current[1], {xPercent: 105}),
+                    gsap.to(imgs.current[2], {xPercent: -105, yPercent: -155}),
+                    gsap.to(newImgs.current[0], {xPercent: 105, yPercent: -105}),
+                    gsap.to(newImgs.current[1], {xPercent: -105, yPercent: 105}),
+                    gsap.to(newImgs.current[2], {xPercent: 105, yPercent: 105}),
+                    gsap.to(newImgs.current[3], {yPercent: -105}),
+                    gsap.to(newImgs.current[4], {yPercent: 105}),
+                    gsap.to(newImgsMd.current[0], {xPercent: -210, yPercent: -105}),
+                    gsap.to(newImgsMd.current[1], {xPercent: 210, yPercent: -105}),
+                    gsap.to(newImgsMd.current[2], {xPercent: -210, yPercent: 105}),
+                    gsap.to(newImgsMd.current[3], {xPercent: 210, yPercent: 105}),
+                    gsap.to(newImgsMd.current[4], {xPercent: -210}),
+                    gsap.to(newImgsMd.current[5], {xPercent: 210}),
+                    gsap.to(newImgsXl.current[0], {xPercent: -315, yPercent: -105}),
+                    gsap.to(newImgsXl.current[1], {xPercent: 315, yPercent: -105}),
+                    gsap.to(newImgsXl.current[2], {xPercent: -315, yPercent: 105}),
+                    gsap.to(newImgsXl.current[3], {xPercent: 315, yPercent: 105}),
+                    gsap.to(newImgsXl.current[4], {xPercent: -315}),
+                    gsap.to(newImgsXl.current[5], {xPercent: 315})
+                ], '+=0');
+            } else {
+                tl.current
+                .to(imgs.current[0], {bottom: '50%'})
+                .to(imgs.current[1], {bottom: '50%', yPercent: -50})
+                .to(imgs.current[2], {bottom: '50%', yPercent: -100})
+                .set([newImgs.current, newImgsMd.current], {display: 'block'})
+                .add([
+                    gsap.to(container.current, {opacity: 0}),
+                    gsap.to(imgs.current[0], {xPercent: -105, yPercent: -50}),
+                    gsap.to(imgs.current[1], {xPercent: 105}),
+                    gsap.to(imgs.current[2], {xPercent: -105, yPercent: -155}),
+                    gsap.to(newImgs.current[0], {xPercent: 105, yPercent: -105}),
+                    gsap.to(newImgs.current[1], {xPercent: -105, yPercent: 105}),
+                    gsap.to(newImgs.current[2], {xPercent: 105, yPercent: 105}),
+                    gsap.to(newImgs.current[3], {yPercent: -105}),
+                    gsap.to(newImgs.current[4], {yPercent: 105}),
+                    gsap.to(newImgsMd.current[0], {xPercent: -210, yPercent: -105}),
+                    gsap.to(newImgsMd.current[1], {xPercent: 210, yPercent: -105}),
+                    gsap.to(newImgsMd.current[2], {xPercent: -210, yPercent: 105}),
+                    gsap.to(newImgsMd.current[3], {xPercent: 210, yPercent: 105}),
+                    gsap.to(newImgsMd.current[4], {xPercent: -210}),
+                    gsap.to(newImgsMd.current[5], {xPercent: 210}),
+                ], '+=0');
             }
-            tl.to(imgs[0].current, {bottom: '50%', yPercent: isMd ? 0 : -50}).to(imgs[1].current, {bottom: '50%', yPercent: -50}).to(imgs[2].current, {bottom: '50%', yPercent: -100}).to('.usImgs', {display: 'block', duration: 0}).add([...commonTweens, ...mdTweens], "+=0");
         } else {
-            tl.to(imgs[0].current, {bottom: '50%', yPercent: isMd ? 0 : -50}).to(imgs[1].current, {bottom: '50%', yPercent: -50}).to(imgs[2].current, {bottom: '50%', yPercent: -50}).to('.usImgs', {display: 'block', duration: 0}).add(commonTweens, "+=0");
+            tl.current
+            .to(imgs.current[0], {bottom: '50%', yPercent: -50})
+            .to(imgs.current[1], {bottom: '50%', yPercent: -50})
+            .to(imgs.current[2], {bottom: '50%', yPercent: -50})
+            .set(newImgs.current, {display: 'block'})
+            .add([
+                gsap.to(container.current, {opacity: 0}),
+                gsap.to(imgs.current[0], {xPercent: -105, yPercent: -50}),
+                gsap.to(imgs.current[1], {xPercent: 105}),
+                gsap.to(imgs.current[2], {xPercent: -105, yPercent: -155}),
+                gsap.to(newImgs.current[0], {xPercent: 105, yPercent: -105}),
+                gsap.to(newImgs.current[1], {xPercent: -105, yPercent: 105}),
+                gsap.to(newImgs.current[2], {xPercent: 105, yPercent: 105}),
+                gsap.to(newImgs.current[3], {yPercent: -105}),
+                gsap.to(newImgs.current[4], {yPercent: 105})
+            ], '+=0');
         }
-    }, [isMd, isXl])
+        
+    }, [isMd, isXl]);
 
-    const renderNewImgs = () => {
-        if (isMd) {
-            if (isXl) {
-                return newImgsXl.map((img, i) => <Image loading="eager" key={i} ref={img} src={newSrcsXl[i]} alt="Imagem de Maria e Kalil" style={{transform: 'translateY(50%)', bottom: '50%'}} width={224} height={299.44} className="md:w-[193px] xl:w-[224px] xl:h-[299.44px] hidden usImg usImgs md:h-[258px] w-[180px] h-[240.53px] absolute" />);
-            }
-            return newImgsMd.map((img, i) => <Image loading="eager" key={i} ref={img} src={newSrcsMd[i]} alt="Imagem de Maria e Kalil" style={{transform: 'translateY(50%)', bottom: '50%'}} width={200} height={267.36} className="md:w-[200px] hidden usImg usImgs md:h-[267.36px] w-[180px] h-[240.53px] absolute" />);
-        } else {
-            return newImgs.map((img, i) => <Image loading="eager" width={193} height={258} key={i} ref={img} src={newSrcs[i]} alt="Imagem de Maria e Kalil" style={{transform: 'translateY(50%)', bottom: '50%'}} className="md:w-[193px] usImg hidden usImgs md:h-[258px] w-[180px] h-[240.53px] absolute" />);
-        }
+    const zI = -10;
+    const styles = {
+        transform: 'translateY(50%)',
+        display: 'none',
+        bottom: '50%'
     }
 
     return (
-        <section id={id ?? ''} className="flex relative m-4 items-center text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%] text-center justify-center h-screen">
+        <section id={id ?? ''} ref={section} className="flex relative m-4 items-center text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%] text-center justify-center h-screen">
             <div ref={container} className="-z-10">
                 {data.map((i, index) => {
                     return (
@@ -91,8 +155,30 @@ export default function Us({id}: {id?: string}) {
                     )
                 })}
             </div>
-            {renderNewImgs()}
-            {imgs.map((img, i) => <Image loading="eager" key={i} ref={img} src={srcs[i]} alt="Imagem de Maria e Kalil sentados em um banco" style={{transform: 'translate(0, 100%)', bottom: '0'}} width={224} height={299.44} className="md:w-[200px] xl:w-[224px] xl:h-[299.44px] usImg usImgs md:h-[267.36px] w-[180px] h-[240.53px] absolute" />)}
+            {
+                srcs.map((src, i) => (
+                    <Image key={i} {...createImgProps(src, i, imgs, 'translate(0, 100%)', '0', 'block')} />
+                ))
+            }
+            {
+                newSrcs.map((src, i) => (
+                    <Image key={i} {...createImgProps(src, i, newImgs, styles.transform, styles.bottom, styles.display, zI)} />
+                ))
+            }
+            {
+                isMd ? (
+                    newSrcsMd.map((src, i) => (
+                        <Image key={i} {...createImgProps(src, i, newImgsMd, styles.transform, styles.bottom, styles.display, zI)} />
+                    ))
+                ) : null
+            }
+            {
+                isXl ? (
+                    newSrcsXl.map((src, i) => (
+                        <Image key={i} {...createImgProps(src, i, newImgsXl, styles.transform, styles.bottom, styles.display, zI)} />
+                    ))
+                ) : null
+            }
         </section>
     )
 }

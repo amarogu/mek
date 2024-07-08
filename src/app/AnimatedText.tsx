@@ -12,6 +12,7 @@ export default function AnimatedText({content, offset, disabled, className}: {co
     const lowerLetterRefs = useRef<HTMLSpanElement[]>([]);
 
     const tl = useRef<GSAPTimeline | null>();
+    const clickTl = useRef<GSAPTimeline | null>();
 
     const { contextSafe } = useGSAP(() => {
         tl.current = gsap.timeline().to(letterRefs.current, {
@@ -31,8 +32,37 @@ export default function AnimatedText({content, offset, disabled, className}: {co
         }
     });
 
+    const handleClick = contextSafe(() => {
+        if (clickTl.current) {
+            clickTl.current.kill();
+        }
+        clickTl.current = gsap.timeline().to('main', {
+            duration: 0.2,
+            filter: 'blur(5px)'
+        }).to('main', {
+            duration: 0.2,
+            opacity: 0,
+            onComplete: () => {
+                lenis?.scrollTo(parseNavItem(content), {
+                    immediate: true,
+                    offset: content === 'festa' ? 0 : offset
+                });
+                gsap.set('main', {
+                    filter: 'blur(0px)',
+                    onComplete: () => {
+                        gsap.to('main', {
+                            duration: 0.2,
+                            opacity: 1,
+                            delay: 0.15
+                        })
+                    }
+                });
+            }
+        })
+    });
+
     return (
-        <button disabled={disabled} onMouseEnter={handleMouseEnter} className={`uppercase overflow-hidden h-[15px] text-xs ${className ? className : ''}`} onClick={() => lenis?.scrollTo(parseNavItem(content), {duration: 2.5, offset: offset})}>
+        <button disabled={disabled} onMouseEnter={handleMouseEnter} className={`uppercase overflow-hidden h-[15px] text-xs ${className ? className : ''}`} onClick={handleClick}>
             <div>
                 {
                     Array.from(content).map((l, j) =>

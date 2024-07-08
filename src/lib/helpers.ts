@@ -1,5 +1,7 @@
 import { MergeType } from 'mongoose';
 import { IGroup, IUser, IMsg, IPurchase, IGift } from './Models/Interfaces';
+import { StaticImageData } from 'next/image';
+import { MutableRefObject } from 'react';
 
 export function addClasses(element: HTMLElement, classes: string[]) {
     classes.forEach(className => {
@@ -327,5 +329,22 @@ export function calculateConfirmationFormHeight(length: number) {
     return 100 * length;
   } else {
     return 200 * length;
+  }
+}
+
+export const createImgProps = (src: StaticImageData, i: number, reference: MutableRefObject<HTMLImageElement[]>, transformStyle: string, bottomValue: string, displayValue: string, zIndex: number = 0) => {
+  return {
+      loading: "eager" as 'eager' | 'lazy' | undefined,
+      ref: (el: HTMLImageElement | null) => {
+        if (el) {
+          reference.current[i] = el;
+        }
+      },
+      src: src,
+      alt: "Imagem de Maria e Kalil",
+      style: { transform: transformStyle, bottom: bottomValue, display: displayValue, zIndex: zIndex },
+      width: 224,
+      height: 299.44,
+      className: "md:w-[200px] xl:w-[224px] xl:h-[299.44px] md:h-[267.36px] w-[180px] h-[240.53px] absolute"
   }
 }

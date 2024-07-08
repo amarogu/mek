@@ -17,10 +17,6 @@ export default function Slider({open, setOpen}: SliderProps) {
 
     const aside = useRef<HTMLElement>(null);
 
-    const [hasFinished, setHasFinished] = useState(false);
-
-    const [linkClicked, setLinkClicked] = useState(false);
-
     const [clickedItem, setClickedItem] = useState<string | null>(null);
 
     const tl = useRef<GSAPTimeline | null>();
@@ -35,7 +31,7 @@ export default function Slider({open, setOpen}: SliderProps) {
                 stagger: 0.1,
             })
         } else {
-            tl.current = gsap.timeline({onComplete: () => {if (linkClicked) setHasFinished(true)}}).to('.i', {
+            tl.current = gsap.timeline().to('.i', {
                 y: '0%',
                 stagger: 0.1,
             }).to(aside.current, {
@@ -48,11 +44,10 @@ export default function Slider({open, setOpen}: SliderProps) {
     const [offset, setOffset] = useState(0);
 
     useEffect(() => {
-        if (hasFinished && linkClicked && clickedItem) {
-            lenis?.scrollTo(parseNavItem(clickedItem), {duration: 2.5, onComplete: () => setHasFinished(false), offset: offset});
-            setLinkClicked(false);
+        if (clickedItem) {
+            lenis?.scrollTo(parseNavItem(clickedItem), {immediate: true, offset: offset});
         }
-    }, [hasFinished, lenis, linkClicked, clickedItem, offset]);
+    }, [lenis, clickedItem, offset]);
 
     useEffect(() => {
         const header = document.getElementById('header');
@@ -69,7 +64,18 @@ export default function Slider({open, setOpen}: SliderProps) {
         <aside ref={aside} style={{height: '0%'}} className={`fixed z-20 bottom-0 left-0 flex flex-col justify-end w-full dark:bg-dark-bg-200 bg-bg-200 overflow-hidden`}>
             <ul className="flex flex-col p-8 gap-4">
                 {data.map(((item, i) => {
-                    return (<li key={i}><button onClick={() => {setOpen(false); setLinkClicked(true); setClickedItem(item)}} className="uppercase text-3xl overflow-hidden relative"><span className="font-extrabold">{item}</span><div className="dark:bg-dark-bg-200 i top-0 left-0 h-9 bg-bg-200 w-full absolute"></div></button></li>)
+                    return (<li key={i}><button onClick={() => {
+                        setOpen(false); 
+                        setClickedItem(item);
+                        if (i === 4) {
+                            setOffset(0);
+                        } else {
+                            const header = document.getElementById('header');
+                            if (header) {
+                                setOffset(-header.clientHeight);
+                            }
+                        }
+                    }} className="uppercase text-3xl overflow-hidden relative"><span className="font-extrabold">{item}</span><div className="dark:bg-dark-bg-200 i top-0 left-0 h-9 bg-bg-200 w-full absolute"></div></button></li>)
                 }))}
                 <div className="flex items-center gap-4">
                     <li><a target="_blank" className="inline-block relative overflow-hidden" href={igs[0][1]}><span className="font-extrabold text-[0.625rem] uppercase">@{igs[0][0]}</span><div className="dark:bg-dark-bg-200 i top-0 left-0 h-6 bg-bg-200 w-full absolute"></div></a></li>
