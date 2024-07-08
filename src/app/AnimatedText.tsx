@@ -33,32 +33,18 @@ export default function AnimatedText({content, offset, disabled, className}: {co
     });
 
     const handleClick = contextSafe(() => {
-        if (clickTl.current) {
-            clickTl.current.kill();
-        }
-        clickTl.current = gsap.timeline().to('main', {
-            duration: 0.2,
-            filter: 'blur(5px)'
-        }).to('main', {
-            duration: 0.2,
-            opacity: 0,
-            onComplete: () => {
-                lenis?.scrollTo(parseNavItem(content), {
+        if (lenis) {
+            if (clickTl.current) {
+                clickTl.current.kill();
+                clickTl.current = null;
+            }
+            clickTl.current = gsap.timeline().to('main', {opacity: 0, onComplete: () => {
+                lenis.scrollTo(parseNavItem(content), {
                     immediate: true,
                     offset: content === 'festa' ? 0 : offset
                 });
-                gsap.set('main', {
-                    filter: 'blur(0px)',
-                    onComplete: () => {
-                        gsap.to('main', {
-                            duration: 0.2,
-                            opacity: 1,
-                            delay: 0.15
-                        })
-                    }
-                });
-            }
-        })
+            }}).to('main', {opacity: 1});
+        }
     });
 
     return (

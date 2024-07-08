@@ -21,13 +21,13 @@ export default function Messages({ id }: { id: string }) {
     const [res, setRes] = useState<undefined | SuccessResponse | ErrorResponse>(undefined);
     const [clicked, setClicked] = useState<boolean>(false);
 
-    const isMd = useMediaQuery({ query: '(min-width: 768px)' });
+    const isLg = useMediaQuery({ query: '(min-width: 1024px)' });
 
     const formRef = useRef<HTMLFormElement>(null);
     const imgRef = useRef<HTMLImageElement>(null);
 
     useEffect(() => {
-        if (isMd) {
+        if (isLg) {
             if (imgRef.current) {
                 const children = imgRef.current.children;
                 imgRef.current.style.height = `${formRef.current?.clientHeight}px`;
@@ -37,7 +37,7 @@ export default function Messages({ id }: { id: string }) {
             }
             
         } 
-    }, [isMd]);
+    }, [isLg]);
 
     if (!item) return null;
 
@@ -65,7 +65,7 @@ export default function Messages({ id }: { id: string }) {
 
     return (
         <section id={id} className="sm:px-8 py-16">
-            <div className="flex flex-col container mx-auto lg:justify-between md:flex-row gap-12">
+            <div className="flex flex-col container mx-auto lg:justify-between lg:flex-row gap-12">
                 <form ref={formRef} className="flex px-8 sm:px-0 lg:shrink lg:w-1/2 md:self-start flex-col gap-12">
                     <p className="text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%]">Mande uma mensagem...</p>
                     <div className="flex flex-col gap-12 lg:w-2/3">
@@ -74,7 +74,7 @@ export default function Messages({ id }: { id: string }) {
                         <Button cleanup={cleanup} clicked={clicked} onClick={() => handleClick(message)} res={res} text='Enviar' />
                     </div>
                 </form>
-                <ThemeImage ref={imgRef} loading="eager" srcDark={isMd ? MessagesMdDark : MessagesMobileDark} srcLight={isMd ? MessagesMd : MessagesMobile} className="lg:w-[auto]" containerClassName="w-full lg:absolute right-0 md:self-start -z-10 relative lg:w-[auto]" alt="Grid de imagens de Maria e Kalil" />
+                <ThemeImage ref={imgRef} loading="eager" srcDark={isLg ? MessagesMdDark : MessagesMobileDark} srcLight={isLg ? MessagesMd : MessagesMobile} className="lg:w-[auto]" containerClassName="w-full lg:absolute lg:right-0 md:self-start -z-10 relative lg:w-[auto]" alt="Grid de imagens de Maria e Kalil" />
             </div>
         </section>
     )
