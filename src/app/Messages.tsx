@@ -64,7 +64,7 @@ export default function Messages({ id }: { id: string }) {
     }
 
     return (
-        <section id={id} className="sm:px-8 py-16">
+        <section id={id} className="sm:px-8 py-16 pt-36">
             <div className="flex flex-col container mx-auto lg:justify-between lg:flex-row gap-12">
                 <form ref={formRef} className="flex px-8 sm:px-0 lg:shrink lg:w-1/2 md:self-start flex-col gap-12">
                     <p className="text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%]">Mande uma mensagem...</p>

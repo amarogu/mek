@@ -9,6 +9,7 @@ import PinGlyphDark from '../../public/icon_marker_dark.svg';
 import BottomTab from "./BottomTab";
 import fitty from 'fitty';
 import ThemeImage from "./ThemeImage";
+import Link from "next/link";
 
 export default function PartyInfo({id}: {id: string}) {
     const {item, isDarkMode} = useContext(Context);
@@ -247,7 +248,7 @@ export default function PartyInfo({id}: {id: string}) {
     if (!item) return null;
 
     return (
-        <section id={id} style={{opacity: 0}} ref={sectionRef} className="relative -z-10">
+        <section id={id} style={{opacity: 0}} ref={sectionRef} className="relative pt-8 -z-10">
             <div className='absolute flex flex-col gap-6 z-20 bottom-0 w-full px-8'>
                 <h2 className="font-extrabold leading-none container mx-auto">
                     <p ref={fittyTitleRef}>Saint</p>
