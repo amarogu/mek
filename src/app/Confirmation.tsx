@@ -197,8 +197,8 @@ export default function Confirmation({id}: {id?: string}) {
     })
 
     return (
-        <section id={id} ref={sectionRef} className="p-8 pt-20 pb-28">
-            <div onClick={handleTouchBasedClick} ref={parentRef} onMouseMove={isNotGroup ? (e) => { handleMouseMove(e) } : () => {}} onMouseLeave={isNotGroup ? handleMouseLeave : () => {}} className={`text-[12.5vw] relative flex flex-col items-center md:text-[9vw] xl:text-[120px] container mx-auto font-extrabold leading-[85%] ${isNotGroup ? 'cursor-pointer gap-0' : 'gap-16 lg:flex-row lg:items-stretch'}`}>
+        <section id={id} ref={sectionRef} className={`p-8 ${isNotGroup && isTouchBased ? '!pt-16' : ''} pt-20 pb-28`}>
+            <div onClick={handleTouchBasedClick} ref={parentRef} onMouseMove={isNotGroup ? (e) => { handleMouseMove(e) } : () => {}} onMouseLeave={isNotGroup ? handleMouseLeave : () => {}} className={`text-[12.5vw] relative flex flex-col items-center md:text-[9vw] xl:text-[120px] container mx-auto font-extrabold leading-[85%] ${isNotGroup && isTouchBased ? 'pt-4' : ''} ${isNotGroup ? 'cursor-pointer gap-0' : 'gap-16 lg:flex-row lg:items-stretch'}`}>
                 {
                     isNotGroup ? isTouchBased ? <p className="uppercase text-xs font-normal mb-6 animate-pulse items-center flex gap-4">
                         <span ref={el => {
