@@ -13,6 +13,7 @@ export default function Confirmation({id}: {id?: string}) {
     const { item } = useContext(Context);
 
     const isTouchBased = useMediaQuery({query: '(pointer: coarse)'});
+    const isSm = useMediaQuery({query: '(min-width: 640px)'});
 
     const sectionRef = useRef<HTMLElement | null>(null);
     const titleRef = useRef<HTMLHeadingElement | null>(null);
@@ -58,8 +59,13 @@ export default function Confirmation({id}: {id?: string}) {
         if (titleRef.current && formRef.current) {
             if (isNotGroup) {
                 if (lastUpdatedRef.current) {
-                    const width = lastUpdatedRef.current.clientWidth;
-                    formRef.current.setAttribute('style', `width: ${width}px`);
+                    if (lastUpdatedRef.current.clientWidth) {
+                        const width = lastUpdatedRef.current.clientWidth;
+                        formRef.current.setAttribute('style', `width: ${width}px`);
+                    } else {
+                        const width = titleRef.current.clientWidth;
+                        formRef.current.setAttribute('style', `width: ${isSm ? 0.66 * width : width}px`);
+                    }
                 }
             } else {
                 const width = titleRef.current.clientWidth;
@@ -258,7 +264,7 @@ export default function Confirmation({id}: {id?: string}) {
                         }
                     </p>
                 </h2>
-                <div ref={formRef} className={`text-3xl flex flex-col gap-16 justify-between w-full ${isNotGroup ? 'mt-6' : ''}`}>
+                <div ref={formRef} className={`text-3xl flex flex-col gap-16 justify-between w-full ${isNotGroup ? 'mt-8' : ''}`}>
                     <ConfirmationForm handleConfirmation={handleConfirmation} />
                     <div className="text-[10px] gap-4 leading-none font-normal flex justify-between">
                         <div className="flex flex-col gap-2">
@@ -272,7 +278,7 @@ export default function Confirmation({id}: {id?: string}) {
                     </div>
                 </div>
                 {
-                    isNotGroup ? <p ref={lastUpdatedRef} className="text-xs font-normal mt-6">
+                    isNotGroup ? <p ref={lastUpdatedRef} className="text-xs font-normal mt-8">
                         {
                             item.confirmed ? (item.lastConfirmed ? `Presença confirmada pela última vez em ${item.lastConfirmed.toLocaleString('pt-BR', {timeZone: 'America/Sao_Paulo'})}` : null) : (item.lastRevokedConfirmation ? `Confirmação removida pela última vez em ${item.lastRevokedConfirmation.toLocaleString('pt-BR', {timeZone: 'America/Sao_Paulo'})}` : null)
                         }
