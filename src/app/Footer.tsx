@@ -4,6 +4,7 @@ import ThemeImage from './ThemeImage';
 import { useEffect, useRef } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import FooterAnimation from './FooterAnimation';
+import Link from 'next/link';
 
 export default function Footer({id}: {id?: string}) {
 
@@ -42,7 +43,7 @@ export default function Footer({id}: {id?: string}) {
                 <div className='hidden uppercase order-1 md:flex gap-[calc(1.25rem+1px)] flex-col'>
                     <div className='hidden xl:flex flex-col gap-[1px]'>
                         <div className='flex gap-3'>
-                            <a>Saint German Eventos, Campinas</a>
+                            <Link href="https://maps.app.goo.gl/bS5KpEtKDsBoigbM7">Saint German Eventos, Campinas</Link>
                             <p>16:30</p>
                         </div>
                         <p>09 de Novembro de 2024</p>

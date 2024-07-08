@@ -53,12 +53,12 @@ export default function CopyToClipboard({contentToWrite}: {contentToWrite?: stri
             {
                 createPortal(
                     (
-                        <div ref={resultRef} style={{opacity: 0, display: 'none'}} className="bg-bg-200 absolute bottom-0 left-1/2 -translate-x-1/2 mb-6 dark:bg-dark-bg-200 p-4 rounded-md">
+                        <div ref={resultRef} style={{opacity: 0, display: 'none'}} className="bg-bg-200 fixed bottom-0 left-1/2 -translate-x-1/2 mb-6 dark:bg-dark-bg-200 p-4 rounded-md">
                             <p ref={successRef} style={{display: 'none'}}>Copiado para a área de transferência</p>
                             <p ref={errorRef} style={{display: 'none'}}>Erro ao copiar para a área de transferência</p>
                         </div>
                     ),
-                    document.body
+                    document.querySelector('main') as Element
                 )
             }
         </button>

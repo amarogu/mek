@@ -30,7 +30,7 @@ const DashboardContent = ({data, parsedData}: {data: AdminData, parsedData: Admi
         <h2>Sem dados cadastrados</h2>
     } else {
         return (
-            <TabGroup className='flex flex-col gap-4'>
+            <TabGroup className='flex overflow-y-scroll flex-col gap-4'>
                 <TabList className='gap-4 flex'>
                     <Tab className={tabClassName}>Mensagens</Tab>
                     <Tab className={tabClassName}>Cadastrar convidados</Tab>
@@ -148,15 +148,13 @@ export default function Dashboard({session, data}: {session: Session, data: Admi
     const parsedData = [...groups, ...individuals.filter(i => (!groupedIndividuals.includes(i._id) && i.name !== 'admin'))];
 
     return (
-        <main className="p-8 container mx-auto">
-            <div className="flex flex-col gap-8">
-                <div className="flex flex-col gap-2">
-                    <h1 className="text-2xl font-bold">Dashboard</h1>
-                    <p>Bem-vindo(a) {session?.user?.name}</p>
-                    <button className="text-left" onClick={() => signOut()}>Encerrar sessão</button>
-                </div>
-                <DashboardContent data={data} parsedData={parsedData} />
+        <div className="flex h-full flex-col overflow-y-hidden gap-8">
+            <div className="flex flex-col gap-2">
+                <h1 className="text-2xl font-bold">Dashboard</h1>
+                <p>Bem-vindo(a) {session?.user?.name}</p>
+                <button className="text-left" onClick={() => signOut()}>Encerrar sessão</button>
             </div>
-        </main>
+            <DashboardContent data={data} parsedData={parsedData} />
+        </div>
     )
 }
