@@ -1,49 +1,15 @@
 'use client';
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
-import { AdminData, ErrorResponse, LeanDocument, Populated, SuccessResponse, emptyMsg } from "@/lib/helpers";
+import { AdminData, Populated } from "@/lib/helpers";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { IGift, IGroup, IMsg, IPurchase, IUser } from "@/lib/Models/Interfaces";
 import { TabData } from "@/lib/helpers";
-import Divider from "../Divider";
-import SimpleInput from "../SimpleInput";
-import Button from "../Button";
-import { useRef } from "react";
-import instance from "@/lib/axios";
 import { useState } from "react";
 import GuestForm from "./GuestForm";
 import GroupForm from "./GroupForm";
 
-const renderPath = (path: LeanDocument<IMsg> | Populated<IPurchase, {msg: IMsg, giftGiven: IGift}>) => {
-    if ('content' in path) {
-        return (
-            <p>
-                {path.content}
-            </p>
-        )
-    } else {
-        return (
-            <div className="flex flex-col gap-2">
-                <p>{path.giftGiven.title}</p>
-                <p className="text-text-100/75 dark:text-dark-text-100/75">{path.giftGiven.description}</p>
-                <p className="text-text-100/75 dark:text-dark-text-100/75">R$ {path.giftGiven.value}</p>
-                <div className="flex flex-col gap-2 bg-bg-200 dark:bg-dark-bg-200 p-4">
-                    <p className="text-text-100/75 dark:text-dark-text-100/75">Mensagem</p>
-                    <p>{path.msg.content}</p>
-                </div>
-            </div>
-        )
-    }
-}
-
-const RenderDashboard = ({data}: {data: AdminData}) => {
-
-    const [title, setTitle] = useState('');
-    const [desc, setDesc] = useState('');
-    const [value, setValue] = useState<number | string>('');
-    const [res, setRes] = useState<SuccessResponse | ErrorResponse | undefined>(undefined);
-    const [clicked, setClicked] = useState(false);
-
+const DashboardContent = ({data, parsedData}: {data: AdminData, parsedData: AdminData}) => {
     const [state, setState] = useState<'selection' | 'user' | 'group'>('selection');
 
     const renderContent = (state: 'selection' | 'user' | 'group') => {
@@ -57,50 +23,7 @@ const RenderDashboard = ({data}: {data: AdminData}) => {
         }
     }
 
-    const fileInput = useRef<HTMLInputElement>(null);
-
-    const cleanup = () => {
-        setRes(undefined);
-        setClicked(false);
-    }
-
-    const handleClick = async () => {
-        setClicked(true);
-        if (fileInput.current && title && desc && value) {
-            const res = await instance.post('/newgift', {
-                title,
-                description: desc,
-                value,
-                image: fileInput.current.files?.item(0)
-            }, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
-            if (res.status !== 200) {
-                return setRes(undefined);
-            };
-            if (res.data.error) {
-                return setRes(res.data as ErrorResponse);
-            }
-            return setRes(res.data as SuccessResponse);
-        } else {
-            setRes(emptyMsg);
-        }
-    }
-
     const tabClassName = 'data-[selected]:text-text-100 transition-colors focus:outline-none data-[selected]:dark:text-dark-text-100 text-text-100/75 dark:text-dark-text-100/75';
-
-    const tabs: TabData[] = [
-        {
-            tab: 'Mensagens',
-            entityPath: 'msgs'
-        },
-        {
-            tab: 'Presentes',
-            entityPath: 'purchases'
-        }
-    ]
 
     if (data.length === 0) {
         <h2>Sem dados cadastrados</h2>
@@ -108,79 +31,40 @@ const RenderDashboard = ({data}: {data: AdminData}) => {
         return (
             <TabGroup className='flex flex-col gap-4'>
                 <TabList className='gap-4 flex'>
-                    {
-                        tabs.map(({tab}, i) => {
-                            return <Tab key={i} className={tabClassName}>{tab}</Tab>
-                        })
-                    }
-                    <Tab className={tabClassName}>Cadastrar presentes</Tab>
+                    <Tab className={tabClassName}>Mensagens</Tab>
                     <Tab className={tabClassName}>Cadastrar convidados</Tab>
                     <Tab className={tabClassName}>Confirmação dos convidados</Tab>
                 </TabList>
                 <TabPanels>
-                    {
-                        tabs.map(({tab, entityPath}, i) => {
-                            return (
-                                <TabPanel key={i}>
-                                    <div>
-                                        <div className="bg-bg-200 dark:bg-dark-bg-200 p-4 flex flex-col gap-4">
-                                            <h2 className="text-xl font-bold">{tab}</h2>
-                                            {
-                                                data.map(entity => {
-                                                    if (entity[entityPath].length !== 0) {
-                                                        return (
-                                                            <div className="bg-bg-300 dark:bg-dark-bg-300 p-4 flex flex-col gap-4" key={entity._id}>
-                                                                {entity[entityPath].map((path, i) => (
-                                                                    entity[entityPath].length > 1 && i !== entity[entityPath].length - 1
-                                                                    ?
-                                                                        <div key={i} className="flex flex-col gap-4">
-                                                                            <div key={i} className="flex flex-col gap-2">
-                                                                                {renderPath(path)}
-                                                                                <p className="text-text-100/75 dark:text-dark-text-100/75">{entity.name}</p>
-                                                                            </div>
-                                                                            <Divider />
-                                                                        </div> 
-                                                                    :
-                                                                        <div key={i} className="flex flex-col gap-2">
-                                                                            {renderPath(path)}
-                                                                            <p className="text-text-100/75 dark:text-dark-text-100/75">{entity.name}</p>
-                                                                        </div>
-                                                                ))}
-                                                            </div>
-                                                        )
-                                                    }
-                                                })
-                                            }
-                                        </div>
-                                    </div>
-                                </TabPanel>
-                            )
-                        })
-                    }
                     <TabPanel>
-                        <div>
-                            <form className="bg-bg-200 dark:bg-dark-bg-200 p-4 flex flex-col gap-4">
-                                <h2 className="text-xl font-bold">Cadastrar presente</h2>
-                                <SimpleInput value={title} onChange={(e) => setTitle(e.target.value)} type="text" placeholder="Título *" />
-                                <SimpleInput value={desc} onChange={(e) => setDesc(e.target.value)} type="text" placeholder="Descrição (ex: cozinha, casa, etc.) *" />
-                                <SimpleInput value={value} onChange={(e) => {
-                                    if (Number(e.target.value)) {
-                                        setValue(Number(e.target.value));
+                        <div className="bg-bg-200 dark:bg-dark-bg-200 p-4 flex flex-col gap-4 rounded-md">
+                            <h2 className="text-xl font-bold">Mensagens</h2>
+                            {
+                                data.map((e, i) => {
+                                    if (e.msgs.length !== 0 && e.name !== 'admin') {
+                                        return (
+                                            <div key={i} className="bg-bg-300 flex flex-col rounded-md gap-4 dark:bg-dark-bg-300 p-4">
+                                                <h3 className="text-lg font-bold">{e.name}</h3>
+                                                {
+                                                    e.msgs.map((m, j) => (
+                                                        <div key={j} className="bg-bg-200 p-4 rounded-md flex flex-col gap-2 dark:bg-dark-bg-200">
+                                                            <p>{m.content}</p>
+                                                            <p>{m.createdAt.toLocaleString('pt-BR', {timeZone: 'America/Sao_Paulo'})}</p>
+                                                        </div>
+                                                    ))
+                                                }
+                                            </div>
+                                        )
                                     } else {
-                                        setValue(e.target.value);
+                                        return null
                                     }
-                                }} type="number" placeholder="Valor (BRL) *" />
-                                <div className="flex gap-4 items-center">
-                                    <label>Imagem *:</label>
-                                    <SimpleInput ref={fileInput} type="file" />
-                                </div>
-                                <Button clicked={clicked} cleanup={cleanup} res={res} onClick={handleClick} text="Cadastrar" />
-                            </form>
+                                })
+                            }
                         </div>
                     </TabPanel>
                     <TabPanel>
                         <div>
-                            <form className="bg-bg-200 dark:bg-dark-bg-200 p-4 flex flex-col gap-4">
+                            <form className="bg-bg-200 dark:bg-dark-bg-200 p-4 flex rounded-md flex-col gap-4">
                                 <div className="flex items-center gap-4">
                                     <button onClick={(e) => {e.preventDefault(); setState('selection')}} className="text-left bg-accent-100 dark:bg-dark-accent-100 px-4 py-2 rounded-sm focus:outline outline-offset-2 outline-accent">Voltar</button>
                                     <h1 className="text-2xl font-bold">Cadastro de convidados</h1>
@@ -190,19 +74,19 @@ const RenderDashboard = ({data}: {data: AdminData}) => {
                         </div>
                     </TabPanel>
                     <TabPanel>
-                        <div className="bg-bg-200 dark:bg-dark-bg-200 p-4 flex flex-col gap-4">
+                        <div className="bg-bg-200 dark:bg-dark-bg-200 rounded-md p-4 flex flex-col gap-4">
                             <h2 className="text-xl font-bold">Lista de convidados</h2>
                             {
-                                data.map((e, i) => {
+                                parsedData.map((e, i) => {
                                     if ('users' in e) {
                                         return (
-                                            <div key={i} className="bg-bg-300 flex flex-col gap-4 dark:bg-dark-bg-300 p-4">
+                                            <div key={i} className="bg-bg-300 rounded-md flex flex-col gap-4 dark:bg-dark-bg-300 p-4">
                                                 <h3 className="text-lg font-bold">{e.name}</h3>
                                                 <div className="flex flex-col gap-4">
                                                     {
                                                         e.users.map((u, j) => {
                                                             return (
-                                                                <div className="bg-bg-200 p-4 flex flex-col gap-2 dark:bg-dark-bg-200" key={j}>
+                                                                <div className="bg-bg-200 rounded-md p-4 flex flex-col gap-2 dark:bg-dark-bg-200" key={j}>
                                                                     <div className="flex justify-between">
                                                                         <p>{u.name}</p>
                                                                         <p>{u.confirmed ? 'Sim' : 'Não'}</p>
@@ -218,7 +102,7 @@ const RenderDashboard = ({data}: {data: AdminData}) => {
                                     } else {
                                         const u = e as Populated<IUser, { msgs: IMsg[], purchases: Populated<IPurchase, {msg: IMsg, giftGiven: IGift}>[] }>;
                                         return (
-                                            <div key={i} className="bg-bg-300 flex p-4 flex-col gap-2 dark:bg-dark-bg-300">
+                                            <div key={i} className="bg-bg-300 rounded-md flex p-4 flex-col gap-2 dark:bg-dark-bg-300">
                                                 <div className="flex justify-between">
                                                     <h3 className="text-lg font-bold">{u.name}</h3>
                                                     <p>{u.confirmed ? 'Sim' : 'Não'}</p>
@@ -258,7 +142,7 @@ export default function Dashboard({session, data}: {session: Session, data: Admi
                     <p>Bem-vindo(a) {session?.user?.name}</p>
                     <button className="text-left" onClick={() => signOut()}>Encerrar sessão</button>
                 </div>
-                <RenderDashboard data={parsedData} />
+                <DashboardContent data={data} parsedData={parsedData} />
             </div>
         </main>
     )

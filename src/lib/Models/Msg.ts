@@ -6,6 +6,6 @@ const msgSchema = new Schema<IMsg>({
         type: String,
         required: true
     }
-});
+}, {timestamps: true});
 
 export const Msg = models.Msg as Model<IMsg> || model<IMsg>("Msg", msgSchema);

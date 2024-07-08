@@ -19,6 +19,8 @@ export interface IGroup {
 
 export interface IMsg {
     content: string;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 export interface IUser {
