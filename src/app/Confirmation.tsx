@@ -136,14 +136,9 @@ export default function Confirmation({id}: {id?: string}) {
             if (sliderTl.current) sliderTl.current.revert();
             setDisabled(false);
         }
-    
-        const handleOnStart = () => {
-            setDisabled(true);
-        }
 
         sliderTl.current = gsap.timeline({
             onComplete: handleOnComplete,
-            onStart: handleOnStart
         }).to(sliderRefs.current, {x: '0%', duration: 0.5, ease: 'power1.in', onComplete: () => {
                 if (textRefs.current) {
                     textRefs.current.forEach((t, i) => {
@@ -162,6 +157,7 @@ export default function Confirmation({id}: {id?: string}) {
     const isNotGroup = !('users' in item);
 
     const handleClick = contextSafe(async () => {
+        setDisabled(true);
         if (isNotGroup && textRefs.current[0]) {
             const option = textRefs.current[0].textContent === titleText[0] ? true : false;
             const _id = item._id;
@@ -181,6 +177,7 @@ export default function Confirmation({id}: {id?: string}) {
     });
 
     const handleTouchBasedClick = contextSafe(async () => {
+        setDisabled(true);
         if (isNotGroup && textRefs.current[0] && isTouchBased && !disabled) {
             const option = textRefs.current[0].textContent === titleText[0] ? true : false;
             const _id = item._id;
