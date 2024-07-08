@@ -56,8 +56,15 @@ export default function Confirmation({id}: {id?: string}) {
 
     useEffect(() => {
         if (titleRef.current && formRef.current) {
-            const width = titleRef.current.clientWidth;
-            formRef.current.setAttribute('style', `width: ${width}px`);
+            if (isNotGroup) {
+                if (lastUpdatedRef.current) {
+                    const width = lastUpdatedRef.current.clientWidth;
+                    formRef.current.setAttribute('style', `width: ${width}px`);
+                }
+            } else {
+                const width = titleRef.current.clientWidth;
+                formRef.current.setAttribute('style', `width: ${width}px`);
+            }
         }
     });
 
@@ -254,7 +261,7 @@ export default function Confirmation({id}: {id?: string}) {
                         }
                     </p>
                 </h2>
-                <div ref={formRef} className="text-3xl flex flex-col gap-16 justify-between w-full">
+                <div ref={formRef} className={`text-3xl flex flex-col gap-16 justify-between w-full ${isNotGroup ? 'mt-6' : ''}`}>
                     <ConfirmationForm handleConfirmation={handleConfirmation} />
                     <div className="text-[10px] gap-4 leading-none font-normal flex justify-between">
                         <div className="flex flex-col gap-2">
