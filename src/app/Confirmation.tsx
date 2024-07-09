@@ -8,6 +8,7 @@ import gsap from "gsap";
 import instance from "@/lib/axios";
 import { MutableRefObject } from "react";
 import { useMediaQuery } from "react-responsive";
+import Divider from "./Divider";
 
 export default function Confirmation({id}: {id?: string}) {
     const { item } = useContext(Context);
@@ -61,7 +62,7 @@ export default function Confirmation({id}: {id?: string}) {
                 if (lastUpdatedRef.current) {
                     if (lastUpdatedRef.current.clientWidth) {
                         const width = lastUpdatedRef.current.clientWidth;
-                        formRef.current.setAttribute('style', `width: ${width}px`);
+                        formRef.current.setAttribute('style', `width: ${isSm ? width + 45 : width}px`);
                     } else {
                         const width = titleRef.current.clientWidth;
                         formRef.current.setAttribute('style', `width: ${isSm ? 0.66 * width : width}px`);
@@ -267,11 +268,12 @@ export default function Confirmation({id}: {id?: string}) {
                 <div ref={formRef} className={`text-3xl flex flex-col gap-16 justify-between w-full ${isNotGroup ? 'mt-8' : ''}`}>
                     <ConfirmationForm handleConfirmation={handleConfirmation} />
                     <div className="text-[10px] gap-4 leading-none font-normal flex justify-between">
-                        <div className="flex flex-col gap-2">
+                        <div className="flex py-2 justify-center flex-col gap-2">
                             <p className="w-2/3 md:w-[initial]">Sua presença é muito importante para nós!</p>
                             <p className="w-[60%] md:w-[initial]">Se possível confirmar até <span className="font-bold">15 OUT 2024</span>.</p>
                         </div>
-                        <div className="flex flex-col gap-1 items-center">
+                        <Divider vertical saturated />
+                        <div className="flex flex-col py-2 gap-1 items-center">
                             <p className="uppercase tracking-[1.92px]">Com amor,</p>
                             <p className="text-base font-bold text-nowrap">Maria & Kalil</p>
                         </div>
