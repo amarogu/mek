@@ -1,5 +1,7 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import Context from './Context';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
 
 type DotStyle = {
     position: 'absolute',
@@ -7,12 +9,14 @@ type DotStyle = {
     width: string,
     backgroundColor: string,
     left: string,
-    top: string
+    top: string,
+    opacity: number
 }
 
 export default function FooterAnimation({className}: {className?: string}) {
     const footerRef = useRef<HTMLDivElement>(null);
     const [dots, setDots] = useState<DotStyle[]>([]);
+    const dotsRef = useRef<HTMLDivElement[]>([]);
 
     const { isDarkMode } = useContext(Context);
 
@@ -40,7 +44,8 @@ export default function FooterAnimation({className}: {className?: string}) {
                         width: `${dotSize}px`,
                         backgroundColor: isDarkMode ? '#333333' : '#ffffff',
                         left: `${j * (dotSize + actualDotSpaceHorizontal)}px`,
-                        top: `${i * (dotSize + actualDotSpaceVertical)}px`
+                        top: `${i * (dotSize + actualDotSpaceVertical)}px`,
+                        opacity: 0
                     };
                     newDots.push(style);
                 }
@@ -51,10 +56,29 @@ export default function FooterAnimation({className}: {className?: string}) {
         
     }, [isDarkMode]);
 
+    useGSAP(() => {
+        if (dotsRef.current.length !== 0) {
+            gsap.to(dotsRef.current, {
+                scrollTrigger: {
+                    trigger: footerRef.current,
+                    start: 'top+=250 bottom',
+                    end: 'bottom+=225 bottom',
+                    scrub: true
+                },
+                opacity: 1,
+                stagger: 0.02
+            });
+        }
+    }, [dots]);
+
     return (
         <div ref={footerRef} className={`relative mb-6 md:mb-12 h-96 w-full ${className}`}>
             {dots.map((dot, index) => (
-                <div key={index} style={dot} />
+                <div ref={el => {
+                    if (el) {
+                        dotsRef.current[index] = el;
+                    }
+                }} key={index} className='footerDot' style={dot} />
             ))}
         </div>
     )

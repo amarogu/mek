@@ -70,7 +70,7 @@ export default function Messages({ id }: { id: string }) {
                     <p className="text-[12.5vw] md:text-[9vw] xl:text-[120px] font-extrabold leading-[85%]">Mande uma mensagem...</p>
                     <div className="flex flex-col gap-12 lg:w-2/3">
                         {item ? <div className="flex flex-col gap-4"><p className="uppercase text-2xl font-bold">Nome</p><p className={`uppercase origin-top-left text-2xl`}>{item.name}</p></div> : <StyledInput onChange={(e) => setName(e.target.value)} value={name} type="text" placeholder="Nome*" />}
-                        <StyledInput res={res} desc="Sinta-se à vontade para enviar recadinhos! Iremos ficar muito felizes em lê-los. Responderemos assim que possível." value={message} onChange={(e) => setMessage(e.target.value)} type="textarea" placeholder="Recado*" />
+                        <StyledInput res={res} desc="Sinta-se à vontade para nos enviar uma mensagem de amor e carinho. Ficaremos muito felizes em respondê-los!" value={message} onChange={(e) => setMessage(e.target.value)} type="textarea" placeholder="Recado*" />
                         <Button cleanup={cleanup} clicked={clicked} onClick={() => handleClick(message)} res={res} text='Enviar' />
                     </div>
                 </form>

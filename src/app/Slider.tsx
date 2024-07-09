@@ -5,6 +5,7 @@ import { useLenis } from "@studio-freight/react-lenis";
 import { parseNavItem } from "@/lib/helpers";
 import { useState } from "react";
 import { Dispatch, SetStateAction } from "react";
+import Link from "next/link";
 
 interface SliderProps {
     open: boolean;
@@ -64,18 +65,51 @@ export default function Slider({open, setOpen}: SliderProps) {
         <aside ref={aside} style={{height: '0%'}} className={`fixed z-20 bottom-0 left-0 flex flex-col justify-end w-full dark:bg-dark-bg-200 bg-bg-200 overflow-hidden`}>
             <ul className="flex flex-col p-8 gap-4">
                 {data.map(((item, i) => {
-                    return (<li key={i}><button onClick={() => {
-                        setOpen(false); 
-                        setClickedItem(item);
-                        if (i === 4) {
-                            setOffset(0);
-                        } else {
-                            const header = document.getElementById('header');
-                            if (header) {
-                                setOffset(-header.clientHeight);
-                            }
-                        }
-                    }} className="uppercase text-3xl overflow-hidden relative"><span className="font-extrabold">{item}</span><div className="dark:bg-dark-bg-200 i top-0 left-0 h-9 bg-bg-200 w-full absolute"></div></button></li>)
+                    if (i === 2) {
+                        return (
+                            <li key={i}>
+                                <Link href='https://sites.icasei.com.br/kalilemaria' target="_blank">
+                                    <button 
+                                        onClick={() => {
+                                            setOpen(false); 
+                                            setClickedItem(item);
+                                            const header = document.getElementById('header');
+                                            if (header) {
+                                                setOffset(-header.clientHeight);
+                                            }
+                                        }} 
+                                        className="uppercase text-3xl overflow-hidden relative"
+                                    >
+                                        <span className="font-extrabold">{item}</span>
+                                        <div className="dark:bg-dark-bg-200 i top-0 left-0 h-9 bg-bg-200 w-full absolute"></div>
+                                    </button>
+                                </Link>
+                            </li>
+                        )
+                    } else {
+                        return (
+                            <li key={i}>
+                                <button 
+                                    onClick={() => {
+                                        setOpen(false); 
+                                        setClickedItem(item);
+                                        if (i === 4) {
+                                            setOffset(0);
+                                        } else {
+                                            const header = document.getElementById('header');
+                                            if (header) {
+                                                setOffset(-header.clientHeight);
+                                            }
+                                        }
+                                    }} 
+                                    className="uppercase text-3xl overflow-hidden relative"
+                                >
+                                    <span className="font-extrabold">{item}</span>
+                                    <div className="dark:bg-dark-bg-200 i top-0 left-0 h-9 bg-bg-200 w-full absolute"></div>
+                                </button>
+                            </li>
+                        )
+                    }
                 }))}
                 <div className="flex items-center gap-4">
                     <li><a target="_blank" className="inline-block relative overflow-hidden" href={igs[0][1]}><span className="font-extrabold text-[0.625rem] uppercase">@{igs[0][0]}</span><div className="dark:bg-dark-bg-200 i top-0 left-0 h-6 bg-bg-200 w-full absolute"></div></a></li>
