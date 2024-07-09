@@ -19,6 +19,7 @@
     "@studio-freight/hamo": "^0.6.28",
     "@studio-freight/lenis": "^1.0.34",
     "@studio-freight/react-lenis": "^0.0.44",
+    "@uidotdev/usehooks": "^2.4.1",
     "@vis.gl/react-google-maps": "^1.1.0",
     "axios": "^1.6.7",
     "bcrypt": "^5.1.1",

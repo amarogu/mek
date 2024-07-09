@@ -13,6 +13,7 @@ import { parseHeroContent, parseMdHeroContent } from "@/lib/helpers";
 import Context from "./Context";
 import { usImgs } from "@/lib/rendering/usImgs";
 import ThemeImage from "./ThemeImage";
+import { useClickAway } from "@uidotdev/usehooks";
 
 export default function Hero({className, id}: {className?: string, id?: string}) {
 
@@ -20,14 +21,6 @@ export default function Hero({className, id}: {className?: string, id?: string})
     const isXl = useMediaQuery({query: '(min-width: 1280px)'});
     const heroRef = useRef<HTMLElement>(null);
     const slidingText = useRef<HTMLDivElement>(null);
-
-    const imgPopupRef = useRef<HTMLDivElement>(null);
-
-    const [mounted, setMounted] = useState(false);
-
-    useEffect(() => {
-        setMounted(true);
-    })
 
     const {item} = useContext(Context);
 
@@ -96,6 +89,14 @@ export default function Hero({className, id}: {className?: string, id?: string})
     const img = <video playsInline autoPlay muted loop ref={actualImg} className={`z-10 md:w-[240px] md:h-[105px] w-[113px] h-[49px] sm:w-[185px] sm:h-[80.22px]`}><source src="../../weddingvideo.mp4" type="video/mp4" /></video>;
     const imgHelper = <div ref={actualImgHelper} style={{transform: isMd ? (isXl ? 'translateY(500px) scale(8) ' : 'translateY(500px) scale(6)') : 'translate(-50%, 400px) scale(5)' }} className={`absolute top-0 md:w-[240px] md:h-[105px] w-[113px] h-[49px] sm:w-[185px] sm:h-[80.22px]`}></div>;
 
+    const handleClosePopup = contextSafe(() => {
+        if (clickTl.current) {
+            clickTl.current.reverse();
+        }
+    });
+
+    const imgPopupRef = useClickAway<HTMLDivElement>(handleClosePopup);
+
     const handleImgClick = contextSafe(() => {
         clickTl.current = gsap.timeline().to(imgRef.current, {
             opacity: 0,
@@ -106,12 +107,6 @@ export default function Hero({className, id}: {className?: string, id?: string})
             opacity: 1,
         })
     });
-
-    const handleCloseBtnClick = contextSafe(() => {
-        if (clickTl.current) {
-            clickTl.current.reverse();
-        }
-    }) 
 
     const renderContent = (isMd: boolean) => {
         if (isMd) {
@@ -125,7 +120,7 @@ export default function Hero({className, id}: {className?: string, id?: string})
                             <Parallax reverse>
                                 <span>{mdContent[1]}</span>
                             </Parallax>
-                            <div onClick={handleImgClick} ref={imgRef} className='z-10 relative w-[240px] h-[105px]'>
+                            <div onClick={handleImgClick} ref={imgRef} className='z-10 cursor-pointer relative w-[240px] h-[105px]'>
                                 {img}
                                 {imgHelper}
                                 <div ref={slidingText} style={{opacity: 0}} className="-translate-y-full">
@@ -156,7 +151,7 @@ export default function Hero({className, id}: {className?: string, id?: string})
                             <Parallax reverse>
                                 <span>{content[1]}</span>
                             </Parallax>
-                            <div ref={imgRef} className='z-10 relative w-[113px] h-[49px] sm:w-[185px] sm:h-[80.22px]'>
+                            <div onClick={handleImgClick} ref={imgRef} className='z-10 cursor-pointer relative w-[113px] h-[49px] sm:w-[185px] sm:h-[80.22px]'>
                                 {img}
                                 {imgHelper}
                                 <div ref={slidingText} style={{opacity: 0}} className="-translate-y-full">
@@ -204,9 +199,9 @@ export default function Hero({className, id}: {className?: string, id?: string})
             <section id={id ?? ''} ref={heroRef} className={`${className ?? ''} flex flex-col container mx-auto relative h-[calc(100svh-113px)] justify-center items-center`}>
                 <div className="text-[12.5vw] md:text-[9vw] xl:text-[120px] relative font-extrabold leading-[85%]">
                     {renderContent(isMd)}
-                    <div style={{opacity: 0}} ref={imgPopupRef} className="absolute hidden w-[125%] z-10 h-[150%] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                    <div style={{opacity: 0}} ref={imgPopupRef} className="absolute hidden md:w-[125%] z-10 md:h-[150%] w-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                         <Image loading="eager" className="object-cover rounded-md w-full h-full object-[center_10%]" src={src} alt="Imagem de Maria & Kalil em um full-screen pop-up" />
-                        <button onClick={handleCloseBtnClick} className="p-2 absolute right-0 top-0 m-6 rounded-full backdrop-blur-md">
+                        <button onClick={handleClosePopup} className="p-2 absolute right-0 top-0 m-6 rounded-full backdrop-blur-md">
                             <ThemeImage className="h-4 w-4" srcDark={CloseDark} srcLight={Close} alt="Fechar Pop-up" width={16} height={16} />
                         </button>
                     </div>
