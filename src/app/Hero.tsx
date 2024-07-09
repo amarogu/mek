@@ -200,7 +200,7 @@ export default function Hero({className, id}: {className?: string, id?: string})
                 <div className="text-[12.5vw] md:text-[9vw] xl:text-[120px] relative font-extrabold leading-[85%]">
                     {renderContent(isMd)}
                     <div style={{opacity: 0}} ref={imgPopupRef} className="absolute hidden md:w-[125%] z-10 md:h-[150%] w-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                        <Image loading="eager" className="object-cover rounded-md w-full h-full object-[center_10%]" src={src} alt="Imagem de Maria & Kalil em um full-screen pop-up" />
+                        <video playsInline autoPlay muted loop className="w-full h-full rounded-md aspect-[5/6] object-cover"><source src="../../weddingvideo.mp4" type="video/mp4" /></video>
                         <button onClick={handleClosePopup} className="p-2 absolute right-0 top-0 m-6 rounded-full backdrop-blur-md">
                             <ThemeImage className="h-4 w-4" srcDark={CloseDark} srcLight={Close} alt="Fechar Pop-up" width={16} height={16} />
                         </button>
