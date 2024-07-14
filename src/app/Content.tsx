@@ -105,7 +105,7 @@ export default function Content({item, gifts, gmpApiKey}: {item?: LeanDocument<I
       let timeout: NodeJS.Timeout;
       const handleResize = contextSafe(() => {
         if (document.activeElement) {
-          if (!(document.activeElement.getAttribute('type') === 'text' || document.activeElement.getAttribute('type') === 'textarea')) {
+          if (!(document.activeElement.getAttribute('type') === 'text' || document.activeElement.tagName === 'TEXTAREA')) {
             gsap.to('body', {
               filter: 'blur(10px)'
             });
