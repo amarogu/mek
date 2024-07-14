@@ -104,13 +104,17 @@ export default function Content({item, gifts, gmpApiKey}: {item?: LeanDocument<I
     if (contextSafe) {
       let timeout: NodeJS.Timeout;
       const handleResize = contextSafe(() => {
-        gsap.to('body', {
-          filter: 'blur(10px)'
-        });
-        clearTimeout(timeout);
-        timeout = setTimeout(() => {
-          location.reload();
-        }, 100);
+        if (document.activeElement) {
+          if (!(document.activeElement.getAttribute('type') === 'text' || document.activeElement.getAttribute('type') === 'textarea')) {
+            gsap.to('body', {
+              filter: 'blur(10px)'
+            });
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+              location.reload();
+            }, 100);
+          }
+        }
       });
 
       window.addEventListener('resize', handleResize);

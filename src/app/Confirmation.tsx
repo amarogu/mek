@@ -270,7 +270,7 @@ export default function Confirmation({id}: {id?: string}) {
                     <div className="text-[10px] gap-4 leading-none font-normal flex justify-between">
                         <div className="flex py-2 justify-center flex-col gap-2">
                             <p className="w-2/3 md:w-[initial]">Sua presença é muito importante para nós!</p>
-                            <p className="w-[60%] md:w-[initial]">Se possível confirmar até <span className="font-bold">15 OUT 2024</span>.</p>
+                            <p className="w-[60%] md:w-[initial]">Se possível confirmar até <span className="font-bold">09 SET 2024</span>.</p>
                         </div>
                         <Divider vertical saturated />
                         <div className="flex flex-col py-2 gap-1 items-center">
