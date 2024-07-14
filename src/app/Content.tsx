@@ -103,18 +103,19 @@ export default function Content({item, gifts, gmpApiKey}: {item?: LeanDocument<I
   useGSAP((_, contextSafe) => {
     if (contextSafe) {
       let timeout: NodeJS.Timeout;
+
+      if ('virtualKeyboard' in navigator) {
+        (navigator as { virtualKeyboard: { overlaysContent: boolean } }).virtualKeyboard.overlaysContent = true
+      }
+
       const handleResize = contextSafe(() => {
-        if (document.activeElement) {
-          if (!(document.activeElement.getAttribute('type') === 'text' || document.activeElement.tagName === 'TEXTAREA')) {
-            gsap.to('body', {
-              filter: 'blur(10px)'
-            });
-            clearTimeout(timeout);
-            timeout = setTimeout(() => {
-              location.reload();
-            }, 100);
-          }
-        }
+          gsap.to('body', {
+            filter: 'blur(10px)'
+          });
+          clearTimeout(timeout);
+          timeout = setTimeout(() => {
+            location.reload();
+          }, 100);
       });
 
       window.addEventListener('resize', handleResize);
