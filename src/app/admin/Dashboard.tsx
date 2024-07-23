@@ -8,6 +8,9 @@ import GuestForm from "./GuestForm";
 import GroupForm from "./GroupForm";
 import GuestList from "./GuestList";
 import GuestMessages from "./GuestMessages";
+import ThemeImage from "../ThemeImage";
+import Share from '../../../public/ios_share.svg';
+import ShareDark from '../../../public/ios_share_dark.svg';
 
 const DashboardContent = ({data, parsedData}: {data: AdminData, parsedData: AdminData}) => {
     const [state, setState] = useState<'selection' | 'user' | 'group'>('selection');
@@ -55,7 +58,10 @@ const DashboardContent = ({data, parsedData}: {data: AdminData, parsedData: Admi
                     </TabPanel>
                     <TabPanel>
                         <div className="bg-bg-200 dark:bg-dark-bg-200 rounded-md p-4 flex flex-col gap-4">
-                            <h2 className="text-xl font-bold">Lista de convidados</h2>
+                            <div className="flex justify-between">
+                                <h2 className="text-xl font-bold">Lista de convidados</h2>
+                                <ThemeImage srcDark={ShareDark} srcLight={Share} alt="Exportar" />
+                            </div>
                             <GuestList data={parsedData} />
                         </div>
                     </TabPanel>
