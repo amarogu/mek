@@ -3,7 +3,7 @@ import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import { AdminData } from "@/lib/helpers";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import GuestForm from "./GuestForm";
 import GroupForm from "./GroupForm";
 import GuestList from "./GuestList";
@@ -14,6 +14,7 @@ import ShareDark from '../../../public/ios_share_dark.svg';
 import {jsPDF} from 'jspdf';
 import { Populated } from "@/lib/helpers";
 import { IUser,IMsg, IPurchase, IGift } from "@/lib/Models/Interfaces";
+import DashboardNav from "./DashboardNav";
 
 const DashboardContent = ({data, parsedData}: {data: AdminData, parsedData: AdminData}) => {
     const [state, setState] = useState<'selection' | 'user' | 'group'>('selection');
@@ -145,11 +146,7 @@ export default function Dashboard({session, data}: {session: Session, data: Admi
 
     return (
         <div className="flex h-full flex-col overflow-y-hidden gap-8">
-            <div className="flex flex-col gap-2">
-                <h1 className="text-2xl font-bold">Dashboard</h1>
-                <p>Bem-vindo(a) {session?.user?.name}</p>
-                <button className="text-left" onClick={() => signOut()}>Encerrar sessão</button>
-            </div>
+            <DashboardNav />
             <DashboardContent data={data} parsedData={parsedData} />
         </div>
     )
