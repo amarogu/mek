@@ -7,7 +7,7 @@ import gsap from "gsap";
 import Divider from "./Divider";
 import { StaticImageData } from "next/image";
 
-export default function Dropdown({text, alt, options, className, style, action, _id, labelImage, labelSize, labelCircle}: {text?: string, alt: string, options: string[], className?: string, style?: CSSProperties, action?: (...args: any[]) => Promise<string>, _id?: string, labelImage?: StaticImageData[], labelSize?: number, labelCircle?: boolean}) {
+export default function Dropdown({text, options, className, style, action, _id, labelImage, labelSize, labelCircle, width, textSize}: {text?: string, options: string[], className?: string, style?: CSSProperties, action?: (...args: any[]) => Promise<string>, _id?: string, labelImage?: StaticImageData[], labelSize?: number, labelCircle?: boolean, width?: string, textSize?: string}) {
 
     const [open, setOpen] = useState(false);
 
@@ -67,14 +67,14 @@ export default function Dropdown({text, alt, options, className, style, action, 
                     text ? (
                         <>
                             <span ref={label}>{labelText ? labelText : text}</span>
-                            <ThemeImage ref={indicator} srcDark={ArrowDark} srcLight={Arrow} alt={alt} />
+                            <ThemeImage ref={indicator} srcDark={ArrowDark} srcLight={Arrow} alt='Dropdown' />
                         </>
                     ) : labelImage ? (
                         <ThemeImage ref={label} srcDark={labelImage[1]} srcLight={labelImage[0]} alt="Dropdown" className={labelCircle ? 'rounded-full' : ''} width={labelSize} height={labelSize} />
                     ) : null
                 }
             </button>
-            <div ref={dropdown} style={{transform: 'translateY(105%) scale(0)'}} className="absolute rounded-lg w-32 text-base origin-top-right flex flex-col bg-bg-200/75 dark:bg-dark-bg-200/75 backdrop-blur-md right-0 bottom-0">
+            <div ref={dropdown} style={{transform: 'translateY(105%) scale(0)'}} className={`absolute rounded-lg ${width ? width : 'w-32'} ${textSize ? textSize : 'text-base'} origin-top-right flex flex-col bg-bg-200/75 dark:bg-dark-bg-200/75 backdrop-blur-md right-0 bottom-0`}>
                 {
                     options.map((o, i) => {
                         return (
@@ -83,7 +83,7 @@ export default function Dropdown({text, alt, options, className, style, action, 
                                     handleClick(e);
                                 }} className="p-4 text-left uppercase font-normal">{o}</button>
                                 {
-                                    i < options.length - 1 && i % 2 === 0 ? <Divider /> : null
+                                    i < options.length - 1 ? <Divider /> : null
                                 }
                             </Fragment>
                         )

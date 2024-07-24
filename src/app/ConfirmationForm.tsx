@@ -24,7 +24,7 @@ export default function ConfirmationForm({handleConfirmation}: {handleConfirmati
                         return (
                             <Fragment key={i}>
                                 <p className="">{u.name}</p>
-                                <Dropdown _id={u._id} action={handleConfirmation} style={{zIndex: sortedItems.length - i}} text={u.confirmed ? 'Sim' : 'Não'} options={['Sim', 'Não']} alt={`Lista de opções de confirmação ${u.gender === 'female' ? 'da convidada' : 'do convidado'}`} />
+                                <Dropdown _id={u._id} action={handleConfirmation} style={{zIndex: sortedItems.length - i}} text={u.confirmed ? 'Sim' : 'Não'} options={['Sim', 'Não']} />
                             </Fragment>
                         )
                     })
