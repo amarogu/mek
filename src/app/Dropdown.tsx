@@ -5,8 +5,9 @@ import { CSSProperties, Fragment, MouseEvent, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Divider from "./Divider";
+import { StaticImageData } from "next/image";
 
-export default function Dropdown({text, alt, options, className, style, action, _id}: {text: string, alt: string, options: string[], className?: string, style?: CSSProperties, action?: (option: boolean, _id: string) => Promise<string>, _id?: string}) {
+export default function Dropdown({text, alt, options, className, style, action, _id, labelImage, labelSize, labelCircle}: {text?: string, alt: string, options: string[], className?: string, style?: CSSProperties, action?: (...args: any[]) => Promise<string>, _id?: string, labelImage?: StaticImageData[], labelSize?: number, labelCircle?: boolean}) {
 
     const [open, setOpen] = useState(false);
 
@@ -32,7 +33,7 @@ export default function Dropdown({text, alt, options, className, style, action, 
         });
     }, [open]);
 
-    const handleClick = contextSafe(async (e: MouseEvent<HTMLParagraphElement, globalThis.MouseEvent>) => {
+    const handleClick = contextSafe(async (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
         setDisabled(true)
         if (action && _id) {
             const option = e.currentTarget.textContent === 'Sim';
@@ -54,21 +55,33 @@ export default function Dropdown({text, alt, options, className, style, action, 
                     }
                 })
             }
+        } else if (action) {
+            action()
         }
     });
 
     return (
-        <button disabled={disabled} style={style} onBlur={() => {setOpen(false)}} onClick={() => {setOpen(!open)}} className={`flex text-left uppercase font-normal relative gap-4 justify-between text-xl items-center ${className}`}>
-            <span ref={label}>{labelText ? labelText : text}</span>
-            <ThemeImage ref={indicator} srcDark={ArrowDark} srcLight={Arrow} alt={alt} />
+        <div style={style} onBlur={() => {setOpen(false)}} className="relative">
+            <button className={`flex gap-4 justify-between items-center text-left uppercase font-normal text-xl ${className}`} disabled={disabled} onClick={() => {setOpen(!open)}}>
+                {
+                    text ? (
+                        <>
+                            <span ref={label}>{labelText ? labelText : text}</span>
+                            <ThemeImage ref={indicator} srcDark={ArrowDark} srcLight={Arrow} alt={alt} />
+                        </>
+                    ) : labelImage ? (
+                        <ThemeImage ref={label} srcDark={labelImage[1]} srcLight={labelImage[0]} alt="Dropdown" className={labelCircle ? 'rounded-full' : ''} width={labelSize} height={labelSize} />
+                    ) : null
+                }
+            </button>
             <div ref={dropdown} style={{transform: 'translateY(105%) scale(0)'}} className="absolute rounded-lg w-32 text-base origin-top-right flex flex-col bg-bg-200/75 dark:bg-dark-bg-200/75 backdrop-blur-md right-0 bottom-0">
                 {
                     options.map((o, i) => {
                         return (
                             <Fragment key={i}>
-                                <p onClick={(e) => {
+                                <button onClick={(e) => {
                                     handleClick(e);
-                                }} className="p-4">{o}</p>
+                                }} className="p-4 text-left uppercase font-normal">{o}</button>
                                 {
                                     i < options.length - 1 && i % 2 === 0 ? <Divider /> : null
                                 }
@@ -77,6 +90,6 @@ export default function Dropdown({text, alt, options, className, style, action, 
                     })
                 }
             </div>
-        </button>
+        </div>
     )
 }
