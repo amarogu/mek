@@ -18,7 +18,7 @@ import { signOut } from "next-auth/react";
 
 export default function DashboardNav() {
     return (
-        <header>
+        <header className="relative container z-10">
             <nav className="flex justify-between items-center">
                 <ThemeImage srcDark={LogoDark} srcLight={Logo} className="w-24" alt='Maria & Kalil (Logo)' />
                 <div className="flex gap-4 items-center">

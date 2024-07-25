@@ -5,5 +5,5 @@ export default function DashboardLayout({
   }: {
     children: React.ReactNode
   }) {
-    return <main className="p-8 container h-screen relative mx-auto"><AuthProvider>{children}</AuthProvider></main>
+    return <main className="p-8 h-screen mx-auto"><AuthProvider>{children}</AuthProvider></main>
   }
