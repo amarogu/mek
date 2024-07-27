@@ -11,6 +11,12 @@ import SettingsDark from '../../../public/settings_dark.svg';
 import ThemeImage from "../ThemeImage";
 import Image from "next/image";
 import MeshGradientDark from '../../../public/mesh_gradient_dark.png';
+import Header from "./Header";
+import MessagesSquare from '../../../public/messages_square.svg';
+import MessagesSquareDark from '../../../public/messages_square_dark.svg';
+import Label from "./Label";
+import Clock from '../../../public/clock.svg';
+import ClockDark from '../../../public/clock_dark.svg';
 
 export default function Dashboard({session, data}: {session: Session, data: AdminData}) {
     const groups = data.filter(e => 'users' in e);
@@ -31,16 +37,21 @@ export default function Dashboard({session, data}: {session: Session, data: Admi
             <picture className="absolute -z-10 top-0 left-0 w-screen h-screen">
                 <Image src={MeshGradientDark} alt="" className="w-full h-full" />
             </picture>
-            <div className="container mx-auto">
-                <Card className="flex flex-col gap-6">
+            <div className="container grid grid-cols-1 gap-6 mx-auto">
+                <Card padding className="flex flex-col gap-6">
                     <div className="flex justify-between items-start">
                         <CircleImage width='w-32' height='h-32' src={CardImage} alt='Imagem de Maria e Kalil' />
-                        <ThemeImage containerClassName="pt-4" srcDark={SettingsDark} srcLight={Settings} alt="Configurações" />
+                        <ThemeImage containerClassName="pt-4 w-4 h-4" srcDark={SettingsDark} srcLight={Settings} alt="Configurações" />
                     </div>
                     <div className="flex flex-col gap-2">
                         <h1 className="text-2xl font-bold">Maria e Kalil</h1>
                         <Link className="opacity-75" href='https://mariaekalil.com/'>https://mariaekalil.com/</Link>
                     </div>
+                </Card>
+                <Card>
+                    <Header image={[MessagesSquare, MessagesSquareDark]} title="Mensagens" alt="Mensagens">
+                        <Label text="Recentes" image={[Clock, ClockDark]} imageAlt="Recentes" />
+                    </Header>
                 </Card>
             </div>
         </div>
