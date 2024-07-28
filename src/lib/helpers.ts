@@ -348,3 +348,11 @@ export const createImgProps = (src: StaticImageData, i: number, reference: Mutab
       className: "md:w-[200px] xl:w-[224px] xl:h-[299.44px] md:h-[267.36px] w-[180px] h-[240.53px] absolute"
   }
 }
+
+export const truncateMessage = (content: string, wordLimit: number = 4) => {
+  const words = content.split(' ');
+  if (words.length > wordLimit) {
+      return words.slice(0, wordLimit).join(' ') + '...';
+  }
+  return content;
+};

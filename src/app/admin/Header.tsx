@@ -3,7 +3,7 @@ import ThemeImage from "../ThemeImage"
 
 export default function Header({image, title, children, alt}: {image: StaticImageData | StaticImageData[], title: string, children: React.ReactNode, alt: string}) {
     return (
-        <header className="flex items-center gap-4 border-b rounded-lg bg-bg-200 dark:bg-dark-bg-200 p-6 border-accent-200/75 dark:border-dark-accent-200/75">
+        <header className="flex items-center gap-4 border-b rounded-tl-lg rounded-tr-lg bg-bg-200 dark:bg-dark-bg-200 p-6 border-accent-200/25 dark:border-dark-accent-200/25">
                 {
                     (image instanceof Array) ? (
                         <ThemeImage className="h-8 w-8" alt={alt} srcDark={image[1]} srcLight={image[0]} />

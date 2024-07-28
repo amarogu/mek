@@ -1,6 +1,6 @@
 'use client';
 import { Session } from "next-auth";
-import { AdminData } from "@/lib/helpers";
+import { AdminData, truncateMessage } from "@/lib/helpers";
 import DashboardNav from "./DashboardNav";
 import Card from "./Card";
 import CardImage from '../../../public/img7_us.png';
@@ -17,8 +17,9 @@ import MessagesSquareDark from '../../../public/messages_square_dark.svg';
 import Label from "./Label";
 import Clock from '../../../public/clock.svg';
 import ClockDark from '../../../public/clock_dark.svg';
+import List from "./List";
 
-export default function Dashboard({session, data}: {session: Session, data: AdminData}) {
+export default function Dashboard({ session, data }: { session: Session, data: AdminData }) {
     const groups = data.filter(e => 'users' in e);
     const individuals = data.filter(e => !('users' in e));
     const groupedIndividuals: string[] = [];
@@ -31,10 +32,12 @@ export default function Dashboard({session, data}: {session: Session, data: Admi
 
     const parsedData = [...groups, ...individuals.filter(i => (!groupedIndividuals.includes(i._id) && i.name !== 'admin'))];
 
+    const entitiesWithMessages = data.filter(e => e.msgs.length !== 0 && e.name !== 'admin');
+
     return (
         <div className="flex h-full flex-col overflow-y-hidden gap-8">
             <DashboardNav />
-            <picture className="absolute -z-10 top-0 left-0 w-screen h-screen">
+            <picture className="fixed -z-10 top-0 left-0 w-screen h-screen">
                 <Image src={MeshGradientDark} alt="" className="w-full h-full" />
             </picture>
             <div className="container grid grid-cols-1 gap-6 mx-auto">
@@ -52,6 +55,21 @@ export default function Dashboard({session, data}: {session: Session, data: Admi
                     <Header image={[MessagesSquare, MessagesSquareDark]} title="Mensagens" alt="Mensagens">
                         <Label text="Recentes" image={[Clock, ClockDark]} imageAlt="Recentes" />
                     </Header>
+                    <List>
+                        {
+                            entitiesWithMessages
+                                .sort((a, b) => new Date(b.msgs[0].createdAt).getTime() - new Date(a.msgs[0].createdAt).getTime())
+                                .slice(0, 3)
+                                .map((e, i) => {
+                                    return (
+                                        <div key={i} className="flex items-center gap-2 justify-between">
+                                            <h3 className="text-base font-bold">{e.name}</h3>
+                                            <p>{truncateMessage(e.msgs[0].content)}</p>
+                                        </div>
+                                    );
+                                })
+                        }
+                    </List>
                 </Card>
             </div>
         </div>
