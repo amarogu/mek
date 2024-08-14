@@ -2,7 +2,7 @@ import { ReactNode, Children, Fragment } from "react";
 import Divider from "../Divider";
 
 
-export default function List({children}: {children: ReactNode}) {
+export default function List({children, listRowBackground}: {children: ReactNode, listRowBackground?: string}) {
     const childArray = Children.toArray(children)
 
     return (
@@ -10,7 +10,7 @@ export default function List({children}: {children: ReactNode}) {
             {
                 childArray.map((child, i) => (
                     <Fragment key={i}>
-                        <div className="p-4">
+                        <div className={`${listRowBackground ? listRowBackground : ''} p-4`}>
                             {child}
                         </div>
                         {i < childArray.length - 1 && <Divider />}

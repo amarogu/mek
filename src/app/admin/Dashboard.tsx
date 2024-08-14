@@ -37,11 +37,8 @@ export default function Dashboard({ session, data }: { session: Session, data: A
     return (
         <div className="flex h-full flex-col overflow-y-hidden gap-8">
             <DashboardNav />
-            <picture className="fixed -z-10 top-0 left-0 w-screen h-screen">
-                <Image src={MeshGradientDark} alt="" className="w-full h-full" />
-            </picture>
             <div className="container grid grid-cols-1 gap-6 mx-auto">
-                <Card padding className="flex flex-col gap-6">
+                <Card background padding className="flex flex-col gap-6">
                     <div className="flex justify-between items-start">
                         <CircleImage width='w-32' height='h-32' src={CardImage} alt='Imagem de Maria e Kalil' />
                         <ThemeImage containerClassName="pt-4 w-4 h-4" srcDark={SettingsDark} srcLight={Settings} alt="Configurações" />
@@ -51,7 +48,7 @@ export default function Dashboard({ session, data }: { session: Session, data: A
                         <Link className="opacity-75" href='https://mariaekalil.com/'>https://mariaekalil.com/</Link>
                     </div>
                 </Card>
-                <Card>
+                <Card background>
                     <Header image={[MessagesSquare, MessagesSquareDark]} title="Mensagens" alt="Mensagens">
                         <Label text="Recentes" image={[Clock, ClockDark]} imageAlt="Recentes" />
                     </Header>

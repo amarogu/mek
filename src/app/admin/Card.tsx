@@ -4,12 +4,13 @@ import ThemeImage from "../ThemeImage";
 interface CardProps {
     children: React.ReactNode;
     className?: string;
-    padding?: boolean
+    padding?: boolean;
+    background?: boolean;
 }
 
-export default function Card({children, className, padding}: CardProps) {
+export default function Card({children, className, padding, background}: CardProps) {
     return (
-        <div className={`flex drop-shadow-md bg-bg-300 backdrop-blur-md dark:bg-dark-bg-300/50 rounded-lg flex-col ${padding ? 'p-6' : ''} ${className ? className : ''}`}>
+        <div className={`flex shadow-white ${background ? 'bg-bg-300 dark:bg-dark-bg-300/50' : ''} rounded-lg flex-col ${padding ? 'p-6' : ''} ${className ? className : ''}`}>
             {children}
         </div>
     )
