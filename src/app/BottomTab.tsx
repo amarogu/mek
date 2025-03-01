@@ -46,7 +46,7 @@ export default function BottomTab({className, containerClassName, noScrollTrigge
                 const wedding = moment([2024, 10, 9, 4, 30]);
                 const diff = wedding.diff(now, 'days');
                 setTimeOption(timeOption === 'time' ? 'timeUntil' : 'time');
-                pulse(timeTl, timeRef, timeOption === 'time' ? '16:30' : `Faltam ${diff} dias`);
+                pulse(timeTl, timeRef, timeOption === 'time' ? '16:30' : `Evento finalizado`);
                 pulse(locTl, locRef, timeOption === 'time' ? 'Saint German Eventos' : 'Clique aqui para ver no mapa');
             }), 2000);
         }
