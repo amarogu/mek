@@ -87,6 +87,9 @@ To deploy the app, you can use platforms like Vercel, Heroku, or any other cloud
 4. Push to the branch (`git push origin feature/yourFeature`).
 5. Open a Pull Request.
 
+### Development-purposed UI Demonstration
+![](UI_DEMO.mov)
+
 ### Contact
 
 If you have any questions or suggestions, feel free to reach out.
