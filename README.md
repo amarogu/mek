@@ -88,7 +88,7 @@ To deploy the app, you can use platforms like Vercel, Heroku, or any other cloud
 5. Open a Pull Request.
 
 ### Development-purposed UI Demonstration
-![](UI_DEMO.mov)
+[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/rz5vYSqdQ_g/0.jpg)](http://www.youtube.com/watch?v=rz5vYSqdQ_g)
 
 ### Contact
 
