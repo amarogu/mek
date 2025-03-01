@@ -87,10 +87,6 @@ To deploy the app, you can use platforms like Vercel, Heroku, or any other cloud
 4. Push to the branch (`git push origin feature/yourFeature`).
 5. Open a Pull Request.
 
-### License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ### Contact
 
 If you have any questions or suggestions, feel free to reach out.
